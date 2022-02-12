@@ -1,0 +1,13 @@
+{
+    "name": "Grocery",
+    "alias": "grocery",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Grocery\\Providers\\GroceryServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

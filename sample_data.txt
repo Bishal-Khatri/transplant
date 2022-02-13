@@ -1,0 +1,19 @@
+Grocery
+-   Category
+    -   At least 5-10 categories. Include different nature of category if available.
+    -   Name for the Category
+    -   Subcategories if available
+    -   At least 2-3 items of the category
+-   Item
+    -   Item Name
+    -   Price
+    -   Unit of measurement (kg,meter, pack...)
+    -   Category
+    -   Sub category (if available)
+    -   Image if available
+    -   Short description
+    -   variation (if available) (eg: if price is different with item with different shape/size/color/brand/...)
+
+
+Restaurant / Food Order
+

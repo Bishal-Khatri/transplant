@@ -12198,31 +12198,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 window.Vue = __webpack_require__(/*! vue */ "../../node_modules/vue/dist/vue.common.js")["default"];
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
 Vue.component('example', __webpack_require__(/*! ./Example.vue */ "./Resources/assets/js/Example.vue")["default"]);
 var app = new Vue({
   el: '#app'
 });
-
-/***/ }),
-
-/***/ "./Resources/assets/sass/app.scss":
-/*!****************************************!*\
-  !*** ./Resources/assets/sass/app.scss ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from C:/xampp/htdocs/d-one-web/node_modules/sass-loader/dist/cjs.js):\nTypeError: this.getOptions is not a function\n    at Object.loader (C:\\xampp\\htdocs\\d-one-web\\node_modules\\sass-loader\\dist\\index.js:25:24)\n    at C:\\xampp\\htdocs\\d-one-web\\Modules\\Grocery\\node_modules\\webpack\\lib\\NormalModule.js:316:20\n    at C:\\xampp\\htdocs\\d-one-web\\Modules\\Grocery\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\xampp\\htdocs\\d-one-web\\Modules\\Grocery\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)");
 
 /***/ }),
 
@@ -12881,14 +12860,13 @@ module.exports = g;
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************!*\
-  !*** multi ./Resources/assets/js/app.js ./Resources/assets/sass/app.scss ***!
-  \***************************************************************************/
+/*!******************************************!*\
+  !*** multi ./Resources/assets/js/app.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\d-one-web\Modules\Grocery\Resources\assets\js\app.js */"./Resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\d-one-web\Modules\Grocery\Resources\assets\sass\app.scss */"./Resources/assets/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\d-one-web\Modules\Grocery\Resources\assets\js\app.js */"./Resources/assets/js/app.js");
 
 
 /***/ })

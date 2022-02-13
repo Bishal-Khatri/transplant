@@ -14,8 +14,9 @@
 </head>
 <body>
 {{--Include Main Nav and Sidebar--}}
-<div id="app">
+<div id="grocery-app">
     @yield('content')
+    <example></example>
 </div>
 
 {{--Include Main JS file--}}

@@ -16,12 +16,48 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'Bishal Khatri',
-            'email' => "bishal.khatri343@gmail.com",
-            'phone_number' => 9842721343,
-            'password' => Hash::make('password')
-        ]);
+        $users = [
+            [
+                'name' => 'Bishal Khatri',
+                'email' => "bishal.khatri343@gmail.com",
+                'phone_number' => 9842700000,
+                'password' => Hash::make('password'),
+                'role' => 'super-admin'
+            ],
+            [
+                'name' => 'Restaurant User',
+                'email' => "restaurant@gmail.com",
+                'phone_number' => 9842700001,
+                'password' => Hash::make('password'),
+                'role' => 'restaurant'
+            ],
+            [
+                'name' => 'Grocery User',
+                'email' => "grocery@gmail.com",
+                'phone_number' => 9842700002,
+                'password' => Hash::make('password'),
+                'role' => 'grocery'
+            ],
+            [
+                'name' => 'Administrator User',
+                'email' => "administrator@gmail.com",
+                'phone_number' => 9842700003,
+                'password' => Hash::make('password'),
+                'role' => 'administrator'
+            ]
+        ];
+
+        foreach($users as $value){
+            $user = User::create([
+                "name" => $value['name'],
+                "email" => $value['email'],
+                "phone_number" => $value['phone_number'],
+                "password" => $value['password'],
+            ]);
+
+            $user->assignRole($value['role']);
+        }
+
 
         SmsTemplate::create([
             'key' => 'otp',

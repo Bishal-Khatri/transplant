@@ -1,47 +1,42 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="container-center animated slideInDown">
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+        <div class="view-header">
+            <div class="header-icon">
+                <i class="pe page-header-icon pe-7s-id"></i>
+            </div>
+            <div class="header-title">
+                <h3>{{ __('Reset Password') }}</h3>
+                <small>
+                    Please enter your email to rest your password.
+                </small>
+            </div>
+        </div>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <div class="panel panel-filled">
+            <div class="panel-body">
+                <form method="POST" action="{{ route('password.email') }}" id="loginForm" novalidate>
+                    @csrf
+                    <div class="form-group">
+                        <label class="col-form-label" for="email">{{ __('Email Address') }}</label>
+                        <input type="text" placeholder="example@gmail.com"
+                               title="Please enter you username" id="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        @error('email')
+                        <span class="form-text small text-danger">{{ $message }}</span>
+                        @else
+                            <span class="form-text small">Your address email to sent new password</span>
+                        @enderror
+                    </div>
+                    <div>
+                        <button class="btn btn-accent" type="submit">{{ __('Send Password Reset Link') }}</button>
+                        <a class="btn btn-default" href="{{ route('login') }}">Cancel</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
 @endsection

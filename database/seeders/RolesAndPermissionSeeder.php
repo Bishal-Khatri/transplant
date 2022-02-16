@@ -18,11 +18,19 @@ class RolesAndPermissionSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
+            "list items",
             "create items",
             "edit items",
             "delete items",
             "publish items",
             "unpublish items",
+
+            "list restaurant",
+            "create restaurant",
+            "edit restaurant",
+            "delete restaurant",
+            "publish restaurant",
+            "unpublish restaurant",
         ];
 
         foreach($permissions as $permission){
@@ -31,14 +39,15 @@ class RolesAndPermissionSeeder extends Seeder
 
         $roles = [
             "subscriber" => [],
-            "administrator" => [
-                "create items",
-                "edit items",
-                "delete items",
-                "publish items",
-                "unpublish items",
+            "administrator" => $permissions,
+            "restaurant" => [
+                "list restaurant",
+                "create restaurant",
+                "edit restaurant",
+                "delete restaurant",
+                "publish restaurant",
+                "unpublish restaurant",
             ],
-            "restaurant" => [],
             "grocery" => [
                 "create items",
                 "edit items",

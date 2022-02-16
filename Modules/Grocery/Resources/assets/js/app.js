@@ -1,7 +1,8 @@
-window.Vue = require('vue').default;
+import Vue from 'vue';
+// require('./bootstrap');
+Vue.component('grocery', require('./components/Grocery.vue').default);
 
-Vue.component('example', require('./Example.vue').default);
 
 const app = new Vue({
-    el: '#grocery-app',
+    el: '#app',
 });

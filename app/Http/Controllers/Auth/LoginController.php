@@ -74,7 +74,7 @@ class LoginController extends Controller
             ["phone_number" => $request->phone_number]
         );
 
-        // send OTP
+        // sends OTP SMS and updates user's OTP in o_t_p_logs table
         $this->sendOtpSms($user->phone_number);
 
         $response = $this->prepareResponse(false, 'OTP sent successfully.', [], []);

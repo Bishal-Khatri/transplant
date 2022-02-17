@@ -3,21 +3,43 @@
         <nav>
             <ul class="nav luna-nav">
                 <li class="nav-category">
-                    Dashboard
+                    Main Menu
                 </li>
-                <li class="{{ (request()->is('home')) ? 'active' : '' }}">
-                    <a href="{{ route('home') }}">Application</a>
+                <li class="{{ (request()->is('home') OR  request()->is('grocery') OR request()->is('restaurant')) ? 'active' : '' }}">
+                    <a href="#dashboard" data-toggle="collapse" aria-expanded="{{ (request()->is('home') OR  request()->is('grocery') OR request()->is('restaurant')) ? 'true' : 'false' }}">
+                        Dashboard <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="dashboard" class="nav nav-second {{ (request()->is('home') OR  request()->is('grocery') OR request()->is('restaurant')) ? 'collapse show' : 'collapse' }}">
+                        <li class="{{ (request()->is('home')) ? 'active' : '' }}">
+                            <a href="/home">Application</a>
+                        </li>
+                        @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
+                            <li class="{{ (request()->is('grocery')) ? 'active' : '' }}">
+                                <a href="/grocery"> Grocery</a>
+                            </li>
+                        @endif
+                        @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))
+                            <li class="{{ (request()->is('restaurant')) ? 'active' : '' }}">
+                                <a href="/restaurant"> Restaurant</a>
+                            </li>
+                        @endif
+                    </ul>
                 </li>
-                @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
-                    <li class="{{ (request()->is('grocery')) ? 'active' : '' }}">
-                        <a href="/grocery">Grocery</a>
-                    </li>
-                @endif
-                @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))
-                    <li class="{{ (request()->is('restaurant')) ? 'active' : '' }}">
-                        <a href="/restaurant">Restaurant</a>
-                    </li>
-                @endif
+                <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                    <a href="/grocery">App CMS</a>
+                </li>
+                <li class="{{ (request()->is('user') OR request()->is('user/*')) ? 'active' : '' }}">
+                    <a href="/user">Users</a>
+                </li>
+                <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                    <a href="/grocery">Authorization</a>
+                </li>
+                <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                    <a href="/grocery">Profile</a>
+                </li>
+                <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                    <a href="/grocery">Settings</a>
+                </li>
 
                 @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
                     <li class="nav-category">

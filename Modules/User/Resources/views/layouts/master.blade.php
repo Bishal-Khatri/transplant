@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Page title -->
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} | User</title>
+
     @include('layouts._partials.css')
 </head>
 <body>
@@ -13,13 +14,15 @@
 <!-- Wrapper-->
 <div class="wrapper">
 
-<!-- Header-->
+    <!-- Header-->
 @include('layouts._partials.nav')
 <!-- End header-->
 
-<!-- Navigation-->
+    <!-- Navigation-->
 @include('layouts._partials.sidebar')
 <!-- End navigation-->
+
+
     <!-- Main content-->
     <section class="content">
         <div class="container-fluid">
@@ -32,6 +35,9 @@
 <!-- End wrapper-->
 
 @include('layouts._partials.script')
+{{--<script src="{{ mix('js/restaurant.js') }}"></script>--}}
 </body>
 
 </html>
+
+

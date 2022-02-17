@@ -1,4 +1,5 @@
 {
     "Grocery": true,
-    "Restaurant": true
+    "Restaurant": true,
+    "User": true
 }

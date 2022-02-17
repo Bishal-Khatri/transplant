@@ -1,3 +1,5 @@
+<link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+
 <!-- Vendor styles -->
 <link rel="stylesheet" href="{{ asset('asset/vendor/fontawesome/css/font-awesome.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/vendor/animate.css/animate.css') }}"/>

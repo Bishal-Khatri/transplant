@@ -7,6 +7,8 @@
     <!-- Page title -->
     <title>{{ config('app.name', 'Laravel') }}</title>
     @include('layouts._partials.css')
+    <link rel="stylesheet" href="{{ asset('/asset/vendor/select2/dist/css/select2.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('/asset/styles/style.css') }}">
 </head>
 <body>
 
@@ -34,6 +36,26 @@
 <!-- End wrapper-->
 
 @include('layouts._partials.script')
+<script src="{{ asset('/asset/vendor/select2/dist/js/select2.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $(".select2_demo_1").select2();
+        $(".select2_demo_2").select2({
+            placeholder: "Select a state",
+            allowClear: true
+        });
+        $(".select2_demo_3").select2();
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $("#category-image").on("change", function (event) {
+            let newSrc = URL.createObjectURL(event.target.files[0]);
+            $('#cat-image-preview').attr('src', newSrc);
+        })
+    })
+</script>
+@yield('script')
 </body>
 
 </html>

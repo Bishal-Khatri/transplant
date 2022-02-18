@@ -4,6 +4,8 @@ namespace Modules\Grocery\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Grocery\Database\factories\GroceryCategoryFactory;
+use Modules\Grocery\Entities\GroceryCategory;
 
 class GroceryDatabaseSeeder extends Seeder
 {
@@ -15,7 +17,6 @@ class GroceryDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-        // $this->call("OthersTableSeeder");
+        GroceryCategory::factory()->times(15)->create();
     }
 }

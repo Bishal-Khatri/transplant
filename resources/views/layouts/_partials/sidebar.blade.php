@@ -25,19 +25,19 @@
                         @endif
                     </ul>
                 </li>
-                <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">App CMS</a>
                 </li>
                 <li class="{{ (request()->is('user') OR request()->is('user/*')) ? 'active' : '' }}">
                     <a href="/user">Users</a>
                 </li>
-                <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">Authorization</a>
                 </li>
-                <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">Profile</a>
                 </li>
-                <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">Settings</a>
                 </li>
 
@@ -45,8 +45,8 @@
                     <li class="nav-category">
                         Grocery Menus
                     </li>
-                    <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
-                        <a href="/grocery">Categories</a>
+                    <li class="{{ (request()->is('grocery/category') OR (request()->is('grocery/category/*'))) ? 'active' : '' }}">
+                        <a href="{{ route('grocery.category.index') }}">Categories</a>
                     </li>
                     <li class="{{ (request()->is('grocery/items')) ? 'active' : '' }}">
                         <a href="/grocery">Items</a>

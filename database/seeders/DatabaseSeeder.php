@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Grocery\Database\Seeders\GroceryDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,5 +17,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(RolesAndPermissionSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(GroceryDatabaseSeeder::class);
     }
 }

@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
 
 <!-- Vendor styles -->
@@ -10,3 +11,4 @@
 <link rel="stylesheet" href="{{ asset('asset/styles/pe-icons/helper.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/styles/stroke-icons/style.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/styles/style.css') }}">
+<link rel="stylesheet" href="{{ asset('asset/vendor/toastr/toastr.min.css') }}"/>

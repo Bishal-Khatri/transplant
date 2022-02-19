@@ -3,6 +3,7 @@
 namespace Modules\Grocery\Http\Controllers;
 
 use App\Traits\FileStore;
+use App\Traits\SetResponse;
 use App\Traits\Slug;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use Modules\Grocery\Entities\GroceryCategory;
 
 class GroceryCategoryController extends Controller
 {
-    use Slug,FileStore;
+    use Slug,FileStore, SetResponse;
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -54,7 +55,7 @@ class GroceryCategoryController extends Controller
         $cat->slug = $this->createSlug($request->name);
         $cat->parent_id = !blank($request->parent) ? $request->parent : 0;
         $cat->save();
-
+        session()->flash('success', 'Success <br> Category created/updated successfully.');
         return redirect(route('grocery.category.index'));
     }
 
@@ -102,8 +103,10 @@ class GroceryCategoryController extends Controller
         // remove files
         $this->removeFile($category);
         $category->delete();
+        session()->flash('success', 'Success <br> Category deleted successfully.');
+        return response()->json($this->prepareResponse(false, 'Success', [], []));
 
-        return redirect()->route('grocery.category.index');
+//        return redirect()->route('grocery.category.index');
     }
 
     /**

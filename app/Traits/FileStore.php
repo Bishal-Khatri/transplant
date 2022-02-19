@@ -29,10 +29,10 @@ trait FileStore{
         Storage::put($medium_path, (string) $image_medium);
         Storage::put($thumbnail_path, (string) $image_thumbnail);
 
-        $original_url = Storage::url($original_path);
-        $large_url = Storage::url($large_path);
-        $medium_url = Storage::url($medium_path);
-        $thumbnail_url = Storage::url($thumbnail_path);
+//        $original_url = Storage::url($original_path);
+//        $large_url = Storage::url($large_path);
+//        $medium_url = Storage::url($medium_path);
+//        $thumbnail_url = Storage::url($thumbnail_path);
         return [
             'original' => $original_path,
             'large' => $large_path,

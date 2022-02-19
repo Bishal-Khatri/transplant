@@ -66,7 +66,11 @@
                                         <div class="btn-group pull-right">
                                             <a href="" class="btn btn-default btn-xs"><i class="fa fa-folder"></i> Items</a>
                                             <a href="{{ route('grocery.category.edit', $category->id) }}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                                            <a href="{{ route('grocery.category.delete', $category->id) }}" class="btn btn-default btn-xs text-danger"><i class="fa fa-sticky-note"></i> Delete</a>
+
+                                            <a href="{{ route('grocery.category.delete', $category->id) }}"
+                                               class="btn btn-default btn-xs text-danger deleteModal" >
+                                                <i class="fa fa-sticky-note"></i> Delete
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -81,8 +85,50 @@
         </div>
     </div>
 
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">Confirm Delete</h4>
+                    <small>Click <code>Delete</code> button to confirm.</small>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Attention !</strong> Are you sure you want to permanently delete this record?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <form action="" id="deleteForm">
+                        <button type="submit" class="btn btn-accent">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
+    <script>
+        $(document).ready(function () {
+            $(".deleteModal").on("click", function (e) {
+                e.preventDefault();
+                let deleteUrl = $(this).attr('href');
+                $("#deleteForm").attr('action', deleteUrl);
+                $("#deleteModal").modal("show");
+            });
 
+            $("#deleteForm").on("submit", function (e) {
+                e.preventDefault();
+                let deleteUrl = $(this).attr('action');
+                $.ajax({
+                    type:'DELETE',
+                    url: deleteUrl,
+                    success:function(data){
+                        if (data.error === false){
+                            window.location.reload()
+                        }
+                    }
+                });
+            })
+        });
+    </script>
 @endsection

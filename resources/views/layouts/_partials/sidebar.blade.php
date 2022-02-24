@@ -48,11 +48,11 @@
                     <li class="{{ (request()->is('grocery/category') OR (request()->is('grocery/category/*'))) ? 'active' : '' }}">
                         <a href="{{ route('grocery.category.index') }}">Categories</a>
                     </li>
-                    <li class="{{ (request()->is('grocery/items')) ? 'active' : '' }}">
-                        <a href="/grocery">Items</a>
+                    <li class="{{ (request()->is('grocery/item')) ? 'active' : '' }}">
+                        <a href="{{ route('grocery.item.index') }}">Items</a>
                     </li>
-                    <li class="{{ (request()->is('grocery/orders')) ? 'active' : '' }}">
-                        <a href="/grocery">Orders</a>
+                    <li class="{{ (request()->is('grocery/order')) ? 'active' : '' }}">
+                        <a href="{{ route('grocery.order.index') }}">Orders</a>
                     </li>
                 @endif
 

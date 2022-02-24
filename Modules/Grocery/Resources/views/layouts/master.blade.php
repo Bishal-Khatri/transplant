@@ -27,7 +27,9 @@
     <!-- Main content-->
     <section class="content">
         <div class="container-fluid">
-            @yield('content')
+            <div id="app">
+                @yield('content')
+            </div>
         </div>
     </section>
     <!-- End main content-->
@@ -37,6 +39,7 @@
 
 @include('layouts._partials.script')
 <script src="{{ asset('/asset/vendor/select2/dist/js/select2.js') }}"></script>
+<script src="{{ mix('js/grocery.js') }}"></script>
 <script>
     $(document).ready(function () {
         $(".select2_demo_1").select2();

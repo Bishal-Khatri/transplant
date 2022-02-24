@@ -1,0 +1,164 @@
+<?php
+
+namespace Modules\Grocery\Http\Controllers;
+
+use App\Traits\SetResponse;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\Grocery\Entities\Brand;
+use Modules\Grocery\Entities\GroceryCategory;
+use Modules\Grocery\Entities\Item;
+
+class ItemController extends Controller
+{
+    use SetResponse;
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function index()
+    {
+        return view('grocery::item.index');
+    }
+
+    public function listing(Request $request)
+    {
+        $filter = $request->filter ? $request->filter : '';
+        $category = $request->category ? $request->category : '';
+        $brand = $request->brand ? $request->brand : '';
+        $query = Item::query();
+        $query->with(['category', 'brand', 'images'])->where('parent_id', null)
+            ->where('name', 'LIKE', '%'.$filter.'%')
+            ->orderBy('id', 'asc');
+        if (!blank($category)){
+            $query->whereHas('category', function($q) use ($category) {
+                $q->where('id', '=', $category);
+            });
+        }
+        if (!blank($brand)){
+            $query->whereHas('brand', function($q) use ($brand) {
+                $q->where('id', '=', $brand);
+            });
+        }
+        $items = $query->paginate(20);
+
+        $items->setCollection(
+            $items->getCollection()->transform(function ($value) {
+                $quantity = $value->quantity();
+                $variants = [];
+                $stock_level = null;
+                if ($value->has_variant){
+                    $variants_all = $value->load('variants');
+                    $variants = $variants_all->variants;
+                    $variants = $variants->map(function ($item) {
+                        $item->quantity = $item->quantity();
+                        $item->stock = $item->stockLevel();
+                        return $item;
+                    });
+                }else{
+                    $stock_level = $value->stockLevel();
+                }
+                return [
+                    'id' => $value->id,
+                    'name' => $value->name,
+                    'name_full' => $value->name . ' [Qty: '.$quantity.']',
+                    'sku' => $value->sku,
+                    'category_id' => $value->category_id,
+                    'brand_id' => $value->brand_id,
+                    'category' => $value->category,
+                    'brand' => $value->brand,
+                    'quantity' => $quantity,
+                    'stock' => $stock_level,
+                    'has_variant' => $value->has_variant,
+                    'parent_id' => $value->parent_id,
+                    'variations' => $variants,
+                    'min_quantity_threshold' => $value->min_quantity_threshold,
+                    'images' => $value->images,
+                    'created_at' => $value->created_at,
+                ];
+            })
+        );
+
+        $categories = GroceryCategory::all();
+        $brands = Brand::all();
+        $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands'), []);
+        return response()->json($returnData, 200);
+    }
+
+    public function save(Request $request)
+    {
+        $this->validate($request, [
+            'item_name' => 'required|max:255',
+            'sku' => 'required|max:50',
+            'min_quantity_threshold' => 'nullable|integer',
+        ]);
+
+        if($request->id){
+            $brand = Item::find($request->id);
+        } else{
+            $brand = new Item();
+        }
+        $brand->name = $request->item_name;
+        $brand->sku = $request->sku;
+        $brand->category_id = $request->category;
+        $brand->brand_id = $request->brand;
+        $brand->min_quantity_threshold = $request->min_quantity_threshold;
+        $brand->save();
+        $returnData = $this->prepareResponse(false, 'Item created successfully', [], []);
+        return response()->json($returnData, 200);
+    }
+
+    public function addQuantity(Request $request)
+    {
+        $this->validate($request, [
+            'item_id' => 'required|integer',
+            'quantity' => 'required|integer',
+        ]);
+
+        $quantity = new ItemQuantity();
+        $quantity->item_id = $request->item_id;
+        $quantity->vendor_id = $request->vendor;
+        $quantity->quantity = $request->quantity;
+        $quantity->initial_quantity = $request->quantity;
+        $quantity->purchase_price = $request->purchase_price;
+        $quantity->selling_price = $request->selling_price;
+        $quantity->purchase_date = $request->purchase_date;
+        $quantity->save();
+        $returnData = $this->prepareResponse(false, 'Quantity added successfully', [], []);
+        return response()->json($returnData, 200);
+    }
+
+    public function getItemDetails($item_id)
+    {
+        $item_data = Item::where('id', $item_id)->with(['brand', 'category', 'quantityList', 'quantityList.vendor'])->first();
+        $returnData = $this->prepareResponse(false, 'success', compact('item_data'), []);
+        return response()->json($returnData, 200);
+    }
+
+    public function delete($item_id)
+    {
+        try {
+            $item = Item::findOrFail($item_id);
+            $item->delete();
+            $returnData = $this->prepareResponse(false, 'Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $e) {
+            $returnData = $this->prepareResponse(false, "Could not delete record.", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
+
+    public function deleteQuantity($item_quantity_id)
+    {
+        try {
+            $itemQuantity = ItemQuantity::findOrFail($item_quantity_id);
+            $itemQuantity->delete();
+            $returnData = $this->prepareResponse(false, 'Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $e) {
+            $returnData = $this->prepareResponse(false, "Could not delete record.", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
+}

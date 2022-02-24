@@ -9,7 +9,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 use Modules\Grocery\Entities\GroceryCategory;
 
 class GroceryCategoryController extends Controller
@@ -82,31 +81,26 @@ class GroceryCategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      * @param int $id
      * @return Renderable
      */
     public function destroy($id)
     {
-        $category = GroceryCategory::findOrFail($id);
+        $category = GroceryCategory::with('child')->where('id', $id)->firstOrFail();
         // remove files
         $this->removeFile($category);
+        // remove parent
+        if(!blank($category->child)){
+            foreach($category->child as $value){
+                $value->parent_id = 0;
+                $value->save();
+            }
+        }
+
         $category->delete();
         session()->flash('success', 'Success <br> Category deleted successfully.');
         return response()->json($this->prepareResponse(false, 'Success', [], []));
-
-//        return redirect()->route('grocery.category.index');
     }
 
     /**

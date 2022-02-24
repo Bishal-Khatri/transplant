@@ -14,5 +14,9 @@
         "laravel-mix": "^5.0.1",
         "laravel-mix-merge-manifest": "^0.1.2",
         "vue": "^2.6.12"
+    },
+    "dependencies": {
+        "sass": "^1.49.8",
+        "sass-loader": "^10.2.1"
     }
 }

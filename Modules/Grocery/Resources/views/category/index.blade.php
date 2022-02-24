@@ -8,12 +8,12 @@
                     <small>Grocery<br>Categories<br></small>
                 </div>
                 <div class="header-icon">
-                    <i class="pe page-header-icon pe-7s-shield"></i>
+                    <i class="pe page-header-icon pe-7s-box1"></i>
                 </div>
                 <div class="header-title">
                     <h3 class="m-b-xs">Grocery Categories</h3>
                     <small>
-                        D-ONE Application control panel for customizing and monitoring applications.
+                        List of all categories for grocery items.
                     </small>
                 </div>
             </div>
@@ -41,17 +41,19 @@
                     <table class="table table-responsive-sm">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th>Category Name</th>
                             <th>Slug</th>
                             <th>Image</th>
                             <th>Parent</th>
-                            <th style="width: 180px" class="text-center">Action</th>
+                            <th style="width: 180px" class="text-right">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         @if(isset($categories) AND !blank($categories))
                             @foreach($categories as $category)
                                 <tr>
+                                    <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->slug }}</td>
                                     <td>
@@ -78,11 +80,14 @@
                         @endif
                         </tbody>
                     </table>
-                    {!! $categories->links() !!}
-
                 </div>
             </div>
         </div>
+    </div>
+    <div class="pull-right">
+        @if(isset($categories))
+            {!! $categories->links() !!}
+        @endif
     </div>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">

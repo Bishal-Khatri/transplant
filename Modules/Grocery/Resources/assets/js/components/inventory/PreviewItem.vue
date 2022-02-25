@@ -1,6 +1,113 @@
 <template>
     <div>
-        <div v-model="dialog" class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal fade" id="preview-item" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Details of {{ item_data.name }}</h4>
+                        <div class="small"><i class="fa fa-clock-o"></i> Created {{ item_data.created_at }}</div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                <div class="panel m-b-none">
+                                    <div class="panel-body">
+                                        <table class="table table-sm">
+                                            <thead>
+                                            <tr>
+                                                <th>{{ item_data.name }}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>SKU</td>
+                                                <td class="text-right"><code>{{ item_data.sku }}</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Brand</td>
+                                                <td class="text-right"><span v-if="item_data.brand"><code>{{ item_data.brand.name }}</code></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Category</td>
+                                                <td class="text-right"><span v-if="item_data.category"><code>{{ item_data.category.name }}</code></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Created</td>
+                                                <td class="text-right"><code>{{ item_data.created_at }}</code></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                <div class="panel m-b-none">
+                                    <div class="panel-body">
+                                        <table class="table table-sm">
+                                            <thead>
+                                            <tr>
+                                                <th>Inventory Details</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Available Quantity</td>
+                                                <td class="text-right"><code>{{ inventory_details.available_quantity }}</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Max Selling Price</td>
+                                                <td class="text-right"><code>Rs.{{ inventory_details.max_price }}</code></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Stock Level</td>
+                                                <td class="text-right"><code>{{ inventory_details.stock_level }} % available</code></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-xs-12">
+                                <div class="panel m-b-none">
+                                    <div class="panel-body">
+                                        <table class="table table-sm">
+                                            <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Init Qty</th>
+                                                <th>Qty</th>
+                                                <th>PP</th>
+                                                <th>SP</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="value in item_data.quantity_list" :key="value.id">
+                                                <td class=""><code>{{ value.purchase_date || 'n/a' }}</code></td>
+                                                <td class=""><code>{{ value.initial_quantity || 'n/a' }}</code></td>
+                                                <td class=""><code>{{ value.quantity || 'n/a' }}</code></td>
+                                                <td class=""><code>Rs.{{ value.purchase_price || 'n/a' }}</code></td>
+                                                <td class=""><code>Rs.{{ value.selling_price || 'n/a' }}</code></td>
+                                                <td class=""><button class="btn btn-default btn-xs" @click.prevent="showDelete(value.id)">Delete</button></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-accent" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -11,134 +118,46 @@
                         <p><strong>Attention !</strong> Are you sure you want to permanently delete this record?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-default" @click.prevent="hideDelete">Cancel</button>
                         <form action="" id="deleteForm">
-                            <button type="submit" class="btn btn-accent">Delete</button>
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteQuantity">Delete</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--<v-dialog v-model="dialog" max-width="800px" scrollable :loading="loading">-->
-            <!--<v-card>-->
-                <!--<v-card-title>-->
-                    <!--<span class="headline">Item Preview</span>-->
-                <!--</v-card-title>-->
-                <!--<v-card-text>-->
-                    <!--<v-container>-->
-                        <!--<v-row>-->
-                            <!--<v-col cols="12" sm="12" md="12">-->
-                                <!--<v-list-item>-->
-                                    <!--<v-list-item-content>-->
-                                        <!--<v-list-item-title>{{ item_data.name }}</v-list-item-title>-->
-                                        <!--<v-list-item-subtitle>SKU: <code>{{ item_data.sku }}</code></v-list-item-subtitle>-->
-                                        <!--<v-list-item-subtitle>Brand: <span v-if="item_data.brand"><code>{{ item_data.brand.name }}</code></span></v-list-item-subtitle>-->
-                                        <!--<v-list-item-subtitle>Category: <span v-if="item_data.category"><code>{{ item_data.category.name }}</code></span></v-list-item-subtitle>-->
-                                        <!--<v-list-item-subtitle>Min Qty: <code>{{ item_data.min_quantity_threshold }}</code></v-list-item-subtitle>-->
-                                        <!--<v-list-item-subtitle>Created: <code>{{ item_data.created_at }}</code></v-list-item-subtitle>-->
-                                    <!--</v-list-item-content>-->
-                                <!--</v-list-item>-->
-                            <!--</v-col>-->
-                            <!--<v-col cols="12" sm="12">-->
-                                <!--<v-simple-table dense fixed-header>-->
-                                    <!--<template v-slot:default>-->
-                                        <!--<thead>-->
-                                        <!--<tr>-->
-                                            <!--<th class="text-left">Date</th>-->
-                                            <!--<th class="text-left">Init Qty</th>-->
-                                            <!--<th class="text-left">Qty</th>-->
-                                            <!--<th class="text-left">PP</th>-->
-                                            <!--<th class="text-left">SP</th>-->
-                                            <!--<th class="text-left">Vendor</th>-->
-                                            <!--<th class="text-center" style="width: 100px;"></th>-->
-                                        <!--</tr>-->
-                                        <!--</thead>-->
-                                        <!--<tbody>-->
-                                        <!--<tr v-if="item_data.quantity_list && item_data.quantity_list.length === 0 && !loading">-->
-                                            <!--<td colspan="7">-->
-                                                <!--<v-alert tile class="mt-1" elevation="1">-->
-                                                    <!--No items to display.-->
-                                                <!--</v-alert>-->
-                                            <!--</td>-->
-                                        <!--</tr>-->
-                                        <!--<tr v-else v-for="value in item_data.quantity_list" :key="value.id">-->
-                                            <!--<td><code>{{ value.purchase_date || 'n/a' }}</code></td>-->
-                                            <!--<td><code>{{ value.initial_quantity }}</code></td>-->
-                                            <!--<td><code>{{ value.quantity }}</code></td>-->
-                                            <!--<td><code>Rs. {{ value.purchase_price || '-' }}</code></td>-->
-                                            <!--<td><code>Rs. {{ value.selling_price || '-' }}</code></td>-->
-                                            <!--<td>-->
-                                                <!--<span v-if="value.vendor"><code>{{ value.vendor.name || 'n/a' }}</code></span>-->
-                                                <!--<span v-else><code>n/a</code></span>-->
-                                            <!--</td>-->
-                                            <!--<td class="text-center">-->
-                                                <!--<v-icon small color="error" @click.prevent="deleteDialog = true; quantity_id = value.id">delete</v-icon>-->
-                                            <!--</td>-->
-                                        <!--</tr>-->
-                                        <!--</tbody>-->
-                                    <!--</template>-->
-                                <!--</v-simple-table>-->
-                            <!--</v-col>-->
-                        <!--</v-row>-->
-                    <!--</v-container>-->
-                <!--</v-card-text>-->
-                <!--<v-card-actions>-->
-                    <!--<v-spacer></v-spacer>-->
-                    <!--<v-btn color="blue darken-1" small text @click="dialog = false; clearForm()">Close</v-btn>-->
-                <!--</v-card-actions>-->
-            <!--</v-card>-->
-        <!--</v-dialog>-->
-
-        <!--<v-dialog v-model="deleteDialog" max-width="350">-->
-            <!--<v-card>-->
-                <!--<v-card-title class="title">Delete Record?</v-card-title>-->
-
-                <!--<v-card-text>Are you sure you want to delete this record? <code>Confirm</code> to delete permanently.</v-card-text>-->
-
-                <!--<v-card-actions>-->
-                    <!--<v-spacer></v-spacer>-->
-
-                    <!--<v-btn color="green darken-1" text @click="deleteDialog = false">Cancel</v-btn>-->
-
-                    <!--<v-btn color="red darken-1" @click.prevent="deleteQuantity" :loading="deleteBtnLoading" text>Confirm</v-btn>-->
-                <!--</v-card-actions>-->
-            <!--</v-card>-->
-        <!--</v-dialog>-->
     </div>
-
 </template>
 
 <script>
-    import InventoryService from "../../../services/InventoryService";
+    import InventoryService from '../../../services/InventoryService'
     export default {
         name: "PreviewItem",
-        props: {
-        },
-        components: {
-        },
         data: () => ({
-            loading: false,
-            dialog: false,
-            deleteBtnLoading: false,
             deleteDialog: false,
-            quantity_id: "",
-            item_id: "",
-            item_data: "",
+            item_id:'',
+            item_data:'',
+            inventory_details:'',
+            delete_quantity_id:'',
         }),
-        computed:{
-        },
         methods: {
-            openDialog(item_id){
-                // this.dialog = true;
-                // this.item_id = item_id;
-                // this.getItemDetails();
+            openDialog(item_id) {
+                this.item_id = item_id;
+                this.getItemDetails();
+                $("#preview-item").modal("show");
             },
             async getItemDetails() {
-                // this.loading = true;
-                // const response = await InventoryService.getItemDetails(this.item_id);
-                // this.item_data = response.data.data.item_data;
-                // this.loading = false;
+                const response = await InventoryService.getItemDetails(this.item_id);
+                this.item_data = response.data.data.item_data;
+                this.inventory_details = response.data.data.inventory_details;
+            },
+            async showDelete(delete_id){
+                this.delete_quantity_id = delete_id;
+                $("#deleteModal").modal("show");
+            },
+            async hideDelete(){
+                this.delete_quantity_id = '';
+                $("#deleteModal").modal("hide");
             },
             async saveQuantity() {
                 try {
@@ -167,22 +186,17 @@
             },
             async deleteQuantity(){
                 this.deleteBtnLoading = true;
-                const response = await InventoryService.deleteQuantity(this.quantity_id);
+                const response = await InventoryService.deleteQuantity(this.delete_quantity_id);
                 if (response.data.error === false) {
                     // Errors.Notification(response);
                     this.getItemDetails();
+                    this.hideDelete();
                 }
-                this.clearForm();
-                this.setItems();
             },
-            clearForm() {
-                this.errors.clear();
-                this.deleteDialog = this.deleteBtnLoading = false;
-                this.item_id = this.item_data = this.quantity_id = '';
-            },
-        },
-    };
+        }
+    }
 </script>
 
-<style >
+<style scoped>
+
 </style>

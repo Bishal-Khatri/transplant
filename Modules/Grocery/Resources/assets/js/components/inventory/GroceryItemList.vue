@@ -58,7 +58,7 @@
                                     {{ value.sku }}
                                 </td>
                                 <td>
-                                    <a href="#">{{ value.name }}</a>
+                                    <a href="#" @click.prevent="$refs.previewItem.openDialog(value.id)">{{ value.name }}</a>
 
                                     <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
                                 </td>
@@ -84,7 +84,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group pull-right">
-                                        <button class="btn btn-default btn-xs" @click.prevent="$refs.previewItem.openDialog(item.id)">
+                                        <button class="btn btn-default btn-xs" @click.prevent="$refs.previewItem.openDialog(value.id)">
                                             <i class="fa fa-plus"></i> Qty
                                         </button>
                                         <button class="btn btn-default btn-xs" @click.prevent="$refs.createItem.openDialog(item)">
@@ -107,7 +107,7 @@
         </div>
 
         <!--<add-quantity ref="addQuantity"></add-quantity>-->
-        <!--<preview-item ref="previewItem"></preview-item>-->
+        <preview-item ref="previewItem"></preview-item>
     </div>
 </template>
 

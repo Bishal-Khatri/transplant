@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\Grocery\Entities\Brand;
 use Modules\Grocery\Entities\GroceryCategory;
 use Modules\Grocery\Entities\Item;
+use Modules\Grocery\Entities\ItemQuantity;
 
 class ItemController extends Controller
 {
@@ -131,8 +132,13 @@ class ItemController extends Controller
 
     public function getItemDetails($item_id)
     {
-        $item_data = Item::where('id', $item_id)->with(['brand', 'category', 'quantityList', 'quantityList.vendor'])->first();
-        $returnData = $this->prepareResponse(false, 'success', compact('item_data'), []);
+        $item_data = Item::where('id', $item_id)->with(['brand', 'category', 'quantityList'])->first();
+        $inventory_details = [
+            'available_quantity' => $item_data->quantity(),
+            'max_price' => $item_data->itemMaxPrice(),
+            'stock_level' => $item_data->stockLevel(),
+        ];
+        $returnData = $this->prepareResponse(false, 'success', compact('item_data', 'inventory_details'), []);
         return response()->json($returnData, 200);
     }
 

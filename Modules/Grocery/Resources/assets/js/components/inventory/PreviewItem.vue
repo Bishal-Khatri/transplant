@@ -15,7 +15,8 @@
                                         <table class="table table-sm">
                                             <thead>
                                             <tr>
-                                                <th>{{ item_data.name }}</th>
+                                                <td>Item Name</td>
+                                                <th class="text-right">{{ item_data.name }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -30,10 +31,6 @@
                                             <tr>
                                                 <td>Category</td>
                                                 <td class="text-right"><span v-if="item_data.category"><code>{{ item_data.category.name }}</code></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Created</td>
-                                                <td class="text-right"><code>{{ item_data.created_at }}</code></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -75,11 +72,11 @@
                                         <table class="table table-sm">
                                             <thead>
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Init Qty</th>
-                                                <th>Qty</th>
-                                                <th>PP</th>
-                                                <th>SP</th>
+                                                <th>Purchase Date</th>
+                                                <th>Initial Qty</th>
+                                                <th>Available Qty</th>
+                                                <th>Purchase Price</th>
+                                                <th>Selling Price</th>
                                                 <th></th>
                                             </tr>
                                             </thead>
@@ -131,6 +128,8 @@
 
 <script>
     import InventoryService from '../../../services/InventoryService'
+    import {EventBus} from "../../app";
+
     export default {
         name: "PreviewItem",
         data: () => ({
@@ -159,31 +158,6 @@
                 this.delete_quantity_id = '';
                 $("#deleteModal").modal("hide");
             },
-            async saveQuantity() {
-                try {
-                    this.saveBtnLoading = true;
-                    const formData = {
-                        item_id: this.item_id,
-                        item_name: this.item_name,
-                        quantity: this.quantity,
-                        purchase_date: this.purchase_date,
-                        purchase_price: this.purchase_price,
-                        selling_price: this.selling_price
-                    };
-                    const response = await InventoryService.saveQuantity(formData);
-                    if (response.data.error === false) {
-                        this.dialog = false;
-                        this.clearForm();
-                        // Errors.Notification(response);
-                    }
-                    this.saveBtnLoading = false;
-                } catch (error) {
-                    this.saveBtnLoading = false;
-                    this.errors.record(error.response.data);
-                    // Errors.Notification(error.response);
-                }
-                // this.setItems();
-            },
             async deleteQuantity(){
                 this.deleteBtnLoading = true;
                 const response = await InventoryService.deleteQuantity(this.delete_quantity_id);
@@ -191,6 +165,7 @@
                     // Errors.Notification(response);
                     this.getItemDetails();
                     this.hideDelete();
+                    EventBus.$emit('quantityDeleted');
                 }
             },
         }

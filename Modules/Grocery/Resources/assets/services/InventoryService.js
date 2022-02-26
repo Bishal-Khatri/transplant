@@ -44,9 +44,9 @@ export default {
     // deleteItem(item_id){
     //     return Api().get('inventory/item/delete/' + item_id);
     // },
-    // saveQuantity(formData){
-    //     return Api().post('inventory/item/addQuantity',formData);
-    // },
+    saveQuantity(formData){
+        return Api().post('inventory/item/addQuantity',formData);
+    },
     getItemDetails(item_id){
         return Api().get('inventory/item/getItemDetails/'+item_id);
     },

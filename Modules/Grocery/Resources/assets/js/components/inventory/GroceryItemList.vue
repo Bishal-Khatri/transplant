@@ -46,7 +46,10 @@
                                 <th>Brand</th>
                                 <th>Quantity</th>
                                 <th>Stock</th>
-                                <th style="width: 180px" class="text-right">Actions</th>
+                                <th style="width: 164px" class="text-right">
+                                   <span class="float-left">Actions</span>
+                                    <button class="text-right btn btn-default btn-xs">Add item</button>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -74,7 +77,6 @@
                                 </td>
                                 <td>
                                     {{ value.quantity }}
-                                    <!--<v-icon small color="primary" class="mr-2" @click.prevent="$refs.addQuantity.openDialog(item)">add</v-icon>-->
                                 </td>
                                 <td>
                                     <div class="progress m-b-none full progress-small">
@@ -83,8 +85,8 @@
                                     <small>{{value.stock}} % remaining:</small>
                                 </td>
                                 <td>
-                                    <div class="btn-group pull-right">
-                                        <button class="btn btn-default btn-xs" @click.prevent="$refs.previewItem.openDialog(value.id)">
+                                    <div class="btn-group pull-left">
+                                        <button class="btn btn-default btn-xs" @click.prevent="$refs.addQuantity.openDialog(value)">
                                             <i class="fa fa-plus"></i> Qty
                                         </button>
                                         <button class="btn btn-default btn-xs" @click.prevent="$refs.createItem.openDialog(item)">
@@ -106,7 +108,7 @@
             <pagination :data="items_pg" @pagination-change-page="getGroceryItems"></pagination>
         </div>
 
-        <!--<add-quantity ref="addQuantity"></add-quantity>-->
+        <add-quantity ref="addQuantity"></add-quantity>
         <preview-item ref="previewItem"></preview-item>
     </div>
 </template>
@@ -115,13 +117,14 @@
     import InventoryService from "../../../services/InventoryService";
     import PreviewItem from "./PreviewItem";
     // import CreateItem from "../CreateItem";
-    // import AddQuantity from "../AddQuantity";
+    import AddQuantity from "./AddQuantity";
+    import {EventBus} from "../../app";
 
     export default {
         name: "GroceryItemList",
         components: {
             // CreateItem,
-            // AddQuantity,
+            AddQuantity,
             PreviewItem,
         },
         data(){
@@ -143,6 +146,12 @@
         },
         mounted() {
             this.getGroceryItems();
+            EventBus.$on('quantityAdded', () => {
+                this.getGroceryItems();
+            });
+            EventBus.$on('quantityDeleted', () => {
+                this.getGroceryItems();
+            });
         },
         methods:{
             async getGroceryItems(page=1){

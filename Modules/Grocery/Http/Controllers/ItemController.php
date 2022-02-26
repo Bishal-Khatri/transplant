@@ -112,14 +112,13 @@ class ItemController extends Controller
 
     public function addQuantity(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'item_id' => 'required|integer',
             'quantity' => 'required|integer',
         ]);
 
         $quantity = new ItemQuantity();
         $quantity->item_id = $request->item_id;
-        $quantity->vendor_id = $request->vendor;
         $quantity->quantity = $request->quantity;
         $quantity->initial_quantity = $request->quantity;
         $quantity->purchase_price = $request->purchase_price;

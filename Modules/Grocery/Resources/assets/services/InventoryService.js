@@ -38,12 +38,12 @@ export default {
     getItems(page,meta){
         return Api().get('inventory/item/list?page=' + page + '&filter=' + meta.filter + '&category=' + meta.category + '&brand=' + meta.brand);
     },
-    // createItem(formData){
-    //     return Api().post('inventory/item/create', formData);
-    // },
-    // deleteItem(item_id){
-    //     return Api().get('inventory/item/delete/' + item_id);
-    // },
+    createItem(formData){
+        return Api().post('inventory/item/create', formData);
+    },
+    deleteItem(item_id){
+        return Api().get('inventory/item/delete/' + item_id);
+    },
     saveQuantity(formData){
         return Api().post('inventory/item/addQuantity',formData);
     },

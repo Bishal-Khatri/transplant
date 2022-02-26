@@ -14,13 +14,15 @@ use Modules\Grocery\Entities\ItemQuantity;
 class ItemController extends Controller
 {
     use SetResponse;
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+
     public function index()
     {
         return view('grocery::item.index');
+    }
+
+    public function edit($id)
+    {
+        return view('grocery::item.edit');
     }
 
     public function listing(Request $request)
@@ -31,7 +33,7 @@ class ItemController extends Controller
         $query = Item::query();
         $query->with(['category', 'brand', 'images'])->where('parent_id', null)
             ->where('name', 'LIKE', '%'.$filter.'%')
-            ->orderBy('id', 'asc');
+            ->orderBy('id', 'desc');
         if (!blank($category)){
             $query->whereHas('category', function($q) use ($category) {
                 $q->where('id', '=', $category);
@@ -89,7 +91,7 @@ class ItemController extends Controller
 
     public function save(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'item_name' => 'required|max:255',
             'sku' => 'required|max:50',
             'min_quantity_threshold' => 'nullable|integer',
@@ -102,9 +104,8 @@ class ItemController extends Controller
         }
         $brand->name = $request->item_name;
         $brand->sku = $request->sku;
-        $brand->category_id = $request->category;
-        $brand->brand_id = $request->brand;
-        $brand->min_quantity_threshold = $request->min_quantity_threshold;
+//        $brand->category_id = $request->category;
+//        $brand->brand_id = $request->brand;
         $brand->save();
         $returnData = $this->prepareResponse(false, 'Item created successfully', [], []);
         return response()->json($returnData, 200);

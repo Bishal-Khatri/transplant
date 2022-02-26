@@ -38,6 +38,9 @@
                         <table class="table table-responsive-sm">
                             <thead>
                             <tr>
+                                <th>
+                                    <input type="checkbox">
+                                </th>
                                 <th>#</th>
                                 <th>SKU</th>
                                 <th>Item Name</th>
@@ -48,12 +51,13 @@
                                 <th>Stock</th>
                                 <th style="width: 164px" class="text-right">
                                    <span class="float-left">Actions</span>
-                                    <button class="text-right btn btn-default btn-xs">Add item</button>
+                                    <button @click.prevent="$refs.createItem.openDialog()" class="text-right btn btn-default btn-xs">Add item</button>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-if="items.length" v-for="(value, index) in items" :key="index">
+                                <td><input type="checkbox"></td>
                                 <td>
                                     {{ value.id }}
                                 </td>
@@ -66,14 +70,20 @@
                                     <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
                                 </td>
                                 <td>
-                                    <a href=""><img alt="image" class="rounded image-md" src="/asset/images/a1.jpg"></a>
-                                    <a href=""><img alt="image" class="rounded image-md" src="/asset/images/a5.jpg"></a>
+                                    <a :href="'/grocery/inventory/item/edit/'+value.id" v-if="value.cover_image">
+                                        <img alt="image" class="rounded image-md" src="/asset/images/a1.jpg">
+                                    </a>
+                                    <img v-else alt="image" class="rounded image-md" src="/images/placeholder-dark.jpg">
+                                    <a :href="'/grocery/inventory/item/edit/'+value.id" style="position: relative;text-align: center; color: white;">
+                                        <img alt="image" class="rounded image-md" src="/images/blank.png">
+                                        <div class="centered" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 14px">+4</div>
+                                    </a>
                                 </td>
                                 <td>
-                                    {{ value.category.name }}
+                                    <span v-if="value.category">{{ value.category.name }}</span>
                                 </td>
                                 <td>
-                                    {{ value.brand.name }}
+                                    <span v-if="value.brand">{{ value.brand.name }}</span>
                                 </td>
                                 <td>
                                     {{ value.quantity }}
@@ -89,10 +99,10 @@
                                         <button class="btn btn-default btn-xs" @click.prevent="$refs.addQuantity.openDialog(value)">
                                             <i class="fa fa-plus"></i> Qty
                                         </button>
-                                        <button class="btn btn-default btn-xs" @click.prevent="$refs.createItem.openDialog(item)">
+                                        <a class="btn btn-default btn-xs" :href="'/grocery/inventory/item/edit/'+value.id">
                                             <i class="fa fa-pencil"></i> Edit
-                                        </button>
-                                        <button class="btn btn-default btn-xs text-danger" @click.prevent="deleteDialog = true; id = item.id">
+                                        </a>
+                                        <button class="btn btn-default btn-xs text-danger" @click.prevent="showDeleteModal(value.id)">
                                             <i class="fa fa-trash"></i> Delete
                                         </button>
                                     </div>
@@ -110,20 +120,42 @@
 
         <add-quantity ref="addQuantity"></add-quantity>
         <preview-item ref="previewItem"></preview-item>
+        <create-item ref="createItem"/>
+
+        <div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Confirm Delete</h4>
+                        <small>Click <code>Delete</code> button to confirm.</small>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Attention !</strong> Are you sure you want to permanently delete this record?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <form action="" id="deleteForm">
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteItem">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
 <script>
     import InventoryService from "../../../services/InventoryService";
     import PreviewItem from "./PreviewItem";
-    // import CreateItem from "../CreateItem";
+    import CreateItem from "./CreateItem";
     import AddQuantity from "./AddQuantity";
     import {EventBus} from "../../app";
 
     export default {
         name: "GroceryItemList",
         components: {
-            // CreateItem,
+            CreateItem,
             AddQuantity,
             PreviewItem,
         },
@@ -134,8 +166,7 @@
                     category: '',
                     brand: '',
                 },
-                deleteBtnLoading: false,
-                deleteDialog: false,
+                delete_id: '',
 
                 items: {},
                 items_pg: {},
@@ -149,6 +180,9 @@
             EventBus.$on('quantityAdded', () => {
                 this.getGroceryItems();
             });
+            EventBus.$on('itemAdded', () => {
+                this.getGroceryItems();
+            });
             EventBus.$on('quantityDeleted', () => {
                 this.getGroceryItems();
             });
@@ -160,7 +194,22 @@
                 this.items = response.data.data.items.data;
                 this.categories = response.data.data.categories;
                 this.brands = response.data.data.brands;
-            }
+            },
+
+            showDeleteModal(item_id){
+                this.delete_id = item_id;
+                $("#deleteItemModal").modal('show');
+            },
+
+            async deleteItem(){
+                const response = await InventoryService.deleteItem(this.delete_id);
+                if (response.data.error === false) {
+                    // Errors.Notification(response);
+                    this.getGroceryItems();
+                    $("#deleteItemModal").modal('hide');
+                }
+                this.delete_id = '';
+            },
         }
     }
 </script>

@@ -34,8 +34,9 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
 
         // items
         Route::get('item/list', [\Modules\Grocery\Http\Controllers\ItemController::class, 'listing']);
-//        Route::post('item/create', [\App\Http\Controllers\Inventory\ItemController::class, 'save']);
-//        Route::get('item/delete/{item_id}', [\App\Http\Controllers\Inventory\ItemController::class, 'delete']);
+        Route::post('item/create', [\Modules\Grocery\Http\Controllers\ItemController::class, 'save']);
+        Route::get('item/edit/{id}', [\Modules\Grocery\Http\Controllers\ItemController::class, 'edit'])->name('grocery.item.edit');
+        Route::get('item/delete/{item_id}', [\Modules\Grocery\Http\Controllers\ItemController::class, 'delete']);
         Route::get('item/deleteQuantity/{item_quantity_id}', [\Modules\Grocery\Http\Controllers\ItemController::class, 'deleteQuantity']);
         Route::post('item/addQuantity', [\Modules\Grocery\Http\Controllers\ItemController::class, 'addQuantity']);
         Route::get('item/getItemDetails/{item_id}', [\Modules\Grocery\Http\Controllers\ItemController::class, 'getItemDetails']);

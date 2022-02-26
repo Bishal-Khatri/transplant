@@ -28,7 +28,6 @@ class GroceryItemFactory extends Factory
             'sku' => $this->createSlug($word),
             'category_id' => rand(1,50),
             'brand_id' => rand(1,50),
-            'min_quantity_threshold' => rand(15,90),
             'has_variant' => 0,
             'parent_id' => null,
         ];

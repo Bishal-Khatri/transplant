@@ -17,9 +17,10 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('sku', 50);
             $table->string('name', 255);
+            $table->longText('description')->nullable();
+            $table->string('cover_image', 255)->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
-            $table->integer('min_quantity_threshold')->default(0);
             $table->integer('has_variant')->default(0);
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->timestamps();

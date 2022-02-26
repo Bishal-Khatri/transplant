@@ -45,11 +45,25 @@
                     <li class="nav-category">
                         Grocery Menus
                     </li>
-                    <li class="{{ (request()->is('grocery/category') OR (request()->is('grocery/category/*'))) ? 'active' : '' }}">
-                        <a href="{{ route('grocery.category.index') }}">Categories</a>
-                    </li>
-                    <li class="{{ (request()->is('grocery/item')) ? 'active' : '' }}">
-                        <a href="{{ route('grocery.item.index') }}">Items</a>
+                    <li class="{{ (request()->is('grocery/*')) ? 'active' : '' }}">
+                        <a href="#catalog" data-toggle="collapse" aria-expanded="{{ (request()->is('grocery/*')) ? 'true' : 'false' }}">
+                            Catalog <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                        </a>
+                        <ul id="catalog" class="nav nav-second {{ (request()->is('grocery/*')) ? 'collapse show' : 'collapse' }}">
+                            <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                                <a href="{{ route('grocery.category.index') }}">Categories</a>
+                            </li>
+                            @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
+                                <li class="{{ (request()->is('grocery')) ? 'active' : '' }}">
+                                    <a href="{{ route('grocery.category.index') }}"> Brands</a>
+                                </li>
+                            @endif
+                            @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))
+                                <li class="{{ (request()->is('grocery/item')) ? 'active' : '' }}">
+                                    <a href="{{ route('grocery.item.index') }}"> Items</a>
+                                </li>
+                            @endif
+                        </ul>
                     </li>
                     <li class="{{ (request()->is('grocery/order')) ? 'active' : '' }}">
                         <a href="{{ route('grocery.order.index') }}">Orders</a>

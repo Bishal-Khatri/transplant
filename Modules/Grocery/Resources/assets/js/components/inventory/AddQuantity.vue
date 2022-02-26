@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="modal fade" id="main-dialog" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal fade" id="quantity-dialog" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -80,7 +80,7 @@
             openDialog(item) {
                 this.item = item;
                 this.item_id = item.id;
-                $("#main-dialog").modal("show");
+                $("#quantity-dialog").modal("show");
             },
             async saveQuantity() {
                 try {
@@ -96,7 +96,7 @@
                     };
                     const response = await InventoryService.saveQuantity(formData);
                     if (response.data.error === false) {
-                        $("#main-dialog").modal("hide");
+                        $("#quantity-dialog").modal("hide");
                         this.clearForm();
                         // Errors.Notification(response);
                     }

@@ -1,5 +1,6 @@
 {
     "Grocery": true,
     "Restaurant": true,
-    "User": true
+    "User": true,
+    "Application": true
 }

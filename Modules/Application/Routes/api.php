@@ -12,8 +12,5 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/grocery/items', [\Modules\Grocery\Http\Controllers\ApiController::class, 'listItems']);
 
-Route::group(['middleware' => 'auth:sanctum'], function (){
-
-});
+Route::get('application/home', [\Modules\Application\Http\Controllers\ApiController::class, 'getHome']);

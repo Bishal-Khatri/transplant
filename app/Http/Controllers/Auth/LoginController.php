@@ -103,7 +103,7 @@ class LoginController extends Controller
 
         $token = $user->createToken($request->device_name)->plainTextToken;
 
-        $response = $this->prepareResponse(false, 'Login Success.', ["token" => $token], []);
+        $response = $this->prepareResponse(false, 'Login Success.', compact('token', 'user'), []);
         return $response;
     }
 

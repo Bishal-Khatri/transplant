@@ -30,23 +30,26 @@ trait SendSMS{
     {
         $otp = 1234;
         $otp_template = SmsTemplate::where('key', 'otp')->first();
-        if (!blank($otp_template)){
-            $replace = array(
+        if (blank($otp_template)) {
+            $template = "OTP: $otp";
+        }else {
+            $replaceable = array(
                 '@{otp}' => $otp,
             );
-            $template = str_replace(array_keys($replace), array_values($replace), $otp_template->template);
-            // send sms
-            $result = $this->send($phone, $template);
-
-            if ($result == 'success'){
-                OTPLog::create([
-                    'phone' => $phone,
-                    'otp' => $otp
-                ]);
-
-                return 'success';
-            }
+            $template = str_replace(array_keys($replaceable), array_values($replaceable), $otp_template->template);
         }
+        // send sms
+        $result = $this->send($phone, $template);
+
+        if ($result == 'success'){
+            OTPLog::create([
+                'phone' => $phone,
+                'otp' => $otp
+            ]);
+
+            return 'success';
+        }
+
         return 'fail';
     }
 

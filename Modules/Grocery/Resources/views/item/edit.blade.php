@@ -1,5 +1,6 @@
 @extends('grocery::layouts.master')
-
+@section('css')
+@stop
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -17,13 +18,13 @@
             <hr>
         </div>
     </div>
-    <grocery-item-edit></grocery-item-edit>
+    <grocery-item-edit :brands="{{ $brands }}" :category="{{ $categories }}" :item-id="{{ $item->id }}"></grocery-item-edit>
 @endsection
 
 @section('script')
     <script>
-        $(document).ready(function () {
-
-        });
+        // $('.summernote').on('summernote.change', function(we, contents, $editable) {
+        //     vm.form.desc = contents //set vue data manually
+        // });
     </script>
 @endsection

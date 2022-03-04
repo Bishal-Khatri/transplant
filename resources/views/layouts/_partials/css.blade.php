@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('asset/vendor/fontawesome/css/font-awesome.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/vendor/animate.css/animate.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/vendor/bootstrap/css/bootstrap.css') }}"/>
+{{--<link rel="stylesheet" href="{{ asset('asset/vendor/summernote/dist/summernote-bs4.css') }}"/>--}}
 
 <!-- App styles -->
 <link rel="stylesheet" href="{{ asset('asset/styles/pe-icons/pe-icon-7-stroke.css') }}"/>

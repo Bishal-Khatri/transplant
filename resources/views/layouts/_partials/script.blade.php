@@ -1,18 +1,26 @@
 <!-- Vendor scripts -->
 <script src="{{ asset('asset/vendor/pacejs/pace.min.js') }}"></script>
 <script src="{{ asset('asset/vendor/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('asset/vendor/popper/popper.min.js') }}"></script>
 <script src="{{ asset('asset/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('asset/vendor/toastr/toastr.min.js') }}"></script>
+{{--<script src="{{ asset('asset/vendor/summernote/dist/summernote-bs4.js') }}"></script>--}}
+
 <!-- App scripts -->
 <script src="{{ asset('asset/scripts/luna.js') }}"></script>
 <script>
+    // $(document).ready(function () {
+    //     $('.summernote').summernote({
+    //         height: 300,
+    //     });
+    // });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 </script>
-
 <script>
     // $(document).ready(function () {
     //

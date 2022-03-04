@@ -16,6 +16,16 @@
                                     <div class="panel-body">
                                         <form class="form-group">
                                             <div class="form-group row">
+                                                <label for="item_name" class="col-sm-2 col-form-label">Main Image
+                                                    <span style="font-size: 18px" class="text-danger">*</span>
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input type="file" id="main-image" class="form-control-file mb-1" @change.prevent="handelImage" name="image" accept="image/png, image/jpeg">
+                                                    <small class="text-muted">Your image needs to be at least 500×500 pixels.</small>
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label for="item_name" class="col-sm-2 col-form-label">Item name
                                                     <span style="font-size: 18px" class="text-danger">*</span>
                                                 </label>
@@ -33,16 +43,16 @@
                                                 </div>
                                             </div>
                                             <!--<div class="form-group row">-->
-                                                <!--<label for="brand" class="col-sm-2 col-form-label">-->
-                                                    <!--Brand-->
-                                                    <!--<small class="text-muted">Optional</small>-->
-                                                <!--</label>-->
-                                                <!--<div class="col-sm-10">-->
-                                                    <!--<input type="text" v-model="brand" class="form-control" id="brand" placeholder="Brand Name" >-->
-                                                <!--</div>-->
+                                            <!--<label for="brand" class="col-sm-2 col-form-label">-->
+                                            <!--Brand-->
+                                            <!--<small class="text-muted">Optional</small>-->
+                                            <!--</label>-->
+                                            <!--<div class="col-sm-10">-->
+                                            <!--<input type="text" v-model="brand" class="form-control" id="brand" placeholder="Brand Name" >-->
+                                            <!--</div>-->
                                             <!--</div>-->
                                             <!--<v-col cols="10" sm="8">-->
-                                                <!--<v-autocomplete v-model="category" :items="categories" item-text="name" item-value="id" label="Category" required></v-autocomplete>-->
+                                            <!--<v-autocomplete v-model="category" :items="categories" item-text="name" item-value="id" label="Category" required></v-autocomplete>-->
                                             <!--</v-col>-->
                                         </form>
                                     </div>
@@ -75,6 +85,7 @@
             sku: "",
             category: "",
             brand: "",
+            item_image: "",
         }),
         computed:{
         },
@@ -92,13 +103,15 @@
             },
             async saveItem() {
                 try {
-                    const formData = {
-                        id: this.id,
-                        item_name: this.item_name,
-                        sku: this.sku,
-                        category: this.category,
-                        brand: this.brand,
-                    };
+                    let formData = new FormData();
+
+                    formData.append("id", this.id);
+                    formData.append("item_name", this.item_name);
+                    formData.append("sku", this.sku);
+                    if(this.item_image){
+                        formData.append("main_image", this.item_image, this.item_image.name);
+                    }
+
                     const response = await InventoryService.createItem(formData);
                     if (response.data.error === false) {
                         $("#create-item-dialog").modal("hide");
@@ -112,6 +125,10 @@
                     // Errors.Notification(error.response);
                 }
                 EventBus.$emit('itemAdded');
+            },
+
+            handelImage(event){
+                this.item_image= event.target.files[0];
             },
             clearForm() {
                 this.id = this.item_name = this.sku = this.category = this.brand = '';

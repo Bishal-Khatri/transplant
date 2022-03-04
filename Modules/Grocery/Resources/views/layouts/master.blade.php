@@ -9,6 +9,7 @@
     @include('layouts._partials.css')
     <link rel="stylesheet" href="{{ asset('/asset/vendor/select2/dist/css/select2.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('/asset/styles/style.css') }}">
+    @yield('css')
 </head>
 <body>
 

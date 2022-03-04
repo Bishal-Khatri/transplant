@@ -36,21 +36,21 @@ export default {
 
     // Items
     getItems(page,meta){
-        return Api().get('inventory/item/list?page=' + page + '&filter=' + meta.filter + '&category=' + meta.category + '&brand=' + meta.brand);
+        return Api().get('/grocery/inventory/item/list?page=' + page + '&filter=' + meta.filter + '&category=' + meta.category + '&brand=' + meta.brand);
     },
     createItem(formData){
-        return Api().post('inventory/item/create', formData);
+        return Api().post('/grocery/inventory/item/create', formData);
     },
     deleteItem(item_id){
         return Api().get('inventory/item/delete/' + item_id);
     },
     saveQuantity(formData){
-        return Api().post('inventory/item/addQuantity',formData);
+        return Api().post('/grocery/inventory/item/addQuantity',formData);
     },
     getItemDetails(item_id){
-        return Api().get('inventory/item/getItemDetails/'+item_id);
+        return Api().get('/grocery/inventory/item/getItemDetails/'+item_id);
     },
     deleteQuantity(item_id){
-        return Api().get('inventory/item/deleteQuantity/' + item_id);
+        return Api().get('/grocery/inventory/item/deleteQuantity/' + item_id);
     }
 }

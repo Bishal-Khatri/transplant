@@ -70,8 +70,8 @@
                                     <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
                                 </td>
                                 <td>
-                                    <a :href="'/grocery/inventory/item/edit/'+value.id" v-if="value.cover_image">
-                                        <img alt="image" class="rounded image-md" src="/asset/images/a1.jpg">
+                                    <a :href="'/grocery/inventory/item/edit/'+value.id" v-if="value.main_image_thumbnail">
+                                        <img alt="image" class="rounded image-md" :src="'/storage/'+value.main_image_thumbnail">
                                     </a>
                                     <img v-else alt="image" class="rounded image-md" src="/images/placeholder-dark.jpg">
                                     <a :href="'/grocery/inventory/item/edit/'+value.id" style="position: relative;text-align: center; color: white;">

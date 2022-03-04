@@ -2,6 +2,7 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
+use App\Traits\FileStore;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use Modules\Grocery\Entities\ItemQuantity;
 
 class ItemController extends Controller
 {
-    use SetResponse;
+    use SetResponse, FileStore;
 
     public function index()
     {
@@ -22,7 +23,10 @@ class ItemController extends Controller
 
     public function edit($id)
     {
-        return view('grocery::item.edit');
+        $brands = Brand::all();
+        $categories = GroceryCategory::all();
+        $item = Item::findOrFail($id);
+        return view('grocery::item.edit', compact('brands', 'categories', 'item'));
     }
 
     public function listing(Request $request)
@@ -64,9 +68,13 @@ class ItemController extends Controller
                 }
                 return [
                     'id' => $value->id,
-                    'name' => $value->name,
-                    'name_full' => $value->name . ' [Qty: '.$quantity.']',
                     'sku' => $value->sku,
+                    'name' => $value->name,
+                    'description' => $value->description,
+                    'main_image_original' => $value->main_image_original,
+                    'main_image_large' => $value->main_image_large,
+                    'main_image_medium' => $value->main_image_medium,
+                    'main_image_thumbnail' => $value->main_image_thumbnail,
                     'category_id' => $value->category_id,
                     'brand_id' => $value->brand_id,
                     'category' => $value->category,
@@ -98,15 +106,21 @@ class ItemController extends Controller
         ]);
 
         if($request->id){
-            $brand = Item::find($request->id);
+            $item = Item::find($request->id);
         } else{
-            $brand = new Item();
+            $item = new Item();
         }
-        $brand->name = $request->item_name;
-        $brand->sku = $request->sku;
-//        $brand->category_id = $request->category;
-//        $brand->brand_id = $request->brand;
-        $brand->save();
+
+        if ($request->hasFile('main_image')){
+            $main_image = $this->saveImage($request->main_image, 'items');
+            $item->main_image_original = $main_image['original'];
+            $item->main_image_large = $main_image['large'];
+            $item->main_image_medium = $main_image['medium'];
+            $item->main_image_thumbnail = $main_image['thumbnail'];
+        }
+        $item->name = $request->item_name;
+        $item->sku = $request->sku;
+        $item->save();
         $returnData = $this->prepareResponse(false, 'Item created successfully', [], []);
         return response()->json($returnData, 200);
     }

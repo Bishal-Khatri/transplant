@@ -75,9 +75,13 @@ class LoginController extends Controller
         );
 
         // sends OTP SMS and updates user's OTP in o_t_p_logs table
-        $this->sendOtpSms($user->phone_number);
+        $otp_response = $this->sendOtpSms($user->phone_number);
+        if ($otp_response == 'success'){
+            $response = $this->prepareResponse(false, 'OTP sent successfully.', [], []);
+        }else{
+            $response = $this->prepareResponse(true, 'fail.', [], []);
+        }
 
-        $response = $this->prepareResponse(false, 'OTP sent successfully.', [], []);
         return $response;
     }
 
@@ -95,7 +99,7 @@ class LoginController extends Controller
         if (!$user){
             return $this->prepareResponse(true, 'The provided credentials are incorrect.', [], []);
         }
-        $otp = OTPLog::where('phone', $user->phone_number)->latest('id')->first();
+        $otp = OTPLog::where('phone', $user->phone_number)->latest('id')->firstOrFail();
         if ($otp->otp != $request->otp){
             $response = $this->prepareResponse(true, 'The provided credentials are incorrect.', [], []);
             return $response;

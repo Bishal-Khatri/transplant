@@ -34,31 +34,31 @@ class ApiController extends Controller
         return collect([
             [
                 "name" => "Grocery",
-                "icon" => $this->getImageUrl('/images/modules/grocery-module.png')
+                "icon" => $this->getImageUrl('/images/modules/grocery.png')
             ],
             [
                 "name" => "Restaurant",
-                "icon" => $this->getImageUrl('/images/modules/restaurant-module.png')
+                "icon" => $this->getImageUrl('/images/modules/restaurant.png')
             ],
             [
                 "name" => "Fashion",
-                "icon" => $this->getImageUrl('/images/modules/fashion-module.png')
+                "icon" => $this->getImageUrl('/images/modules/fashion.png')
             ],
             [
                 "name" => "Electronics",
-                "icon" => $this->getImageUrl('/images/modules/grocery-module.png')
+                "icon" => $this->getImageUrl('/images/modules/electronics.png')
             ],
             [
                 "name" => "Cosmetics",
-                "icon" => $this->getImageUrl('/images/modules/grocery-module.png')
+                "icon" => $this->getImageUrl('/images/modules/cosmetic.png')
             ],
             [
                 "name" => "Hotels",
-                "icon" => $this->getImageUrl('/images/modules/grocery-module.png')
+                "icon" => $this->getImageUrl('/images/modules/hotels.png')
             ],
             [
                 "name" => "Travel",
-                "icon" => $this->getImageUrl('/images/modules/grocery-module.png')
+                "icon" => $this->getImageUrl('/images/modules/travel.png')
             ],
         ]);
     }

@@ -2,78 +2,76 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
+use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Grocery\Entities\Brand;
+use Modules\Grocery\Entities\GroceryCategory;
+use Modules\Grocery\Entities\Item;
 
 class ApiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    use SetResponse;
+    public function listItems(Request $request)
     {
-        return view('grocery::index');
+        $filter = $request->filter ? $request->filter : '';
+        $category = $request->category ? $request->category : '';
+        $brand = $request->brand ? $request->brand : '';
+        $query = Item::query();
+        $query->with(['category', 'brand', 'images'])->where('parent_id', null)
+            ->where('name', 'LIKE', '%'.$filter.'%')
+            ->orderBy('id', 'desc');
+        if (!blank($category)){
+            $query->whereHas('category', function($q) use ($category) {
+                $q->where('id', '=', $category);
+            });
+        }
+        if (!blank($brand)){
+            $query->whereHas('brand', function($q) use ($brand) {
+                $q->where('id', '=', $brand);
+            });
+        }
+        $items = $query->paginate(20);
+
+        $items->setCollection(
+            $items->getCollection()->transform(function ($value) {
+                $quantity = $value->quantity();
+                return [
+                    'id' => $value->id,
+                    'sku' => $value->sku,
+                    'name' => $value->name,
+                    'description' => $value->description,
+                    'main_image_original' => $value->main_image_original,
+                    'main_image_large' => $value->main_image_large,
+                    'main_image_medium' => $value->main_image_medium,
+                    'main_image_thumbnail' => $value->main_image_thumbnail,
+                    'category' => $value->category,
+                    'brand' => $value->brand,
+                    'quantity' => $quantity,
+                    'images' => $value->images,
+                ];
+            })
+        );
+        $categories = GroceryCategory::all();
+        $brands = Brand::all();
+        $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands'), []);
+        return response()->json($returnData, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('grocery::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
-        return view('grocery::show');
+        if ($id){
+            $item = Item::where('id', $id)->with(['brand', 'category', 'images'])->first();
+            $inventory_details = [
+                'available_quantity' => $item->quantity(),
+                'max_price' => $item->itemMaxPrice(),
+            ];
+            $returnData = $this->prepareResponse(false, 'success', compact('item', 'inventory_details'), []);
+        }else{
+            $returnData = $this->prepareResponse(true, 'item not found.', [], []);
+        }
+        return response()->json($returnData, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('grocery::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('/grocery/items', [\Modules\Grocery\Http\Controllers\ApiController::class, 'listItems']);
+Route::get('/grocery/item/{id}', [\Modules\Grocery\Http\Controllers\ApiController::class, 'show']);
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
 

@@ -50,7 +50,7 @@
                             Catalog <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
                         </a>
                         <ul id="catalog" class="nav nav-second {{ (request()->is('grocery/*')) ? 'collapse show' : 'collapse' }}">
-                            <li class="{{ (request()->is('grocery/category')) ? 'active' : '' }}">
+                            <li class="@yield('category_active')">
                                 <a href="{{ route('grocery.category.index') }}">Categories</a>
                             </li>
                             @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
@@ -59,7 +59,7 @@
                                 </li>
                             @endif
                             @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))
-                                <li class="{{ (request()->is('grocery/item')) ? 'active' : '' }}">
+                                <li class="@yield('item_active')">
                                     <a href="{{ route('grocery.item.index') }}"> Items</a>
                                 </li>
                             @endif

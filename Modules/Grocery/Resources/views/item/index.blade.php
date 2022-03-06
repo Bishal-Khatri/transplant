@@ -1,5 +1,6 @@
 @extends('grocery::layouts.master')
 
+@section('item_active') active @stop
 @section('content')
     <div class="row">
         <div class="col-lg-12">

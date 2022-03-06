@@ -74,9 +74,11 @@
                                         <img alt="image" class="rounded image-md" :src="'/storage/'+value.main_image_thumbnail">
                                     </a>
                                     <img v-else alt="image" class="rounded image-md" src="/images/placeholder-dark.jpg">
-                                    <a :href="'/grocery/inventory/item/edit/'+value.id" style="position: relative;text-align: center; color: white;">
+                                    <a :href="'/grocery/inventory/item/edit/'+value.id" style="position: relative;text-align: center; color: white;" v-if="value.images_count > 0">
                                         <img alt="image" class="rounded image-md" src="/images/blank.png">
-                                        <div class="centered" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 14px">+4</div>
+                                        <div class="centered" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 14px">
+                                            +{{ value.images_count }}
+                                        </div>
                                     </a>
                                 </td>
                                 <td>

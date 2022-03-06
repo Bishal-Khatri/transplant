@@ -17,9 +17,9 @@ class CreateItemImagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('item_id');
             $table->string('original');
-            $table->string('thumbnail');
-            $table->string('large');
-            $table->string('medium');
+            $table->string('thumbnail')->nullable();
+            $table->string('large')->nullable();
+            $table->string('medium')->nullable();
             $table->timestamps();
         });
     }

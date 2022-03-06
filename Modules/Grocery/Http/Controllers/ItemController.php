@@ -7,9 +7,11 @@ use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\Grocery\Entities\Brand;
 use Modules\Grocery\Entities\GroceryCategory;
 use Modules\Grocery\Entities\Item;
+use Modules\Grocery\Entities\ItemImage;
 use Modules\Grocery\Entities\ItemQuantity;
 
 class ItemController extends Controller
@@ -86,6 +88,7 @@ class ItemController extends Controller
                     'variations' => $variants,
                     'min_quantity_threshold' => $value->min_quantity_threshold,
                     'images' => $value->images,
+                    'images_count' => count($value->images),
                     'created_at' => $value->created_at,
                 ];
             })
@@ -105,8 +108,8 @@ class ItemController extends Controller
             'min_quantity_threshold' => 'nullable|integer',
         ]);
 
-        if($request->id){
-            $item = Item::find($request->id);
+        if($request->item_id){
+            $item = Item::findOrFail($request->item_id);
         } else{
             $item = new Item();
         }
@@ -120,6 +123,9 @@ class ItemController extends Controller
         }
         $item->name = $request->item_name;
         $item->sku = $request->sku;
+        $item->description = $request->description;
+        $item->category_id = $request->category_id ? $request->category_id : null;
+        $item->brand_id = $request->brand_id ? $request->brand_id : null;
         $item->save();
         $returnData = $this->prepareResponse(false, 'Item created successfully', [], []);
         return response()->json($returnData, 200);
@@ -146,8 +152,9 @@ class ItemController extends Controller
 
     public function getItemDetails($item_id)
     {
-        $item_data = Item::where('id', $item_id)->with(['brand', 'category', 'quantityList'])->first();
+        $item_data = Item::where('id', $item_id)->with(['brand', 'category', 'images'])->first();
         $inventory_details = [
+            'quantity' => $item_data->quantityList,
             'available_quantity' => $item_data->quantity(),
             'max_price' => $item_data->itemMaxPrice(),
             'stock_level' => $item_data->stockLevel(),
@@ -179,6 +186,42 @@ class ItemController extends Controller
         } catch (\Exception $e) {
             $returnData = $this->prepareResponse(false, "Could not delete record.", [], []);
             return response()->json($returnData, 500);
+        }
+    }
+
+    public function uploadAdditionalImage(Request $request)
+    {
+        $request->validate([
+            'item_id' => 'required|int',
+            'file' => 'required',
+        ]);
+
+        $file = $request->file('file');
+        $item = Item::findOrFail($request->item_id);
+
+//            // check for old logo
+//            if ($college->logo){
+//                Storage::disk('local')->delete('public/'. $college->logo);
+//                File::delete(public_path($college->logo_thumbnail));
+//            }
+        $filePath = $file->store('item_additional_images', 'public');
+        $item_image = new ItemImage();
+        $item_image->original = $filePath;
+        $item_image->item_id = $item->id;
+        $item_image->save();
+
+        $returnData = $this->prepareResponse(false, 'Image uploaded successfully', [], []);
+        return response()->json($returnData);
+    }
+    public function deleteAdditionalImage($image_id)
+    {
+        if ($image_id) {
+            $item_image = ItemImage::findOrFail($image_id);
+            Storage::disk('local')->delete('public/' . $item_image->original);
+            $item_image->delete();
+
+            $returnData = $this->prepareResponse(false, 'Image deleted successfully', [], []);
+            return response()->json($returnData);
         }
     }
 }

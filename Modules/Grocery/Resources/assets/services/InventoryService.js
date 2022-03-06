@@ -52,5 +52,11 @@ export default {
     },
     deleteQuantity(item_id){
         return Api().get('/grocery/inventory/item/deleteQuantity/' + item_id);
+    },
+    uploadAdditionalImage(formData){
+        return Api().post('/grocery/inventory/item/uploadAdditionalImage', formData);
+    },
+    deleteAdditionalImage(image_id){
+        return Api().get('/grocery/inventory/item/deleteAdditionalImage/'+image_id);
     }
 }

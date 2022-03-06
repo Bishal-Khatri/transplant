@@ -45,7 +45,7 @@
     $(document).ready(function () {
         $(".select2_demo_1").select2();
         $(".select2_demo_2").select2({
-            placeholder: "Select a state",
+            placeholder: "Select",
             allowClear: true
         });
         $(".select2_demo_3").select2();

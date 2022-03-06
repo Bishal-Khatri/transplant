@@ -40,5 +40,7 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
         Route::get('item/deleteQuantity/{item_quantity_id}', [\Modules\Grocery\Http\Controllers\ItemController::class, 'deleteQuantity']);
         Route::post('item/addQuantity', [\Modules\Grocery\Http\Controllers\ItemController::class, 'addQuantity']);
         Route::get('item/getItemDetails/{item_id}', [\Modules\Grocery\Http\Controllers\ItemController::class, 'getItemDetails']);
+        Route::post('item/uploadAdditionalImage', [\Modules\Grocery\Http\Controllers\ItemController::class, 'uploadAdditionalImage']);
+        Route::get('item/deleteAdditionalImage/{image_id}', [\Modules\Grocery\Http\Controllers\ItemController::class, 'deleteAdditionalImage']);
     });
 });

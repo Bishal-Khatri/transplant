@@ -1,6 +1,6 @@
 @extends('grocery::layouts.master')
-@section('css')
-@stop
+@section('css') @stop
+@section('item_active') active @stop
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -18,7 +18,7 @@
             <hr>
         </div>
     </div>
-    <grocery-item-edit :brands="{{ $brands }}" :category="{{ $categories }}" :item-id="{{ $item->id }}"></grocery-item-edit>
+    <grocery-item-edit :brands="{{ $brands }}" :categories="{{ $categories }}" :item-id="{{ $item->id }}"></grocery-item-edit>
 @endsection
 
 @section('script')

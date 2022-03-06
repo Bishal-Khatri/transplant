@@ -16,5 +16,5 @@ Route::get('/grocery/items', [\Modules\Grocery\Http\Controllers\ApiController::c
 Route::get('/grocery/item/{id}', [\Modules\Grocery\Http\Controllers\ApiController::class, 'show']);
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
-
+    
 });

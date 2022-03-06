@@ -2,5 +2,6 @@
     "Grocery": true,
     "Restaurant": true,
     "User": true,
-    "Application": true
+    "Application": true,
+    "Cart": true
 }

@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::get('application/home', [\Modules\Application\Http\Controllers\ApiController::class, 'getHome']);
+

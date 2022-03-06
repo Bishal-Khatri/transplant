@@ -223,6 +223,7 @@
 
                 this.images = response.item_data.images;
                 this.inventory_details = response.inventory_details;
+                this.item = response.item_data;
 
                 // $(".category").select2();
                 // $(".brand").select2();

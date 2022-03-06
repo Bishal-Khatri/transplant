@@ -91,7 +91,6 @@
         },
         methods: {
             openDialog(value="") {
-                console.log(value)
                 if (value !== ""){
                     this.id = value.id;
                     this.item_name = value.name;

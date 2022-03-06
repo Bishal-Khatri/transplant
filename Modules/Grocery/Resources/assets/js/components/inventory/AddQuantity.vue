@@ -80,6 +80,7 @@
             openDialog(item) {
                 this.item = item;
                 this.item_id = item.id;
+                console.log( this.item)
                 $("#quantity-dialog").modal("show");
             },
             async saveQuantity() {

@@ -1,116 +1,116 @@
 <template>
-    <v-container id="collegeList" fluid tag="section">
-        <v-card class="mx-auto" min-height="71vh">
-            <v-toolbar color="info" dark>
-                <v-toolbar-title style="width: 150px;">Brands</v-toolbar-title>
-                <v-divider class="mx-4" inset vertical></v-divider>
-                <v-tooltip bottom color="black">
-                    <template v-slot:activator="{ on }">
-                        <v-text-field v-model="search"
-                                      filled rounded dense single-line
-                                      append-icon="mdi-magnify"
-                                      label="Search"
-                                      class="shrink ml-3"
-                                      hide-details>
-                        </v-text-field>
-                    </template>
-                    <span>Press ENTER key to search</span>
-                </v-tooltip>
-                <v-spacer></v-spacer>
-                <create-brand ref="createBrand"/>
-                <v-tooltip top color="black">
-                    <template v-slot:activator="{ on }">
-                        <v-btn icon v-on="on" @click.prevent="getBrands">
-                            <v-icon>refresh</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Refresh</span>
-                </v-tooltip>
-            </v-toolbar>
-            <template v-if="loading">
-                <v-row class="fill-height text-muted" style="height:200px" align-content="center" justify="center">
-                    <v-col class="overline text-center" cols="12">
-                        Fetching data....
-                    </v-col>
-                    <v-col cols="6">
-                        <v-progress-linear color="deep-purple accent-4" indeterminate rounded height="6"></v-progress-linear>
-                    </v-col>
-                </v-row>
-            </template>
-            <template v-else>
-                <v-simple-table dense fixed-header>
-                    <template v-slot:default>
-                        <thead>
-                        <tr>
-                            <th class="text-center" style="width:150px">#ID</th>
-                            <th class="text-left">Brand Name</th>
-                            <th class="text-center" style="width: 100px;"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-if="brands && brands.length === 0 && !loading">
-                            <td colspan="8">
-                                <v-alert tile class="mt-1" type="warning" elevation="1">
-                                    No items to display.
-                                    <v-icon small>mdi-arrow-up</v-icon>Click
-                                    <code>ADD NEW</code> to add.
-                                </v-alert>
-                            </td>
-                        </tr>
-                        <tr v-if="!moduleIsReady || loading">
-                            <td colspan="8">
-                                <v-row class="fill-height text-muted" style="height:200px" align-content="center" justify="center">
-                                    <v-col class="overline text-center" cols="12">
-                                        Getting your files
-                                    </v-col>
-                                    <v-col cols="6">
-                                        <v-progress-linear color="deep-purple accent-4" indeterminate rounded height="6"></v-progress-linear>
-                                    </v-col>
-                                </v-row>
-                            </td>
-                        </tr>
-                        <tr v-else v-for="value in brands" :key="value.id">
-                            <td class="text-center">{{ value.id }}</td>
-                            <td>{{ value.name }}</td>
-                            <td class="text-center">
-                                <v-icon small color="primary" class="mr-2" @click.prevent="$refs.createBrand.openDialog(value)">edit</v-icon>
-                                <v-icon small color="error" @click.prevent="deleteDialog = true; id = value.id">delete</v-icon>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-            </template>
-        </v-card>
-        <v-list-item>
-            <v-spacer></v-spacer>
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-filled">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group m-b-xs m-t-xs">
+                                    <input type="text" class="form-control" placeholder="Search by Item Name.." aria-describedby="button-addon2" v-model="meta.filter" @keydown.enter="getBrands"
+                                           @click:append="getBrands" @keypress="getBrands">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
 
-        </v-list-item>
+                            </div>
+                            <div class="col-lg-3">
 
-        <v-dialog v-model="deleteDialog" max-width="350">
-            <v-card>
-                <v-card-title class="title">Delete Record?</v-card-title>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <v-card-text>Are you sure you want to delete this record? <code>Confirm</code> to delete permanently.</v-card-text>
+                <div class="panel panel-filled">
+                    <!--<div class="panel-heading">-->
+                    <!--Item list for grocery-->
+                    <!--</div>-->
+                    <div class="panel-body">
+                        <table class="table table-responsive-sm">
+                            <thead>
+                            <tr>
+                                <th style="width: 50px;">
+                                    <input type="checkbox">
+                                </th>
+                                <th style="width: 50px;">#</th>
+                                <th style="width: 80px;">Image</th>
+                                <th>Brand Name</th>
+                                <th style="width: 164px" class="text-right">
+                                    <span class="float-left">Actions</span>
+                                    <button @click.prevent="$refs.createBrand.openDialog()" class="text-right btn btn-default btn-xs">Add brand</button>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-if="brands && brands.length" v-for="(value, index) in brands" :key="index">
+                                <td><input type="checkbox"></td>
+                                <td>
+                                    {{ value.id }}
+                                </td>
+                                <td>
+                                    <a href="javascript:void()" v-if="value.image_thumbnail">
+                                        <img alt="image" class="rounded image-md" :src="'/storage/'+value.image_thumbnail">
+                                    </a>
+                                    <img v-else alt="image" class="rounded image-md" src="/images/placeholder-dark.jpg">
+                                </td>
+                                <td>
+                                    <a href="#" @click.prevent="">{{ value.name }}</a>
 
-                <v-card-actions>
-                    <v-spacer></v-spacer>
+                                    <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group pull-left">
+                                        <a class="btn btn-default btn-xs" href="#" @click.prevent="$refs.createBrand.openDialog(value)">
+                                            <i class="fa fa-pencil"></i> Edit
+                                        </a>
+                                        <button class="btn btn-default btn-xs text-danger" @click.prevent="showDeleteModal(value.id)">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <pagination :data="brands_pg" @pagination-change-page="getBrands"></pagination>
+        </div>
 
-                    <v-btn color="green darken-1" text @click="deleteDialog = false">Cancel</v-btn>
+        <create-brand ref="createBrand"/>
 
-                    <v-btn color="red darken-1" @click.prevent="deleteBrand" :loading="deleteBtnLoading" text>Confirm</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-    </v-container>
+        <div class="modal fade" id="deleteBrandModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Confirm Delete</h4>
+                        <small>Click <code>Delete</code> button to confirm.</small>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Attention !</strong> Are you sure you want to permanently delete this record?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <form action="" id="deleteForm">
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteBrand">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 
-    import {mapActions, mapGetters} from "vuex";
     import InventoryService from "../../../services/InventoryService";
-    import {Errors} from "../../../utils/error";
-    import CreateBrand from "../components/CreateBrand";
+    import CreateBrand from "./CreateBrand";
+    import {EventBus} from '../../app';
 
     export default {
         name: "BrandList",
@@ -119,39 +119,52 @@
         },
         data() {
             return {
-                dialog: false,
-                loading: false,
-                deleteDialog: false,
-                deleteBtnLoading: false,
-                moduleIsReady: true,
                 id: '',
-                search: '',
+                filter: '',
+                brands: [],
+                brands_pg: {},
+
+                meta:{
+                    filter: '',
+                },
             };
         },
         created() {},
-        mounted() {},
+        mounted() {
+            this.getBrands();
+            EventBus.$on('brandAdded', () => {
+                this.getBrands();
+            });
+        },
         computed: {
-            ...mapGetters("inventory", ['brands'])
         },
         methods: {
-            ...mapActions('inventory',['setBrandList']),
-            async getBrands(){
-                this.loading = true;
-                await this.setBrandList();
-                this.loading = false;
+            async getBrands(page=1){
+                try {
+                    const response = await InventoryService.getBrands(page,this.meta);
+                    this.brands = response.data.data.brands.data;
+                    this.brands_pg = response.data.data.brands;
+                }catch (error) {
+                    // Errors.Notification(error.response);
+                }
             },
+
+            showDeleteModal(brand_id){
+                this.id = brand_id;
+                $("#deleteBrandModal").modal('show');
+            },
+
             async deleteBrand(){
-                this.deleteBtnLoading = true;
                 const response = await InventoryService.deleteBrand(this.id);
                 if (response.data.error === false) {
-                    Errors.Notification(response);
+                    // Errors.Notification(response);
                     this.getBrands()
                 }
+                $("#deleteBrandModal").modal('hide');
                 this.clear();
             },
             clear(){
                 this.id = '';
-                this.deleteDialog = this.deleteBtnLoading = false;
             },
         },
     }

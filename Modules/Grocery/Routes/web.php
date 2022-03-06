@@ -23,9 +23,10 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
 //        Route::get('category/delete/{category_id}', [\App\Http\Controllers\Inventory\CategoryController::class, 'delete']);
 
         // brands
-//        Route::get('brand/list', [\App\Http\Controllers\Inventory\BrandController::class, 'listing']);
-//        Route::post('brand/create', [\App\Http\Controllers\Inventory\BrandController::class, 'save']);
-//        Route::get('brand/delete/{brand_id}', [\App\Http\Controllers\Inventory\BrandController::class, 'delete']);
+        Route::get('brand/index', [\Modules\Grocery\Http\Controllers\BrandController::class, 'index'])->name('grocery.brand.index');
+        Route::get('brand/list', [\Modules\Grocery\Http\Controllers\BrandController::class, 'listing']);
+        Route::post('brand/create', [\Modules\Grocery\Http\Controllers\BrandController::class, 'save']);
+        Route::get('brand/delete/{brand_id}', [\Modules\Grocery\Http\Controllers\BrandController::class, 'delete']);
 
         // vendors
 //        Route::get('vendor/list', [\App\Http\Controllers\Inventory\VendorController::class, 'listing']);

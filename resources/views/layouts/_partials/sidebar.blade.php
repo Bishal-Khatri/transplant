@@ -54,8 +54,8 @@
                                 <a href="{{ route('grocery.category.index') }}">Categories</a>
                             </li>
                             @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
-                                <li class="{{ (request()->is('grocery')) ? 'active' : '' }}">
-                                    <a href="{{ route('grocery.category.index') }}"> Brands</a>
+                                <li class="@yield('brand_active')">
+                                    <a href="{{ route('grocery.brand.index') }}"> Brands</a>
                                 </li>
                             @endif
                             @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))

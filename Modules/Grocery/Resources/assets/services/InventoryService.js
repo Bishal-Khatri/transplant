@@ -13,15 +13,15 @@ export default {
     // },
     //
     // // brands
-    // getBrands(){
-    //     return Api().get('inventory/brand/list');
-    // },
-    // createBrand(formData){
-    //     return Api().post('inventory/brand/create', formData);
-    // },
-    // deleteBrand(brand_id){
-    //     return Api().get('inventory/brand/delete/' + brand_id);
-    // },
+    getBrands(page,meta){
+        return Api().get('/grocery/inventory/brand/list?page=' + page + '&filter=' + meta.filter);
+    },
+    createBrand(formData){
+        return Api().post('/grocery/inventory/brand/create', formData);
+    },
+    deleteBrand(brand_id){
+        return Api().get('/grocery/inventory/brand/delete/' + brand_id);
+    },
     //
     // // vendors
     // getVendors(){
@@ -42,7 +42,7 @@ export default {
         return Api().post('/grocery/inventory/item/create', formData);
     },
     deleteItem(item_id){
-        return Api().get('inventory/item/delete/' + item_id);
+        return Api().get('/grocery/inventory/item/delete/' + item_id);
     },
     saveQuantity(formData){
         return Api().post('/grocery/inventory/item/addQuantity',formData);

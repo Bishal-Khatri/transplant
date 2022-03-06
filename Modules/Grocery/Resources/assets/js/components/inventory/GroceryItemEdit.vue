@@ -81,7 +81,7 @@
                     </div>
                     <div class="panel-heading">
                         Maximum Price
-                        <div class="float-right">{{ inventory_details.max_price }}</div>
+                        <div class="float-right">Rs. {{ inventory_details.max_price }}</div>
                     </div>
                     <div class="panel-heading">
                         Stock Level

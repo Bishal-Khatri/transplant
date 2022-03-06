@@ -5,6 +5,7 @@ namespace Modules\Grocery\Http\Controllers;
 use App\Traits\SetResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Application\Entities\Banner;
 use Modules\Grocery\Entities\Brand;
 use Modules\Grocery\Entities\GroceryCategory;
 use Modules\Grocery\Entities\Item;
@@ -54,7 +55,8 @@ class ApiController extends Controller
         );
         $categories = GroceryCategory::all();
         $brands = Brand::all();
-        $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands'), []);
+        $banner = Banner::where('key', 'grocery')->get();
+        $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands', 'banner'), []);
         return response()->json($returnData, 200);
     }
 

@@ -8479,7 +8479,7 @@ var render = function () {
                 "\n                    Maximum Price\n                    "
               ),
               _c("div", { staticClass: "float-right" }, [
-                _vm._v(_vm._s(_vm.inventory_details.max_price)),
+                _vm._v("Rs. " + _vm._s(_vm.inventory_details.max_price)),
               ]),
             ]),
             _vm._v(" "),

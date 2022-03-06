@@ -6,6 +6,7 @@ use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Application\Entities\Banner;
 use Modules\Grocery\Entities\Item;
 use Nwidart\Modules\Facades\Module;
 
@@ -15,7 +16,7 @@ class ApiController extends Controller
     public function getHome()
     {
         $data = [];
-
+        $data['banners'] = Banner::where('key', 'home')->get();
         $data['modules'] = $this->getActiveModules();
         if(Module::has('Grocery')){
             $data['grocery'] = Item::with(['brand', 'category', 'images'])->limit(5)->get();

@@ -34,4 +34,15 @@ class CartController extends Controller
         $returnData = $this->prepareResponse(false, 'Item added to cart.', [], []);
         return response()->json($returnData);
     }
+
+    public function cartListing(Request $request)
+    {
+        $user = auth()->user();
+        if (!blank($user)){
+            $cart = Cart::with('item')->where('user_id', $user->id)->get();
+
+            $returnData = $this->prepareResponse(false, 'success', compact('cart'), []);
+            return response()->json($returnData);
+        }
+    }
 }

@@ -84,6 +84,10 @@
                         <div class="float-right">Rs. {{ inventory_details.max_price }}</div>
                     </div>
                     <div class="panel-heading">
+                        Current Price
+                        <div class="float-right">Rs. {{ inventory_details.current_price }}</div>
+                    </div>
+                    <div class="panel-heading">
                         Stock Level
                         <div class="float-right">{{ inventory_details.stock_level }}%</div>
                     </div>

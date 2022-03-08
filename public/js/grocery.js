@@ -4592,6 +4592,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -8480,6 +8484,15 @@ var render = function () {
               ),
               _c("div", { staticClass: "float-right" }, [
                 _vm._v("Rs. " + _vm._s(_vm.inventory_details.max_price)),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-heading" }, [
+              _vm._v(
+                "\n                    Current Price\n                    "
+              ),
+              _c("div", { staticClass: "float-right" }, [
+                _vm._v("Rs. " + _vm._s(_vm.inventory_details.current_price)),
               ]),
             ]),
             _vm._v(" "),

@@ -37,6 +37,7 @@ class ApiController extends Controller
         $items->setCollection(
             $items->getCollection()->transform(function ($value) {
                 $quantity = $value->quantity();
+                $current_price = $value->currentPrice();
                 return [
                     'id' => $value->id,
                     'sku' => $value->sku,
@@ -50,6 +51,9 @@ class ApiController extends Controller
                     'brand' => $value->brand,
                     'quantity' => $quantity,
                     'images' => $value->images,
+                    'current_price' => $current_price,
+                    'old_price' => null,
+                    'has_discount' => false,
                 ];
             })
         );
@@ -60,10 +64,10 @@ class ApiController extends Controller
         return response()->json($returnData, 200);
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-        if ($id){
-            $item = Item::where('id', $id)->with(['brand', 'category', 'images'])->first();
+        if (isset($request->item_id) AND !blank($request->item_id)){
+            $item = Item::where('id', $request->item_id)->with(['brand', 'category', 'images'])->first();
             $inventory_details = [
                 'available_quantity' => $item->quantity(),
                 'max_price' => $item->itemMaxPrice(),

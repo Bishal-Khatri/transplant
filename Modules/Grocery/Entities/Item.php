@@ -64,6 +64,12 @@ class Item extends Model
         return ItemQuantity::where('item_id', $this->id)->where('quantity', '!=', 0)->max('selling_price');
     }
 
+    public function currentPrice()
+    {
+        $price = ItemQuantity::where('item_id', $this->id)->orderBy('id', 'desc')->first();
+        return $price->selling_price ?? '';
+    }
+
     /**
      * Gets item_quantity that have lowest stock and decreases quantity by 1
      * @param null $quantity

@@ -16,16 +16,15 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $request->validate([
-           'user_id' => 'required|int',
-           'item_id' => 'required|int',
-           'quantity' => 'required|int',
-           'item_type' => 'required|string'
+            'user_id' => 'required|int',
+            'item_id' => 'required|int',
+            'quantity' => 'required|int',
+            'item_type' => 'required|string'
         ]);
         $cart = null;
         if ($request->item_type === 'grocery'){
             if (Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->exists()){
                 $cart = Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->first();
-//                return response()->json($this->prepareResponse(true, 'Item already exists in your cart.', [], []));
             }
             $item = Item::findOrFail($request->item_id);
         }else{
@@ -44,6 +43,19 @@ class CartController extends Controller
 
         $returnData = $this->prepareResponse(false, 'Item added to cart.', [], []);
         return response()->json($returnData);
+    }
+
+    public function removeFromCart(Request $request)
+    {
+        $request->validate([
+            'cart_id' => 'required|int',
+        ]);
+        $cart = Cart::find($request->cart_id);
+        $cart->delete();
+
+        $returnData = $this->prepareResponse(false, 'Item removed from cart.', [], []);
+        return response()->json($returnData);
+
     }
 
     public function cartListing(Request $request)

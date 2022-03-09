@@ -111,6 +111,7 @@
     import InventoryService from "../../../services/InventoryService";
     import CreateBrand from "./CreateBrand";
     import {EventBus} from '../../app';
+    import {Errors} from "../../../../../../../resources/js/error";
 
     export default {
         name: "BrandList",
@@ -119,6 +120,7 @@
         },
         data() {
             return {
+                errors: new Errors(),
                 id: '',
                 filter: '',
                 brands: [],
@@ -145,7 +147,7 @@
                     this.brands = response.data.data.brands.data;
                     this.brands_pg = response.data.data.brands;
                 }catch (error) {
-                    // Errors.Notification(error.response);
+                    Errors.Notification(error.response);
                 }
             },
 
@@ -157,7 +159,7 @@
             async deleteBrand(){
                 const response = await InventoryService.deleteBrand(this.id);
                 if (response.data.error === false) {
-                    // Errors.Notification(response);
+                    Errors.Notification(response);
                     this.getBrands()
                 }
                 $("#deleteBrandModal").modal('hide');

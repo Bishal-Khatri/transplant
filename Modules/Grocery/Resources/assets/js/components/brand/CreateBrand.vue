@@ -30,7 +30,8 @@
                                                     <span style="font-size: 18px" class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" v-model="brand_name" class="form-control" id="item_name" placeholder="Brand name *" required>
+                                                    <input type="text" v-model="brand_name" class="form-control" id="brand_name" placeholder="Brand name *" required>
+                                                    <span class="form-text small text-danger" v-html="errors.get('brand_name')"></span>
                                                 </div>
                                             </div>
                                         </form>
@@ -52,10 +53,12 @@
 <script>
     import InventoryService from "../../../services/InventoryService";
     import {EventBus} from '../../app';
+    import {Errors} from "../../../../../../../resources/js/error";
 
     export default {
         name: "CreateBrand",
         data: () => ({
+            errors: new Errors(),
             id: "",
             main_image: "",
             brand_name: "",
@@ -79,7 +82,7 @@
                     if (this.id){
                         formData.append("id", this.id);
                     }
-                    formData.append("brand_name", this.brand_name);
+                    this.brand_name ? formData.append("brand_name", this.brand_name) : '';
                     if(this.main_image){
                         formData.append("main_image", this.main_image, this.main_image.name);
                     }
@@ -87,20 +90,20 @@
                     if (response.data.error === false) {
                         this.dialog = false;
                         this.clearForm();
-                        // Errors.Notification(response);
+                        Errors.Notification(response);
+                        EventBus.$emit('brandAdded');
+                        $("#create-brand-dialog").modal("hide");
                     }
                     this.saveBtnLoading = false;
                 } catch (error) {
                     this.saveBtnLoading = false;
-                    // this.errors.record(error.response.data);
-                    // Errors.Notification(error.response);
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
                 }
-                EventBus.$emit('brandAdded');
-                $("#create-brand-dialog").modal("hide");
             },
 
             clearForm() {
-                // this.errors.clear();
+                this.errors.clear();
                 this.$refs.file.type='text';
                 this.$refs.file.type='file';
                 this.brand_name = this.id = this.main_image = '';

@@ -104,7 +104,8 @@ class ItemController extends Controller
     {
         $request->validate([
             'item_name' => 'required|max:255',
-            'sku' => 'required|max:50',
+            'sku' => 'nullable|max:50',
+            'unit_size' => 'nullable|max:50',
             'min_quantity_threshold' => 'nullable|integer',
         ]);
 
@@ -123,11 +124,12 @@ class ItemController extends Controller
         }
         $item->name = $request->item_name;
         $item->sku = $request->sku;
+        $item->unit_size = $request->unit_size;
         $item->description = $request->description;
         $item->category_id = $request->category_id ? $request->category_id : null;
         $item->brand_id = $request->brand_id ? $request->brand_id : null;
         $item->save();
-        $returnData = $this->prepareResponse(false, 'Item created successfully', [], []);
+        $returnData = $this->prepareResponse(false, 'Success <br> Item created/updated successfully', compact('item'), []);
         return response()->json($returnData, 200);
     }
 
@@ -146,7 +148,7 @@ class ItemController extends Controller
         $quantity->selling_price = $request->selling_price;
         $quantity->purchase_date = $request->purchase_date;
         $quantity->save();
-        $returnData = $this->prepareResponse(false, 'Quantity added successfully', [], []);
+        $returnData = $this->prepareResponse(false, 'Success <br> Quantity added successfully', [], []);
         return response()->json($returnData, 200);
     }
 
@@ -171,10 +173,10 @@ class ItemController extends Controller
         try {
             $item = Item::findOrFail($item_id);
             $item->delete();
-            $returnData = $this->prepareResponse(false, 'Record deleted successfully.', [], []);
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
             return response()->json($returnData, 200);
         } catch (\Exception $e) {
-            $returnData = $this->prepareResponse(false, "Could not delete record.", [], []);
+            $returnData = $this->prepareResponse(true, "Fail <br> Could not delete record.", [], []);
             return response()->json($returnData, 500);
         }
     }
@@ -184,10 +186,10 @@ class ItemController extends Controller
         try {
             $itemQuantity = ItemQuantity::findOrFail($item_quantity_id);
             $itemQuantity->delete();
-            $returnData = $this->prepareResponse(false, 'Record deleted successfully.', [], []);
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
             return response()->json($returnData, 200);
         } catch (\Exception $e) {
-            $returnData = $this->prepareResponse(false, "Could not delete record.", [], []);
+            $returnData = $this->prepareResponse(true, "Fail <br> Could not delete record.", [], []);
             return response()->json($returnData, 500);
         }
     }
@@ -213,7 +215,7 @@ class ItemController extends Controller
         $item_image->item_id = $item->id;
         $item_image->save();
 
-        $returnData = $this->prepareResponse(false, 'Image uploaded successfully', [], []);
+        $returnData = $this->prepareResponse(false, 'Success <br> Image uploaded successfully', [], []);
         return response()->json($returnData);
     }
     public function deleteAdditionalImage($image_id)
@@ -223,7 +225,7 @@ class ItemController extends Controller
             Storage::disk('local')->delete('public/' . $item_image->original);
             $item_image->delete();
 
-            $returnData = $this->prepareResponse(false, 'Image deleted successfully', [], []);
+            $returnData = $this->prepareResponse(false, 'Success <br> Image deleted successfully', [], []);
             return response()->json($returnData);
         }
     }

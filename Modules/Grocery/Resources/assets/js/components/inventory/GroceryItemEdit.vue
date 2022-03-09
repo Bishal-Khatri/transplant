@@ -9,18 +9,23 @@
                     <div class="panel-body">
                         <form method="POST" action="" enctype="multipart/form-data" @submit.prevent="saveItem">
                             <div class="form-group mb-4">
-                                <label for="name">Item Name</label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Item Name" v-model="name">
-                                <span class="form-text small text-danger"></span>
+                                <label for="name">Item Name <span style="font-size: 18px" class="text-danger">*</span></label>
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Item Name" v-model="name" required>
+                                <span class="form-text small text-danger" v-html="errors.get('name')"></span>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="name">SKU</label>
                                 <input type="text" class="form-control" id="sku" placeholder="Item SKU" v-model="sku">
-                                <span class="form-text small text-danger"></span>
+                                <span class="form-text small text-danger" v-html="errors.get('sku')"></span>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="category-image">
-                                    Main Image<br>
+                                <label for="unit_size">Unit size</label>
+                                <input type="text" class="form-control" id="unit_size" placeholder="Unit size of item" v-model="unit_size">
+                                <span class="form-text small text-danger" v-html="errors.get('unit_size')"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="main-image">
+                                    Main Image <span style="font-size: 18px" class="text-danger">*</span><br>
                                     <small class="text-muted">Your image needs to be at least 500×500 pixels. Choose new file or Replace</small>
                                 </label>
                                 <input type="file" id="main-image" class="form-control-file mb-1" name="image" accept="image/png, image/jpeg" @change="handelImage">
@@ -30,6 +35,7 @@
                             <div class="form-group mb-4">
                                 <label for="description">Description</label>
                                 <textarea class="form-control" rows="3" placeholder="Item Description" v-model="description" id="description"></textarea>
+                                <span class="form-text small text-danger" v-html="errors.get('description')"></span>
                             </div>
                             <div class="form-group mb-4">
                                 <div class="row">
@@ -39,6 +45,7 @@
                                             <option value="0">Root</option>
                                             <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                                         </select>
+                                        <span class="form-text small text-danger" v-html="errors.get('category')"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <h5>Selected Category</h5>
@@ -57,6 +64,7 @@
                                             <option value="0">Root</option>
                                             <option v-for="brand in brands" :value="brand.id">{{ brand.name }}</option>
                                         </select>
+                                        <span class="form-text small text-danger" v-html="errors.get('brand')"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <h5>Selected Brand</h5>
@@ -133,11 +141,17 @@
                         <div class="form-group mb-4">
                             <input type="file" id="additional-image" class="form-control-file mb-1" name="image" accept="image/png, image/jpeg" @change="uploadAdditionalImages" multiple>
                         </div>
-                        <img v-if="Object.keys(images).length === 0" src="/images/placeholder-dark.jpg" alt="" name="image" class="rounded image-xl">
-                        <div class="row" v-else >
-                            <div class="col-md-4 text-center mb-4" v-for="image in images">
-                                <img :src="'/storage/'+image.original" alt="" id="additional-image-preview" name="image" class="rounded image-xl">
-                                <button class="btn btn-sm btn-default" @click.prevent="deleteAdditionalImage(image.id)">Delete</button>
+                        <div v-if="uploading_image" style="height: 150px;" class="mt-4 pt-4">
+                            <div class="loader-bar"></div>
+                            <p class="text-center mt-4 text-muted">Uploading Images</p>
+                        </div>
+                        <div v-else>
+                            <img v-if="Object.keys(images).length === 0" src="/images/placeholder-dark.jpg" alt="" name="image" class="rounded image-xl">
+                            <div class="row" v-else >
+                                <div class="col-md-4 text-center mb-4" v-for="image in images">
+                                    <img :src="'/storage/'+image.original" alt="" id="additional-image-preview" name="image" class="rounded mb-1 image-xl">
+                                    <button class="btn btn-sm btn-default btn-block" @click.prevent="deleteAdditionalImage(image.id)">Delete</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -172,6 +186,7 @@
     import InventoryService from "../../../services/InventoryService";
     import {EventBus} from "../../app";
     import AddQuantity from "./AddQuantity";
+    import {Errors} from "../../../../../../../resources/js/error";
 
     export default {
         name: "GroceryItemEdit",
@@ -179,6 +194,8 @@
             AddQuantity,
         },
         data: () => ({
+            errors: new Errors(),
+            uploading_image: false,
             // form data
             name:'',
             description:'',
@@ -188,7 +205,7 @@
             brand_id:'',
             brand:'',
             category:'',
-
+            unit_size:'',
 
             item:'',
             item_image_url:'',
@@ -220,6 +237,7 @@
                 this.brand_id = response.item_data.brand_id;
                 this.brand = response.item_data.brand;
                 this.category = response.item_data.category;
+                this.unit_size = response.item_data.unit_size;
 
                 if (response.item_data.main_image_medium){
                     this.item_image_url = '/storage/' + response.item_data.main_image_medium;
@@ -242,8 +260,9 @@
                     let formData = new FormData();
                     formData.append("item_id", this.itemId);
                     formData.append("item_name", this.name);
-                    formData.append("sku", this.sku);
-                    formData.append("description", this.description);
+                    this.sku ? formData.append("sku", this.sku) : '';
+                    this.unit_size ? formData.append("unit_size", this.unit_size) : '';
+                    this.description ? formData.append("description", this.description): '';
                     if (this.category_id){
                         formData.append("category_id", this.category_id);
                     }
@@ -257,11 +276,11 @@
                     const response = await InventoryService.createItem(formData);
                     if (response.data.error === false) {
                         this.getItemDetails();
-                        // Errors.Notification(response);
+                        Errors.Notification(response);
                     }
                 } catch (error) {
-                    // this.errors.record(error.response.data);
-                    // Errors.Notification(error.response);
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
                 }
                 EventBus.$emit('itemAdded');
             },
@@ -285,13 +304,14 @@
                 this.deleteBtnLoading = true;
                 const response = await InventoryService.deleteQuantity(this.delete_quantity_id);
                 if (response.data.error === false) {
-                    // Errors.Notification(response);
+                    Errors.Notification(response);
                     this.getItemDetails();
                     this.hideDelete();
                     EventBus.$emit('quantityDeleted');
                 }
             },
             async uploadAdditionalImages(event){
+                this.uploading_image = true;
                 const files = event.target.files;
                 if (files.length){
                     for (let i=0; i < files.length; i++){
@@ -299,6 +319,7 @@
                     }
                     this.getItemDetails();
                 }
+                this.uploading_image = false;
             },
 
             async uploadFile(file){
@@ -311,17 +332,17 @@
                     const response = await InventoryService.uploadAdditionalImage(fd);
                     if (response.data.error === false) {
                     }
-                    // Errors.Notification(response);
+                    Errors.Notification(response);
                 }catch (error) {
-                    // this.errors.record(error.response.data);
-                    // Errors.Notification(error.response);
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
                 }
             },
 
             async deleteAdditionalImage(image_id){
                 const response = await InventoryService.deleteAdditionalImage(image_id);
                 if (response.data.error === false) {
-                    // Errors.Notification(response);
+                    Errors.Notification(response);
                     this.getItemDetails();
                 }
             }

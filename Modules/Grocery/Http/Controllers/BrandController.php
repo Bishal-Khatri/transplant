@@ -27,6 +27,7 @@ class BrandController extends Controller
         $filter = $request->filter ? $request->filter : '';
         $query = Brand::query();
         $query->where('name', 'LIKE', '%'.$filter.'%');
+        $query->orderBy('id', 'desc');
         $brands = $query->paginate(20);
         $returnData = $this->prepareResponse(false, 'success', compact('brands'), []);
         return response()->json($returnData, 200);
@@ -60,7 +61,7 @@ class BrandController extends Controller
 
         $brand->name = $request->brand_name;
         $brand->save();
-        $returnData = $this->prepareResponse(false, 'Brand created successfully', [], []);
+        $returnData = $this->prepareResponse(false, 'Success <br> Brand created successfully', [], []);
         return response()->json($returnData, 200);
     }
 
@@ -70,10 +71,10 @@ class BrandController extends Controller
             $brand = Brand::findOrFail($brand_id);
             $this->removeFile($brand);
             $brand->delete();
-            $returnData = $this->prepareResponse(false, 'Record deleted successfully.', [], []);
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
             return response()->json($returnData, 200);
         } catch (\Exception $e) {
-            $returnData = $this->prepareResponse(false, "Could not delete record.", [], []);
+            $returnData = $this->prepareResponse(true, "Fail <br>Could not delete record.", [], []);
             return response()->json($returnData, 500);
         }
     }

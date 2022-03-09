@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('sku', 50);
             $table->string('name', 255);
             $table->longText('description')->nullable();
+            $table->string('unit_size')->nullable();
             $table->string('main_image_original')->nullable();
             $table->string('main_image_large')->nullable();
             $table->string('main_image_medium')->nullable();

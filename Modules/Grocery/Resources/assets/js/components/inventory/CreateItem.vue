@@ -16,44 +16,42 @@
                                     <div class="panel-body">
                                         <form class="form-group">
                                             <div class="form-group row">
-                                                <label for="item_name" class="col-sm-2 col-form-label">Main Image
+                                                <label for="item_name" class="col-sm-3 col-form-label">Main Image
                                                     <span style="font-size: 18px" class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-9">
                                                     <input type="file" id="main-image" class="form-control-file mb-1" @change.prevent="handelImage" name="image" accept="image/png, image/jpeg">
                                                     <small class="text-muted">Your image needs to be at least 500×500 pixels.</small>
                                                 </div>
                                                 <br>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="item_name" class="col-sm-2 col-form-label">Item name
+                                                <label for="item_name" class="col-sm-3 col-form-label">Item name
                                                     <span style="font-size: 18px" class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-9">
                                                     <input type="text" v-model="item_name" class="form-control" id="item_name" placeholder="Item name *" required>
+                                                    <span class="form-text small text-danger" v-html="errors.get('name')"></span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="sku" class="col-sm-2 col-form-label">
+                                                <label for="sku" class="col-sm-3 col-form-label">
                                                     SKU
-                                                    <span style="font-size: 18px" class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-9">
                                                     <input type="text" v-model="sku" class="form-control" id="sku" placeholder="SKU *" >
+                                                    <span class="form-text small text-danger" v-html="errors.get('sku')"></span>
                                                 </div>
                                             </div>
-                                            <!--<div class="form-group row">-->
-                                            <!--<label for="brand" class="col-sm-2 col-form-label">-->
-                                            <!--Brand-->
-                                            <!--<small class="text-muted">Optional</small>-->
-                                            <!--</label>-->
-                                            <!--<div class="col-sm-10">-->
-                                            <!--<input type="text" v-model="brand" class="form-control" id="brand" placeholder="Brand Name" >-->
-                                            <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<v-col cols="10" sm="8">-->
-                                            <!--<v-autocomplete v-model="category" :items="categories" item-text="name" item-value="id" label="Category" required></v-autocomplete>-->
-                                            <!--</v-col>-->
+                                            <div class="form-group row">
+                                                <label for="sku" class="col-sm-3 col-form-label">
+                                                    Unit size
+                                                </label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" v-model="unit_size" class="form-control" id="unit_size" placeholder="Unit size of item *" >
+                                                    <span class="form-text small text-danger" v-html="errors.get('unit_size')"></span>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -61,6 +59,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <label> <input type="checkbox" v-model="continue_editing"> Continue editing </label>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-accent" @click.prevent="saveItem" >Save</button>
                     </div>
@@ -73,6 +72,7 @@
 <script>
     import InventoryService from "../../../services/InventoryService";
     import {EventBus} from '../../app';
+    import {Errors} from "../../../../../../../resources/js/error";
     export default {
         name: "CreateItem",
         props: {
@@ -80,12 +80,14 @@
         components: {
         },
         data: () => ({
+            errors: new Errors(),
             item_name: "",
             id: "",
             sku: "",
             category: "",
-            brand: "",
             item_image: "",
+            unit_size: "",
+            continue_editing: false,
         }),
         computed:{
         },
@@ -95,8 +97,7 @@
                     this.id = value.id;
                     this.item_name = value.name;
                     this.sku = value.sku;
-                    this.category = value.category_id;
-                    this.brand = value.brand;
+                    this.unit_size = value.unit_size;
                 }
                 $("#create-item-dialog").modal("show");
             },
@@ -113,15 +114,18 @@
 
                     const response = await InventoryService.createItem(formData);
                     if (response.data.error === false) {
+                        if (this.continue_editing && response.data.data.item){
+                            window.location.href = '/grocery/inventory/item/edit/'+response.data.data.item.id;
+                        }
                         $("#create-item-dialog").modal("hide");
                         this.clearForm();
-                        // Errors.Notification(response);
+                        Errors.Notification(response);
                     }
                     this.saveBtnLoading = false;
                 } catch (error) {
                     this.saveBtnLoading = false;
-                    // this.errors.record(error.response.data);
-                    // Errors.Notification(error.response);
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
                 }
                 EventBus.$emit('itemAdded');
             },
@@ -130,7 +134,7 @@
                 this.item_image= event.target.files[0];
             },
             clearForm() {
-                this.id = this.item_name = this.sku = this.category = this.brand = '';
+                this.id = this.item_name = this.sku = this.unit_size = '';
             },
         },
     };

@@ -153,6 +153,7 @@
     import CreateItem from "./CreateItem";
     import AddQuantity from "./AddQuantity";
     import {EventBus} from "../../app";
+    import {Errors} from "../../../../../../../resources/js/error";
 
     export default {
         name: "GroceryItemList",
@@ -206,7 +207,7 @@
             async deleteItem(){
                 const response = await InventoryService.deleteItem(this.delete_id);
                 if (response.data.error === false) {
-                    // Errors.Notification(response);
+                    Errors.Notification(response);
                     this.getGroceryItems();
                     $("#deleteItemModal").modal('hide');
                 }

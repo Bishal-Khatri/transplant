@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Cart\Entities\Cart;
+use Modules\Cart\Entities\Order;
 use Modules\Grocery\Entities\Item;
 
 class CartController extends Controller
@@ -21,27 +22,38 @@ class CartController extends Controller
             'quantity' => 'required|int',
             'item_type' => 'required|string'
         ]);
-        $cart = null;
-        if ($request->item_type === 'grocery'){
-            if (Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->exists()){
-                $cart = Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->first();
+        try {
+            $cart = null;
+            if ($request->item_type === 'grocery') {
+                if (Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->where('order_id', null)->exists()) {
+                    $cart = Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->where('order_id', null)->first();
+                }
+                $item = Item::findOrFail($request->item_id);
+            } else {
+                return response()->json($this->prepareResponse(true, 'Item type not found.', [], []));
             }
-            $item = Item::findOrFail($request->item_id);
-        }else{
-            return response()->json($this->prepareResponse(true, 'Item type not found.', [], []));
-        }
 
-        if (!$cart){
-            $cart = new Cart();
-            $cart->user_id = auth()->user()->id;
-            $cart->item_id = $item->id;
-            $cart->quantity = $request->quantity;
-        }else{
-            $cart->quantity = (int)$cart->quantity + (int)$request->quantity;
-        }
-        $cart->save();
+            $item_price = $item->currentPrice();
 
-        $returnData = $this->prepareResponse(false, 'Item added to cart.', [], []);
+            if (blank($item_price)){
+                return response()->json($this->prepareResponse(true, 'Item cannot be added to cart.', [], []));
+            }
+
+            if (!$cart) {
+                $cart = new Cart();
+                $cart->user_id = auth()->user()->id;
+                $cart->item_id = $item->id;
+                $cart->quantity = $request->quantity;
+                $cart->price = $item_price;
+            } else {
+                $cart->quantity = (int)$cart->quantity + (int)$request->quantity;
+            }
+            $cart->save();
+            $cart->load('item');
+            $returnData = $this->prepareResponse(false, 'Item added to cart.', compact('cart'), []);
+        } catch (\Exception $e) {
+            $returnData = $this->prepareResponse(true, $e->getMessage(), [], []);
+        }
         return response()->json($returnData);
     }
 
@@ -50,22 +62,84 @@ class CartController extends Controller
         $request->validate([
             'cart_id' => 'required|int',
         ]);
-        $cart = Cart::find($request->cart_id);
-        $cart->delete();
+        try {
+            $cart = Cart::findOrFail($request->cart_id);
+            $cart->delete();
 
-        $returnData = $this->prepareResponse(false, 'Item removed from cart.', [], []);
+            $returnData = $this->prepareResponse(false, 'Item removed from cart.', [], []);
+        } catch (\Exception $e) {
+            $returnData = $this->prepareResponse(true, $e->getMessage(), [], []);
+        }
+
         return response()->json($returnData);
 
     }
 
     public function cartListing(Request $request)
     {
-        $user = auth()->user();
-        if (!blank($user)){
-            $cart = Cart::with('item')->where('user_id', $user->id)->where('status', 0)->get();
-
+        try {
+            $user = auth()->user();
+            if (!blank($user)) {
+                $cart = Cart::with('item')->where('user_id', $user->id)->where('order_id', null)->get();
+            }
             $returnData = $this->prepareResponse(false, 'success', compact('cart'), []);
-            return response()->json($returnData);
+        } catch (\Exception $e) {
+            $returnData = $this->prepareResponse(true, $e->getMessage(), [], []);
         }
+        return response()->json($returnData);
+    }
+
+    public function createOrder(Request $request)
+    {
+        $request->validate([
+            'address_id' => 'required|int',
+            'payment_method' => 'required|string',
+        ]);
+        $user_id = auth()->user()->id;
+        $cart = Cart::with('item')->where('user_id', $user_id)->where('order_id', null)->get();
+        if (blank($cart)){
+            return response()->json($this->prepareResponse(true, 'Your cart is empty',[],[]));
+        }
+        $price = [];
+        foreach ($cart as $value){
+            $price[] = (int) $value->price * (int) $value->quantity;
+        }
+        $total_price = array_sum($price);
+
+        $order = new Order();
+        $order->user_id = $user_id;
+        $order->payment_method = $request->payment_method;
+        $order->payment_status = 0;
+        $order->total_price = $total_price;
+        $order->shipping_price = 0;
+        $order->address_id = $request->address_id;
+        $order->save();
+
+        // update cart data for order_id
+        foreach ($cart as $val){
+            $val->order_id = $order->id;
+            $val->save();
+        }
+        $order->load('cart', 'cart.item');
+        $returnData = $this->prepareResponse(false, 'success', compact('order'), []);
+        return response()->json($returnData);
+    }
+
+    public function displayOrder(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|int',
+        ]);
+
+        $orders = Order::with(['cart', 'cart.item'])->whereId($request->order_id)->first();
+        $returnData = $this->prepareResponse(false, 'success', compact('orders'), []);
+        return response()->json($returnData);
+    }
+
+    public function listOrders()
+    {
+        $orders = Order::with(['cart', 'cart.item'])->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        $returnData = $this->prepareResponse(false, 'success', compact('orders'), []);
+        return response()->json($returnData);
     }
 }

@@ -17,8 +17,10 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('quantity');
-            $table->unsignedBigInteger('status')->default(0)->comment('ordered/checked-out row has status 1');
+            $table->unsignedBigInteger('price');
+//            $table->unsignedBigInteger('status')->default(0)->comment('ordered/checked-out row has status 1');
             $table->timestamps();
         });
     }

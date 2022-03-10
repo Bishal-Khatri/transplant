@@ -45,25 +45,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except(['logout', 'apiLogout']);
     }
 
-    public function apiEmailLogin(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'device_name' => 'required',
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            $response = $this->prepareResponse(true, 'The provided credentials are incorrect.', [], []);
-            return $response;
-        }
-        $token = $user->createToken($request->device_name)->plainTextToken;
-        $response = $this->prepareResponse(false, 'Login Success.', ["token" => $token], []);
-        return $response;
-    }
-
     public function apiPhoneLogin(Request $request)
     {
         $request->validate([
@@ -82,8 +63,26 @@ class LoginController extends Controller
             $response = $this->prepareResponse(true, 'fail.', [], []);
         }
 
-        return $response;
+        return response()->json($response);
     }
+
+    public function apiEmailLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'device_name' => 'required',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            $response = $this->prepareResponse(true, 'The provided credentials are incorrect.', [], []);
+            return $response;
+        }
+        $token = $user->createToken($request->device_name)->plainTextToken;
+        return $this->sendApiLoginResponse($user, $token);
+    }
+
 
     public function validateOtp(Request $request)
     {
@@ -99,7 +98,12 @@ class LoginController extends Controller
         if (!$user){
             return $this->prepareResponse(true, 'The provided credentials are incorrect.', [], []);
         }
-        $otp = OTPLog::where('phone', $user->phone_number)->latest('id')->firstOrFail();
+        $otp = OTPLog::where('phone', $user->phone_number)->latest('id')->first();
+
+        if (blank($otp)){
+            return response()->json($this->prepareResponse(true, 'OTP not found', [], []));
+        }
+
         if ($otp->otp != $request->otp){
             $response = $this->prepareResponse(true, 'The provided credentials are incorrect.', [], []);
             return $response;
@@ -107,8 +111,14 @@ class LoginController extends Controller
 
         $token = $user->createToken($request->device_name)->plainTextToken;
 
+        return $this->sendApiLoginResponse($user, $token);
+    }
+
+    private function sendApiLoginResponse(User $user, $token)
+    {
+        $user->load('addresses', 'addresses.district', 'addresses.street');
         $response = $this->prepareResponse(false, 'Login Success.', compact('token', 'user'), []);
-        return $response;
+        return response()->json($response);
     }
 
     public function apiLogout(Request $request)

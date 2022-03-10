@@ -20,9 +20,9 @@ class GroceryDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        GroceryCategory::factory()->times(50)->create();
-        Item::factory()->times(200)->create();
-        Brand::factory()->times(50)->create();
-        ItemQuantity::factory()->times(200)->create();
+        GroceryCategory::factory()->times(5)->create();
+        Item::factory()->times(5)->create();
+        Brand::factory()->times(5)->create();
+        ItemQuantity::factory()->times(5)->create();
     }
 }

@@ -25,9 +25,18 @@
                         @endif
                     </ul>
                 </li>
-                <li class="{{ (request()->is('')) ? 'active' : '' }}">
-                    <a href="/grocery">App CMS</a>
+
+                <li class="{{ (request()->is('application/*')) ? 'active' : '' }}">
+                    <a href="#catalog" data-toggle="collapse" aria-expanded="{{ (request()->is('application/*')) ? 'true' : 'false' }}">
+                        App CMS <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="catalog" class="nav nav-second {{ (request()->is('application/*')) ? 'collapse show' : 'collapse' }}">
+                        <li class="@yield('banner_active')">
+                            <a href="{{ route('application.banners') }}">Banners</a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li class="{{ (request()->is('user') OR request()->is('user/*')) ? 'active' : '' }}">
                     <a href="/user">Users</a>
                 </li>

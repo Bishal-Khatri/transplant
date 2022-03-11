@@ -104,8 +104,8 @@
                                         <a class="btn btn-default btn-xs" :href="'/grocery/inventory/item/edit/'+value.id">
                                             <i class="fa fa-pencil"></i> Edit
                                         </a>
-                                        <button class="btn btn-default btn-xs text-danger" @click.prevent="showDeleteModal(value.id)">
-                                            <i class="fa fa-trash"></i> Delete
+                                        <button class="btn btn-default btn-xs" @click.prevent="showDeleteModal(value.id)">
+                                            <i class="fa fa-trash text-danger"></i> Delete
                                         </button>
                                     </div>
                                 </td>

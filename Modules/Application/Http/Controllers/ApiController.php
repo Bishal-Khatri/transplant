@@ -2,11 +2,15 @@
 
 namespace Modules\Application\Http\Controllers;
 
+use App\Models\District;
+use App\Models\Street;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
+
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Application\Entities\Banner;
+use Modules\Grocery\Entities\GroceryCategory;
 use Modules\Grocery\Entities\Item;
 use Nwidart\Modules\Facades\Module;
 
@@ -16,10 +20,37 @@ class ApiController extends Controller
     public function getHome()
     {
         $data = [];
+        $data['district'] = District::all();
+        $data['streets'] = Street::all();
         $data['banners'] = Banner::where('key', 'home')->get();
         $data['modules'] = $this->getActiveModules();
+
         if(Module::has('Grocery')){
-            $data['grocery'] = Item::with(['brand', 'category', 'images'])->limit(5)->get();
+            $items = Item::with(['brand', 'category', 'images'])->limit(5)->get();
+            $categories = GroceryCategory::with(['items' => function($query) {
+                return $query->limit(5);
+            }])->inRandomOrder(5)->get();
+//            $items->transform(function ($value, $key) {
+//                return [
+//                    'id' => $value->id,
+//                    'sku' => $value->sku,
+//                    'name' => $value->name,
+//                    'description' => $value->description,
+//                    'main_image_original' => $value->main_image_original,
+//                    'main_image_large' => $value->main_image_large,
+//                    'main_image_medium' => $value->main_image_medium,
+//                    'main_image_thumbnail' => $value->main_image_thumbnail,
+//                    'category' => $value->category,
+//                    'brand' => $value->brand,
+//                    'current_price' => $value->,
+//                    'images' => $value->images,
+//                    'current_price' => $current_price,
+//                    'old_price' => null,
+//                    'has_discount' => false,
+//                ];
+//            });
+
+            $data['grocery'] = $items;
         }
 
         if(Module::has('Restaurant')){

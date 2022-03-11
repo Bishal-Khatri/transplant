@@ -17,6 +17,7 @@ class CreateBannersTable extends Migration
             $table->id();
             $table->string('key');
             $table->string('image');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

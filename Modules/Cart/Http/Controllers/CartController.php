@@ -2,10 +2,12 @@
 
 namespace Modules\Cart\Http\Controllers;
 
+use App\Models\UserAddress;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
 use Modules\Cart\Entities\Cart;
 use Modules\Cart\Entities\Order;
 use Modules\Grocery\Entities\Item;
@@ -16,16 +18,18 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|int',
+        $validator = Validator::make($request->all(),  [
             'item_id' => 'required|int',
             'quantity' => 'required|int',
-            'item_type' => 'required|string'
         ]);
+        if($validator->fails()){
+            return response()->json($this->prepareResponse(true, "validation error.", [], []));
+        }
         try {
+            $user_id = auth()->user()->id;
             $cart = null;
             if ($request->item_type === 'grocery') {
-                if (Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->where('order_id', null)->exists()) {
+                if (Cart::where('item_id', $request->item_id)->where('user_id', $user_id)->where('order_id', null)->exists()) {
                     $cart = Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->where('order_id', null)->first();
                 }
                 $item = Item::findOrFail($request->item_id);
@@ -92,9 +96,18 @@ class CartController extends Controller
     public function createOrder(Request $request)
     {
         $request->validate([
-            'address_id' => 'required|int',
+            'address_id' => 'nullable|int',
+            'district_id' => 'nullable|int',
+            'street_id' => 'nullable|int',
+            'local_address' => 'nullable|string',
             'payment_method' => 'required|string',
         ]);
+        if (!isset($request->address_id) OR blank($request->address_id)){
+            $address = $this->createAddress($request);
+            $address_id = $address->id;
+        }else{
+            $address_id = $request->address_id;
+        }
         $user_id = auth()->user()->id;
         $cart = Cart::with('item')->where('user_id', $user_id)->where('order_id', null)->get();
         if (blank($cart)){
@@ -112,7 +125,7 @@ class CartController extends Controller
         $order->payment_status = 0;
         $order->total_price = $total_price;
         $order->shipping_price = 0;
-        $order->address_id = $request->address_id;
+        $order->address_id = $address_id;
         $order->save();
 
         // update cart data for order_id
@@ -123,6 +136,17 @@ class CartController extends Controller
         $order->load('cart', 'cart.item');
         $returnData = $this->prepareResponse(false, 'success', compact('order'), []);
         return response()->json($returnData);
+    }
+
+    public function createAddress(Request $request)
+    {
+        $address = new UserAddress();
+        $address->user_id = auth()->user()->id;
+        $address->district_id = $request->district_id;
+        $address->street_id = $request->street_id;
+        $address->local_address = $request->local_address;
+        $address->save();
+        return $address;
     }
 
     public function displayOrder(Request $request)

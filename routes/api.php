@@ -7,6 +7,9 @@ Route::post('/login/phone', [\App\Http\Controllers\Auth\LoginController::class, 
 Route::post('/validateOtp', [\App\Http\Controllers\Auth\LoginController::class, 'validateOtp']);
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
+    Route::get('/me', [\App\Http\Controllers\Auth\LoginController::class, 'getMyProfile']);
+    Route::post('/me', [\App\Http\Controllers\Auth\LoginController::class, 'updateMyProfile']);
+
     Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'apiLogout']);
 
     Route::get('/user', function (Request $request) {

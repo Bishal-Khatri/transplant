@@ -42,7 +42,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except(['logout', 'apiLogout']);
+        $this->middleware('guest')->except(['logout', 'apiLogout', 'updateMyProfile', 'getMyProfile']);
     }
 
     public function apiPhoneLogin(Request $request)
@@ -125,6 +125,33 @@ class LoginController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         $response = $this->prepareResponse(false, 'Logout Success.', [], []);
+        return $response;
+    }
+
+    public function getMyProfile()
+    {
+        $user = auth()->user();
+        $user->load('addresses');
+        $response = $this->prepareResponse(false, 'success', compact('user'), []);
+        return $response;
+    }
+
+    public function updateMyProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $user = auth()->user();
+        $user->name = $request->name;
+
+        if (isset($request->avatar) AND $request->hasFile('avatar')){
+            $path = $request->file('avatar')->store('avatar', 'public');
+            $user->avatar = $path;
+        }
+        $user->save();
+
+        $response = $this->prepareResponse(false, 'Profile updated successfully.', [], []);
         return $response;
     }
 }

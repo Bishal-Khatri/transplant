@@ -2,6 +2,7 @@
 
 namespace Modules\Cart\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,6 +16,13 @@ class Order extends Model
     {
         return \Modules\Cart\Database\factories\OrderFactory::new();
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        // return date('M d Y', strtotime($this->attributes['created_at']));
+        return date('M d Y', strtotime($value));
+    }
+
 
     public function cart()
     {

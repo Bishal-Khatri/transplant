@@ -17,7 +17,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::get()->groupBy('key');
+        $banners = Banner::orderBy('key')->get()->groupBy('key');
         return view('application::banner.index', compact('banners'));
     }
 

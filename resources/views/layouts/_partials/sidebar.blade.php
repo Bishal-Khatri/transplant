@@ -84,7 +84,7 @@
                         Restaurant Menu
                     </li>
                     <li class="{{ (request()->is('restaurant/list')) ? 'active' : '' }}">
-                        <a href="/restaurant">Restaurant List</a>
+                        <a href="/restaurant/list">Restaurant List</a>
                     </li>
                     <li class="{{ (request()->is('restaurant/orders')) ? 'active' : '' }}">
                         <a href="/restaurant">Orders</a>

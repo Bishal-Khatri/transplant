@@ -26,7 +26,9 @@
     <!-- Main content-->
     <section class="content">
         <div class="container-fluid">
-            @yield('content')
+            <div id="app">
+                @yield('content')
+            </div>
         </div>
     </section>
     <!-- End main content-->
@@ -34,7 +36,7 @@
 </div>
 <!-- End wrapper-->
 @include('layouts._partials.script')
-{{--<script src="{{ mix('js/restaurant.js') }}"></script>--}}
+<script src="{{ mix('js/restaurant.js') }}"></script>
 </body>
 
 </html>

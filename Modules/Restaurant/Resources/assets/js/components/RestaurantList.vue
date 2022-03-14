@@ -1,0 +1,161 @@
+<template>
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-filled">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group m-b-xs m-t-xs">
+                                    <input type="text" class="form-control" placeholder="Search by Item Name.." aria-describedby="button-addon2" v-model="meta.filter" @keydown.enter="getRestaurantItems"
+                                           @click:append="getRestaurantItems" @keypress="getRestaurantItems">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-filled">
+                    <div class="panel-body">
+                        <table class="table table-responsive-sm">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox">
+                                </th>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Address</th>
+                                <th style="width: 164px" class="text-right">
+                                    <span class="float-left">Actions</span>
+                                    <button @click.prevent="$refs.createRestaurant.openDialog()" class="text-right btn btn-default btn-xs">Add item</button>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-if="restaurants.length" v-for="(value, index) in restaurants" :key="index">
+                                <td><input type="checkbox"></td>
+                                <td>
+                                    {{ value.id }}
+                                </td>
+                                <td>
+                                    <a href="#" >{{ value.name }}</a>
+
+                                    <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
+                                </td>
+                                <td>{{ value.address }}</td>
+                                <td>
+                                    <img alt="image" class="rounded image-md" :src="'/storage/'+value.main_image_thumbnail">
+                                </td>
+                                <td>
+                                    <div class="btn-group pull-left">
+                                        <a class="btn btn-default btn-xs" :href="'/grocery/inventory/item/edit/'+value.id">
+                                            <i class="fa fa-pencil"></i> Edit
+                                        </a>
+                                        <button class="btn btn-default btn-xs" @click.prevent="showDeleteModal(value.id)">
+                                            <i class="fa fa-trash text-danger"></i> Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <pagination :data="restaurants_pg" @pagination-change-page="getRestaurantItems"></pagination>
+        </div>
+
+        <!--<preview-item ref="previewItem"></preview-item>-->
+        <create-restaurant ref="createRestaurant"/>
+
+        <div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Confirm Delete</h4>
+                        <small>Click <code>Delete</code> button to confirm.</small>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Attention !</strong> Are you sure you want to permanently delete this record?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <form action="" id="deleteForm">
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteItem">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<script>
+    import CreateRestaurant from "./CreateRestaurant";
+    import {Errors} from "../../../../../../resources/js/error";
+    import {EventBus} from "../app";
+    import RestaurantService from "../services/RestaurantService";
+
+    export default {
+        name: "RestaurantList",
+        components: {
+            CreateRestaurant,
+        },
+        data(){
+            return{
+                meta:{
+                    filter: '',
+                    category: '',
+                    brand: '',
+                },
+                delete_id: '',
+
+                restaurants: {},
+                restaurants_pg: {},
+            }
+        },
+        mounted() {
+            this.getRestaurantItems();
+            EventBus.$on('restaurantAdded', () => {
+                this.getRestaurantItems();
+            });
+            EventBus.$on('restaurantDeleted', () => {
+                this.getRestaurantItems();
+            });
+        },
+        methods:{
+            async getRestaurantItems(page=1){
+                const response = await RestaurantService.getRestaurant(page,this.meta);
+                this.restaurants_pg = response.data.data.restaurants;
+                this.restaurants = response.data.data.restaurants.data;
+            },
+
+            showDeleteModal(restaurant_id){
+                this.delete_id = restaurant_id;
+                $("#deleteRestaurantModal").modal('show');
+            },
+
+            async deleteItem(){
+                const response = await RestaurantService.deleteRestaurant(this.delete_id);
+                if (response.data.error === false) {
+                    Errors.Notification(response);
+                    this.getRestaurantItems();
+                    $("#deleteItemModal").modal('hide');
+                }
+                this.delete_id = '';
+            },
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

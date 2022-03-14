@@ -6,8 +6,6 @@ require('laravel-mix-merge-manifest');
 
 mix.setPublicPath('../../public').mergeManifest();
 
-// mix.js(__dirname + '/Resources/assets/js/app.js', 'js/grocery.js')
-//     .sass( __dirname + '/Resources/assets/sass/app.scss', 'css/grocery.css');
 mix.js(__dirname + '/Resources/assets/js/app.js', 'js/grocery.js');
 
 

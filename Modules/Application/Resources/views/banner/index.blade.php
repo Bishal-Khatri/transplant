@@ -57,7 +57,7 @@
                     </div>
                     <form class="form-group" action="{{ route('application.banners.create') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="text" id="key" name="key" value="">
+                        <input type="hidden" id="key" name="key" value="">
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">

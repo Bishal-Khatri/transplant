@@ -13,7 +13,7 @@
                                     <div class="panel-body">
                                         <form class="form-group">
                                             <div class="form-group row">
-                                                <label for="logo" class="col-sm-3 col-form-label">Logo / Main Image
+                                                <label for="logo" class="col-sm-3 col-form-label">Main Image
                                                     <span style="font-size: 18px" class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-sm-9">

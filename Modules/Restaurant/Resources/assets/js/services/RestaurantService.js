@@ -12,6 +12,6 @@ export default {
     },
 
     deleteRestaurant(restaurant_id){
-        return Api().get('/restaurant/web_api/delete/' + restaurant_id);
+        return Api().delete('/restaurant/web_api/delete/' + restaurant_id);
     },
 }

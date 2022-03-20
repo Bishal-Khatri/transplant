@@ -180,11 +180,22 @@ class ItemController extends Controller
         return response()->json($returnData, 200);
     }
 
-    public function delete($item_id)
+    public function delete(Request $request, $item_id)
     {
         try {
             $item = Item::findOrFail($item_id);
-            $item->delete();
+
+            if (isset($request->type) AND $request->type == 'permanent'){
+                Storage::delete('public/'.$item->main_image_original);
+                Storage::delete('public/'.$item->main_image_large);
+                Storage::delete('public/'.$item->main_image_medium);
+                Storage::delete('public/'.$item->main_image_thumbnail);
+
+                $item->forceDelete();
+
+            } else {
+                $item->delete();
+            }
 
             $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
             return response()->json($returnData, 200);

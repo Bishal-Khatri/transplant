@@ -11,9 +11,9 @@
                             <div class="col-lg-4">
                                 <div class="input-group m-b-xs m-t-xs">
                                     <input type="text" class="form-control" placeholder="Search by Name.." aria-describedby="button-addon2" v-model="meta.filter"
-                                           @keydown.enter="getRestaurantItems"
-                                           @click:append="getRestaurantItems"
-                                           @keypress="getRestaurantItems">
+                                           @keydown.enter="getRestaurants"
+                                           @click:append="getRestaurants"
+                                           @keypress="getRestaurants">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
                                     </div>
@@ -82,13 +82,13 @@
             </div>
         </div>
         <div class="pull-right">
-            <pagination :data="restaurants_pg" @pagination-change-page="getRestaurantItems"></pagination>
+            <pagination :data="restaurants_pg" @pagination-change-page="getRestaurants"></pagination>
         </div>
 
         <!--<preview-item ref="previewItem"></preview-item>-->
         <create-restaurant ref="createRestaurant"/>
 
-        <div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal fade" id="deleteRestaurantModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -101,7 +101,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <form action="" id="deleteForm">
-                            <button type="submit" class="btn btn-accent" @click.prevent="deleteItem">Delete</button>
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteRestaurant">Delete</button>
                         </form>
                     </div>
                 </div>
@@ -136,16 +136,16 @@
             }
         },
         mounted() {
-            this.getRestaurantItems();
+            this.getRestaurants();
             EventBus.$on('restaurantAdded', () => {
-                this.getRestaurantItems();
+                this.getRestaurants();
             });
             EventBus.$on('restaurantDeleted', () => {
-                this.getRestaurantItems();
+                this.getRestaurants();
             });
         },
         methods:{
-            async getRestaurantItems(page=1){
+            async getRestaurants(page=1){
                 const response = await RestaurantService.getRestaurant(page,this.meta);
                 this.restaurants_pg = response.data.data.restaurants;
                 this.restaurants = response.data.data.restaurants.data;
@@ -156,12 +156,12 @@
                 $("#deleteRestaurantModal").modal('show');
             },
 
-            async deleteItem(){
+            async deleteRestaurant(){
                 const response = await RestaurantService.deleteRestaurant(this.delete_id);
                 if (response.data.error === false) {
                     Errors.Notification(response);
-                    this.getRestaurantItems();
-                    $("#deleteItemModal").modal('hide');
+                    this.getRestaurants();
+                    $("#deleteRestaurantModal").modal('hide');
                 }
                 this.delete_id = '';
             },

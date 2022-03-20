@@ -89,12 +89,9 @@ class GroceryCategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $category = GroceryCategory::with('child')->where('id', $id)->firstOrFail();
-
-        // remove files
-        $this->removeFile($category);
 
         // remove parent
         if(!blank($category->child)){
@@ -104,7 +101,14 @@ class GroceryCategoryController extends Controller
             }
         }
 
-        $category->delete();
+        if (isset($request->type) AND $request->type == 'permanent'){
+            // remove files
+            $this->removeFile($category);
+
+            $category->forceDelete();
+        } else {
+            $category->delete();
+        }
 
         session()->flash('success', 'Success <br> Category deleted successfully.');
         return response()->json($this->prepareResponse(false, 'Success', [], []));
@@ -115,10 +119,10 @@ class GroceryCategoryController extends Controller
      */
     public function removeFile(GroceryCategory $cat)
     {
-        Storage::delete($cat->image_original);
-        Storage::delete($cat->image_large);
-        Storage::delete($cat->image_medium);
-        Storage::delete($cat->image_thumbnail);
+        Storage::delete('public/'.$cat->image_original);
+        Storage::delete('public/'.$cat->image_large);
+        Storage::delete('public/'.$cat->image_medium);
+        Storage::delete('public/'.$cat->image_thumbnail);
     }
 
 

@@ -65,12 +65,20 @@ class BrandController extends Controller
         return response()->json($returnData, 200);
     }
 
-    public function delete($brand_id)
+    public function delete(Request $request, $brand_id)
     {
         try {
             $brand = Brand::findOrFail($brand_id);
-            $this->removeFile($brand);
-            $brand->delete();
+
+            if (isset($request->type) AND $request->type == 'permanent'){
+                // remove files
+                $this->removeFile($brand);
+
+                $brand->forceDelete();
+            } else {
+                $brand->delete();
+            }
+
             $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
             return response()->json($returnData, 200);
         } catch (\Exception $e) {

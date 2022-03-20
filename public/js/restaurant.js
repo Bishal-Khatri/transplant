@@ -15205,7 +15205,7 @@ __webpack_require__.r(__webpack_exports__);
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/restaurant/web_api/list?page=' + page + '&filter=' + meta.filter);
   },
   deleteRestaurant: function deleteRestaurant(restaurant_id) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/restaurant/web_api/delete/' + restaurant_id);
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/restaurant/web_api/delete/' + restaurant_id);
   }
 });
 
@@ -15625,16 +15625,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     var _this = this;
 
-    this.getRestaurantItems();
+    this.getRestaurants();
     _app__WEBPACK_IMPORTED_MODULE_3__["EventBus"].$on('restaurantAdded', function () {
-      _this.getRestaurantItems();
+      _this.getRestaurants();
     });
     _app__WEBPACK_IMPORTED_MODULE_3__["EventBus"].$on('restaurantDeleted', function () {
-      _this.getRestaurantItems();
+      _this.getRestaurants();
     });
   },
   methods: {
-    getRestaurantItems: function getRestaurantItems() {
+    getRestaurants: function getRestaurants() {
       var _arguments = arguments,
           _this2 = this;
 
@@ -15665,7 +15665,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.delete_id = restaurant_id;
       $("#deleteRestaurantModal").modal('show');
     },
-    deleteItem: function deleteItem() {
+    deleteRestaurant: function deleteRestaurant() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
@@ -15683,9 +15683,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (response.data.error === false) {
                   _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"].Notification(response);
 
-                  _this3.getRestaurantItems();
+                  _this3.getRestaurants();
 
-                  $("#deleteItemModal").modal('hide');
+                  $("#deleteRestaurantModal").modal('hide');
                 }
 
                 _this3.delete_id = '';
@@ -17401,10 +17401,10 @@ var render = function () {
                           ) {
                             return null
                           }
-                          return _vm.getRestaurantItems.apply(null, arguments)
+                          return _vm.getRestaurants.apply(null, arguments)
                         },
-                        "click:append": _vm.getRestaurantItems,
-                        keypress: _vm.getRestaurantItems,
+                        "click:append": _vm.getRestaurants,
+                        keypress: _vm.getRestaurants,
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
@@ -17591,7 +17591,7 @@ var render = function () {
         [
           _c("pagination", {
             attrs: { data: _vm.restaurants_pg },
-            on: { "pagination-change-page": _vm.getRestaurantItems },
+            on: { "pagination-change-page": _vm.getRestaurants },
           }),
         ],
         1
@@ -17605,7 +17605,7 @@ var render = function () {
           staticClass: "modal fade",
           staticStyle: { display: "none" },
           attrs: {
-            id: "deleteItemModal",
+            id: "deleteRestaurantModal",
             tabindex: "-1",
             role: "dialog",
             "aria-hidden": "true",
@@ -17640,7 +17640,7 @@ var render = function () {
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
-                            return _vm.deleteItem.apply(null, arguments)
+                            return _vm.deleteRestaurant.apply(null, arguments)
                           },
                         },
                       },

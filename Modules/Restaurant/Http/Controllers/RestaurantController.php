@@ -78,11 +78,11 @@ class RestaurantController extends Controller
             $restaurant = Restaurant::findOrFail($id);
 
             if (!blank($restaurant->logo)){
-                Storage::delete($restaurant->logo);
+                Storage::delete('public/'.$restaurant->logo);
             }
 
             if (!blank($restaurant->cover_image)) {
-                Storage::delete($restaurant->cover_image);
+                Storage::delete('public/'.$restaurant->cover_image);
             }
 
             $restaurant->delete();

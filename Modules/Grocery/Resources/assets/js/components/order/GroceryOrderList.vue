@@ -39,45 +39,41 @@
                         <table class="table table-responsive-sm">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Item Name</th>
-                                <th>Image</th>
-                                <th>Category</th>
-                                <th>Brand</th>
-                                <th>Quantity</th>
-                                <th>Stock</th>
+                                <th>#OrderId</th>
+                                <th>Customer</th>
+                                <th>Items</th>
                                 <th>Price</th>
+                                <th>Order Date</th>
                                 <th style="width: 180px" class="text-right">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="n in 15">
+                            <tr v-for="value in 15">
                                 <td>
-                                    {{ n  }}
+                                    {{ value  }}
                                 </td>
                                 <td>
-                                    <a href="#">Comarch group contract</a>
-
-                                    <div class="small"><i class="fa fa-clock-o"></i> Created 06.10.2017</div>
+                                    {{ value  }}
                                 </td>
                                 <td>
-                                    <a href=""><img alt="image" class="rounded image-md" src="/asset/images/a1.jpg"></a>
-                                    <a href=""><img alt="image" class="rounded image-md" src="/asset/images/a5.jpg"></a>
+                                    <template v-if="value.user">
+                                        <div class="float-left mr-2">
+                                            <img v-if="value.user.avatar" alt="image" class="rounded image-md text-left mr-1" :src="'/storage/'+value.user.avatar">
+                                            <img v-else alt="image" class="rounded image-md text-left mr-1" src="/images/placeholder-dark.jpg">
+                                        </div>
+                                        <a href="#" >{{ value.user.name }}</a>
+                                        <div class="small"><i class="fa fa-map-pin"></i> Email: {{ value.user.email || '-' }}</div>
+                                    </template>
                                 </td>
                                 <td>
-                                    Original Category
+                                    <a href="#">4 Items</a>
                                 </td>
                                 <td>
-                                    Original Brand
+                                    Rs. 2076
                                 </td>
-                                <td>23</td>
                                 <td>
-                                    <div class="progress m-b-none full progress-small">
-                                        <div style="width: 12%" class="progress-bar progress-bar-warning"></div>
-                                    </div>
-                                    <small>12% compleated:</small>
+                                   27 Mar 2022
                                 </td>
-                                <td>Rs. 233</td>
                                 <td>
                                     <div class="btn-group pull-right">
                                         <button class="btn btn-default btn-xs"><i class="fa fa-folder"></i> View</button>
@@ -107,7 +103,7 @@
 </template>
 
 <script>
-    import InventoryService from "../../services/InventoryService";
+    import InventoryService from "../../../services/InventoryService";
 
     export default {
         name: "GroceryOrderList",

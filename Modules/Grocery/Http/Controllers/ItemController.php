@@ -28,6 +28,7 @@ class ItemController extends Controller
         $brands = Brand::all();
         $categories = GroceryCategory::all();
         $item = Item::findOrFail($id);
+
         return view('grocery::item.edit', compact('brands', 'categories', 'item'));
     }
 
@@ -36,20 +37,24 @@ class ItemController extends Controller
         $filter = $request->filter ? $request->filter : '';
         $category = $request->category ? $request->category : '';
         $brand = $request->brand ? $request->brand : '';
+
         $query = Item::query();
         $query->with(['category', 'brand', 'images'])->where('parent_id', null)
             ->where('name', 'LIKE', '%'.$filter.'%')
             ->orderBy('id', 'desc');
+
         if (!blank($category)){
             $query->whereHas('category', function($q) use ($category) {
                 $q->where('id', '=', $category);
             });
         }
+
         if (!blank($brand)){
             $query->whereHas('brand', function($q) use ($brand) {
                 $q->where('id', '=', $brand);
             });
         }
+
         $items = $query->paginate(20);
 
         $items->setCollection(
@@ -57,6 +62,7 @@ class ItemController extends Controller
                 $quantity = $value->quantity();
                 $variants = [];
                 $stock_level = null;
+
                 if ($value->has_variant){
                     $variants_all = $value->load('variants');
                     $variants = $variants_all->variants;
@@ -65,9 +71,10 @@ class ItemController extends Controller
                         $item->stock = $item->stockLevel();
                         return $item;
                     });
-                }else{
+                } else {
                     $stock_level = $value->stockLevel();
                 }
+
                 return [
                     'id' => $value->id,
                     'sku' => $value->sku,
@@ -96,6 +103,7 @@ class ItemController extends Controller
 
         $categories = GroceryCategory::all();
         $brands = Brand::all();
+
         $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands'), []);
         return response()->json($returnData, 200);
     }
@@ -109,9 +117,9 @@ class ItemController extends Controller
             'min_quantity_threshold' => 'nullable|integer',
         ]);
 
-        if($request->item_id){
+        if ($request->item_id) {
             $item = Item::findOrFail($request->item_id);
-        } else{
+        } else {
             $item = new Item();
         }
 
@@ -122,6 +130,7 @@ class ItemController extends Controller
             $item->main_image_medium = $main_image['medium'];
             $item->main_image_thumbnail = $main_image['thumbnail'];
         }
+
         $item->name = $request->item_name;
         $item->sku = $request->sku;
         $item->unit_size = $request->unit_size;
@@ -129,6 +138,7 @@ class ItemController extends Controller
         $item->category_id = $request->category_id ? $request->category_id : null;
         $item->brand_id = $request->brand_id ? $request->brand_id : null;
         $item->save();
+
         $returnData = $this->prepareResponse(false, 'Success <br> Item created/updated successfully', compact('item'), []);
         return response()->json($returnData, 200);
     }
@@ -148,6 +158,7 @@ class ItemController extends Controller
         $quantity->selling_price = $request->selling_price;
         $quantity->purchase_date = $request->purchase_date;
         $quantity->save();
+
         $returnData = $this->prepareResponse(false, 'Success <br> Quantity added successfully', [], []);
         return response()->json($returnData, 200);
     }
@@ -164,6 +175,7 @@ class ItemController extends Controller
             'old_price' => null,
             'stock_level' => $item_data->stockLevel(),
         ];
+
         $returnData = $this->prepareResponse(false, 'success', compact('item_data', 'inventory_details'), []);
         return response()->json($returnData, 200);
     }
@@ -173,6 +185,7 @@ class ItemController extends Controller
         try {
             $item = Item::findOrFail($item_id);
             $item->delete();
+
             $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
             return response()->json($returnData, 200);
         } catch (\Exception $e) {
@@ -186,6 +199,7 @@ class ItemController extends Controller
         try {
             $itemQuantity = ItemQuantity::findOrFail($item_quantity_id);
             $itemQuantity->delete();
+
             $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
             return response()->json($returnData, 200);
         } catch (\Exception $e) {
@@ -210,6 +224,7 @@ class ItemController extends Controller
 //                File::delete(public_path($college->logo_thumbnail));
 //            }
         $filePath = $file->store('item_additional_images', 'public');
+
         $item_image = new ItemImage();
         $item_image->original = $filePath;
         $item_image->item_id = $item->id;
@@ -222,7 +237,9 @@ class ItemController extends Controller
     {
         if ($image_id) {
             $item_image = ItemImage::findOrFail($image_id);
+
             Storage::disk('local')->delete('public/' . $item_image->original);
+
             $item_image->delete();
 
             $returnData = $this->prepareResponse(false, 'Success <br> Image deleted successfully', [], []);

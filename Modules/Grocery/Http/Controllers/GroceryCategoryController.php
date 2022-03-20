@@ -22,6 +22,7 @@ class GroceryCategoryController extends Controller
     {
         $categories = GroceryCategory::with('parent')->orderBy('id', 'desc')->paginate(10);
         $root_categories = GroceryCategory::where('parent_id', 0)->get();
+
         return view('grocery::category.index', compact('categories', 'root_categories'));
     }
 
@@ -34,7 +35,7 @@ class GroceryCategoryController extends Controller
 
         if (isset($request->id) AND !blank($request->id)){
             $cat = GroceryCategory::find($request->id);
-        }else{
+        } else {
             $cat = new GroceryCategory();
         }
 
@@ -50,10 +51,12 @@ class GroceryCategoryController extends Controller
             $cat->image_medium = $url['medium'];
             $cat->image_thumbnail = $url['thumbnail'];
         }
+
         $cat->name = $request->name;
         $cat->slug = $this->createSlug($request->name);
         $cat->parent_id = !blank($request->parent) ? $request->parent : 0;
         $cat->save();
+
         session()->flash('success', 'Success <br> Category created/updated successfully.');
         return redirect(route('grocery.category.index'));
     }
@@ -77,6 +80,7 @@ class GroceryCategoryController extends Controller
     {
         $root_categories = GroceryCategory::where('id', '<>', $id)->where('parent_id', 0)->get();
         $category_data = GroceryCategory::with(['parent'])->where('id', $id)->firstOrFail();
+
         return view('grocery::category.edit', compact('category_data', 'root_categories'));
     }
 
@@ -88,8 +92,10 @@ class GroceryCategoryController extends Controller
     public function destroy($id)
     {
         $category = GroceryCategory::with('child')->where('id', $id)->firstOrFail();
+
         // remove files
         $this->removeFile($category);
+
         // remove parent
         if(!blank($category->child)){
             foreach($category->child as $value){
@@ -99,6 +105,7 @@ class GroceryCategoryController extends Controller
         }
 
         $category->delete();
+
         session()->flash('success', 'Success <br> Category deleted successfully.');
         return response()->json($this->prepareResponse(false, 'Success', [], []));
     }

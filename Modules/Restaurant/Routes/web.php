@@ -9,5 +9,6 @@ Route::prefix('restaurant')->group(function() {
     Route::group(['prefix' => 'web_api'],function() {
         Route::post('/create', [RestaurantController::class, 'store']);
         Route::get('/list', [RestaurantController::class, 'apiListing']);
+        Route::delete('/delete/{id}', [RestaurantController::class, 'destroy']);
     });
 });

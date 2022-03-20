@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->integer('unique_id')->comment('user_id+district_id');
             $table->unsignedBigInteger('user_id');
             $table->string('payment_method')->comment('cod, khalti, esewa');
             $table->string('payment_status')->default(0)->comment('0->unpaid, 1->success, 2->fail');

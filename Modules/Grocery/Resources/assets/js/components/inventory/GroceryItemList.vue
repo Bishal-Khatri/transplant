@@ -5,7 +5,10 @@
                 <div class="panel panel-filled">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-2">
+                                <button @click.prevent="$refs.createItem.openDialog()" class="btn btn-accent btn-block btn-lg mt-1">Add New Item</button>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="input-group m-b-xs m-t-xs">
                                     <input type="text" class="form-control" placeholder="Search by Item Name.." aria-describedby="button-addon2" v-model="meta.filter" @keydown.enter="getGroceryItems"
                                            @click:append="getGroceryItems" @keypress="getGroceryItems">
@@ -14,16 +17,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <select class="form-control m-b-xs m-t-xs" name="account" style="width: 100%" @change="getGroceryItems" v-model="meta.category">
                                     <option value="">Filter By Category</option>
                                     <option v-for="(category, cat_index) in categories" :value="category.id" :key="cat_index">{{ category.name }}</option>
                                 </select>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <select class="form-control m-t-xs" name="account" style="width: 100%" @change="getGroceryItems" v-model="meta.brand">
                                     <option value="">Filter By Brand</option>
                                     <option v-for="(brand, b_index) in brands" :value="brand.id" :key="b_index">{{ brand.name }}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <select class="form-control m-t-xs" name="account" style="width: 100%" :disabled="bulkActionDisabled">
+                                    <option value="">Bulk Action</option>
+                                    <option>Archive</option>
+                                    <option>Delete</option>
                                 </select>
                             </div>
                         </div>
@@ -51,7 +61,6 @@
                                 <th>Stock</th>
                                 <th style="width: 164px" class="text-right">
                                    <span class="float-left">Actions</span>
-                                    <button @click.prevent="$refs.createItem.openDialog()" class="text-right btn btn-default btn-xs">Add item</button>
                                 </th>
                             </tr>
                             </thead>
@@ -176,6 +185,11 @@
                 categories: {},
                 brands: {},
 
+            }
+        },
+        computed: {
+            bulkActionDisabled: function () {
+                return true;
             }
         },
         mounted() {

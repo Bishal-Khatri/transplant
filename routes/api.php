@@ -16,3 +16,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
         return $request->user();
     });
 });
+
+Route::group(['middleware' => 'auth', 'prefix' => 'web_api'], function (){
+    Route::post('/getUserByEmail', [\App\Http\Controllers\HomeController::class, 'getUserByEmail']);
+});

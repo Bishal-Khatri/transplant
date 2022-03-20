@@ -22,6 +22,8 @@ class CreateRestaurantsTable extends Migration
             $table->longText('description')->nullable();
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
+            $table->unsignedBigInteger('user_id')->comment('main access user');
+            $table->boolean('status')->default(true)->comment('display status');
             $table->softDeletes();
             $table->timestamps();
         });

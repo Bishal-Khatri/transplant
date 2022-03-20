@@ -5,10 +5,15 @@
                 <div class="panel panel-filled">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-2">
+                                <button @click.prevent="$refs.createRestaurant.openDialog()" class="btn btn-accent btn-block mt-1">Add New Restaurant</button>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="input-group m-b-xs m-t-xs">
-                                    <input type="text" class="form-control" placeholder="Search by Item Name.." aria-describedby="button-addon2" v-model="meta.filter" @keydown.enter="getRestaurantItems"
-                                           @click:append="getRestaurantItems" @keypress="getRestaurantItems">
+                                    <input type="text" class="form-control" placeholder="Search by Name.." aria-describedby="button-addon2" v-model="meta.filter"
+                                           @keydown.enter="getRestaurantItems"
+                                           @click:append="getRestaurantItems"
+                                           @keypress="getRestaurantItems">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
                                     </div>
@@ -23,33 +28,41 @@
                         <table class="table table-responsive-sm">
                             <thead>
                             <tr>
-                                <th>
-                                    <input type="checkbox">
-                                </th>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Image</th>
-                                <th>Address</th>
+                                <th>Logo</th>
+                                <th>Restaurant</th>
+                                <th>Main User</th>
+                                <th>Display Status</th>
                                 <th style="width: 164px" class="text-right">
                                     <span class="float-left">Actions</span>
-                                    <button @click.prevent="$refs.createRestaurant.openDialog()" class="text-right btn btn-default btn-xs">Add item</button>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-if="restaurants.length" v-for="(value, index) in restaurants" :key="index">
-                                <td><input type="checkbox"></td>
                                 <td>
                                     {{ value.id }}
                                 </td>
                                 <td>
-                                    <a href="#" >{{ value.name }}</a>
-
-                                    <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
+                                    <img alt="image" class="rounded image-md" :src="'/storage/'+value.logo">
                                 </td>
-                                <td>{{ value.address }}</td>
                                 <td>
-                                    <img alt="image" class="rounded image-md" :src="'/storage/'+value.main_image_thumbnail">
+                                    <a href="#" >{{ value.name }}</a>
+                                    <div class="small"><i class="fa fa-map-pin"></i> Address: {{ value.address || '-' }}</div>
+                                </td>
+                                <td>
+                                    <template v-if="value.user">
+                                        <div class="float-left mr-2">
+                                            <img v-if="value.user.avatar" alt="image" class="rounded image-md text-left mr-1" :src="'/storage/'+value.user.avatar">
+                                            <img v-else alt="image" class="rounded image-md text-left mr-1" src="/images/placeholder-dark.jpg">
+                                        </div>
+                                        <a href="#" >{{ value.user.name }}</a>
+                                        <div class="small"><i class="fa fa-map-pin"></i> Email: {{ value.user.email || '-' }}</div>
+                                    </template>
+                                </td>
+                                <td>
+                                    <button class="btn btn-accent btn-rounded btn-sm" v-if="value.status === true">ENABLED</button>
+                                    <button class="btn btn-accent btn-rounded btn-sm" v-else-if="value.status === false">DISABLED</button>
                                 </td>
                                 <td>
                                     <div class="btn-group pull-left">

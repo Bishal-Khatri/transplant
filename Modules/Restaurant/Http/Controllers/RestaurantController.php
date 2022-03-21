@@ -24,6 +24,13 @@ class RestaurantController extends Controller
         return view('restaurant::restaurant-list');
     }
 
+    public function edit($id)
+    {
+        $restaurant = Restaurant::findOrFail($id);
+
+        return view('restaurant::restaurant-edit', compact('restaurant'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([

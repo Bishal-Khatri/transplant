@@ -12,6 +12,7 @@ use Illuminate\Routing\Controller;
 use Modules\Application\Entities\Banner;
 use Modules\Grocery\Entities\GroceryCategory;
 use Modules\Grocery\Entities\Item;
+use Modules\Restaurant\Entities\Restaurant;
 use Nwidart\Modules\Facades\Module;
 
 class ApiController extends Controller
@@ -30,6 +31,7 @@ class ApiController extends Controller
             $categories = GroceryCategory::with(['items' => function($query) {
                 return $query->limit(5);
             }])->inRandomOrder(5)->get();
+
 //            $items->transform(function ($value, $key) {
 //                return [
 //                    'id' => $value->id,
@@ -51,10 +53,14 @@ class ApiController extends Controller
 //            });
 
             $data['grocery'] = $items;
+            $data['categories'] = $categories;
         }
 
         if(Module::has('Restaurant')){
-            $data['restaurant'] = [];
+            $restaurant = Restaurant::with(['items' => function($query) {
+                return $query->limit(5);
+            }])->inRandomOrder(5)->get();
+            $data['restaurant'] = $restaurant;
         }
 
         $returnData = $this->prepareResponse(false, 'success', $data, []);

@@ -66,7 +66,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group pull-left">
-                                        <a class="btn btn-default btn-xs" :href="'/grocery/inventory/item/edit/'+value.id">
+                                        <a class="btn btn-default btn-xs" :href="'/restaurant/edit/'+value.id">
                                             <i class="fa fa-pencil"></i> Edit
                                         </a>
                                         <button class="btn btn-default btn-xs" @click.prevent="showDeleteModal(value.id)">

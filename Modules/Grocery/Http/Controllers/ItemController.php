@@ -2,6 +2,8 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
+use App\Enum\CategoryType;
+use App\Models\Category;
 use App\Traits\FileStore;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
@@ -9,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Modules\Grocery\Entities\Brand;
-use Modules\Grocery\Entities\GroceryCategory;
 use Modules\Grocery\Entities\Item;
 use Modules\Grocery\Entities\ItemImage;
 use Modules\Grocery\Entities\ItemQuantity;
@@ -26,7 +27,7 @@ class ItemController extends Controller
     public function edit($id)
     {
         $brands = Brand::all();
-        $categories = GroceryCategory::all();
+        $categories = Category::where('type', CategoryType::GROCERY)->get();
         $item = Item::findOrFail($id);
 
         return view('grocery::item.edit', compact('brands', 'categories', 'item'));
@@ -101,7 +102,7 @@ class ItemController extends Controller
             })
         );
 
-        $categories = GroceryCategory::all();
+        $categories = Category::where('type', CategoryType::GROCERY)->get();
         $brands = Brand::all();
 
         $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands'), []);

@@ -2,6 +2,7 @@
 
 namespace Modules\Grocery\Entities;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +23,7 @@ class Item extends Model
     }
     public function category()
     {
-        return $this->belongsTo(GroceryCategory::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function brand()

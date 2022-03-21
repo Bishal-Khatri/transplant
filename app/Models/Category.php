@@ -1,12 +1,13 @@
 <?php
 
-namespace Modules\Grocery\Entities;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Grocery\Entities\Item;
 
-class GroceryCategory extends Model
+class Category extends Model
 {
     use HasFactory, softDeletes;
 
@@ -19,12 +20,12 @@ class GroceryCategory extends Model
 
     public function child()
     {
-        return $this->hasMany(GroceryCategory::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(GroceryCategory::class, 'parent_id');
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function items()

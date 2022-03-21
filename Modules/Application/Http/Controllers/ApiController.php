@@ -2,7 +2,9 @@
 
 namespace Modules\Application\Http\Controllers;
 
+use App\Enum\CategoryType;
 use App\Models\District;
+use App\Models\Category;
 use App\Models\Street;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
@@ -10,7 +12,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Application\Entities\Banner;
-use Modules\Grocery\Entities\GroceryCategory;
 use Modules\Grocery\Entities\Item;
 use Modules\Restaurant\Entities\Restaurant;
 use Nwidart\Modules\Facades\Module;
@@ -28,7 +29,7 @@ class ApiController extends Controller
 
         if(Module::has('Grocery')){
             $items = Item::with(['brand', 'category', 'images'])->limit(5)->get();
-            $categories = GroceryCategory::with(['items' => function($query) {
+            $categories = Category::where('type', CategoryType::GROCERY)->with(['items' => function($query) {
                 return $query->limit(5);
             }])->inRandomOrder(5)->get();
 

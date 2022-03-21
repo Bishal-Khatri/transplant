@@ -1,6 +1,8 @@
 <?php
 namespace Modules\Grocery\Database\factories;
 
+use App\Enum\CategoryType;
+use App\Models\Category;
 use App\Traits\FileStore;
 use App\Traits\Slug;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -13,7 +15,7 @@ class GroceryCategoryFactory extends Factory
      *
      * @var string
      */
-    protected $model = \Modules\Grocery\Entities\GroceryCategory::class;
+    protected $model = Category::class;
 
     /**
      * Define the model's default state.
@@ -26,6 +28,7 @@ class GroceryCategoryFactory extends Factory
         return [
             'name' => $word,
             'slug' => $this->createSlug($word),
+            'type' => CategoryType::GROCERY
 //            'image_original' => $result['original'],
 //            'image_thumbnail' => $result['thumbnail'],
 //            'image_large' => $result['large'],

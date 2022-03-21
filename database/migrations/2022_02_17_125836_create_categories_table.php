@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroceryCategoriesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateGroceryCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('grocery_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug');
+//            $table->string('type')->comment('grocery,restaurant');
+            $table->enum('type', ['grocery', 'restaurant']);
             $table->string('image_original')->nullable();
             $table->string('image_large')->nullable();
             $table->string('image_medium')->nullable();
@@ -34,6 +36,6 @@ class CreateGroceryCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grocery_categories');
+        Schema::dropIfExists('categories');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
+use App\Enum\CategoryType;
+use App\Models\Category;
 use App\Traits\FileStore;
 use App\Traits\SetResponse;
 use App\Traits\Slug;
@@ -9,7 +11,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
-use Modules\Grocery\Entities\GroceryCategory;
 
 class GroceryCategoryController extends Controller
 {
@@ -20,8 +21,8 @@ class GroceryCategoryController extends Controller
      */
     public function index()
     {
-        $categories = GroceryCategory::with('parent')->orderBy('id', 'desc')->paginate(10);
-        $root_categories = GroceryCategory::where('parent_id', 0)->get();
+        $categories = Category::with('parent')->where('type', CategoryType::GROCERY)->orderBy('id', 'desc')->paginate(10);
+        $root_categories = Category::where('parent_id', 0)->where('type', CategoryType::GROCERY)->get();
 
         return view('grocery::category.index', compact('categories', 'root_categories'));
     }
@@ -34,9 +35,9 @@ class GroceryCategoryController extends Controller
         ]);
 
         if (isset($request->id) AND !blank($request->id)){
-            $cat = GroceryCategory::find($request->id);
+            $cat = Category::find($request->id);
         } else {
-            $cat = new GroceryCategory();
+            $cat = new Category();
         }
 
         if ($request->hasFile('image')){
@@ -55,6 +56,7 @@ class GroceryCategoryController extends Controller
         $cat->name = $request->name;
         $cat->slug = $this->createSlug($request->name);
         $cat->parent_id = !blank($request->parent) ? $request->parent : 0;
+        $cat->type = CategoryType::GROCERY;
         $cat->save();
 
         session()->flash('success', 'Success <br> Category created/updated successfully.');
@@ -78,20 +80,21 @@ class GroceryCategoryController extends Controller
      */
     public function edit($id)
     {
-        $root_categories = GroceryCategory::where('id', '<>', $id)->where('parent_id', 0)->get();
-        $category_data = GroceryCategory::with(['parent'])->where('id', $id)->firstOrFail();
+        $root_categories = Category::where('id', '<>', $id)->where('type', CategoryType::GROCERY)->where('parent_id', 0)->get();
+        $category_data = Category::with(['parent'])->where('type', CategoryType::GROCERY)->where('id', $id)->firstOrFail();
 
         return view('grocery::category.edit', compact('category_data', 'root_categories'));
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param Request $request
      * @param int $id
      * @return Renderable
      */
     public function destroy(Request $request, $id)
     {
-        $category = GroceryCategory::with('child')->where('id', $id)->firstOrFail();
+        $category = Category::with('child')->where('id', $id)->firstOrFail();
 
         // remove parent
         if(!blank($category->child)){
@@ -115,9 +118,9 @@ class GroceryCategoryController extends Controller
     }
 
     /**
-     * @param GroceryCategory $cat
+     * @param Category $cat
      */
-    public function removeFile(GroceryCategory $cat)
+    public function removeFile(Category $cat)
     {
         Storage::delete('public/'.$cat->image_original);
         Storage::delete('public/'.$cat->image_large);

@@ -19,12 +19,22 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function groceryIndex()
     {
+        $type = CategoryType::GROCERY;
         $categories = Category::with('parent')->where('type', CategoryType::GROCERY)->orderBy('id', 'desc')->paginate(10);
         $root_categories = Category::where('parent_id', 0)->where('type', CategoryType::GROCERY)->get();
 
-        return view('category.index', compact('categories', 'root_categories'));
+        return view('category.index', compact('categories', 'root_categories', 'type'));
+    }
+
+    public function restaurantIndex()
+    {
+        $type = CategoryType::RESTAURANT;
+        $categories = Category::with('parent')->where('type', CategoryType::RESTAURANT)->orderBy('id', 'desc')->paginate(10);
+        $root_categories = Category::where('parent_id', 0)->where('type', CategoryType::RESTAURANT)->get();
+
+        return view('category.index', compact('categories', 'root_categories', 'type'));
     }
 
     public function store(Request $request)
@@ -38,6 +48,7 @@ class CategoryController extends Controller
             $cat = Category::find($request->id);
         } else {
             $cat = new Category();
+            $cat->type = $request->type;
         }
 
         if ($request->hasFile('image')){
@@ -56,11 +67,10 @@ class CategoryController extends Controller
         $cat->name = $request->name;
         $cat->slug = $this->createSlug($request->name);
         $cat->parent_id = !blank($request->parent) ? $request->parent : 0;
-        $cat->type = CategoryType::GROCERY;
         $cat->save();
 
         session()->flash('success', 'Success <br> Category created/updated successfully.');
-        return redirect(route('grocery.category.index'));
+        return redirect()->back();
     }
 
     /**

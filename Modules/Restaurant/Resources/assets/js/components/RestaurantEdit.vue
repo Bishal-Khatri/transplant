@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <a href="/grocery/item" class="btn btn-default">Discard</a>
-                            <button type="subm  it" class="btn btn-accent">Update Details</button>
+                            <button type="submit" class="btn btn-accent">Update Details</button>
                         </form>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                 <div class="panel panel-filled">
                     <div class="panel-heading">
                         Menu
-                        <button class="btn btn-default btn-xs float-right" @click.prevent="$refs.addQuantity.openDialog(item)">
+                        <button class="btn btn-default btn-xs float-right" @click.prevent="$refs.addItem.openDialog(restaurant)">
                             <i class="fa fa-plus"></i> Add Item
                         </button>
                     </div>
@@ -101,9 +101,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="value in 5" :key="value.id">
+                            <tr v-for="value in menu" :key="value.id">
                                 <td class="">
-                                    <img src="/images/placeholder-dark.jpg" alt="" name="image" class="rounded image-md">
+                                    <img v-if="value.image" :src="'/storage/'+value.image" alt="" name="image" class="rounded image-md">
+                                    <img v-else src="/images/placeholder-dark.jpg" alt="" name="image" class="rounded image-md">
                                 </td>
                                 <td class=""><code>Buff Momo</code></td>
                                 <td class=""><code>Rs. 200</code></td>
@@ -144,7 +145,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal fade" id="deleteMenuModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -157,23 +158,31 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" @click.prevent="hideDelete">Cancel</button>
                         <form action="" id="deleteForm">
-                            <button type="submit" class="btn btn-accent" @click.prevent="deleteQuantity">Delete</button>
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteMenu">Delete</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
+        <add-item ref="addItem" :categories="categories"/>
     </div>
 </template>
 
 <script>
     import {EventBus} from "../app";
     import {Errors} from "../../../../../../resources/js/error";
+    import AddItem from "./AddItem";
 
     export default {
         name: "RestaurantEdit",
         components: {
+            AddItem
         },
+        props: [
+            'restaurant',
+            'categories',
+        ],
         data: () => ({
             errors: new Errors(),
             uploading_image: false,
@@ -191,9 +200,6 @@
             amenities:[],
             menu:[],
         }),
-        props: [
-            'restaurant',
-        ],
         computed:{
         },
         async mounted(){
@@ -263,24 +269,24 @@
             },
             async showDelete(delete_id){
                 this.delete_quantity_id = delete_id;
-                $("#deleteModal").modal("show");
+                $("#deleteMenuModal").modal("show");
             },
             async hideDelete(){
                 this.delete_quantity_id = '';
-                $("#deleteModal").modal("hide");
+                $("#deleteMenuModal").modal("hide");
             },
 
-            async uploadAdditionalImages(event){
-                this.uploading_image = true;
-                const files = event.target.files;
-                if (files.length){
-                    for (let i=0; i < files.length; i++){
-                        await this.uploadFile(files[i]);
-                    }
-                    this.getItemDetails();
-                }
-                this.uploading_image = false;
-            },
+            // async uploadAdditionalImages(event){
+            //     this.uploading_image = true;
+            //     const files = event.target.files;
+            //     if (files.length){
+            //         for (let i=0; i < files.length; i++){
+            //             await this.uploadFile(files[i]);
+            //         }
+            //         this.getItemDetails();
+            //     }
+            //     this.uploading_image = false;
+            // },
 
             async uploadFile(file){
                 const fd = new FormData();

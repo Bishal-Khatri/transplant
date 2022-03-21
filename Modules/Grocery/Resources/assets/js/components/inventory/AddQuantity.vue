@@ -59,6 +59,7 @@
 <script>
     import InventoryService from "../../../services/InventoryService";
     import {EventBus} from '../../app';
+    import {Errors} from "../../../../../../../resources/js/error";
     export default {
         name: "AddQuantity",
         props: {
@@ -66,6 +67,7 @@
         components: {
         },
         data: () => ({
+            errors: new Errors(),
             item: "",
             item_id: "",
             quantity: "",
@@ -99,14 +101,14 @@
                     if (response.data.error === false) {
                         $("#quantity-dialog").modal("hide");
                         this.clearForm();
-                        // Errors.Notification(response);
+                        Errors.Notification(response);
                     }
                     this.saveBtnLoading = false;
                 } catch (error) {
                     this.saveBtnLoading = false;
                     alert("Error!! Check required fields")
-                    // this.errors.record(error.response.data);
-                    // Errors.Notification(error.response);
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
                 }
                 EventBus.$emit('quantityAdded');
             },

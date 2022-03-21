@@ -41,7 +41,10 @@
                     <a href="/user">Users & Authorization</a>
                 </li>
                 <li class="@yield('category_active')">
-                    <a href="{{ route('grocery.category.index') }}">Categories</a>
+                    <a href="{{ route('grocery.category.index') }}">Grocery Categories</a>
+                </li>
+                <li class="@yield('category_active')">
+                    <a href="{{ route('restaurant.category.index') }}">Restaurant Categories</a>
                 </li>
                 <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">Profile</a>

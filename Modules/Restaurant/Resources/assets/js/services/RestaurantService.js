@@ -14,4 +14,8 @@ export default {
     deleteRestaurant(restaurant_id){
         return Api().delete('/restaurant/web_api/delete/' + restaurant_id);
     },
+
+    saveMenuItem(formData){
+        return Api().post('/restaurant/web_api/saveItem', formData);
+    },
 }

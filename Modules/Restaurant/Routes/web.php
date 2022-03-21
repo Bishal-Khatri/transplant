@@ -11,5 +11,6 @@ Route::group(['prefix' => 'restaurant', 'middleware' => 'auth'], function (){
         Route::post('/create', [RestaurantController::class, 'store']);
         Route::get('/list', [RestaurantController::class, 'apiListing']);
         Route::delete('/delete/{id}', [RestaurantController::class, 'destroy']);
+        Route::post('/saveItem', [RestaurantController::class, 'saveItem']);
     });
 });

@@ -1,6 +1,7 @@
 <form method="POST" action="{{ route('grocery.category.store') }}" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="id" value="{{ isset($category_data) ? $category_data->id : null }}">
+    <input type="hidden" name="type" value="{{ isset($type) ? $type : null }}">
     <div class="form-group mb-4">
         <label for="name">Category Name</label>
         <input type="text" name="name" class="form-control" id="name" placeholder="Category Name" value="{{ isset($category_data) ? $category_data->name : old('name') }}">

@@ -51,14 +51,7 @@
         $(".select2_demo_3").select2();
     })
 </script>
-<script>
-    $(document).ready(function () {
-        $("#category-image").on("change", function (event) {
-            let newSrc = URL.createObjectURL(event.target.files[0]);
-            $('#cat-image-preview').attr('src', newSrc);
-        })
-    })
-</script>
+
 @yield('script')
 </body>
 

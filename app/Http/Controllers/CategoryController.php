@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Grocery\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\Enum\CategoryType;
 use App\Models\Category;
@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 
-class GroceryCategoryController extends Controller
+class CategoryController extends Controller
 {
     use Slug,FileStore, SetResponse;
     /**
@@ -24,7 +24,7 @@ class GroceryCategoryController extends Controller
         $categories = Category::with('parent')->where('type', CategoryType::GROCERY)->orderBy('id', 'desc')->paginate(10);
         $root_categories = Category::where('parent_id', 0)->where('type', CategoryType::GROCERY)->get();
 
-        return view('grocery::category.index', compact('categories', 'root_categories'));
+        return view('category.index', compact('categories', 'root_categories'));
     }
 
     public function store(Request $request)
@@ -64,16 +64,6 @@ class GroceryCategoryController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('grocery::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Renderable
@@ -83,7 +73,7 @@ class GroceryCategoryController extends Controller
         $root_categories = Category::where('id', '<>', $id)->where('type', CategoryType::GROCERY)->where('parent_id', 0)->get();
         $category_data = Category::with(['parent'])->where('type', CategoryType::GROCERY)->where('id', $id)->firstOrFail();
 
-        return view('grocery::category.edit', compact('category_data', 'root_categories'));
+        return view('category.edit', compact('category_data', 'root_categories'));
     }
 
     /**

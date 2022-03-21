@@ -1,4 +1,4 @@
-@extends('grocery::layouts.master')
+@extends('layouts.app')
 @section('category_active') active @stop
 @section('content')
     <div class="row">
@@ -28,7 +28,7 @@
                     Create New Category
                 </div>
                 <div class="panel-body">
-                    @include('grocery::category.form')
+                    @include('category.form')
                 </div>
             </div>
         </div>

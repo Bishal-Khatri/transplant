@@ -38,10 +38,10 @@
                 </li>
 
                 <li class="{{ (request()->is('user') OR request()->is('user/*')) ? 'active' : '' }}">
-                    <a href="/user">Users</a>
+                    <a href="/user">Users & Authorization</a>
                 </li>
-                <li class="{{ (request()->is('')) ? 'active' : '' }}">
-                    <a href="/grocery">Authorization</a>
+                <li class="@yield('category_active')">
+                    <a href="{{ route('grocery.category.index') }}">Categories</a>
                 </li>
                 <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">Profile</a>
@@ -59,9 +59,6 @@
                             Catalog <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
                         </a>
                         <ul id="catalog" class="nav nav-second {{ (request()->is('grocery/*')) ? 'collapse show' : 'collapse' }}">
-                            <li class="@yield('category_active')">
-                                <a href="{{ route('grocery.category.index') }}">Categories</a>
-                            </li>
                             @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
                                 <li class="@yield('brand_active')">
                                     <a href="{{ route('grocery.brand.index') }}"> Brands</a>

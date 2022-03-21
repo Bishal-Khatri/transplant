@@ -1,17 +1,13 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Modules\Grocery\Http\Controllers\BrandController;
-use Modules\Grocery\Http\Controllers\GroceryCategoryController;
 use Modules\Grocery\Http\Controllers\GroceryController;
 use Modules\Grocery\Http\Controllers\ItemController;
 use Modules\Grocery\Http\Controllers\OrderController;
 
 Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
     Route::get('/', [GroceryController::class, 'index'])->name('grocery.index');
-    Route::get('/category', [GroceryCategoryController::class, 'index'])->name('grocery.category.index');
-    Route::post('/category/store', [GroceryCategoryController::class, 'store'])->name('grocery.category.store');
-    Route::get('/category/edit/{category_id}', [GroceryCategoryController::class, 'edit'])->name('grocery.category.edit');
-    Route::delete('/category/delete/{category_id}', [GroceryCategoryController::class, 'destroy'])->name('grocery.category.delete');
 
     Route::group(['prefix' => 'item'], function () {
         Route::get('/', [ItemController::class, 'index'])->name('grocery.item.index');

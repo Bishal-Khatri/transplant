@@ -99,12 +99,13 @@
         },
         methods: {
             openDialog(restaurant) {
-                if (restaurant !== "") {
-                    this.id = restaurant.id;
-                    this.restaurant_name = restaurant.name;
-                    this.address = restaurant.address;
-                    this.selected_user = restaurant.user;
-                }
+                // console.log(restaurant)
+                // if (restaurant !== "") {
+                //     this.id = restaurant.id;
+                //     this.restaurant_name = restaurant.name;
+                //     this.address = restaurant.address;
+                //     this.selected_user = restaurant.user;
+                // }
                 $("#create-restaurant-dialog").modal("show");
             },
             async getUser() {

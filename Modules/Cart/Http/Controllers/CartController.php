@@ -182,7 +182,7 @@ class CartController extends Controller
 
     public function listOrders()
     {
-        $orders = Order::with(['cart', 'cart.item'])->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        $orders = Order::with(['cart', 'cart.cartable'])->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         $returnData = $this->prepareResponse(false, 'success', compact('orders'), []);
         return response()->json($returnData);
     }

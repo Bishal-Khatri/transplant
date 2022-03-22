@@ -175,7 +175,7 @@ class CartController extends Controller
             'order_id' => 'required|int',
         ]);
 
-        $orders = Order::with(['cart', 'cart.item'])->whereId($request->order_id)->first();
+        $orders = Order::with(['cart', 'cart.cartable'])->whereId($request->order_id)->first();
         $returnData = $this->prepareResponse(false, 'success', compact('orders'), []);
         return response()->json($returnData);
     }

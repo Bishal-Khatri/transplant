@@ -2,6 +2,7 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
+use App\Enum\CategoryType;
 use App\Models\Category;
 use App\Traits\SetResponse;
 use Illuminate\Http\Request;

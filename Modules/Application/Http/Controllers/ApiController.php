@@ -28,10 +28,15 @@ class ApiController extends Controller
         $data['modules'] = $this->getActiveModules();
 
         if(Module::has('Grocery')){
-            $items = Item::with(['brand', 'category', 'images'])->limit(5)->get();
-            $categories = Category::where('type', CategoryType::GROCERY)->with(['items' => function($query) {
-                return $query->limit(5);
-            }])->inRandomOrder(5)->get();
+//            $items = Item::with(['brand', 'category', 'images'])->limit(5)->get();
+            $categories = Category::has('items')
+                ->where('type', CategoryType::GROCERY)
+                ->with(['items' => function($query) {
+                    return $query->limit(5);
+                }])
+                ->inRandomOrder()
+                ->limit(5)
+                ->get();
 
 //            $items->transform(function ($value, $key) {
 //                return [
@@ -53,14 +58,19 @@ class ApiController extends Controller
 //                ];
 //            });
 
-            $data['grocery'] = $items;
-            $data['categories'] = $categories;
+//            $data['grocery'] = $items;
+            $data['grocery'] = $categories;
         }
 
         if(Module::has('Restaurant')){
-            $restaurant = Restaurant::with(['items' => function($query) {
-                return $query->limit(5);
-            }])->inRandomOrder(5)->get();
+            $restaurant = Restaurant::has('menu')
+                ->where('status', 1)
+                ->with(['menu' => function($query) {
+                    return $query->limit(5);
+                }])
+                ->inRandomOrder()
+                ->limit(5)
+                ->get();
             $data['restaurant'] = $restaurant;
         }
 

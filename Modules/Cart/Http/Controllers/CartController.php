@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Modules\Cart\Entities\Cart;
 use Modules\Cart\Entities\Order;
 use Modules\Grocery\Entities\Item;
+use Modules\Restaurant\Entities\RestaurantMenu;
 
 class CartController extends Controller
 {
@@ -29,36 +30,48 @@ class CartController extends Controller
             $user_id = auth()->user()->id;
             $cart = null;
             if ($request->item_type === 'grocery') {
-                if (Cart::where('item_id', $request->item_id)->where('user_id', $user_id)->where('order_id', null)->exists()) {
-                    $cart = Cart::where('item_id', $request->item_id)->where('user_id', $request->user_id)->where('order_id', null)->first();
-                }
                 $item = Item::findOrFail($request->item_id);
+                $item_price = $item->currentPrice();
+
+                if (blank($item_price)){
+                    return response()->json($this->prepareResponse(true, 'Item cannot be added to cart.', [], []));
+                }
+
+                if (!$item->cart()->where('user_id', $user_id)->where('order_id', null)->exists()) {
+                    $item->cart()->create([
+                        'user_id' => auth()->user()->id,
+                        'quantity' => $request->quantity,
+                        'price' => $item_price
+                    ]);
+                } else {
+                    $item->cart->update(['quantity' => (int)$item->cart->quantity + (int)$request->quantity]);
+                }
+
+                $returnData = $this->prepareResponse(false, 'Item added to cart.', [], []);
+            }
+
+            elseif ($request->item_type === 'restaurant') {
+                $restaurantItem = RestaurantMenu::findOrFail($request->item_id);
+
+                if (!$restaurantItem->cart()->where('user_id', $user_id)->where('order_id', null)->exists()) {
+                    $restaurantItem->cart()->create([
+                        'user_id' => auth()->user()->id,
+                        'quantity' => $request->quantity,
+                        'price' => $restaurantItem->price
+                    ]);
+                } else {
+                    $restaurantItem->cart->update(['quantity' => (int)$restaurantItem->cart->quantity + (int)$request->quantity]);
+                }
+
+                $returnData = $this->prepareResponse(false, 'Item added to cart.', [], []);
             } else {
                 return response()->json($this->prepareResponse(true, 'Item type not found.', [], []));
             }
-
-            $item_price = $item->currentPrice();
-
-            if (blank($item_price)){
-                return response()->json($this->prepareResponse(true, 'Item cannot be added to cart.', [], []));
-            }
-
-            if (!$cart) {
-                $cart = new Cart();
-                $cart->user_id = auth()->user()->id;
-                $cart->item_id = $item->id;
-                $cart->quantity = $request->quantity;
-                $cart->price = $item_price;
-            } else {
-                $cart->quantity = (int)$cart->quantity + (int)$request->quantity;
-            }
-            $cart->save();
-            $cart->load('item');
-            $returnData = $this->prepareResponse(false, 'Item added to cart.', compact('cart'), []);
+            return response()->json($returnData);
         } catch (\Exception $e) {
             $returnData = $this->prepareResponse(true, $e->getMessage(), [], []);
+            return response()->json($returnData);
         }
-        return response()->json($returnData);
     }
 
     public function removeFromCart(Request $request)
@@ -79,12 +92,12 @@ class CartController extends Controller
 
     }
 
-    public function cartListing(Request $request)
+    public function cartListing()
     {
         try {
             $user = auth()->user();
             if (!blank($user)) {
-                $cart = Cart::with('item')->where('user_id', $user->id)->where('order_id', null)->get();
+                $cart = Cart::with('cartable')->where('user_id', $user->id)->where('order_id', null)->get();
             }
             $returnData = $this->prepareResponse(false, 'success', compact('cart'), []);
         } catch (\Exception $e) {
@@ -102,17 +115,22 @@ class CartController extends Controller
             'local_address' => 'nullable|string',
             'payment_method' => 'required|string',
         ]);
+
         if (!isset($request->address_id) OR blank($request->address_id)){
             $address = $this->createAddress($request);
             $address_id = $address->id;
         }else{
             $address_id = $request->address_id;
         }
+
         $user_id = auth()->user()->id;
-        $cart = Cart::with('item')->where('user_id', $user_id)->where('order_id', null)->get();
+
+        $cart = Cart::with('cartable')->where('user_id', $user_id)->where('order_id', null)->get();
+
         if (blank($cart)){
             return response()->json($this->prepareResponse(true, 'Your cart is empty',[],[]));
         }
+
         $price = [];
         foreach ($cart as $value){
             $price[] = (int) $value->price * (int) $value->quantity;
@@ -121,6 +139,7 @@ class CartController extends Controller
 
         $order = new Order();
         $order->user_id = $user_id;
+        $order->unique_id = 0;
         $order->payment_method = $request->payment_method;
         $order->payment_status = 0;
         $order->total_price = $total_price;
@@ -133,7 +152,8 @@ class CartController extends Controller
             $val->order_id = $order->id;
             $val->save();
         }
-        $order->load('cart', 'cart.item');
+
+        $order->load('cart', 'cart.cartable');
         $returnData = $this->prepareResponse(false, 'success', compact('order'), []);
         return response()->json($returnData);
     }

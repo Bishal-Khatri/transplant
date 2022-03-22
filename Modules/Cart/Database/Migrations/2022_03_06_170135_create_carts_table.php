@@ -16,11 +16,11 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('cartable_id');
+            $table->string('cartable_type',200);
             $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('quantity');
             $table->unsignedBigInteger('price');
-//            $table->unsignedBigInteger('status')->default(0)->comment('ordered/checked-out row has status 1');
             $table->timestamps();
         });
     }

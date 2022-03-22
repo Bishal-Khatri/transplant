@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Cart\Entities\Cart;
 
 class Item extends Model
 {
@@ -119,6 +120,11 @@ class Item extends Model
     public function images()
     {
         return $this->hasMany(ItemImage::class, 'item_id');
+    }
+
+    public function cart()
+    {
+        return $this->morphOne(Cart::class, 'cartable');
     }
 
 }

@@ -31,9 +31,10 @@ class ApiController extends Controller
 //            $items = Item::with(['brand', 'category', 'images'])->limit(5)->get();
             $categories = Category::has('items')
                 ->where('type', CategoryType::GROCERY)
-                ->with(['items' => function($query) {
-                    return $query->limit(5);
-                }])
+//                ->with(['items' => function($query) {
+//                    return $query->limit(5);
+//                }])
+                ->with('items')
                 ->inRandomOrder()
                 ->limit(5)
                 ->get();
@@ -65,9 +66,10 @@ class ApiController extends Controller
         if(Module::has('Restaurant')){
             $restaurant = Restaurant::has('menu')
                 ->where('status', 1)
-                ->with(['menu' => function($query) {
-                    return $query->limit(5);
-                }])
+//                ->with(['menu' => function($query) {
+//                    return $query->limit(5);
+//                }])
+                ->with('menu')
                 ->inRandomOrder()
                 ->limit(5)
                 ->get();

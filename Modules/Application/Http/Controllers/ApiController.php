@@ -37,7 +37,11 @@ class ApiController extends Controller
                 ->with('items')
                 ->inRandomOrder()
                 ->limit(5)
-                ->get();
+                ->get()
+                ->map(function($categories) {
+                    $categories->setRelation('items', $categories->items->take(5));
+                    return $categories;
+                });
 
 //            $items->transform(function ($value, $key) {
 //                return [
@@ -72,7 +76,11 @@ class ApiController extends Controller
                 ->with('menu')
                 ->inRandomOrder()
                 ->limit(5)
-                ->get();
+                ->get()
+                ->map(function($restaurant) {
+                    $restaurant->setRelation('menu', $restaurant->menu->take(5));
+                    return $restaurant;
+                });
             $data['restaurant'] = $restaurant;
         }
 

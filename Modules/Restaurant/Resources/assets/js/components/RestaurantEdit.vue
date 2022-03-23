@@ -7,7 +7,7 @@
                         Restaurant Details
                     </div>
                     <div class="panel-body">
-                        <form method="POST" action="" enctype="multipart/form-data" @submit.prevent="saveItem">
+                        <form method="POST" action="" enctype="multipart/form-data" @submit.prevent="saveRestaurant">
                             <div class="form-group mb-4">
                                 <label for="restaurant_name">Restaurant Name <span style="font-size: 18px" class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="restaurant_name" placeholder="Restaurant Name" v-model="restaurant_name" required>
@@ -53,11 +53,13 @@
                                             Main User
                                             <span style="font-size: 18px" class="text-danger">*</span>
                                         </label>
-                                        <div class="col-sm-6">
-                                            <input type="text" v-model="main_user_email" class="form-control" id="main_user" placeholder="Email address" >
-                                            <span class="form-text small text-danger" v-html="errors.get('user')"></span>
-                                            <span v-if="selected_user" class="label label-accent">{{ selected_user.name }}</span>
-                                        </div>
+                                        <input type="text" v-model="main_user_email" class="form-control" id="main_user" placeholder="Email address" >
+                                        <span class="form-text small text-danger" v-html="errors.get('user')"></span>
+                                        <span v-if="selected_user" class="label label-accent">{{ selected_user.name }}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>Main User</h5>
+                                        <p class="label label-accent text-dark">Bishal Khatri </p>
                                     </div>
                                 </div>
                             </div>
@@ -66,12 +68,14 @@
                                     <div class="col-md-6">
                                         <label for="brand">Amenities</label>
                                         <select class="brand form-control" style="width: 100%; color:white" id="brand" v-model="amenities">
-                                            <option value="0">Root</option>
+                                            <option value="">Select</option>
+                                            <option v-if="amenities.length" v-for="value in amenities" :value="value.id" :key="value.id">{{ value.name }}</option>
                                         </select>
                                         <span class="form-text small text-danger" v-html="errors.get('amenities')"></span>
                                     </div>
                                     <div class="col-md-6">
-                                        <h5>Selected Brand</h5>
+                                        <h5>Selected Amenities</h5>
+                                        <p class="label label-accent text-dark">Free Wifi <a href=""><i class="fa fa-times text-dark"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -106,40 +110,15 @@
                                     <img v-if="value.image" :src="'/storage/'+value.image" alt="" name="image" class="rounded image-md">
                                     <img v-else src="/images/placeholder-dark.jpg" alt="" name="image" class="rounded image-md">
                                 </td>
-                                <td class=""><code>Buff Momo</code></td>
-                                <td class=""><code>Rs. 200</code></td>
-                                <td class=""><code>Non-Veg Snack</code></td>
-                                <td class="">
-                                    <button class="btn btn-default btn-xs" @click.prevent="showDelete(value.id)">Edit</button>
+                                <td class=""><code>{{ value.name }}</code></td>
+                                <td class=""><code>Rs.{{ value.price }}</code></td>
+                                <td class=""><code>{{ value.category.name || '' }}</code></td>
+                                <td class="text-right">
                                     <button class="btn btn-default btn-xs" @click.prevent="showDelete(value.id)">Delete</button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="panel panel-filled">
-                    <div class="panel-heading">
-                        Additional images (Multiple File Upload) <br>
-                        <small class="text-muted">Your image needs to be at least 500×500 pixels. Choose new file or Replace</small>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group mb-4">
-                            <input type="file" id="additional-image" class="form-control-file mb-1" name="image" accept="image/png, image/jpeg" @change="uploadAdditionalImages" multiple>
-                        </div>
-                        <div v-if="uploading_image" style="height: 150px;" class="mt-4 pt-4">
-                            <div class="loader-bar"></div>
-                            <p class="text-center mt-4 text-muted">Uploading Images</p>
-                        </div>
-                        <div v-else>
-                            <img v-if="Object.keys(images).length === 0" src="/images/placeholder-dark.jpg" alt="" name="image" class="rounded image-xl">
-                            <div class="row" v-else >
-                                <div class="col-md-4 text-center mb-4" v-for="image in images">
-                                    <img :src="'/storage/'+image.original" alt="" id="additional-image-preview" name="image" class="rounded mb-1 image-xl">
-                                    <button class="btn btn-sm btn-default btn-block" @click.prevent="deleteAdditionalImage(image.id)">Delete</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -173,6 +152,7 @@
     import {EventBus} from "../app";
     import {Errors} from "../../../../../../resources/js/error";
     import AddItem from "./AddItem";
+    import RestaurantService from "../services/RestaurantService";
 
     export default {
         name: "RestaurantEdit",
@@ -182,9 +162,11 @@
         props: [
             'restaurant',
             'categories',
+            'amenities',
         ],
         data: () => ({
             errors: new Errors(),
+            delete_menu_id: '',
             uploading_image: false,
             // form data
             restaurant_name:'',
@@ -197,7 +179,7 @@
             selected_user: '',
 
             images:[],
-            amenities:[],
+            // amenities:[],
             menu:[],
         }),
         computed:{
@@ -225,12 +207,8 @@
                     this.main_image_url = '/storage/' + this.restaurant.logo;
                 }
             },
-            async getItemDetails() {
-                const response = await InventoryService.getItemDetails(this.itemId);
-                this.setItemData(response.data.data);
 
-            },
-            async saveItem() {
+            async saveRestaurant() {
                 try {
                     let formData = new FormData();
                     formData.append("item_id", this.itemId);
@@ -257,59 +235,28 @@
                     this.errors.record(error.response.data);
                     Errors.Notification(error.response);
                 }
-                EventBus.$emit('itemAdded');
+                window.location.reload();
             },
 
             handelImage(event){
                 this.main_image = event.target.files[0];
                 this.item_image_url = URL.createObjectURL(event.target.files[0]);
             },
-            clearForm() {
-                // this.id = this.item_name = this.sku = this.category = this.brand = '';
-            },
+
             async showDelete(delete_id){
-                this.delete_quantity_id = delete_id;
+                this.delete_menu_id = delete_id;
                 $("#deleteMenuModal").modal("show");
             },
             async hideDelete(){
-                this.delete_quantity_id = '';
+                this.delete_menu_id = '';
                 $("#deleteMenuModal").modal("hide");
             },
 
-            // async uploadAdditionalImages(event){
-            //     this.uploading_image = true;
-            //     const files = event.target.files;
-            //     if (files.length){
-            //         for (let i=0; i < files.length; i++){
-            //             await this.uploadFile(files[i]);
-            //         }
-            //         this.getItemDetails();
-            //     }
-            //     this.uploading_image = false;
-            // },
-
-            async uploadFile(file){
-                const fd = new FormData();
-                if (file) {
-                    fd.append("file", file, file.name);
-                }
-                fd.append("item_id", this.itemId);
-                try {
-                    const response = await InventoryService.uploadAdditionalImage(fd);
-                    if (response.data.error === false) {
-                    }
-                    Errors.Notification(response);
-                }catch (error) {
-                    this.errors.record(error.response.data);
-                    Errors.Notification(error.response);
-                }
-            },
-
-            async deleteAdditionalImage(image_id){
-                const response = await InventoryService.deleteAdditionalImage(image_id);
+            async deleteMenu(){
+                const response = await RestaurantService.deleteMenu(this.delete_menu_id);
                 if (response.data.error === false) {
                     Errors.Notification(response);
-                    this.getItemDetails();
+                    window.location.reload();
                 }
             }
         },

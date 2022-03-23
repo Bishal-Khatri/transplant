@@ -22,16 +22,18 @@
                                                 <div class="col-sm-9">
                                                     <input type="file" id="image" class="form-control-file mb-1" @change.prevent="handelImage" name="image" accept="image/png, image/jpeg">
                                                     <small class="text-muted">Your image needs to be at least 500×500 pixels.</small>
+                                                    <span class="form-text small text-danger" v-html="errors.get('image')"></span>
                                                 </div>
                                                 <br>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="quantity" class="col-sm-3 col-form-label">
+                                                <label for="name" class="col-sm-3 col-form-label">
                                                     Name
                                                     <span style="font-size: 18px" class="text-danger">*</span>
                                                 </label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" v-model="name" class="form-control" id="quantity" placeholder="Food item name" >
+                                                    <input type="text" v-model="name" class="form-control" id="name" placeholder="Food item name" >
+                                                    <span class="form-text small text-danger" v-html="errors.get('name')"></span>
                                                 </div>
                                             </div>
 
@@ -42,6 +44,7 @@
                                                 </label>
                                                 <div class="col-sm-9">
                                                     <input type="number" v-model="price" class="form-control" id="price" placeholder="Price" >
+                                                    <span class="form-text small text-danger" v-html="errors.get('price')"></span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -54,7 +57,7 @@
                                                         <option value="">Select</option>
                                                         <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                                                     </select>
-                                                    <span class="form-text small text-danger" v-html="errors.get('category')"></span>
+                                                    <span class="form-text small text-danger" v-html="errors.get('category_id')"></span>
                                                 </div>
                                             </div>
                                         </form>
@@ -65,7 +68,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-accent" @click.prevent="saveQuantity" >Save</button>
+                        <button type="button" class="btn btn-accent" @click.prevent="saveMenuItem" >Save</button>
                     </div>
                 </div>
             </div>
@@ -103,7 +106,7 @@
                 this.restaurant_id = restaurant.id;
                 $("#menu-dialog").modal("show");
             },
-            async saveQuantity() {
+            async saveMenuItem() {
                 try {
                     this.saveBtnLoading = true;
                     let formData = new FormData();
@@ -122,12 +125,13 @@
                         Errors.Notification(response);
                     }
                     this.saveBtnLoading = false;
+                    window.location.reload();
+
                 } catch (error) {
                     this.saveBtnLoading = false;
                     this.errors.record(error.response.data);
                     Errors.Notification(error.response);
                 }
-                EventBus.$emit('menuAdded');
             },
             handelImage(event){
                 this.image = event.target.files[0];

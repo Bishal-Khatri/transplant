@@ -18,4 +18,8 @@ export default {
     saveMenuItem(formData){
         return Api().post('/restaurant/web_api/saveItem', formData);
     },
+
+    deleteMenu(id){
+        return Api().delete('/restaurant/web_api/deleteMenuItem/'+id);
+    },
 }

@@ -10,12 +10,78 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
+use Modules\Restaurant\Entities\Amenity;
 use Modules\Restaurant\Entities\Restaurant;
 use Modules\Restaurant\Entities\RestaurantMenu;
 
 class RestaurantController extends Controller
 {
     use SetResponse, FileStore;
+
+    public function amenityIndex()
+    {
+        $amenities = Amenity::paginate(20);
+        return view('restaurant::amenity.index', compact('amenities'));
+    }
+
+    public function amenityCreate()
+    {
+        return view('restaurant::amenity.create');
+    }
+
+    public function amenityEdit($id)
+    {
+        $amenity = Amenity::findOrFail($id);
+        return view('restaurant::amenity.create', compact('amenity'));
+    }
+
+    public function amenitySave(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255'
+        ]);
+
+        if ($request->id AND !blank($request->id)){
+            $amenity = Amenity::findOrFail($request->id);
+        }else{
+            $amenity = new Amenity();
+        }
+
+        if ($request->hasFile('image')){
+            if (isset($request->id) AND !blank($request->id) AND $request->hasFile('image')){
+                Storage::delete('public/'.$amenity->image);
+            }
+
+            $path = $request->file('image')->store('amenities', 'public');
+            $amenity->image = $path;
+        }
+
+        if (!blank($request->name)){
+            $amenity->name = $request->name;
+        }
+
+        if (!blank($request->status)){
+            $amenity->status = $request->status;
+        }
+
+        $amenity->save();
+
+        session()->flash('success', 'Success <br> Amenity created/updated successfully.');
+
+        return redirect()->route('restaurant.amenity.index');
+    }
+
+    public function amenityDelete($id)
+    {
+        $amenity = Amenity::findOrFail($id);
+        if (!blank($amenity->image)){
+            Storage::delete('public/'.$amenity->image);
+        }
+        $amenity->delete();
+        session()->flash('success', 'Success <br> Amenity deleted successfully.');
+
+        return redirect()->route('restaurant.amenity.index');
+    }
 
     public function index()
     {
@@ -29,10 +95,11 @@ class RestaurantController extends Controller
 
     public function edit($id)
     {
-        $restaurant = Restaurant::with('menu')->findOrFail($id);
+        $restaurant = Restaurant::with('menu', 'menu.category')->findOrFail($id);
         $categories = Category::where('type', CategoryType::RESTAURANT)->get();
+        $amenities = Amenity::where('status', true)->get();
 
-        return view('restaurant::restaurant-edit', compact('restaurant', 'categories'));
+        return view('restaurant::restaurant-edit', compact('restaurant', 'categories', 'amenities'));
     }
 
     public function store(Request $request)
@@ -106,7 +173,7 @@ class RestaurantController extends Controller
         }
     }
 
-    public function saveItem(Request $request)
+    public function saveMenuItem(Request $request)
     {
         $request->validate([
             'id' => 'nullable|integer',
@@ -115,6 +182,8 @@ class RestaurantController extends Controller
             'price' => 'required|integer',
             'image' => 'required',
             'category_id' => 'required',
+        ], [
+            'category_id.required' => 'Category field is required.'
         ]);
 
         if ($request->id) {
@@ -139,5 +208,22 @@ class RestaurantController extends Controller
 
         $returnData = $this->prepareResponse(false, 'Success <br> Item created/updated successfully', compact('menu'), []);
         return response()->json($returnData, 200);
+    }
+
+    public function deleteMenuItem($id)
+    {
+        try {
+            $item = RestaurantMenu::findOrFail($id);
+            if (!blank($item->image)){
+                Storage::delete('public/'.$item->image);
+            }
+            $item->delete();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $e) {
+            $returnData = $this->prepareResponse(true, $e->getMessage(), [], []);
+            return response()->json($returnData, $e->getCode());
+        }
     }
 }

@@ -40,12 +40,6 @@
                 <li class="{{ (request()->is('user') OR request()->is('user/*')) ? 'active' : '' }}">
                     <a href="/user">Users & Authorization</a>
                 </li>
-                <li class="@yield('category_active')">
-                    <a href="{{ route('grocery.category.index') }}">Grocery Categories</a>
-                </li>
-                <li class="@yield('category_active')">
-                    <a href="{{ route('restaurant.category.index') }}">Restaurant Categories</a>
-                </li>
                 <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">Profile</a>
                 </li>
@@ -62,6 +56,9 @@
                             Catalog <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
                         </a>
                         <ul id="catalog" class="nav nav-second {{ (request()->is('grocery/*')) ? 'collapse show' : 'collapse' }}">
+                            <li class="@yield('grocery_category_active')">
+                                <a href="{{ route('grocery.category.index') }}">Categories</a>
+                            </li>
                             @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
                                 <li class="@yield('brand_active')">
                                     <a href="{{ route('grocery.brand.index') }}"> Brands</a>
@@ -82,6 +79,12 @@
                 @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))
                     <li class="nav-category">
                         Restaurant Menu
+                    </li>
+                    <li class="@yield('amenity_active')">
+                        <a href="{{ route('restaurant.amenity.index') }}">Amenities</a>
+                    </li>
+                    <li class="@yield('restaurant_category_active')">
+                        <a href="{{ route('restaurant.category.index') }}">Categories</a>
                     </li>
                     <li class="{{ (request()->is('restaurant/list')) ? 'active' : '' }}">
                         <a href="/restaurant/list">Restaurant List</a>

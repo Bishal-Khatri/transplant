@@ -10,7 +10,10 @@ class Amenity extends Model
     use HasFactory;
 
     protected $fillable = [];
-    
+    protected $casts = [
+        'status' => 'boolean'
+    ];
+
     protected static function newFactory()
     {
         return \Modules\Restaurant\Database\factories\AmenityFactory::new();

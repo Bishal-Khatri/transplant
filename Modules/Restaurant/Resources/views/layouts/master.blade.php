@@ -37,6 +37,7 @@
 <!-- End wrapper-->
 @include('layouts._partials.script')
 <script src="{{ mix('js/restaurant.js') }}"></script>
+@yield('script')
 </body>
 
 </html>

@@ -17,5 +17,5 @@
             <hr>
         </div>
     </div>
-    <restaurant-edit :restaurant="{{ $restaurant }}" :categories="{{ $categories }}"></restaurant-edit>
+    <restaurant-edit :restaurant="{{ $restaurant }}" :categories="{{ $categories }}" :amenities="{{ $amenities }}"></restaurant-edit>
 @endsection

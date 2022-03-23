@@ -116,7 +116,7 @@ class CartController extends Controller
             'payment_method' => 'required|string',
         ]);
 
-        if (!isset($request->address_id) OR blank($request->address_id)){
+        if (!isset($request->address_id) OR blank($request->address_id) OR $request->address_id == '-1'){
             $address = $this->createAddress($request);
             $address_id = $address->id;
         }else{

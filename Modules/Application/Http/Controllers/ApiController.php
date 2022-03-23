@@ -28,13 +28,8 @@ class ApiController extends Controller
         $data['modules'] = $this->getActiveModules();
 
         if(Module::has('Grocery')){
-//            $items = Item::with(['brand', 'category', 'images'])->limit(5)->get();
             $categories = Category::has('items')
                 ->where('type', CategoryType::GROCERY)
-//                ->with(['items' => function($query) {
-//                    return $query->limit(5);
-//                }])
-                ->with('items')
                 ->inRandomOrder()
                 ->limit(5)
                 ->get()
@@ -43,37 +38,24 @@ class ApiController extends Controller
                     return $categories;
                 });
 
-//            $items->transform(function ($value, $key) {
-//                return [
-//                    'id' => $value->id,
-//                    'sku' => $value->sku,
-//                    'name' => $value->name,
-//                    'description' => $value->description,
-//                    'main_image_original' => $value->main_image_original,
-//                    'main_image_large' => $value->main_image_large,
-//                    'main_image_medium' => $value->main_image_medium,
-//                    'main_image_thumbnail' => $value->main_image_thumbnail,
-//                    'category' => $value->category,
-//                    'brand' => $value->brand,
-//                    'current_price' => $value->,
-//                    'images' => $value->images,
-//                    'current_price' => $current_price,
-//                    'old_price' => null,
-//                    'has_discount' => false,
-//                ];
-//            });
+            $categories->transform(function ($value) {
+                $items = $value->items;
 
-//            $data['grocery'] = $items;
+                foreach ($items as $item){
+                    $item->price =  $item->currentPrice();
+                }
+
+                $value->setRelation('items', $items);
+
+                return $value;
+            });
+
             $data['grocery'] = $categories;
         }
 
         if(Module::has('Restaurant')){
             $restaurant = Restaurant::has('menu')
                 ->where('status', 1)
-//                ->with(['menu' => function($query) {
-//                    return $query->limit(5);
-//                }])
-                ->with('menu')
                 ->inRandomOrder()
                 ->limit(5)
                 ->get()
@@ -81,6 +63,7 @@ class ApiController extends Controller
                     $restaurant->setRelation('menu', $restaurant->menu->take(5));
                     return $restaurant;
                 });
+
             $data['restaurant'] = $restaurant;
         }
 

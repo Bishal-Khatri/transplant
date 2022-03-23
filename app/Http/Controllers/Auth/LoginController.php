@@ -131,7 +131,7 @@ class LoginController extends Controller
     public function getMyProfile()
     {
         $user = auth()->user();
-        $user->load('addresses');
+        $user->load('addresses', 'addresses.district', 'addresses.street');
         $response = $this->prepareResponse(false, 'success', compact('user'), []);
         return $response;
     }

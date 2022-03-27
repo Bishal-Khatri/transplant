@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "sass": "^1.49.8",
-        "sass-loader": "^10.2.1"
+        "sass-loader": "^10.2.1",
+        "lodash": "^4.17.19"
     }
 }

@@ -12,6 +12,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Modules\Restaurant\Entities\Amenity;
 use Modules\Restaurant\Entities\Restaurant;
+use Modules\Restaurant\Entities\RestaurantAmenity;
 use Modules\Restaurant\Entities\RestaurantMenu;
 
 class RestaurantController extends Controller
@@ -71,6 +72,21 @@ class RestaurantController extends Controller
         return redirect()->route('restaurant.amenity.index');
     }
 
+    public function addAmenity(Request $request)
+    {
+        $request->validate([
+            'restaurant_id' => 'required|integer',
+            'amenity_id' => 'required|integer',
+        ]);
+        $amenity = new RestaurantAmenity();
+        $amenity->restaurant_id = $request->restaurant_id;
+        $amenity->amenity_id = $request->amenity_id;
+        $amenity->save();
+
+        $returnData = $this->prepareResponse(false, 'Success <br> Amenity added successfully.', [], []);
+        return response()->json($returnData, 200);
+    }
+
     public function amenityDelete($id)
     {
         $amenity = Amenity::findOrFail($id);
@@ -95,7 +111,7 @@ class RestaurantController extends Controller
 
     public function edit($id)
     {
-        $restaurant = Restaurant::with('menu', 'menu.category')->findOrFail($id);
+        $restaurant = Restaurant::with('menu', 'menu.category', 'user')->findOrFail($id);
         $categories = Category::where('type', CategoryType::RESTAURANT)->get();
         $amenities = Amenity::where('status', true)->get();
 
@@ -104,11 +120,13 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
+//        dd($request->all());
         $request->validate([
             'restaurant_name' => 'required|max:1000',
             'user' => 'required|integer',
-            'logo' => 'required',
             'id' => 'nullable|integer',
+            'latitude' => 'nullable|regex:/^\d+(\.\d{1,2})?$/',
+            'longitude' => 'nullable|regex:/^\d+(\.\d{1,2})?$/',
         ]);
 
         if ($request->id) {
@@ -127,7 +145,13 @@ class RestaurantController extends Controller
 
         $restaurant->name = $request->restaurant_name;
         $restaurant->address = $request->address;
-        $restaurant->user_id = $request->user;
+        if ($request->has('user')){
+            $restaurant->user_id = $request->user;
+        }
+        $restaurant->description = $request->description;
+        $restaurant->address = $request->address;
+        $restaurant->latitude = $request->latitude;
+        $restaurant->longitude = $request->longitude;
         $restaurant->save();
 
         $returnData = $this->prepareResponse(false, 'Success <br> Restaurant created/updated successfully', compact('restaurant'), []);

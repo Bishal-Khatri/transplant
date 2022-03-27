@@ -4,52 +4,18 @@
 <script src="{{ asset('asset/vendor/popper/popper.min.js') }}"></script>
 <script src="{{ asset('asset/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('asset/vendor/toastr/toastr.min.js') }}"></script>
-{{--<script src="{{ asset('asset/vendor/summernote/dist/summernote-bs4.js') }}"></script>--}}
+<script src="{{ asset('asset/vendor/select2/dist/js/select2.js') }}"></script>
+<script src="{{ asset('asset/vendor/summernote/dist/summernote-bs4.js') }}"></script>
 
 <!-- App scripts -->
 <script src="{{ asset('asset/scripts/luna.js') }}"></script>
 <script>
-    // $(document).ready(function () {
-    //     $('.summernote').summernote({
-    //         height: 300,
-    //     });
-    // });
 
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-</script>
-<script>
-    // $(document).ready(function () {
-    //
-    //     toastr.options = {
-    //         "debug": false,
-    //         "newestOnTop": false,
-    //         "positionClass": "toast-bottom-right",
-    //         "closeButton": true,
-    //         "progressBar": true
-    //     };
-    //
-    //     $('.homerDemo1').on('click', function(event){
-    //         toastr.info('Info - This is a custom LUNA info notification');
-    //     });
-    //
-    //     $('.homerDemo2').on('click', function(event){
-    //         toastr.success('Success - This is a LUNA success notification');
-    //     });
-    //
-    //     $('.homerDemo3').on('click', function(event){
-    //         toastr.warning('Warning - This is a LUNA warning notification');
-    //     });
-    //
-    //     $('.homerDemo4').on('click', function(event){
-    //         toastr.error('Error - This is a LUNA error notification');
-    //     });
-    //
-    //
-    // });
 </script>
 <script>
     toastr.options = {

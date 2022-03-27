@@ -34,14 +34,14 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" rows="3" placeholder="Item Description" v-model="description" id="description"></textarea>
+                                <textarea class="form-control summernote" rows="3" placeholder="Item Description" v-model="description" id="description"></textarea>
                                 <span class="form-text small text-danger" v-html="errors.get('description')"></span>
                             </div>
                             <div class="form-group mb-4">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="category">Category</label>
-                                        <select class="category form-control" style="width: 100%;color:white" id="category" name="parent" v-model="category_id">
+                                        <select class="category form-control category-select2" style="width: 100%;color:white" id="category" name="parent" v-model="category_id">
                                             <option value="0">Root</option>
                                             <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                                         </select>
@@ -60,7 +60,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="brand">Brand</label>
-                                        <select class="brand form-control" style="width: 100%; color:white" id="brand" v-model="brand_id">
+                                        <select class="brand form-control brand-select2" style="width: 100%; color:white" id="brand" v-model="brand_id">
                                             <option value="0">Root</option>
                                             <option v-for="brand in brands" :value="brand.id">{{ brand.name }}</option>
                                         </select>
@@ -76,7 +76,8 @@
                                 </div>
                             </div>
                             <a href="/grocery/item" class="btn btn-default">Discard</a>
-                            <button type="subm  it" class="btn btn-accent">Update Details</button>
+                            <button class="btn btn-accent" v-if="submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                            <button type="submit" class="btn btn-accent" v-else>Update</button>
                         </form>
                     </div>
                 </div>
@@ -150,7 +151,9 @@
                             <div class="row" v-else >
                                 <div class="col-md-4 text-center mb-4" v-for="image in images">
                                     <img :src="'/storage/'+image.original" alt="" id="additional-image-preview" name="image" class="rounded mb-1 image-xl">
-                                    <button class="btn btn-sm btn-default btn-block" @click.prevent="deleteAdditionalImage(image.id)">Delete</button>
+                                    <button class="btn btn-sm btn-outline-danger" @click.prevent="deleteAdditionalImage(image.id)" style="position: relative; top: 49px;">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +175,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" @click.prevent="hideDelete">Cancel</button>
                         <form action="" id="deleteForm">
-                            <button type="submit" class="btn btn-accent" @click.prevent="deleteQuantity">Delete</button>
+                            <button class="btn btn-accent" v-if="delete_submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteQuantity" v-else>Delete</button>
                         </form>
                     </div>
                 </div>
@@ -187,7 +191,6 @@
     import {EventBus} from "../../app";
     import AddQuantity from "./AddQuantity";
     import {Errors} from "../../../../../../../resources/js/error";
-
     export default {
         name: "GroceryItemEdit",
         components: {
@@ -195,7 +198,9 @@
         },
         data: () => ({
             errors: new Errors(),
+            delete_submitting: false,
             uploading_image: false,
+            submitting: false,
             // form data
             name:'',
             description:'',
@@ -221,6 +226,7 @@
         },
         async mounted(){
             await this.getItemDetails();
+            this.init();
             EventBus.$on('quantityAdded', () => {
                 this.getItemDetails();
             });
@@ -229,7 +235,29 @@
             });
         },
         methods: {
+            init(){
+                var vm = this;
+                $('.summernote').summernote({
+                    height: 300,
+                    toolbar: [
+                        ['style', ['style']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['table', ['table']],
+                        ['insert', ['link']],
+                        ['view', ['fullscreen', 'codeview', 'help']],
+                    ]
+                });
+                $('.category-select2').select2().on('change', function (e) {
+                   vm.category_id = e.target.value
+                });
+                $('.brand-select2').select2().on('change', function (e) {
+                   vm.brand_id = e.target.value
+                });
+            },
             setItemData(response){
+                console.log(response)
                 this.name = response.item_data.name;
                 this.sku = response.item_data.sku;
                 this.description = response.item_data.description;
@@ -246,9 +274,6 @@
                 this.images = response.item_data.images;
                 this.inventory_details = response.inventory_details;
                 this.item = response.item_data;
-
-                // $(".category").select2();
-                // $(".brand").select2();
             },
             async getItemDetails() {
                 const response = await InventoryService.getItemDetails(this.itemId);
@@ -256,6 +281,7 @@
 
             },
             async saveItem() {
+                this.submitting = true;
                 try {
                     let formData = new FormData();
                     formData.append("item_id", this.itemId);
@@ -283,6 +309,7 @@
                     Errors.Notification(error.response);
                 }
                 EventBus.$emit('itemAdded');
+                this.submitting = false;
             },
 
             handelImage(event){
@@ -301,7 +328,7 @@
                 $("#deleteModal").modal("hide");
             },
             async deleteQuantity(){
-                this.deleteBtnLoading = true;
+                this.delete_submitting = true;
                 const response = await InventoryService.deleteQuantity(this.delete_quantity_id);
                 if (response.data.error === false) {
                     Errors.Notification(response);
@@ -309,6 +336,7 @@
                     this.hideDelete();
                     EventBus.$emit('quantityDeleted');
                 }
+                this.delete_submitting = false;
             },
             async uploadAdditionalImages(event){
                 this.uploading_image = true;

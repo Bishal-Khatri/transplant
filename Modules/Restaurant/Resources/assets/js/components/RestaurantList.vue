@@ -101,7 +101,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <form action="" id="deleteForm">
-                            <button type="submit" class="btn btn-accent" @click.prevent="deleteRestaurant">Delete</button>
+                            <button class="btn btn-accent" v-if="deleteBtnLoading"><i class="fa fa-spinner fa-spin"></i></button>
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteRestaurant" v-else>Delete</button>
                         </form>
                     </div>
                 </div>
@@ -124,6 +125,8 @@
         },
         data(){
             return{
+                deleteBtnLoading: false,
+
                 meta:{
                     filter: '',
                     category: '',
@@ -157,6 +160,7 @@
             },
 
             async deleteRestaurant(){
+                this.deleteBtnLoading = true;
                 const response = await RestaurantService.deleteRestaurant(this.delete_id);
                 if (response.data.error === false) {
                     Errors.Notification(response);
@@ -164,6 +168,7 @@
                     $("#deleteRestaurantModal").modal('hide');
                 }
                 this.delete_id = '';
+                this.deleteBtnLoading = false;
             },
         }
     }

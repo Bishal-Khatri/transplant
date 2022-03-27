@@ -21,5 +21,6 @@ Route::group(['prefix' => 'restaurant', 'middleware' => 'auth'], function (){
         Route::delete('/delete/{id}', [RestaurantController::class, 'destroy']);
         Route::post('/saveItem', [RestaurantController::class, 'saveMenuItem']);
         Route::delete('/deleteMenuItem/{id}', [RestaurantController::class, 'deleteMenuItem']);
+        Route::post('/addAmenity', [RestaurantController::class, 'addAmenity']);
     });
 });

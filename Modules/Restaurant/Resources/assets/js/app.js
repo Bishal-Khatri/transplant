@@ -1,3 +1,4 @@
+require('./bootstrap');
 import Vue from 'vue';
 
 Vue.component('restaurant-list', require('./components/RestaurantList.vue').default);

@@ -1,5 +1,5 @@
+require('./bootstrap');
 import Vue from 'vue';
-
 Vue.component('grocery-item-edit', require('./components/inventory/GroceryItemEdit.vue').default);
 Vue.component('grocery-item-list', require('./components/inventory/GroceryItemList.vue').default);
 Vue.component('grocery-order-list', require('./components/order/GroceryOrderList.vue').default);

@@ -20,6 +20,7 @@
                                                 <label for="quantity" class="col-sm-2 col-form-label">Quantity <span style="font-size: 18px" class="text-danger">*</span></label>
                                                 <div class="col-sm-10">
                                                     <input type="number" v-model="quantity" class="form-control" id="quantity" placeholder="Quantity" >
+                                                    <span class="form-text small text-danger" v-html="errors.get('quantity')"></span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -38,6 +39,7 @@
                                                 <label for="selling_price" class="col-sm-2 col-form-label">Selling Price</label>
                                                 <div class="col-sm-10">
                                                     <input type="number" v-model="selling_price" class="form-control" id="selling_price" placeholder="Selling Price" >
+                                                    <span class="form-text small text-danger" v-html="errors.get('selling_price')"></span>
                                                 </div>
                                             </div>
                                         </form>
@@ -48,7 +50,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-accent" @click.prevent="saveQuantity" >Save</button>
+                        <button class="btn btn-accent" v-if="submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button type="button" class="btn btn-accent" @click.prevent="saveQuantity" v-else>Save</button>
                     </div>
                 </div>
             </div>
@@ -68,6 +71,7 @@
         },
         data: () => ({
             errors: new Errors(),
+            submitting: false,
             item: "",
             item_id: "",
             quantity: "",
@@ -86,6 +90,7 @@
                 $("#quantity-dialog").modal("show");
             },
             async saveQuantity() {
+                this.submitting = true;
                 try {
                     this.saveBtnLoading = true;
                     const formData = {
@@ -106,11 +111,11 @@
                     this.saveBtnLoading = false;
                 } catch (error) {
                     this.saveBtnLoading = false;
-                    alert("Error!! Check required fields")
                     this.errors.record(error.response.data);
                     Errors.Notification(error.response);
                 }
                 EventBus.$emit('quantityAdded');
+                this.submitting = false;
             },
 
             clearForm() {

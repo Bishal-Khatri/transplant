@@ -7,7 +7,7 @@
                         Restaurant Details
                     </div>
                     <div class="panel-body">
-                        <form method="POST" action="" enctype="multipart/form-data" @submit.prevent="saveRestaurant">
+                        <form method="POST" enctype="multipart/form-data" @submit.prevent="saveRestaurant">
                             <div class="form-group mb-4">
                                 <label for="restaurant_name">Restaurant Name <span style="font-size: 18px" class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="restaurant_name" placeholder="Restaurant Name" v-model="restaurant_name" required>
@@ -43,7 +43,7 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" rows="3" v-model="description" id="description"></textarea>
+                                <textarea class="form-control summernote" rows="3" v-model="description" id="description"></textarea>
                                 <span class="form-text small text-danger" v-html="errors.get('description')"></span>
                             </div>
                             <div class="form-group mb-4">
@@ -54,38 +54,49 @@
                                             <span style="font-size: 18px" class="text-danger">*</span>
                                         </label>
                                         <input type="text" v-model="main_user_email" class="form-control" id="main_user" placeholder="Email address" >
+                                        <small class="text-accent">Validate user email address before submitting.</small>
                                         <span class="form-text small text-danger" v-html="errors.get('user')"></span>
-                                        <span v-if="selected_user" class="label label-accent">{{ selected_user.name }}</span>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3 " style="margin-top: 34px">
+                                        <button class="btn btn-accent" v-if="user_submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                                        <button class="btn btn-accent btn-block" @click.prevent="getUser" v-else>Validate</button>
+                                    </div>
+                                    <div class="col-md-3">
                                         <h5>Main User</h5>
-                                        <p class="label label-accent text-dark">Bishal Khatri </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="brand">Amenities</label>
-                                        <select class="brand form-control" style="width: 100%; color:white" id="brand" v-model="amenities">
-                                            <option value="">Select</option>
-                                            <option v-if="amenities.length" v-for="value in amenities" :value="value.id" :key="value.id">{{ value.name }}</option>
-                                        </select>
-                                        <span class="form-text small text-danger" v-html="errors.get('amenities')"></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5>Selected Amenities</h5>
-                                        <p class="label label-accent text-dark">Free Wifi <a href=""><i class="fa fa-times text-dark"></i></a></p>
+                                        <p v-if="selected_user" class="label label-accent text-dark">{{ selected_user.name }}</p>
                                     </div>
                                 </div>
                             </div>
                             <a href="/grocery/item" class="btn btn-default">Discard</a>
-                            <button type="submit" class="btn btn-accent">Update Details</button>
+                            <button class="btn btn-accent" v-if="submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                            <button type="submit" class="btn btn-accent" v-else>Update</button>
                         </form>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-6">
+                <!--<div class="panel panel-filled">-->
+                    <!--<div class="panel-heading">-->
+                        <!--Amenities-->
+                    <!--</div>-->
+                    <!--<div class="panel-body">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<select class="amenity-select2 form-control" style="width: 100%; color:white" id="amenities" v-model="selected_amenity">-->
+                                    <!--<option v-if="amenities.length" v-for="value in amenities" :value="value.id">{{ value.name }}</option>-->
+                                <!--</select>-->
+                                <!--<span class="form-text small text-danger" v-html="errors.get('amenities')"></span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-6">-->
+                                <!--<h5>Selected Amenities</h5>-->
+                                <!--<p class="label label-accent text-dark">Free Wifi <a href=""><i class="fa fa-times text-dark"></i></a></p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
                 <div class="panel panel-filled">
                     <div class="panel-heading">
                         Menu
@@ -166,6 +177,8 @@
         ],
         data: () => ({
             errors: new Errors(),
+            user_submitting: false,
+            submitting: false,
             delete_menu_id: '',
             uploading_image: false,
             // form data
@@ -173,20 +186,37 @@
             address: '',
             latitude: '',
             longitude: '',
+            user_id: '',
             main_image_url: '',
             description: '',
             main_user_email: '',
             selected_user: '',
 
             images:[],
-            // amenities:[],
+            selected_amenity:'',
             menu:[],
         }),
         computed:{
         },
         async mounted(){
-            this.setItemData();
-            // await this.getItemDetails();
+            var vm = this;
+            await this.setItemData();
+            $(".amenity-select2").select2().on('change', function (e) {
+                vm.selected_amenity = e.target.value;
+                vm.addAmenities()
+            });
+            $('.summernote').summernote({
+                height: 300,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
+                ]
+            });
             EventBus.$on('quantityAdded', () => {
                 this.getItemDetails();
             });
@@ -195,13 +225,47 @@
             });
         },
         methods: {
+            async addAmenities() {
+                try {
+                    const formData = {
+                        restaurant_id: this.restaurant.id,
+                        amenity_id: this.selected_amenity
+                    };
+                    const response = await RestaurantService.addAmenity(formData);
+                    if (response.data.error === false) {
+                        Errors.Notification(response);
+                    }
+                }catch (error) {
+                    this.saveBtnLoading = false;
+                    Errors.Notification(error.response);
+                }
+            },
+            async getUser() {
+                this.user_submitting = true;
+                if (this.main_user_email) {
+                    try {
+                        const response = await RestaurantService.getUserByEmail(this.main_user_email);
+                        if (response.data.error === false) {
+                            this.selected_user = response.data.data.user;
+                            this.user_id = response.data.data.user.id;
+                        }
+                        this.main_user_email = '';
+                    }catch (error) {
+                        this.saveBtnLoading = false;
+                        Errors.Notification(error.response);
+                    }
+                }
+                this.user_submitting = false;
+            },
             setItemData(){
+                console.log(this.restaurant)
                 this.restaurant_name = this.restaurant.name;
                 this.description = this.restaurant.description;
                 this.latitude = this.restaurant.latitude;
                 this.longitude = this.restaurant.longitude;
                 this.address = this.restaurant.address;
                 this.menu = this.restaurant.menu;
+                this.selected_user = this.restaurant.user;
 
                 if (this.restaurant.logo){
                     this.main_image_url = '/storage/' + this.restaurant.logo;
@@ -209,12 +273,15 @@
             },
 
             async saveRestaurant() {
+                this.submitting = true;
                 try {
                     let formData = new FormData();
-                    formData.append("item_id", this.itemId);
-                    formData.append("item_name", this.name);
-                    this.sku ? formData.append("sku", this.sku) : '';
-                    this.unit_size ? formData.append("unit_size", this.unit_size) : '';
+                    formData.append("id", this.restaurant.id);
+                    formData.append("restaurant_name", this.restaurant_name);
+                    formData.append("address", this.address);
+                    this.latitude ? formData.append("latitude", this.latitude) : '';
+                    this.longitude ? formData.append("longitude", this.longitude) : '';
+                    formData.append("user", this.selected_user.id);
                     this.description ? formData.append("description", this.description): '';
                     if (this.category_id){
                         formData.append("category_id", this.category_id);
@@ -226,16 +293,16 @@
                         formData.append("main_image", this.main_image, this.main_image.name);
                     }
 
-                    const response = await InventoryService.createItem(formData);
+                    const response = await RestaurantService.create(formData);
                     if (response.data.error === false) {
-                        this.getItemDetails();
                         Errors.Notification(response);
+                        // window.location.reload();
                     }
                 } catch (error) {
                     this.errors.record(error.response.data);
                     Errors.Notification(error.response);
                 }
-                window.location.reload();
+                this.submitting = false;
             },
 
             handelImage(event){

@@ -22,4 +22,8 @@ export default {
     deleteMenu(id){
         return Api().delete('/restaurant/web_api/deleteMenuItem/'+id);
     },
+
+    addAmenity(formData){
+        return Api().post('/restaurant/web_api/addAmenity',formData);
+    },
 }

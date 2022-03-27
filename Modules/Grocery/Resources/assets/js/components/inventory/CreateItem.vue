@@ -31,20 +31,20 @@
                                                 </label>
                                                 <div class="col-sm-9">
                                                     <input type="text" v-model="item_name" class="form-control" id="item_name" placeholder="Item name *" required>
-                                                    <span class="form-text small text-danger" v-html="errors.get('name')"></span>
+                                                    <span class="form-text small text-danger" v-html="errors.get('item_name')"></span>
                                                 </div>
                                             </div>
+                                            <!--<div class="form-group row">-->
+                                                <!--<label for="sku" class="col-sm-3 col-form-label">-->
+                                                    <!--SKU-->
+                                                <!--</label>-->
+                                                <!--<div class="col-sm-9">-->
+                                                    <!--<input type="text" v-model="sku" class="form-control" id="sku" placeholder="SKU *" >-->
+                                                    <!--<span class="form-text small text-danger" v-html="errors.get('sku')"></span>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
                                             <div class="form-group row">
-                                                <label for="sku" class="col-sm-3 col-form-label">
-                                                    SKU
-                                                </label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" v-model="sku" class="form-control" id="sku" placeholder="SKU *" >
-                                                    <span class="form-text small text-danger" v-html="errors.get('sku')"></span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="sku" class="col-sm-3 col-form-label">
+                                                <label for="unit_size" class="col-sm-3 col-form-label">
                                                     Unit size
                                                 </label>
                                                 <div class="col-sm-9">
@@ -61,7 +61,8 @@
                     <div class="modal-footer">
                         <label> <input type="checkbox" v-model="continue_editing"> Continue editing </label>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-accent" @click.prevent="saveItem" >Save</button>
+                        <button class="btn btn-accent" v-if="submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button type="button" class="btn btn-accent" @click.prevent="saveItem" v-else>Save</button>
                     </div>
                 </div>
             </div>
@@ -81,6 +82,8 @@
         },
         data: () => ({
             errors: new Errors(),
+            submitting: false,
+
             item_name: "",
             id: "",
             sku: "",
@@ -102,12 +105,14 @@
                 $("#create-item-dialog").modal("show");
             },
             async saveItem() {
+                this.submitting = true;
                 try {
                     let formData = new FormData();
 
                     formData.append("id", this.id);
                     formData.append("item_name", this.item_name);
                     formData.append("sku", this.sku);
+                    formData.append("unit_size", this.unit_size);
                     if(this.item_image){
                         formData.append("main_image", this.item_image, this.item_image.name);
                     }
@@ -128,6 +133,7 @@
                     Errors.Notification(error.response);
                 }
                 EventBus.$emit('itemAdded');
+                this.submitting = false;
             },
 
             handelImage(event){

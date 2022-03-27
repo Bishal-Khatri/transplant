@@ -10,21 +10,27 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="input-group m-b-xs m-t-xs">
-                                    <input type="text" class="form-control" placeholder="Search by Item Name.." aria-describedby="button-addon2" v-model="meta.filter" @keydown.enter="getGroceryItems"
-                                           @click:append="getGroceryItems" @keypress="getGroceryItems">
+                                    <input type="text" class="form-control" placeholder="Search by Item Name.." aria-describedby="button-addon2" v-model="meta.filter"
+                                           @keydown.backspace="setSearch"
+                                           @keydown.enter="setSearch"
+                                           @click:append="setSearch"
+                                           @keypress="setSearch">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <select class="form-control m-b-xs m-t-xs" name="account" style="width: 100%" @change="getGroceryItems" v-model="meta.category">
+                            <div class="col-lg-2 m-t-xs">
+                                <select class="form-control m-b-xs category-select2" name="account" style="width: 100%"
+                                        @click.prevent="getGroceryItems"
+                                        @change.prevent="getGroceryItems"
+                                        v-model="meta.category">
                                     <option value="">Filter By Category</option>
                                     <option v-for="(category, cat_index) in categories" :value="category.id" :key="cat_index">{{ category.name }}</option>
                                 </select>
                             </div>
-                            <div class="col-lg-2">
-                                <select class="form-control m-t-xs" name="account" style="width: 100%" @change="getGroceryItems" v-model="meta.brand">
+                            <div class="col-lg-2 m-t-xs">
+                                <select class="form-control brand-select2" name="account" style="width: 100%" @change="getGroceryItems" v-model="meta.brand">
                                     <option value="">Filter By Brand</option>
                                     <option v-for="(brand, b_index) in brands" :value="brand.id" :key="b_index">{{ brand.name }}</option>
                                 </select>
@@ -52,7 +58,7 @@
                                     <input type="checkbox">
                                 </th>
                                 <th>#</th>
-                                <th>SKU</th>
+                                <!--<th>SKU</th>-->
                                 <th>Item Name</th>
                                 <th>Image</th>
                                 <th>Category</th>
@@ -70,9 +76,7 @@
                                 <td>
                                     {{ value.id }}
                                 </td>
-                                <td>
-                                    {{ value.sku }}
-                                </td>
+                                <!--<td>{{ value.sku }}</td>-->
                                 <td>
                                     <a href="#" @click.prevent="$refs.previewItem.openDialog(value.id)">{{ value.name }}</a>
 
@@ -146,7 +150,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <form action="" id="deleteForm">
-                            <button type="submit" class="btn btn-accent" @click.prevent="deleteItem">Delete</button>
+                            <button class="btn btn-accent" v-if="delete_submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                            <button type="submit" class="btn btn-accent" @click.prevent="deleteItem" v-else>Delete</button>
                         </form>
                     </div>
                 </div>
@@ -173,6 +178,7 @@
         },
         data(){
             return{
+                delete_submitting: false,
                 meta:{
                     filter: '',
                     category: '',
@@ -193,7 +199,16 @@
             }
         },
         mounted() {
+            var vm = this;
             this.getGroceryItems();
+            $('.category-select2').select2().on('change', function (e) {
+                vm.meta.category = e.target.value;
+                vm.getGroceryItems();
+            });
+            $('.brand-select2').select2().on('change', function (e) {
+                vm.meta.brand = e.target.value;
+                vm.getGroceryItems();
+            });
             EventBus.$on('quantityAdded', () => {
                 this.getGroceryItems();
             });
@@ -205,6 +220,9 @@
             });
         },
         methods:{
+            setSearch:_.debounce(function(){
+                this.getGroceryItems();
+            }, 800),
             async getGroceryItems(page=1){
                 const response = await InventoryService.getItems(page,this.meta);
                 this.items_pg = response.data.data.items;
@@ -219,6 +237,7 @@
             },
 
             async deleteItem(){
+                this.delete_submitting = true;
                 const response = await InventoryService.deleteItem(this.delete_id);
                 if (response.data.error === false) {
                     Errors.Notification(response);
@@ -226,6 +245,7 @@
                     $("#deleteItemModal").modal('hide');
                 }
                 this.delete_id = '';
+                this.delete_submitting = false;
             },
         }
     }

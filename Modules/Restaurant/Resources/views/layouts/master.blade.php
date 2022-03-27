@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Page title -->
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     @include('layouts._partials.css')
 </head>
 <body>
@@ -21,7 +20,6 @@
     <!-- Navigation-->
 @include('layouts._partials.sidebar')
 <!-- End navigation-->
-
 
     <!-- Main content-->
     <section class="content">

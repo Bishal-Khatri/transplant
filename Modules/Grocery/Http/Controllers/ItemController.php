@@ -149,6 +149,7 @@ class ItemController extends Controller
         $request->validate([
             'item_id' => 'required|integer',
             'quantity' => 'required|integer',
+            'selling_price' => 'required',
         ]);
 
         $quantity = new ItemQuantity();

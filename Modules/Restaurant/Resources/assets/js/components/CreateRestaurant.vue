@@ -51,9 +51,11 @@
                                                     <input type="text" v-model="main_user_email" class="form-control" id="main_user" placeholder="Email address" >
                                                     <span class="form-text small text-danger" v-html="errors.get('user')"></span>
                                                     <span v-if="selected_user" class="label label-accent">{{ selected_user.name }}</span>
+                                                    <small class="text-accent">Validate user email address before submitting.</small>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <button class="btn btn-accent btn-block" @click.prevent="getUser">Check</button>
+                                                    <button class="btn btn-accent" v-if="user_submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                                                    <button class="btn btn-accent btn-block" @click.prevent="getUser" v-else>Validate</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -65,7 +67,8 @@
                     <div class="modal-footer">
                         <label> <input type="checkbox" v-model="continue_editing"> Continue editing </label>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-accent" @click.prevent="saveRestaurant">Save</button>
+                        <button class="btn btn-accent" v-if="submitting"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button type="button" class="btn btn-accent" @click.prevent="saveRestaurant" v-else>Save</button>
                     </div>
                 </div>
             </div>
@@ -86,6 +89,8 @@
         },
         data: () => ({
             errors: new Errors(),
+            user_submitting: false,
+            submitting: false,
             restaurant_name: "",
             id: "",
             logo: "",
@@ -98,17 +103,11 @@
         computed:{
         },
         methods: {
-            openDialog(restaurant) {
-                // console.log(restaurant)
-                // if (restaurant !== "") {
-                //     this.id = restaurant.id;
-                //     this.restaurant_name = restaurant.name;
-                //     this.address = restaurant.address;
-                //     this.selected_user = restaurant.user;
-                // }
+            openDialog() {
                 $("#create-restaurant-dialog").modal("show");
             },
             async getUser() {
+                this.user_submitting = true;
                 if (this.main_user_email) {
                     try {
                         const response = await RestaurantService.getUserByEmail(this.main_user_email);
@@ -122,8 +121,10 @@
                         Errors.Notification(error.response);
                     }
                 }
+                this.user_submitting = false;
             },
             async saveRestaurant() {
+                this.submitting = true;
                 try {
                     let formData = new FormData();
 
@@ -151,6 +152,7 @@
                     Errors.Notification(error.response);
                 }
                 EventBus.$emit('restaurantAdded');
+                this.submitting = false;
             },
 
             handelImage(event) {

@@ -19,7 +19,7 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
 
 
 
-    Route::group(['prefix' => 'inventory'],function() {
+    Route::group(['prefix' => 'web-api'],function() {
 //        Route::get('category/list', [\App\Http\Controllers\Inventory\CategoryController::class, 'listing']);
 //        Route::post('category/create', [\App\Http\Controllers\Inventory\CategoryController::class, 'save']);
 //        Route::get('category/delete/{category_id}', [\App\Http\Controllers\Inventory\CategoryController::class, 'delete']);
@@ -45,5 +45,9 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
         Route::get('item/getItemDetails/{item_id}', [ ItemController::class, 'getItemDetails']);
         Route::post('item/uploadAdditionalImage', [ ItemController::class, 'uploadAdditionalImage']);
         Route::get('item/deleteAdditionalImage/{image_id}', [ ItemController::class, 'deleteAdditionalImage']);
+
+        Route::group(['prefix' => 'order'],function() {
+            Route::get('/list', [ OrderController::class, 'listOrders']);
+        });
     });
 });

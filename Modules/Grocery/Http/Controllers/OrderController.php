@@ -2,78 +2,58 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
+use App\Enum\OrderStatus;
+use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Cart\Entities\Order;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    use SetResponse;
+
     public function index()
     {
         return view('grocery::order.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function listOrders(Request $request)
     {
-        return view('grocery::create');
-    }
+        $query = Order::query();
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $query->with(['cart', 'user']);
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('grocery::show');
-    }
+        if ($request->has('status_filter') AND $request->status_filter != 0 ){
+            if ($request->status_filter == OrderStatus::COMPLETED){
+                $query->where('status',OrderStatus::COMPLETED);
+            }
+            elseif($request->status_filter == OrderStatus::CANCELED){
+                $query->where('status',OrderStatus::CANCELED);
+            }
+            elseif($request->status_filter == OrderStatus::FAILED){
+                $query->where('status',OrderStatus::FAILED);
+            }
+        }
+        else{
+            $query->where('status','<>',OrderStatus::COMPLETED);
+            $query->where('status','<>',OrderStatus::FAILED);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('grocery::edit');
-    }
+        if ($request->has('filter')){
+            $searchTerm = $request->filter;
+            $query->where('unique_id', 'LIKE', "%{$searchTerm}%");
+        }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if ($request->has('status')){
+            $query->where('status', $request->status);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $orders = $query->orderBy('id', 'desc')->paginate(20);
+
+        $status = Order::getStatus();
+
+        $returnData = $this->prepareResponse(false, 'success', compact('orders', 'status'), []);
+        return response()->json($returnData, 200);
     }
 }

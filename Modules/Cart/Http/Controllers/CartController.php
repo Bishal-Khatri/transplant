@@ -2,6 +2,8 @@
 
 namespace Modules\Cart\Http\Controllers;
 
+use App\Enum\OrderPaymentStatus;
+use App\Enum\OrderStatus;
 use App\Models\UserAddress;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
@@ -141,11 +143,15 @@ class CartController extends Controller
         $order->user_id = $user_id;
         $order->unique_id = 0;
         $order->payment_method = $request->payment_method;
-        $order->payment_status = 0;
+        $order->payment_status = OrderPaymentStatus::UNPAID;
+        $order->status = OrderStatus::SUCCESS;
         $order->total_price = $total_price;
         $order->shipping_price = 0;
         $order->address_id = $address_id;
+        $order->device_id = $request->device_id;
         $order->save();
+
+        $order->setUniqueId();
 
         // update cart data for order_id
         foreach ($cart as $val){

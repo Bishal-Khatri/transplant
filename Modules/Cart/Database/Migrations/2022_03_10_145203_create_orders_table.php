@@ -15,11 +15,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('unique_id')->comment('user_id+district_id');
+            $table->integer('unique_id')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->string('payment_method')->comment('cod, khalti, esewa');
-            $table->string('payment_status')->default(0)->comment('0->unpaid, 1->success, 2->fail');
-            $table->integer('status')->default(0)->comment('0->draft, 1->success, 2->canceled, 3->fail');
+            $table->string('payment_status')->default(1)->comment('UNPAID = 1; SUCCESS = 2; FAILED = 3');
+            $table->integer('status')->default(1)->comment('SUCCESS = 1; PROCESSING = 2; SHIPPED = 3; COMPLETED = 4;CANCELED = 5; FAILED = 6;');
             $table->integer('total_price')->default(0);
             $table->integer('shipping_price')->default(0);
             $table->integer('address_id')->nullable();

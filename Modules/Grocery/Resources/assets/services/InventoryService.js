@@ -14,13 +14,13 @@ export default {
     //
     // // brands
     getBrands(page,meta){
-        return Api().get('/grocery/inventory/brand/list?page=' + page + '&filter=' + meta.filter);
+        return Api().get('/grocery/web-api/brand/list?page=' + page + '&filter=' + meta.filter);
     },
     createBrand(formData){
-        return Api().post('/grocery/inventory/brand/create', formData);
+        return Api().post('/grocery/web-api/brand/create', formData);
     },
     deleteBrand(brand_id){
-        return Api().get('/grocery/inventory/brand/delete/' + brand_id);
+        return Api().get('/grocery/web-api/brand/delete/' + brand_id);
     },
     //
     // // vendors
@@ -36,27 +36,32 @@ export default {
 
     // Items
     getItems(page,meta){
-        return Api().get('/grocery/inventory/item/list?page=' + page + '&filter=' + meta.filter + '&category=' + meta.category + '&brand=' + meta.brand);
+        return Api().get('/grocery/web-api/item/list?page=' + page + '&filter=' + meta.filter + '&category=' + meta.category + '&brand=' + meta.brand);
     },
     createItem(formData){
-        return Api().post('/grocery/inventory/item/create', formData);
+        return Api().post('/grocery/web-api/item/create', formData);
     },
     deleteItem(item_id){
-        return Api().get('/grocery/inventory/item/delete/' + item_id);
+        return Api().get('/grocery/web-api/item/delete/' + item_id);
     },
     saveQuantity(formData){
-        return Api().post('/grocery/inventory/item/addQuantity',formData);
+        return Api().post('/grocery/web-api/item/addQuantity',formData);
     },
     getItemDetails(item_id){
-        return Api().get('/grocery/inventory/item/getItemDetails/'+item_id);
+        return Api().get('/grocery/web-api/item/getItemDetails/'+item_id);
     },
     deleteQuantity(item_id){
-        return Api().get('/grocery/inventory/item/deleteQuantity/' + item_id);
+        return Api().get('/grocery/web-api/item/deleteQuantity/' + item_id);
     },
     uploadAdditionalImage(formData){
-        return Api().post('/grocery/inventory/item/uploadAdditionalImage', formData);
+        return Api().post('/grocery/web-api/item/uploadAdditionalImage', formData);
     },
     deleteAdditionalImage(image_id){
-        return Api().get('/grocery/inventory/item/deleteAdditionalImage/'+image_id);
+        return Api().get('/grocery/web-api/item/deleteAdditionalImage/'+image_id);
+    },
+
+    // orders
+    getOrders(page, meta){
+        return Api().get('/grocery/web-api/order/list?page=' + page + '&filter=' + meta.filter + '&status_filter=' + meta.status_filter);
     }
 }

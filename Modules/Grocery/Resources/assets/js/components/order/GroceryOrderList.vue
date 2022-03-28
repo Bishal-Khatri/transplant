@@ -5,27 +5,19 @@
                 <div class="panel panel-filled">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-10">
+                                <button class="btn btn-lg btn-primary mt-2 mr-2 active" @click.prevent="getOrders(0)">ALL</button>
+                                <button class="btn btn-lg btn-success mt-2 mr-2" @click.prevent="getOrders(status.COMPLETED)">COMPLETED</button>
+                                <button class="btn btn-lg btn-warning mt-2 mr-2" @click.prevent="getOrders(status.CANCELED)">CANCELED</button>
+                                <button class="btn btn-lg btn-secondary mt-2 mr-2" @click.prevent="getOrders(status.FAILED)">FAILED</button>
+                            </div>
+                            <div class="col-lg-2">
                                 <div class="input-group m-b-xs m-t-xs">
-                                    <input type="text" class="form-control" placeholder="Search by Name.." aria-describedby="button-addon2">
+                                    <input type="text" class="form-control" placeholder="Search by Unique ID" aria-describedby="button-addon2">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <select class="form-control m-b-xs m-t-xs" name="account" style="width: 100%">
-                                    <option selected="">Select status</option>
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-3">
-                                <select class="form-control m-t-xs" name="account" style="width: 100%">
-                                    <option selected="">Sort by:</option>
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                </select>
                             </div>
                         </div>
                     </div>
@@ -33,46 +25,62 @@
 
                 <div class="panel panel-filled">
                     <!--<div class="panel-heading">-->
-                        <!--Item list for grocery-->
+                    <!--Item list for grocery-->
                     <!--</div>-->
                     <div class="panel-body">
                         <table class="table table-responsive-sm">
                             <thead>
                             <tr>
-                                <th>#OrderId</th>
+                                <th>#</th>
+                                <th>UniqueId</th>
                                 <th>Customer</th>
                                 <th>Items</th>
+                                <th>Status</th>
+                                <th>Payment</th>
                                 <th>Price</th>
                                 <th>Order Date</th>
                                 <th style="width: 180px" class="text-right">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="value in 15">
+                            <tr v-for="order in orders" :key="order.id">
                                 <td>
-                                    {{ value  }}
+                                    {{ order.id  }}
                                 </td>
                                 <td>
-                                    {{ value  }}
+                                    <a href="">#{{ order.unique_id  }}</a>
                                 </td>
                                 <td>
-                                    <template v-if="value.user">
+                                    <template v-if="order.user">
                                         <div class="float-left mr-2">
-                                            <img v-if="value.user.avatar" alt="image" class="rounded image-md text-left mr-1" :src="'/storage/'+value.user.avatar">
+                                            <img v-if="order.user.avatar" alt="image" class="rounded image-md text-left mr-1" :src="'/storage/'+order.user.avatar">
                                             <img v-else alt="image" class="rounded image-md text-left mr-1" src="/images/placeholder-dark.jpg">
                                         </div>
-                                        <a href="#" >{{ value.user.name }}</a>
-                                        <div class="small"><i class="fa fa-map-pin"></i> Email: {{ value.user.email || '-' }}</div>
+                                        <a href="#" >{{ order.user.name }}</a>
+                                        <div class="small"><i class="fa fa-map-pin"></i> Email: {{ order.user.email || '-' }}</div>
                                     </template>
                                 </td>
                                 <td>
-                                    <a href="#">4 Items</a>
+                                    <a v-if="order.cart && order.cart.length > 0" href="#">{{ order.cart.length }} Items</a>
                                 </td>
                                 <td>
-                                    Rs. 2076
+                                    <span v-if="order.status === 1" class="label label-primary">NEW</span>
+                                    <span v-if="order.status === 2" class="label label-primary">PROCESSING</span>
+                                    <span v-if="order.status === 3" class="label label-primary">SHIPPED</span>
+                                    <span v-if="order.status === 4" class="label label-success">COMPLETED</span>
+                                    <span v-if="order.status === 5" class="label label-warning">CANCELED</span>
+                                    <span v-if="order.status === 6" class="label label-danger">FAILED</span>
                                 </td>
                                 <td>
-                                   27 Mar 2022
+                                    <span v-if="order.payment_status === 1" class="label label-primary">UNPAID</span>
+                                    <span v-if="order.payment_status === 2" class="label label-accent">PAID</span>
+                                    <span v-if="order.payment_status === 3" class="label label-danger">FAILED</span>
+                                </td>
+                                <td>
+                                    Rs. {{ order.total_price }}
+                                </td>
+                                <td>
+                                    {{ order.created_at }}
                                 </td>
                                 <td>
                                     <div class="btn-group pull-right">
@@ -91,13 +99,7 @@
             </div>
         </div>
         <div class="pull-right">
-            <ul class="pagination pagination-sm">
-                <li class="disabled page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="active page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
+            <pagination :data="orders_pg" @pagination-change-page="getOrders"></pagination>
         </div>
     </div>
 </template>
@@ -109,33 +111,35 @@
         name: "GroceryOrderList",
         data(){
             return{
-                expanded: [],
-                deleteBtnLoading: false,
-                deleteDialog: false,
-                loading: false,
-                moduleIsReady: true,
-                search: '',
-                options:{
-                    itemsPerPage: 200,
+                timer: null,
+                page: 1,
+                meta: {
+                    filter: '',
+                    status_filter: ''
                 },
-                headers: [
-                    {text: '#', align: 'start', filterable: false, value: 'id'},
-                    { text: 'SKU', value: 'sku' },
-                    { text: 'Item Name', value: 'name' },
-                    { text: 'Category', value: 'category' },
-                    { text: 'Brand', value: 'brand' },
-                    { text: 'Variation', value: 'has_variant' },
-                    { text: '', value: 'data-table-expand' },
-                    { text: 'Quantity', value: 'quantity' },
-                    { text: 'Stock', value: 'stock' },
-                    { text: '', value: 'action' },
-                ],
+
+                status:{},
+                orders:{},
+                orders_pg:'',
             }
         },
+        mounted(){
+            this.getOrders();
+            this.timer = setInterval(() => {
+                this.getOrders();
+            }, 6000)
+        },
+        beforeDestroy() {
+            clearInterval(this.timer)
+        },
         methods:{
-            async getGroceryItems(){
-                const response = await InventoryService.getItems();
-                this.items = response.data.data.items;
+            async getOrders(status_filter = ''){
+                status_filter ? this.meta.status_filter = status_filter : this.meta.status_filter = 0;
+
+                const response = await InventoryService.getOrders(this.page, this.meta);
+                this.orders_pg = response.data.data.orders;
+                this.orders = response.data.data.orders.data;
+                this.status = response.data.data.status;
             }
         }
     }

@@ -258,7 +258,6 @@
                 this.user_submitting = false;
             },
             setItemData(){
-                console.log(this.restaurant)
                 this.restaurant_name = this.restaurant.name;
                 this.description = this.restaurant.description;
                 this.latitude = this.restaurant.latitude;
@@ -282,7 +281,10 @@
                     this.latitude ? formData.append("latitude", this.latitude) : '';
                     this.longitude ? formData.append("longitude", this.longitude) : '';
                     formData.append("user", this.selected_user.id);
-                    this.description ? formData.append("description", this.description): '';
+
+                    var description = $("#description").val();
+                    description ? formData.append("description", description): '';
+
                     if (this.category_id){
                         formData.append("category_id", this.category_id);
                     }

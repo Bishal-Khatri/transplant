@@ -36,7 +36,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="selling_price" class="col-sm-2 col-form-label">Selling Price</label>
+                                                <label for="selling_price" class="col-sm-2 col-form-label">Selling Price <span style="font-size: 18px" class="text-danger">*</span></label>
                                                 <div class="col-sm-10">
                                                     <input type="number" v-model="selling_price" class="form-control" id="selling_price" placeholder="Selling Price" >
                                                     <span class="form-text small text-danger" v-html="errors.get('selling_price')"></span>

@@ -16191,7 +16191,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     setItemData: function setItemData() {
-      console.log(this.restaurant);
       this.restaurant_name = this.restaurant.name;
       this.description = this.restaurant.description;
       this.latitude = this.restaurant.latitude;
@@ -16208,7 +16207,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        var formData, response;
+        var formData, description, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -16222,7 +16221,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this4.latitude ? formData.append("latitude", _this4.latitude) : '';
                 _this4.longitude ? formData.append("longitude", _this4.longitude) : '';
                 formData.append("user", _this4.selected_user.id);
-                _this4.description ? formData.append("description", _this4.description) : '';
+                description = $("#description").val();
+                description ? formData.append("description", description) : '';
 
                 if (_this4.category_id) {
                   formData.append("category_id", _this4.category_id);
@@ -16236,36 +16236,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   formData.append("main_image", _this4.main_image, _this4.main_image.name);
                 }
 
-                _context4.next = 15;
+                _context4.next = 16;
                 return _services_RestaurantService__WEBPACK_IMPORTED_MODULE_4__["default"].create(formData);
 
-              case 15:
+              case 16:
                 response = _context4.sent;
 
                 if (response.data.error === false) {
                   _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"].Notification(response); // window.location.reload();
                 }
 
-                _context4.next = 23;
+                _context4.next = 24;
                 break;
 
-              case 19:
-                _context4.prev = 19;
+              case 20:
+                _context4.prev = 20;
                 _context4.t0 = _context4["catch"](1);
 
                 _this4.errors.record(_context4.t0.response.data);
 
                 _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"].Notification(_context4.t0.response);
 
-              case 23:
+              case 24:
                 _this4.submitting = false;
 
-              case 24:
+              case 25:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[1, 19]]);
+        }, _callee4, null, [[1, 20]]);
       }))();
     },
     handelImage: function handelImage(event) {

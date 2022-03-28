@@ -288,7 +288,8 @@
                     formData.append("item_name", this.name);
                     this.sku ? formData.append("sku", this.sku) : '';
                     this.unit_size ? formData.append("unit_size", this.unit_size) : '';
-                    this.description ? formData.append("description", this.description): '';
+                    var description = $("#description").val();
+                    description ? formData.append("description", description): '';
                     if (this.category_id){
                         formData.append("category_id", this.category_id);
                     }

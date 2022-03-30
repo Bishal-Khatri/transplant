@@ -17833,7 +17833,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       page: 1,
       meta: {
         filter: '',
-        status_filter: ''
+        status_filter: 0
       },
       status: {},
       orders: {},
@@ -17844,9 +17844,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     this.getOrders();
-    this.timer = setInterval(function () {
-      _this.getOrders();
-    }, 6000);
+
+    if (meta.status_filter === 0 || meta.status_filter === '') {
+      this.timer = setInterval(function () {
+        _this.getOrders();
+      }, 6000);
+    }
   },
   beforeDestroy: function beforeDestroy() {
     clearInterval(this.timer);
@@ -17863,7 +17866,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 status_filter = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : '';
-                status_filter ? _this2.meta.status_filter = status_filter : _this2.meta.status_filter = 0;
+                status_filter ? _this2.meta.status_filter = status_filter : '';
                 _context.next = 4;
                 return _services_InventoryService__WEBPACK_IMPORTED_MODULE_1__["default"].getOrders(_this2.page, _this2.meta);
 

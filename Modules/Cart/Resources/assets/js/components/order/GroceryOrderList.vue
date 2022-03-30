@@ -105,7 +105,7 @@
 </template>
 
 <script>
-    import InventoryService from "../../../services/InventoryService";
+    import CartService from "../../../services/CartService";
 
     export default {
         name: "GroceryOrderList",
@@ -115,7 +115,7 @@
                 page: 1,
                 meta: {
                     filter: '',
-                    status_filter: ''
+                    status_filter: 0
                 },
 
                 status:{},
@@ -125,18 +125,20 @@
         },
         mounted(){
             this.getOrders();
-            this.timer = setInterval(() => {
-                this.getOrders();
-            }, 6000)
+            if (meta.status_filter === 0 || meta.status_filter === '') {
+                this.timer = setInterval(() => {
+                    this.getOrders();
+                }, 6000);
+            }
         },
         beforeDestroy() {
             clearInterval(this.timer)
         },
         methods:{
             async getOrders(status_filter = ''){
-                status_filter ? this.meta.status_filter = status_filter : this.meta.status_filter = 0;
+                status_filter ? this.meta.status_filter = status_filter : '';
 
-                const response = await InventoryService.getOrders(this.page, this.meta);
+                const response = await CartService.getOrders(this.page, this.meta);
                 this.orders_pg = response.data.data.orders;
                 this.orders = response.data.data.orders.data;
                 this.status = response.data.data.status;

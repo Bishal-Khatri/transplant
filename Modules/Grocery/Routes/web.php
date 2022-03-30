@@ -13,12 +13,6 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
         Route::get('/', [ItemController::class, 'index'])->name('grocery.item.index');
     });
 
-    Route::group(['prefix' => 'order'], function () {
-        Route::get('/', [OrderController::class, 'index'])->name('grocery.order.index');
-    });
-
-
-
     Route::group(['prefix' => 'web-api'],function() {
 //        Route::get('category/list', [\App\Http\Controllers\Inventory\CategoryController::class, 'listing']);
 //        Route::post('category/create', [\App\Http\Controllers\Inventory\CategoryController::class, 'save']);
@@ -45,9 +39,5 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
         Route::get('item/getItemDetails/{item_id}', [ ItemController::class, 'getItemDetails']);
         Route::post('item/uploadAdditionalImage', [ ItemController::class, 'uploadAdditionalImage']);
         Route::get('item/deleteAdditionalImage/{image_id}', [ ItemController::class, 'deleteAdditionalImage']);
-
-        Route::group(['prefix' => 'order'],function() {
-            Route::get('/list', [ OrderController::class, 'listOrders']);
-        });
     });
 });

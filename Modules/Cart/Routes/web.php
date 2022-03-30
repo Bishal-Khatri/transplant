@@ -11,6 +11,17 @@
 |
 */
 
+
+use Modules\Cart\Http\Controllers\OrderController;
+
 Route::prefix('cart')->group(function() {
-    Route::get('/', 'CartController@index');
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/', [OrderController::class, 'index'])->name('cart.order.index');
+    });
+
+    Route::group(['prefix' => 'web-api'],function() {
+        Route::group(['prefix' => 'order'],function() {
+            Route::get('/list', [ OrderController::class, 'listOrders']);
+        });
+    });
 });

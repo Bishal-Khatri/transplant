@@ -1,10 +1,9 @@
 <?php
 
-namespace Modules\Grocery\Http\Controllers;
+namespace Modules\Cart\Http\Controllers;
 
 use App\Enum\OrderStatus;
 use App\Traits\SetResponse;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Cart\Entities\Order;
@@ -15,7 +14,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        return view('grocery::order.index');
+        return view('cart::order.index');
     }
 
     public function listOrders(Request $request)

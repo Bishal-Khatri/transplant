@@ -46,6 +46,9 @@
                 <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">Settings</a>
                 </li>
+                <li class="{{ (request()->is('grocery/order')) ? 'active' : '' }}">
+                    <a href="{{ route('cart.order.index') }}">Orders</a>
+                </li>
 
                 @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
                     <li class="nav-category">
@@ -71,9 +74,6 @@
                             @endif
                         </ul>
                     </li>
-                    <li class="{{ (request()->is('grocery/order')) ? 'active' : '' }}">
-                        <a href="{{ route('grocery.order.index') }}">Orders</a>
-                    </li>
                 @endif
 
                 @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))
@@ -88,9 +88,6 @@
                     </li>
                     <li class="{{ (request()->is('restaurant/list')) ? 'active' : '' }}">
                         <a href="/restaurant/list">Restaurant List</a>
-                    </li>
-                    <li class="{{ (request()->is('restaurant/orders')) ? 'active' : '' }}">
-                        <a href="/restaurant">Orders</a>
                     </li>
                 @endif
 

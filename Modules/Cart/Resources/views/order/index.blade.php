@@ -1,4 +1,4 @@
-@extends('grocery::layouts.master')
+@extends('cart::layouts.master')
 
 @section('content')
     <div class="row">

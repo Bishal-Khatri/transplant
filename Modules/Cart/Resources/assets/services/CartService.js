@@ -11,10 +11,10 @@ export default {
     },
 
     updatePaymentStatus(formData){
-        return Api().post('/cart/web-api/order/updatePaymentStatus/', formData);
+        return Api().post('/cart/web-api/order/updatePaymentStatus', formData);
     },
 
     updateOrderStatus(formData){
-        return Api().post('/cart/web-api/order/updateOrderStatus/', formData);
+        return Api().post('/cart/web-api/order/updateOrderStatus', formData);
     }
 }

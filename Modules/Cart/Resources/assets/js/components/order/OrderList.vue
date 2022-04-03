@@ -6,10 +6,11 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-10">
-                                <button class="btn btn-lg btn-primary mt-2 mr-2 active" @click.prevent="getOrders(0)">ALL</button>
-                                <button class="btn btn-lg btn-success mt-2 mr-2" @click.prevent="getOrders(status.COMPLETED)">COMPLETED</button>
-                                <button class="btn btn-lg btn-warning mt-2 mr-2" @click.prevent="getOrders(status.CANCELED)">CANCELED</button>
-                                <button class="btn btn-lg btn-secondary mt-2 mr-2" @click.prevent="getOrders(status.FAILED)">FAILED</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 0 ? 'btn-primary':''" @click.prevent="getOrders(0)">ALL</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 2 ? 'btn-primary':''" @click.prevent="getOrders(status.PROCESSING)">PROCESSING</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 4 ? 'btn-primary':''" @click.prevent="getOrders(status.COMPLETED)">COMPLETED</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 5 ? 'btn-primary':''" @click.prevent="getOrders(status.CANCELED)">CANCELED</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 6 ? 'btn-primary':''" @click.prevent="getOrders(status.FAILED)">FAILED</button>
                             </div>
                             <div class="col-lg-2">
                                 <div class="input-group m-b-xs m-t-xs">
@@ -34,11 +35,11 @@
                                 <th>#</th>
                                 <th>UniqueId</th>
                                 <th>Customer</th>
-                                <th>Items</th>
-                                <th>Status</th>
-                                <th>Payment</th>
+                                <th>No. Items</th>
                                 <th>Price</th>
                                 <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Payment</th>
                                 <th style="width: 180px" class="text-right">Actions</th>
                             </tr>
                             </thead>
@@ -48,7 +49,7 @@
                                     {{ order.id  }}
                                 </td>
                                 <td>
-                                    <a href="">#{{ order.unique_id  }}</a>
+                                    <a :href="'/cart/order/edit/'+order.id">#{{ order.unique_id  }}</a>
                                 </td>
                                 <td>
                                     <template v-if="order.user">
@@ -56,12 +57,19 @@
                                             <img v-if="order.user.avatar" alt="image" class="rounded image-md text-left mr-1" :src="'/storage/'+order.user.avatar">
                                             <img v-else alt="image" class="rounded image-md text-left mr-1" src="/images/placeholder-dark.jpg">
                                         </div>
-                                        <a href="#" >{{ order.user.name }}</a>
-                                        <div class="small"><i class="fa fa-map-pin"></i> Email: {{ order.user.email || '-' }}</div>
+                                        <a href="#" >{{ order.user.name || 'No Name' }} <span v-if=" order.user.device_id"> via {{ order.user.device_id }}</span></a>
+                                        <!--<div class="small"><i class="fa fa-map-pin"></i> Email: {{ order.user.email || '-' }}</div>-->
+                                        <div class="small"><i class="fa fa-phone"></i> {{ order.user.phone_number || '-' }}</div>
                                     </template>
                                 </td>
                                 <td>
-                                    <a v-if="order.cart && order.cart.length > 0" href="#">{{ order.cart.length }} Items</a>
+                                    <span v-if="order.cart && order.cart.length > 0">{{ order.cart.length }}</span>
+                                </td>
+                                <td>
+                                    Rs. {{ order.total_price }}
+                                </td>
+                                <td>
+                                    {{ order.created_at }}
                                 </td>
                                 <td>
                                     <span v-if="order.status === 1" class="label label-primary">NEW</span>
@@ -73,20 +81,12 @@
                                 </td>
                                 <td>
                                     <span v-if="order.payment_status === 1" class="label label-primary">UNPAID</span>
-                                    <span v-if="order.payment_status === 2" class="label label-accent">PAID</span>
+                                    <span v-if="order.payment_status === 2" class="label label-success">PAID</span>
                                     <span v-if="order.payment_status === 3" class="label label-danger">FAILED</span>
                                 </td>
                                 <td>
-                                    Rs. {{ order.total_price }}
-                                </td>
-                                <td>
-                                    {{ order.created_at }}
-                                </td>
-                                <td>
                                     <div class="btn-group pull-right">
-                                        <button class="btn btn-default btn-xs"><i class="fa fa-folder"></i> View</button>
-                                        <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit</button>
-                                        <button class="btn btn-default btn-xs text-danger"><i class="fa fa-trash"></i> Delete</button>
+                                        <a class="btn btn-default btn-xs" :href="'/cart/order/edit/'+order.id"><i class="fa fa-folder"></i> View Order</a>
                                     </div>
                                 </td>
                             </tr>
@@ -113,32 +113,40 @@
             return{
                 timer: null,
                 page: 1,
-                meta: {
-                    filter: '',
-                    status_filter: 0
-                },
+                filter: '',
+                status_filter: 0,
 
                 status:{},
                 orders:{},
-                orders_pg:'',
+                orders_pg:{},
             }
         },
         mounted(){
             this.getOrders();
-            if (meta.status_filter === 0 || meta.status_filter === '') {
-                this.timer = setInterval(() => {
-                    this.getOrders();
-                }, 6000);
-            }
+            // if (this.status_filter === 0) {
+            //     this.ordersHandler();
+            // }
         },
+        // watch: {
+        //     status_filter: function (val) {
+        //         if (val === 0){
+        //             this.ordersHandler()
+        //         }
+        //     },
+        // },
         beforeDestroy() {
             clearInterval(this.timer)
         },
         methods:{
-            async getOrders(status_filter = ''){
-                status_filter ? this.meta.status_filter = status_filter : '';
+            ordersHandler(){
+                this.timer = setInterval(() => {
+                    this.getOrders(0);
+                }, 6000);
+            },
+            async getOrders(status_filter = 0){
+                this.status_filter = status_filter;
 
-                const response = await CartService.getOrders(this.page, this.meta);
+                const response = await CartService.getOrders(this.page, this.filter, this.status_filter);
                 this.orders_pg = response.data.data.orders;
                 this.orders = response.data.data.orders.data;
                 this.status = response.data.data.status;

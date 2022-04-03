@@ -46,7 +46,7 @@
                 <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="/grocery">Settings</a>
                 </li>
-                <li class="{{ (request()->is('grocery/order')) ? 'active' : '' }}">
+                <li class="{{ (request()->is('cart/order') OR request()->is('cart/order/*')) ? 'active' : '' }}">
                     <a href="{{ route('cart.order.index') }}">Orders</a>
                 </li>
 

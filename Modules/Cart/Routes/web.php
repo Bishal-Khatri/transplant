@@ -14,14 +14,18 @@
 
 use Modules\Cart\Http\Controllers\OrderController;
 
-Route::prefix('cart')->group(function() {
+Route::prefix('cart')->middleware('auth')->group(function() {
     Route::group(['prefix' => 'order'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('cart.order.index');
+        Route::get('/edit/{order_id}', [OrderController::class, 'edit'])->name('cart.order.edit');
     });
 
     Route::group(['prefix' => 'web-api'],function() {
         Route::group(['prefix' => 'order'],function() {
             Route::get('/list', [ OrderController::class, 'listOrders']);
+            Route::get('/orderDetails/{order_id}', [ OrderController::class, 'orderDetails']);
+            Route::post('/updatePaymentStatus', [ OrderController::class, 'updatePaymentStatus']);
+            Route::post('/updateOrderStatus', [ OrderController::class, 'updateOrderStatus']);
         });
     });
 });

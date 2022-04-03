@@ -11,6 +11,7 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
 
     Route::group(['prefix' => 'item'], function () {
         Route::get('/', [ItemController::class, 'index'])->name('grocery.item.index');
+        Route::get('/edit/{id}', [ ItemController::class, 'edit'])->name('grocery.item.edit');
     });
 
     Route::group(['prefix' => 'web-api'],function() {
@@ -32,7 +33,6 @@ Route::group(['prefix' => 'grocery', 'middleware' => 'auth'], function (){
         // items
         Route::get('item/list', [ ItemController::class, 'listing']);
         Route::post('item/create', [ ItemController::class, 'save']);
-        Route::get('item/edit/{id}', [ ItemController::class, 'edit'])->name('grocery.item.edit');
         Route::get('item/delete/{item_id}', [ ItemController::class, 'delete']);
         Route::get('item/deleteQuantity/{item_quantity_id}', [ ItemController::class, 'deleteQuantity']);
         Route::post('item/addQuantity', [ ItemController::class, 'addQuantity']);

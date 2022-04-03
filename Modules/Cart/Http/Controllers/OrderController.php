@@ -17,6 +17,11 @@ class OrderController extends Controller
         return view('cart::order.index');
     }
 
+    public function edit($order_id)
+    {
+        return view('cart::order.edit', compact('order_id'));
+    }
+
     public function listOrders(Request $request)
     {
         $query = Order::query();
@@ -32,6 +37,8 @@ class OrderController extends Controller
             }
             elseif($request->status_filter == OrderStatus::FAILED){
                 $query->where('status',OrderStatus::FAILED);
+            }elseif($request->status_filter == OrderStatus::PROCESSING){
+                $query->where('status',OrderStatus::PROCESSING);
             }
         }
         else{
@@ -54,5 +61,56 @@ class OrderController extends Controller
 
         $returnData = $this->prepareResponse(false, 'success', compact('orders', 'status'), []);
         return response()->json($returnData, 200);
+    }
+
+    public function orderDetails($order_id)
+    {
+        try {
+            $order = Order::with(['cart', 'cart.cartable', 'user', 'address', 'address.district', 'address.street'])->whereId($order_id)->firstOrFail();
+
+            $returnData = $this->prepareResponse(false, 'success', compact('order'), []);
+            return response()->json($returnData,200);
+        }catch (\Exception $exception){
+            $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
+            return response()->json($returnData,500);
+        }
+    }
+
+    public function updatePaymentStatus(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|integer',
+            'status' => 'required|integer',
+        ]);
+        try {
+            $order = Order::findOrFail($request->order_id);
+            $order->payment_status = $request->status;
+            $order->save();
+
+            $returnData = $this->prepareResponse(false, 'Payment status changed successfully.', [], []);
+            return response()->json($returnData,200);
+        }catch (\Exception $exception){
+            $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
+            return response()->json($returnData,500);
+        }
+    }
+
+    public function updateOrderStatus(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|integer',
+            'status' => 'required|integer',
+        ]);
+        try {
+            $order = Order::findOrFail($request->order_id);
+            $order->status = $request->status;
+            $order->save();
+
+            $returnData = $this->prepareResponse(false, 'Order status changed successfully.', [], []);
+            return response()->json($returnData,200);
+        }catch (\Exception $exception){
+            $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
+            return response()->json($returnData,500);
+        }
     }
 }

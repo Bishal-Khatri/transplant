@@ -87,10 +87,10 @@
                 @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))
 
                     <li class="{{ (request()->is('restaurant/*') OR request()->is('category/restaurant')) ? 'active' : '' }}">
-                        <a href="#catalog" data-toggle="collapse" aria-expanded="{{ (request()->is('restaurant/*') OR request()->is('category/restaurant')) ? 'true' : 'false' }}">
+                        <a href="#restaurant-catalog" data-toggle="collapse" aria-expanded="{{ (request()->is('restaurant/*') OR request()->is('category/restaurant')) ? 'true' : 'false' }}">
                             Restaurant Catalog <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
                         </a>
-                        <ul id="catalog" class="nav nav-second {{ (request()->is('restaurant/*') OR request()->is('category/restaurant')) ? 'collapse show' : 'collapse' }}">
+                        <ul id="restaurant-catalog" class="nav nav-second {{ (request()->is('restaurant/*') OR request()->is('category/restaurant')) ? 'collapse show' : 'collapse' }}">
                             <li class="@yield('restaurant_category_active')">
                                 <a href="{{ route('restaurant.category.index') }}">Categories</a>
                             </li>

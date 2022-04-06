@@ -44,7 +44,8 @@
                                     {{ value.id }}
                                 </td>
                                 <td>
-                                    <img alt="image" class="rounded image-md" :src="'/storage/'+value.logo">
+                                    <img v-if="value.logo" alt="image" class="rounded image-md" :src="'/storage/'+value.logo">
+                                    <img v-else alt="image" class="rounded image-md" src="/images/blank.png">
                                 </td>
                                 <td>
                                     <a href="#" >{{ value.name }}</a>

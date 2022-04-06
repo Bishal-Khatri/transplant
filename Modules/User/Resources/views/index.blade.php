@@ -1,5 +1,5 @@
 @extends('user::layouts.master')
-
+@section('user_active') active @stop
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -20,4 +20,5 @@
             <hr>
         </div>
     </div>
+    <user-list></user-list>
 @endsection

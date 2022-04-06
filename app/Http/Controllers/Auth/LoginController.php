@@ -52,7 +52,8 @@ class LoginController extends Controller
         ]);
 
         $user = User::firstOrCreate(
-            ["phone_number" => $request->phone_number]
+            ["phone_number" => $request->phone_number],
+            ["user_type" => 'subscriber']
         );
 
         // sends OTP SMS and updates user's OTP in o_t_p_logs table

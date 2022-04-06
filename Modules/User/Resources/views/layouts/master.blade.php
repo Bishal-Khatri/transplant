@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Page title -->
     <title>{{ config('app.name', 'Laravel') }} | User</title>
-
     @include('layouts._partials.css')
 </head>
 <body>
@@ -22,11 +21,12 @@
 @include('layouts._partials.sidebar')
 <!-- End navigation-->
 
-
     <!-- Main content-->
     <section class="content">
         <div class="container-fluid">
-            @yield('content')
+            <div id="app">
+                @yield('content')
+            </div>
         </div>
     </section>
     <!-- End main content-->
@@ -35,7 +35,8 @@
 <!-- End wrapper-->
 
 @include('layouts._partials.script')
-{{--<script src="{{ mix('js/restaurant.js') }}"></script>--}}
+<script src="{{ mix('js/user.js') }}"></script>
+@yield('script')
 </body>
 
 </html>

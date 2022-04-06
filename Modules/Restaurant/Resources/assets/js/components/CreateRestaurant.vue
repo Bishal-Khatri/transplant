@@ -145,9 +145,7 @@
                         this.clearForm();
                         Errors.Notification(response);
                     }
-                    this.saveBtnLoading = false;
                 } catch (error) {
-                    this.saveBtnLoading = false;
                     this.errors.record(error.response.data);
                     Errors.Notification(error.response);
                 }

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('pin')->nullable();
             $table->string('phone_number')->unique()->nullable();
+            $table->string('user_type',20)->comment('subscriber, administrator');
             $table->rememberToken();
             $table->timestamps();
         });

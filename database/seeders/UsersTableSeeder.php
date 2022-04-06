@@ -22,6 +22,7 @@ class UsersTableSeeder extends Seeder
                 'email' => "bishal.khatri343@gmail.com",
                 'phone_number' => 9842700000,
                 'password' => Hash::make('password'),
+                'user_type' => 'administrator',
                 'role' => 'super-admin'
             ],
             [
@@ -29,6 +30,7 @@ class UsersTableSeeder extends Seeder
                 'email' => "restaurant@gmail.com",
                 'phone_number' => 9842700001,
                 'password' => Hash::make('password'),
+                'user_type' => 'administrator',
                 'role' => 'restaurant'
             ],
             [
@@ -36,6 +38,7 @@ class UsersTableSeeder extends Seeder
                 'email' => "grocery@gmail.com",
                 'phone_number' => 9842700002,
                 'password' => Hash::make('password'),
+                'user_type' => 'administrator',
                 'role' => 'grocery'
             ],
             [
@@ -43,6 +46,7 @@ class UsersTableSeeder extends Seeder
                 'email' => "administrator@gmail.com",
                 'phone_number' => 9842700003,
                 'password' => Hash::make('password'),
+                'user_type' => 'administrator',
                 'role' => 'administrator'
             ]
         ];
@@ -53,15 +57,16 @@ class UsersTableSeeder extends Seeder
                 "email" => $value['email'],
                 "phone_number" => $value['phone_number'],
                 "password" => $value['password'],
+                "user_type" => $value['user_type'],
             ]);
 
             $user->assignRole($value['role']);
         }
 
 
-        SmsTemplate::create([
-            'key' => 'otp',
-            'template' => "Your D-ONE login OTP is @{otp}",
-        ]);
+//        SmsTemplate::create([
+//            'key' => 'otp',
+//            'template' => "Your D-ONE login OTP is @{otp}",
+//        ]);
     }
 }

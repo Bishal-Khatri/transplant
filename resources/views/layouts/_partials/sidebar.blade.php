@@ -37,28 +37,36 @@
                     </ul>
                 </li>
 
-                <li class="{{ (request()->is('user') OR request()->is('user/*')) ? 'active' : '' }}">
-                    <a href="/user">Users & Authorization</a>
+                <li class="{{ (request()->is('user/*') OR request()->is('user')) ? 'active' : '' }}">
+                    <a href="#users" data-toggle="collapse" aria-expanded="{{ (request()->is('user/*') OR request()->is('user')) ? 'true' : 'false' }}">
+                        Users & Authorization <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="users" class="nav nav-second {{ (request()->is('user/*') OR request()->is('user')) ? 'collapse show' : 'collapse' }}">
+                        <li class="@yield('user_active')">
+                            <a href="{{ route('user.index') }}">Users</a>
+                        </li>
+                        <li class="@yield('roles_active')">
+                            <a href="{{ route('user.roles') }}">Roles & Permissions</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="{{ (request()->is('')) ? 'active' : '' }}">
+                    <a href="#">Profile</a>
                 </li>
                 <li class="{{ (request()->is('')) ? 'active' : '' }}">
-                    <a href="/grocery">Profile</a>
-                </li>
-                <li class="{{ (request()->is('')) ? 'active' : '' }}">
-                    <a href="/grocery">Settings</a>
+                    <a href="#">Settings</a>
                 </li>
                 <li class="{{ (request()->is('cart/order') OR request()->is('cart/order/*')) ? 'active' : '' }}">
                     <a href="{{ route('cart.order.index') }}">Orders</a>
                 </li>
 
                 @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
-                    <li class="nav-category">
-                        Grocery Menus
-                    </li>
-                    <li class="{{ (request()->is('grocery/*')) ? 'active' : '' }}">
-                        <a href="#catalog" data-toggle="collapse" aria-expanded="{{ (request()->is('grocery/*')) ? 'true' : 'false' }}">
-                            Catalog <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    <li class="{{ (request()->is('grocery/*') OR request()->is('category/grocery')) ? 'active' : '' }}">
+                        <a href="#catalog" data-toggle="collapse" aria-expanded="{{ (request()->is('grocery/*') OR request()->is('category/grocery')) ? 'true' : 'false' }}">
+                            Grocery Catalog <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
                         </a>
-                        <ul id="catalog" class="nav nav-second {{ (request()->is('grocery/*')) ? 'collapse show' : 'collapse' }}">
+                        <ul id="catalog" class="nav nav-second {{ (request()->is('grocery/*') OR request()->is('category/grocery')) ? 'collapse show' : 'collapse' }}">
                             <li class="@yield('grocery_category_active')">
                                 <a href="{{ route('grocery.category.index') }}">Categories</a>
                             </li>
@@ -77,17 +85,22 @@
                 @endif
 
                 @if(Route::has('restaurant.index') AND auth()->user()->hasAnyPermission(['list restaurant', 'create restaurant']))
-                    <li class="nav-category">
-                        Restaurant Menu
-                    </li>
-                    <li class="@yield('amenity_active')">
-                        <a href="{{ route('restaurant.amenity.index') }}">Amenities</a>
-                    </li>
-                    <li class="@yield('restaurant_category_active')">
-                        <a href="{{ route('restaurant.category.index') }}">Categories</a>
-                    </li>
-                    <li class="{{ (request()->is('restaurant/list')) ? 'active' : '' }}">
-                        <a href="/restaurant/list">Restaurant List</a>
+
+                    <li class="{{ (request()->is('restaurant/*') OR request()->is('category/restaurant')) ? 'active' : '' }}">
+                        <a href="#catalog" data-toggle="collapse" aria-expanded="{{ (request()->is('restaurant/*') OR request()->is('category/restaurant')) ? 'true' : 'false' }}">
+                            Restaurant Catalog <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                        </a>
+                        <ul id="catalog" class="nav nav-second {{ (request()->is('restaurant/*') OR request()->is('category/restaurant')) ? 'collapse show' : 'collapse' }}">
+                            <li class="@yield('restaurant_category_active')">
+                                <a href="{{ route('restaurant.category.index') }}">Categories</a>
+                            </li>
+                            <li class="@yield('amenity_active')">
+                                <a href="{{ route('restaurant.amenity.index') }}"> Amenities</a>
+                            </li>
+                            <li class="@yield('restaurant_list_active')">
+                                <a href="{{ route('restaurant.list') }}">All Restaurants</a>
+                            </li>
+                        </ul>
                     </li>
                 @endif
 

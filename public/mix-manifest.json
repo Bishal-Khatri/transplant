@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css?id=f2217793268394d0d36b",
     "/js/grocery.js": "/js/grocery.js?id=a29d3b8cb394a197ce7b",
     "/js/restaurant.js": "/js/restaurant.js?id=d8d7d772abefe1a05dd3",
-    "/js/cart.js": "/js/cart.js?id=72d07f7a47937fe1f20f"
+    "/js/cart.js": "/js/cart.js",
+    "/js/user.js": "/js/user.js"
 }

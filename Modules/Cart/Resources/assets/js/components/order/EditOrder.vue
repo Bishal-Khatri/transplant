@@ -7,6 +7,48 @@
                         <div class="panel-tools">
                             <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
                         </div>
+                        Actions
+                    </div>
+                    <div class="panel-body" style="display: block;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-12 mb-4">
+                                        <p class="c-white mb-1">Payment Status:</p>
+                                        <button @click.prevent="showPaymentStatusModal(1)" class="btn btn-w-md btn-default btn-squared" :class="order.payment_status === 1 ? 'btn-success':''">UNPAID</button>
+                                        <button @click.prevent="showPaymentStatusModal(2)" class="btn btn-w-md btn-default btn-squared" :class="order.payment_status === 2 ? 'btn-success':''">PAID</button>
+                                        <button @click.prevent="showPaymentStatusModal(3)" class="btn btn-w-md btn-default btn-squared" :class="order.payment_status === 3 ? 'btn-danger':''">FAILED</button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="c-white mb-1">Order Status:</p>
+                                        <button @click.prevent="showOrderStatusModal(2)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 2 ? 'btn-success':''">PROCESSING</button>
+                                        <button @click.prevent="showOrderStatusModal(3)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 3 ? 'btn-success':''">SHIPPED</button>
+                                        <button @click.prevent="showOrderStatusModal(4)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 4 ? 'btn-success':''">COMPLETED</button>
+                                        <button @click.prevent="showOrderStatusModal(5)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 5 ? 'btn-success':''">CANCELED</button>
+                                        <button @click.prevent="showOrderStatusModal(6)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 6 ? 'btn-danger':''">FAILED</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group mb-4">
+                                    <label for="delivery_person">Delivery Person</label>
+                                    <select id="delivery_person" class="form-control m-b-xs delivery-select2" name="account" style="width: 100%">
+                                        <option value="">Select Delivery Person</option>
+                                    </select>
+                                    <span class="form-text small text-danger" v-html="errors.get('description')"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="panel-footer" style="display: block;">Panel footer</div>-->
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-filled panel-c-warning">
+                    <div class="panel-heading">
+                        <div class="panel-tools">
+                            <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
+                        </div>
                         Order Summary
                     </div>
                     <div class="panel-body" style="display: block;">
@@ -72,40 +114,6 @@
                                 </table>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="row">
-                                    <div class="col-md-12 mb-4">
-                                        <p class="c-white mb-1">Payment Status:</p>
-                                        <button @click.prevent="showPaymentStatusModal(1)" class="btn btn-w-md btn-default btn-squared" :class="order.payment_status === 1 ? 'btn-success':''">UNPAID</button>
-                                        <button @click.prevent="showPaymentStatusModal(2)" class="btn btn-w-md btn-default btn-squared" :class="order.payment_status === 2 ? 'btn-success':''">PAID</button>
-                                        <button @click.prevent="showPaymentStatusModal(3)" class="btn btn-w-md btn-default btn-squared" :class="order.payment_status === 3 ? 'btn-danger':''">FAILED</button>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <p class="c-white mb-1">Order Status:</p>
-                                        <button @click.prevent="showOrderStatusModal(2)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 2 ? 'btn-success':''">PROCESSING</button>
-                                        <button @click.prevent="showOrderStatusModal(3)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 3 ? 'btn-success':''">SHIPPED</button>
-                                        <button @click.prevent="showOrderStatusModal(4)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 4 ? 'btn-success':''">COMPLETED</button>
-                                        <button @click.prevent="showOrderStatusModal(5)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 5 ? 'btn-success':''">CANCELED</button>
-                                        <button @click.prevent="showOrderStatusModal(6)" class="btn btn-w-md btn-default btn-squared" :class="order.status === 6 ? 'btn-danger':''">FAILED</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!--<div class="panel-footer" style="display: block;">Panel footer</div>-->
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="panel panel-filled panel-c-warning">
-                    <div class="panel-heading">
-                        <div class="panel-tools">
-                            <a class="panel-toggle"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                        Items
-                    </div>
-                    <div class="panel-body" style="display: block;">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
                                 <table class="table table-responsive-lg" v-if="order">
                                     <thead>
                                     <tr>
@@ -117,7 +125,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(cart,index) in order.cart" :key="index">
+                                    <tr v-if="order.cart" v-for="(cart,index) in order.cart" :key="index">
                                         <td>
                                             <img v-if="cart.cartable.image" :src="'/storage/'+cart.cartable.image" alt="" class="image-md rounded">
                                             <img v-else src="/images/placeholder-dark.jpg" alt="" class="image-md rounded">
@@ -156,16 +164,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="form-group mb-4">
-                                    <label for="delivery_person">Delivery Person</label>
-                                    <select id="delivery_person" class="form-control m-b-xs delivery-select2" name="account" style="width: 100%">
-                                        <option value="">Select Delivery Person</option>
-                                    </select>
-                                    <span class="form-text small text-danger" v-html="errors.get('description')"></span>
-                                </div>
-                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 namespace Modules\Restaurant\Http\Controllers;
 
-use App\Enum\CategoryType;
+use App\Enum\ContentType;
 use App\Models\Category;
 use App\Traits\FileStore;
 use App\Traits\SetResponse;
@@ -112,7 +112,7 @@ class RestaurantController extends Controller
     public function edit($id)
     {
         $restaurant = Restaurant::with('menu', 'menu.category', 'user')->findOrFail($id);
-        $categories = Category::where('type', CategoryType::RESTAURANT)->get();
+        $categories = Category::where('type', ContentType::RESTAURANT)->get();
         $amenities = Amenity::where('status', true)->get();
 
         return view('restaurant::restaurant-edit', compact('restaurant', 'categories', 'amenities'));

@@ -8,7 +8,8 @@
                             <div class="col-lg-2">
                                 <button @click.prevent="$refs.createItem.openDialog()" class="btn btn-accent btn-block btn-lg mt-1">Add New Item</button>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
                                 <div class="input-group m-b-xs m-t-xs">
                                     <input type="text" class="form-control" placeholder="Search by Item Name.." aria-describedby="button-addon2" v-model="meta.filter"
                                            @keydown.backspace="setSearch"
@@ -59,8 +60,8 @@
                                 </th>
                                 <th>#</th>
                                 <!--<th>SKU</th>-->
-                                <th>Item Name</th>
                                 <th>Image</th>
+                                <th>Item Name</th>
                                 <th>Category</th>
                                 <th>Brand</th>
                                 <th>Quantity</th>
@@ -78,11 +79,6 @@
                                 </td>
                                 <!--<td>{{ value.sku }}</td>-->
                                 <td>
-                                    <a href="#" @click.prevent="$refs.previewItem.openDialog(value.id)">{{ value.name }}</a>
-
-                                    <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
-                                </td>
-                                <td>
                                     <a :href="'/grocery/item/edit/'+value.id" v-if="value.main_image_thumbnail">
                                         <img alt="image" class="rounded image-md" :src="'/storage/'+value.main_image_thumbnail">
                                     </a>
@@ -95,10 +91,15 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <span v-if="value.category">{{ value.category.name }}</span>
+                                    <a href="#" @click.prevent="$refs.previewItem.openDialog(value.id)">{{ value.name }}</a>
+
+                                    <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
                                 </td>
                                 <td>
-                                    <span v-if="value.brand">{{ value.brand.name }}</span>
+                                    <span v-if="value.category">{{ value.category.name }}</span><span v-else>Not-Available</span>
+                                </td>
+                                <td>
+                                    <span v-if="value.brand">{{ value.brand.name }}</span><span v-else>Not-Available</span>
                                 </td>
                                 <td>
                                     {{ value.quantity }}
@@ -114,7 +115,7 @@
                                         <button class="btn btn-default btn-xs" @click.prevent="$refs.addQuantity.openDialog(value)">
                                             <i class="fa fa-plus"></i> Qty
                                         </button>
-                                        <a class="btn btn-default btn-xs" :href="'/grocery/inventory/item/edit/'+value.id">
+                                        <a class="btn btn-default btn-xs" :href="'/grocery/item/edit/'+value.id">
                                             <i class="fa fa-pencil"></i> Edit
                                         </a>
                                         <button class="btn btn-default btn-xs" @click.prevent="showDeleteModal(value.id)">

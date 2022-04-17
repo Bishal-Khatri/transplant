@@ -49,10 +49,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <h5>Selected Category</h5>
-                                        <p v-if="category">
-                                            {{category.name}}<br>
+                                        <p v-if="category">{{category.name}}<br>
                                             <small class="text-muted">Created: {{category.created_at}}</small>
                                         </p>
+                                        <span v-else>Not-Available</span>
                                     </div>
                                 </div>
                             </div>
@@ -72,6 +72,7 @@
                                             {{brand.name}}<br>
                                             <small class="text-muted">Created: {{brand.created_at}}</small>
                                         </p>
+                                        <span v-else>Not-Available</span>
                                     </div>
                                 </div>
                             </div>

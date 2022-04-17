@@ -20,6 +20,11 @@ class UserController extends Controller
         return view('user::index');
     }
 
+    public function roleIndex()
+    {
+        return view('user::role.index');
+    }
+
 
     public function userListing(Request $request)
     {
@@ -35,17 +40,25 @@ class UserController extends Controller
         return response()->json($returnData, 200);
     }
 
+    public function roleListing()
+    {
+        $roles = Role::all();
+
+        $returnData = $this->prepareResponse(false, 'success', compact('roles'), []);
+        return response()->json($returnData, 200);
+    }
+
     public function registerUser(Request $request)
     {
-        try {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required|unique:users',
-                'password' => 'required|confirmed|min:6',
-                'contact' => 'required',
-                'role' => 'required',
-            ]);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|confirmed|min:6',
+            'contact' => 'required',
+            'role' => 'required',
+        ]);
 
+        try {
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;

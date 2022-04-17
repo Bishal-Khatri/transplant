@@ -1,0 +1,2 @@
+ALl render able content from pages and page_sections table are displayed in page.blade.php
+accepts variable: content

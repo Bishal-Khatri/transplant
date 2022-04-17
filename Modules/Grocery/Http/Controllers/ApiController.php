@@ -2,7 +2,7 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
-use App\Enum\CategoryType;
+use App\Enum\ContentType;
 use App\Models\Category;
 use App\Traits\SetResponse;
 use Illuminate\Http\Request;
@@ -58,7 +58,7 @@ class ApiController extends Controller
                 ];
             })
         );
-        $categories = Category::where('type', CategoryType::GROCERY)->get();
+        $categories = Category::where('type', ContentType::GROCERY)->get();
         $brands = Brand::all();
         $banner = Banner::where('key', 'grocery')->get();
         $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands', 'banner'), []);

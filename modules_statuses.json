@@ -3,5 +3,6 @@
     "Restaurant": true,
     "User": true,
     "Application": true,
-    "Cart": true
+    "Cart": true,
+    "ContentManagement": true
 }

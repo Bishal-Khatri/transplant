@@ -41,7 +41,7 @@
                             </thead>
                             <tbody>
                             <tr v-if="users.length <= 0">
-                                <td colspan="7">No records found.</td>
+                                <td colspan="8">No records found.</td>
                             </tr>
                             <tr v-else v-for="user in users" :key="user.id">
                                 <td>

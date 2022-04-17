@@ -5,7 +5,11 @@
                 <div class="panel panel-filled">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-2">
+                                <button @click.prevent="$refs.createBrand.openDialog()" class="btn btn-accent btn-block btn-lg mt-1">Add brand</button>
+                            </div>
+                            <div class="col-lg-8"></div>
+                            <div class="col-lg-2">
                                 <div class="input-group m-b-xs m-t-xs">
                                     <input type="text" class="form-control" placeholder="Search by Item Name.." aria-describedby="button-addon2" v-model="meta.filter" @keydown.enter="getBrands"
                                            @click:append="getBrands" @keypress="getBrands">
@@ -13,12 +17,6 @@
                                         <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3">
-
-                            </div>
-                            <div class="col-lg-3">
-
                             </div>
                         </div>
                     </div>
@@ -39,8 +37,7 @@
                                 <th style="width: 80px;">Image</th>
                                 <th>Brand Name</th>
                                 <th style="width: 164px" class="text-right">
-                                    <span class="float-left">Actions</span>
-                                    <button @click.prevent="$refs.createBrand.openDialog()" class="text-right btn btn-default btn-xs">Add brand</button>
+                                   Actions
                                 </th>
                             </tr>
                             </thead>

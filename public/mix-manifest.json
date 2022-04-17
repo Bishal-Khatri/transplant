@@ -1,8 +1,9 @@
 {
     "/js/app.js": "/js/app.js?id=63b8b0ee02a563df7fa6",
     "/css/app.css": "/css/app.css?id=f2217793268394d0d36b",
-    "/js/grocery.js": "/js/grocery.js?id=a29d3b8cb394a197ce7b",
+    "/js/grocery.js": "/js/grocery.js",
     "/js/restaurant.js": "/js/restaurant.js?id=05a4946567c0833a8e8e",
     "/js/cart.js": "/js/cart.js?id=860ec274f6270d0158dc",
-    "/js/user.js": "/js/user.js?id=46141641b2dcb57630b5"
+    "/js/user.js": "/js/user.js",
+    "/js/contentmanagement.js": "/js/contentmanagement.js"
 }

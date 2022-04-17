@@ -2,7 +2,7 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
-use App\Enum\CategoryType;
+use App\Enum\ContentType;
 use App\Models\Category;
 use App\Traits\FileStore;
 use App\Traits\SetResponse;
@@ -27,7 +27,7 @@ class ItemController extends Controller
     public function edit($id)
     {
         $brands = Brand::all();
-        $categories = Category::where('type', CategoryType::GROCERY)->get();
+        $categories = Category::where('type', ContentType::GROCERY)->get();
         $item = Item::findOrFail($id);
 
         return view('grocery::item.edit', compact('brands', 'categories', 'item'));
@@ -102,7 +102,7 @@ class ItemController extends Controller
             })
         );
 
-        $categories = Category::where('type', CategoryType::GROCERY)->get();
+        $categories = Category::where('type', ContentType::GROCERY)->get();
         $brands = Brand::all();
 
         $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands'), []);

@@ -16,3 +16,8 @@
 <link rel="stylesheet" href="{{ asset('asset/vendor/summernote/dist/summernote-bs4.css') }}"/>
 
 <link rel="stylesheet" href="{{ asset('asset/styles/style.css') }}">
+<style>
+    .text-danger{
+        color: #e36660 !important;
+    }
+</style>

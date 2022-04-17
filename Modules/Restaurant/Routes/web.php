@@ -1,8 +1,9 @@
 <?php
 
 use Modules\Restaurant\Http\Controllers\RestaurantController;
+use Modules\Restaurant\Http\Controllers\RestaurantClientController;
 
-Route::group(['prefix' => 'restaurant', 'middleware' => 'auth'], function (){
+Route::group(['prefix' => 'restaurant', 'middleware' => ['auth', 'administrator']], function (){
     Route::get('/', [RestaurantController::class, 'index'])->name('restaurant.index');
     Route::get('/list', [RestaurantController::class, 'listing'])->name('restaurant.list');
     Route::get('/edit/{id}', [RestaurantController::class, 'edit'])->name('restaurant.edit');
@@ -19,8 +20,20 @@ Route::group(['prefix' => 'restaurant', 'middleware' => 'auth'], function (){
         Route::post('/create', [RestaurantController::class, 'store']);
         Route::get('/list', [RestaurantController::class, 'apiListing']);
         Route::delete('/delete/{id}', [RestaurantController::class, 'destroy']);
-        Route::post('/saveItem', [RestaurantController::class, 'saveMenuItem']);
         Route::delete('/deleteMenuItem/{id}', [RestaurantController::class, 'deleteMenuItem']);
         Route::post('/addAmenity', [RestaurantController::class, 'addAmenity']);
+    });
+});
+
+Route::post('/restaurant/web_api/saveItem', [RestaurantController::class, 'saveMenuItem'])->middleware('auth');
+
+
+Route::group(['prefix' => 'restaurant/client', 'middleware'=> ['auth', 'restaurant'], 'as' => 'restaurant.client.'],function() {
+    Route::get('/', [RestaurantClientController::class, 'index'])->name('index');
+
+    Route::group(['prefix' => 'web-api'],function() {
+        Route::get('/orderList', [RestaurantClientController::class, 'orderList']);
+        Route::post('/updateItemStatus', [RestaurantClientController::class, 'updateItemStatus']);
+        Route::get('/getMenu', [RestaurantClientController::class, 'getMenu']);
     });
 });

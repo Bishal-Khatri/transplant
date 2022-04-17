@@ -2,11 +2,10 @@
 
 namespace Modules\Restaurant\Http\Controllers;
 
-use App\Enum\ContentType;
+use App\Enum\CategoryType;
 use App\Models\Category;
 use App\Traits\FileStore;
 use App\Traits\SetResponse;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -112,7 +111,7 @@ class RestaurantController extends Controller
     public function edit($id)
     {
         $restaurant = Restaurant::with('menu', 'menu.category', 'user')->findOrFail($id);
-        $categories = Category::where('type', ContentType::RESTAURANT)->get();
+        $categories = Category::where('type', CategoryType::RESTAURANT)->get();
         $amenities = Amenity::where('status', true)->get();
 
         return view('restaurant::restaurant-edit', compact('restaurant', 'categories', 'amenities'));
@@ -120,7 +119,6 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request->all());
         $request->validate([
             'restaurant_name' => 'required|max:1000',
             'user' => 'required|integer',

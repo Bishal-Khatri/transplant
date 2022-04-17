@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Restaurant\Entities\Restaurant;
+use Modules\Restaurant\Entities\RestaurantMenu;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -33,5 +35,10 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany(UserAddress::class, 'user_id');
+    }
+
+    public function restaurant()
+    {
+        return Restaurant::where('user_id', $this->id)->firstOrFail();
     }
 }

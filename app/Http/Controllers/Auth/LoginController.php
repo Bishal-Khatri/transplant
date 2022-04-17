@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enum\UserType;
 use App\Http\Controllers\Controller;
 use App\Models\OTPLog;
 use App\Models\User;
@@ -9,6 +10,7 @@ use App\Providers\RouteServiceProvider;
 use App\Traits\SendSMS;
 use App\Traits\SetResponse;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -32,8 +34,23 @@ class LoginController extends Controller
      * Where to redirect users after login.
      *
      * @var string
+     * @return string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    public function redirectTo() {
+        $userType = Auth::user()->user_type;
+        switch ($userType) {
+            case UserType::ADMINISTRATOR:
+                return RouteServiceProvider::ADMIN_HOME;
+                break;
+            case UserType::RESTAURANT:
+                return RouteServiceProvider::RESTAURANT_HOME;
+                break;
+
+            default:
+                return '/';
+                break;
+        }
+    }
 
     /**
      * Create a new controller instance.

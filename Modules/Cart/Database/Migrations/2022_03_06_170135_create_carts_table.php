@@ -21,6 +21,8 @@ class CreateCartsTable extends Migration
             $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('quantity');
             $table->unsignedBigInteger('price');
+            $table->unsignedBigInteger('restaurant_id')->nullable();
+            $table->integer('status')->default(0)->comment('Item order status: NEW_ORDER = 0, PROCESSING = 1, COMPLETED = 2, FAILED = 3');
             $table->timestamps();
         });
     }

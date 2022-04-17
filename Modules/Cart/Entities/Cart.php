@@ -2,6 +2,7 @@
 
 namespace Modules\Cart\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Grocery\Entities\Item;
@@ -22,6 +23,16 @@ class Cart extends Model
     public function cartable()
     {
         return $this->morphTo();
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
+
+    public function subscriber()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 //    public function item()

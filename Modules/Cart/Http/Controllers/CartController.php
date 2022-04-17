@@ -59,7 +59,8 @@ class CartController extends Controller
                     $restaurantItem->cart()->create([
                         'user_id' => auth()->user()->id,
                         'quantity' => $request->quantity,
-                        'price' => $restaurantItem->price
+                        'price' => $restaurantItem->price,
+                        'restaurant_id' => $restaurantItem->restaurant_id
                     ]);
                 } else {
                     $restaurantItem->cart->update(['quantity' => (int)$restaurantItem->cart->quantity + (int)$request->quantity]);

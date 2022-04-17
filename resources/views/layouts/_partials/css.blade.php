@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="{{ asset('asset/styles/pe-icons/pe-icon-7-stroke.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/styles/pe-icons/helper.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/styles/stroke-icons/style.css') }}"/>
-<link rel="stylesheet" href="{{ asset('asset/styles/style.css') }}">
+{{--<link rel="stylesheet" href="{{ asset('asset/styles/style.css') }}">--}}
 <link rel="stylesheet" href="{{ asset('asset/vendor/toastr/toastr.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/vendor/select2/dist/css/select2.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/vendor/summernote/dist/summernote-bs4.css') }}"/>

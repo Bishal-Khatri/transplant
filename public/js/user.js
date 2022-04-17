@@ -15443,6 +15443,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15456,6 +15462,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       id: "",
       name: "",
       email: "",
+      user_type: "",
       contact: "",
       password: "",
       password_confirmation: "",
@@ -15481,6 +15488,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   name: _this.name,
                   email: _this.email,
                   contact: _this.contact,
+                  user_type: _this.user_type,
                   password: _this.password,
                   password_confirmation: _this.password_confirmation,
                   role: _this.role
@@ -15786,6 +15794,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -15809,7 +15819,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     this.getUsers();
     _app__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$on('userAdded', function () {
-      _this.getUsers('administrator');
+      _this.getUsers(_this.user_type);
     });
   },
   methods: {
@@ -34452,7 +34462,72 @@ var render = function () {
                             ]),
                           ]),
                           _vm._v(" "),
-                          _vm._m(4),
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(4),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-9" }, [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.user_type,
+                                      expression: "user_type",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { name: "", id: "user_type" },
+                                  on: {
+                                    change: function ($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call(
+                                          $event.target.options,
+                                          function (o) {
+                                            return o.selected
+                                          }
+                                        )
+                                        .map(function (o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.user_type = $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    },
+                                  },
+                                },
+                                [
+                                  _c("option", { attrs: { value: "" } }, [
+                                    _vm._v("SELECT ONE"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "administrator" } },
+                                    [_vm._v("ADMINISTRATOR")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "restaurant" } },
+                                    [_vm._v("RESTAURANT")]
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("span", {
+                                staticClass: "form-text small text-danger",
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.errors.get("user_type")
+                                  ),
+                                },
+                              }),
+                            ]),
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group row" }, [
                             _vm._m(5),
@@ -34711,25 +34786,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        { staticClass: "col-sm-3 col-form-label", attrs: { for: "user_type" } },
-        [_vm._v("User Type")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-9" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            type: "text",
-            id: "user_type",
-            value: "ADMINISTRATOR",
-            disabled: "",
-          },
-        }),
-      ]),
-    ])
+    return _c(
+      "label",
+      { staticClass: "col-sm-3 col-form-label", attrs: { for: "user_type" } },
+      [
+        _vm._v("User Type "),
+        _c(
+          "span",
+          { staticClass: "text-danger", staticStyle: { "font-size": "18px" } },
+          [_vm._v("*")]
+        ),
+      ]
+    )
   },
   function () {
     var _vm = this
@@ -35020,10 +35088,28 @@ var render = function () {
                     },
                     [_vm._v("Administrators")]
                   ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-lg btn-default btn-squared mt-2 mr-2",
+                      class:
+                        _vm.user_type === "restaurant" ? "btn-primary" : "",
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.getUsers("restaurant")
+                        },
+                      },
+                    },
+                    [_vm._v("Restaurant")]
+                  ),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-lg-2 col-md-2" }, [
-                  _vm.user_type === "administrator"
+                  _vm.user_type === "administrator" ||
+                  _vm.user_type === "restaurant"
                     ? _c(
                         "button",
                         {
@@ -35123,6 +35209,14 @@ var render = function () {
                                     "span",
                                     { staticClass: "label label-primary" },
                                     [_vm._v("ADMINISTRATOR")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              user.user_type === "restaurant"
+                                ? _c(
+                                    "span",
+                                    { staticClass: "label label-primary" },
+                                    [_vm._v("RESTAURANT")]
                                   )
                                 : _vm._e(),
                             ]),

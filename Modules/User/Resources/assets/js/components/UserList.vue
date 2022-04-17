@@ -8,9 +8,10 @@
                             <div class="col-lg-8 col-md-8">
                                 <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === '' || user_type === 'subscriber' ? 'btn-primary':''" @click.prevent="getUsers('subscriber')">Subscribers</button>
                                 <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === 'administrator' ? 'btn-primary':''" @click.prevent="getUsers('administrator')">Administrators</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === 'restaurant' ? 'btn-primary':''" @click.prevent="getUsers('restaurant')">Restaurant</button>
                             </div>
                             <div class="col-lg-2 col-md-2">
-                                <button v-if="user_type === 'administrator'" @click.prevent="$refs.createUser.openDialog()" class="btn btn-lg btn-accent btn-squared mt-2 btn-block">Register New User</button>
+                                <button v-if="user_type === 'administrator' || user_type === 'restaurant'" @click.prevent="$refs.createUser.openDialog()" class="btn btn-lg btn-accent btn-squared mt-2 btn-block">Register New User</button>
                             </div>
                             <div class="col-lg-2 col-md-2">
                                 <div class="input-group m-b-xs m-t-xs">
@@ -61,6 +62,7 @@
                                 <td>
                                     <span v-if="user.user_type === 'subscriber'" class="label label-primary">SUBSCRIBER</span>
                                     <span v-if="user.user_type === 'administrator'" class="label label-primary">ADMINISTRATOR</span>
+                                    <span v-if="user.user_type === 'restaurant'" class="label label-primary">RESTAURANT</span>
                                 </td>
                                 <td>
                                     <span v-if="user.roles.length" v-for="role in user.roles" class="label label-primary">{{ role.name.toUpperCase() }}</span>
@@ -113,7 +115,7 @@
         mounted(){
             this.getUsers();
             EventBus.$on('userAdded', () => {
-                this.getUsers('administrator');
+                this.getUsers(this.user_type);
             });
         },
         methods:{

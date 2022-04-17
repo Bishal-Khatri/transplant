@@ -55,7 +55,8 @@ class UserController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required|confirmed|min:6',
             'contact' => 'required',
-            'role' => 'required',
+            'user_type' => 'required',
+//            'role' => 'required',
         ]);
 
         try {
@@ -63,12 +64,14 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone_number = $request->contact;
-            $user->user_type = UserType::ADMINISTRATOR;
+            $user->user_type = $request->user_type;
             $user->password = Hash::make($request->password);
             $user->save();
 
-            $role = Role::findOrFail($request->role);
-            $user->assignRole($role);
+            if (isset($request->role) AND !blank($request->role)){
+                $role = Role::findOrFail($request->role);
+                $user->assignRole($role);
+            }
 
             $returnData = $this->prepareResponse(false, 'Success<br>Administrator created successfully', [], []);
             return response()->json($returnData, 200);

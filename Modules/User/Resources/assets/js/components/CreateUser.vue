@@ -43,9 +43,15 @@
                                             </div>
 
                                             <div class="form-group row">
-                                                <label for="user_type" class="col-sm-3 col-form-label">User Type</label>
+                                                <label for="user_type" class="col-sm-3 col-form-label">User Type <span style="font-size: 18px" class="text-danger">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="user_type" value="ADMINISTRATOR" disabled>
+                                                    <select name="" v-model="user_type" id="user_type" class="form-control">
+                                                        <option value="">SELECT ONE</option>
+                                                        <option value="administrator">ADMINISTRATOR</option>
+                                                        <option value="restaurant">RESTAURANT</option>
+                                                    </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('user_type')"></span>
+                                                    <!--<input type="text" class="form-control" id="" value="ADMINISTRATOR" disabled>-->
                                                 </div>
                                             </div>
 
@@ -112,6 +118,7 @@
             id: "",
             name: "",
             email: "",
+            user_type: "",
             contact: "",
             password: "",
             password_confirmation: "",
@@ -128,6 +135,7 @@
                         name: this.name,
                         email: this.email,
                         contact: this.contact,
+                        user_type: this.user_type,
                         password: this.password,
                         password_confirmation: this.password_confirmation,
                         role: this.role,

@@ -40,21 +40,7 @@ class RolesAndPermissionSeeder extends Seeder
         $roles = [
             "subscriber" => [],
             "administrator" => $permissions,
-            "restaurant" => [
-                "list restaurant",
-                "create restaurant",
-                "edit restaurant",
-                "delete restaurant",
-                "publish restaurant",
-                "unpublish restaurant",
-            ],
-            "grocery" => [
-                "create items",
-                "edit items",
-                "delete items",
-                "publish items",
-                "unpublish items",
-            ],
+            "restaurant" => [],
         ];
 
         foreach($roles as $key=>$value){

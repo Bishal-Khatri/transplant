@@ -18,37 +18,29 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Bishal Khatri',
-                'email' => "bishal.khatri343@gmail.com",
-                'phone_number' => 9842700000,
-                'password' => Hash::make('password'),
+                'name' => 'iions technology',
+                'email' => "admin@iionstech.com",
+                'phone_number' => 9842721343,
+                'password' => Hash::make('super@iionstech#343'),
                 'user_type' => 'administrator',
                 'role' => 'super-admin'
             ],
-            [
-                'name' => 'Restaurant User',
-                'email' => "restaurant@gmail.com",
-                'phone_number' => 9842700001,
-                'password' => Hash::make('password'),
-                'user_type' => 'administrator',
-                'role' => 'restaurant'
-            ],
-            [
-                'name' => 'Grocery User',
-                'email' => "grocery@gmail.com",
-                'phone_number' => 9842700002,
-                'password' => Hash::make('password'),
-                'user_type' => 'administrator',
-                'role' => 'grocery'
-            ],
-            [
-                'name' => 'Administrator User',
-                'email' => "administrator@gmail.com",
-                'phone_number' => 9842700003,
-                'password' => Hash::make('password'),
-                'user_type' => 'administrator',
-                'role' => 'administrator'
-            ]
+//            [
+//                'name' => 'Restaurant User',
+//                'email' => "restaurant@gmail.com",
+//                'phone_number' => 9842700001,
+//                'password' => Hash::make('password'),
+//                'user_type' => 'administrator',
+//                'role' => 'restaurant'
+//            ],
+//            [
+//                'name' => 'Administrator User',
+//                'email' => "administrator@gmail.com",
+//                'phone_number' => 9842700003,
+//                'password' => Hash::make('password'),
+//                'user_type' => 'administrator',
+//                'role' => 'administrator'
+//            ]
         ];
 
         foreach($users as $value){

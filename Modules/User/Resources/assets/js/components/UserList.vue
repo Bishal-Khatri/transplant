@@ -6,12 +6,13 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-8 col-md-8">
-                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === '' || user_type === 'subscriber' ? 'btn-primary':''" @click.prevent="getUsers('subscriber')">Subscribers</button>
-                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === 'administrator' ? 'btn-primary':''" @click.prevent="getUsers('administrator')">Administrators</button>
-                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === 'restaurant' ? 'btn-primary':''" @click.prevent="getUsers('restaurant')">Restaurant</button>
+                                <button v-if="types" v-for="userType in types" class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === userType ? 'btn-primary':''" @click.prevent="getUsers(userType)">{{ userType.toUpperCase()}}</button>
+                                <!--<button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === '' || user_type === 'subscriber' ? 'btn-primary':''" @click.prevent="getUsers('subscriber')">Subscribers</button>-->
+                                <!--<button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === 'administrator' ? 'btn-primary':''" @click.prevent="getUsers('administrator')">Administrators</button>-->
+                                <!--<button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="user_type === 'restaurant' ? 'btn-primary':''" @click.prevent="getUsers('restaurant')">Restaurant</button>-->
                             </div>
                             <div class="col-lg-2 col-md-2">
-                                <button v-if="user_type === 'administrator' || user_type === 'restaurant'" @click.prevent="$refs.createUser.openDialog()" class="btn btn-lg btn-accent btn-squared mt-2 btn-block">Register New User</button>
+                                <button @click.prevent="$refs.createUser.openDialog()" class="btn btn-lg btn-accent btn-squared mt-2 btn-block">Register New User</button>
                             </div>
                             <div class="col-lg-2 col-md-2">
                                 <div class="input-group m-b-xs m-t-xs">
@@ -60,12 +61,12 @@
                                     {{ user.email }}
                                 </td>
                                 <td>
-                                    <span v-if="user.user_type === 'subscriber'" class="label label-primary">SUBSCRIBER</span>
-                                    <span v-if="user.user_type === 'administrator'" class="label label-primary">ADMINISTRATOR</span>
-                                    <span v-if="user.user_type === 'restaurant'" class="label label-primary">RESTAURANT</span>
+                                    <span class="label label-primary">{{ user.user_type.toUpperCase() }}</span>
+                                    <!--<span v-if="user.user_type === 'administrator'" class="label label-primary">ADMINISTRATOR</span>-->
+                                    <!--<span v-if="user.user_type === 'restaurant'" class="label label-primary">RESTAURANT</span>-->
                                 </td>
                                 <td>
-                                    <span v-if="user.roles.length" v-for="role in user.roles" class="label label-primary">{{ role.name.toUpperCase() }}</span>
+                                    <span v-if="user.roles.length" v-for="role in user.roles" class="label label-default">{{ role.name.toUpperCase() }}</span>
                                     <span v-else>Unavailable</span>
                                 </td>
                                 <td>
@@ -87,7 +88,7 @@
             <pagination :data="users_pg" @pagination-change-page="getUsers"></pagination>
         </div>
 
-        <create-user ref="createUser" :roles="roles"/>
+        <create-user ref="createUser" :types="types" :roles="roles"/>
     </div>
 </template>
 
@@ -98,6 +99,9 @@
 
     export default {
         name: "UserList",
+        props:[
+            'types'
+        ],
         components: {
             CreateUser,
         },
@@ -113,7 +117,7 @@
             }
         },
         mounted(){
-            this.getUsers();
+            this.getUsers('subscriber');
             EventBus.$on('userAdded', () => {
                 this.getUsers(this.user_type);
             });

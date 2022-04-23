@@ -26,6 +26,7 @@ Route::prefix('cart')->middleware('auth')->group(function() {
             Route::get('/orderDetails/{order_id}', [ OrderController::class, 'orderDetails']);
             Route::post('/updatePaymentStatus', [ OrderController::class, 'updatePaymentStatus']);
             Route::post('/updateOrderStatus', [ OrderController::class, 'updateOrderStatus']);
+            Route::post('/assignOrder', [ OrderController::class, 'assignOrder']);
         });
     });
 });

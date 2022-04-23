@@ -47,8 +47,7 @@
                                                 <div class="col-sm-9">
                                                     <select name="" v-model="user_type" id="user_type" class="form-control">
                                                         <option value="">SELECT ONE</option>
-                                                        <option value="administrator">ADMINISTRATOR</option>
-                                                        <option value="restaurant">RESTAURANT</option>
+                                                        <option v-if="types" v-for="userType in types" :value="userType" >{{ userType.toUpperCase() }}</option>
                                                     </select>
                                                     <span class="form-text small text-danger" v-html="errors.get('user_type')"></span>
                                                     <!--<input type="text" class="form-control" id="" value="ADMINISTRATOR" disabled>-->
@@ -111,7 +110,7 @@
 
     export default {
         name: "CreateUser",
-        props: ['roles'],
+        props: ['roles', 'types'],
         data: () => ({
             errors: new Errors(),
             submitting: false,

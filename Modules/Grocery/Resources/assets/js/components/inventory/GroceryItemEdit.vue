@@ -19,6 +19,11 @@
                                 <span class="form-text small text-danger" v-html="errors.get('sku')"></span>
                             </div>
                             <div class="form-group mb-4">
+                                <label for="service_charge">Service Charge</label>
+                                <input type="text" class="form-control" id="service_charge" placeholder="Service Charge" v-model="service_charge">
+                                <span class="form-text small text-danger" v-html="errors.get('service_charge')"></span>
+                            </div>
+                            <div class="form-group mb-4">
                                 <label for="unit_size">Unit size</label>
                                 <input type="text" class="form-control" id="unit_size" placeholder="Unit size of item" v-model="unit_size">
                                 <span class="form-text small text-danger" v-html="errors.get('unit_size')"></span>
@@ -207,6 +212,7 @@
             description:'',
             main_image:'',
             sku:'',
+            service_charge:'',
             category_id:'',
             brand_id:'',
             brand:'',

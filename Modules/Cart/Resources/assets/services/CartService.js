@@ -16,5 +16,9 @@ export default {
 
     updateOrderStatus(formData){
         return Api().post('/cart/web-api/order/updateOrderStatus', formData);
+    },
+
+    assignOrder(formData){
+        return Api().post('/cart/web-api/order/assignOrder', formData);
     }
 }

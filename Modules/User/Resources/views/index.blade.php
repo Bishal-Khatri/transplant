@@ -20,5 +20,5 @@
             <hr>
         </div>
     </div>
-    <user-list></user-list>
+    <user-list :types="{{json_encode($user_types)}}"></user-list>
 @endsection

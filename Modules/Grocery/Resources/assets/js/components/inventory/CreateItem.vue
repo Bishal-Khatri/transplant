@@ -120,7 +120,7 @@
                     const response = await InventoryService.createItem(formData);
                     if (response.data.error === false) {
                         if (this.continue_editing && response.data.data.item){
-                            window.location.href = '/grocery/inventory/item/edit/'+response.data.data.item.id;
+                            window.location.href = '/grocery/item/edit/'+response.data.data.item.id;
                         }
                         $("#create-item-dialog").modal("hide");
                         this.clearForm();

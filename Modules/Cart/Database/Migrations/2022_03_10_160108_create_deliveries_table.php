@@ -17,7 +17,6 @@ class CreateDeliveriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('deliverer_id');
-            $table->integer('status')->comment('0->packed, 1->shipped, 2->delivered, 3->fail');
             $table->timestamps();
         });
     }

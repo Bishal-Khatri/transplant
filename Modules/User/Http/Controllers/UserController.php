@@ -17,7 +17,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('user::index');
+        $user_types = UserType::getConstants();
+        return view('user::index', compact('user_types'));
     }
 
     public function roleIndex()

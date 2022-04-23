@@ -3,9 +3,12 @@
 namespace Modules\Cart\Http\Controllers;
 
 use App\Enum\OrderStatus;
+use App\Enum\UserType;
+use App\Models\User;
 use App\Traits\SetResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Cart\Entities\Delivery;
 use Modules\Cart\Entities\Order;
 
 class OrderController extends Controller
@@ -66,9 +69,10 @@ class OrderController extends Controller
     public function orderDetails($order_id)
     {
         try {
-            $order = Order::with(['cart', 'cart.cartable', 'user', 'address', 'address.district', 'address.street'])->whereId($order_id)->firstOrFail();
+            $delivery_persons = User::where('user_type', UserType::DELIVERY_PERSON)->get();
+            $order = Order::with(['cart', 'cart.cartable', 'user', 'address', 'address.district', 'address.street', 'delivery.user'])->whereId($order_id)->firstOrFail();
 
-            $returnData = $this->prepareResponse(false, 'success', compact('order'), []);
+            $returnData = $this->prepareResponse(false, 'success', compact('order', 'delivery_persons'), []);
             return response()->json($returnData,200);
         }catch (\Exception $exception){
             $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
@@ -87,7 +91,7 @@ class OrderController extends Controller
             $order->payment_status = $request->status;
             $order->save();
 
-            $returnData = $this->prepareResponse(false, 'Payment status changed successfully.', [], []);
+            $returnData = $this->prepareResponse(false, 'Success <br> Payment status changed successfully.', [], []);
             return response()->json($returnData,200);
         }catch (\Exception $exception){
             $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
@@ -106,11 +110,44 @@ class OrderController extends Controller
             $order->status = $request->status;
             $order->save();
 
-            $returnData = $this->prepareResponse(false, 'Order status changed successfully.', [], []);
+            $returnData = $this->prepareResponse(false, 'Success <br> Order status changed successfully.', [], []);
             return response()->json($returnData,200);
         }catch (\Exception $exception){
             $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
             return response()->json($returnData,500);
         }
+    }
+
+    public function assignOrder(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|integer',
+            'delivery_person' => 'required|integer',
+        ]);
+        try {
+            $delivery = Delivery::where('order_id', $request->order_id)->first();
+
+            if (!$delivery){
+                $delivery = new Delivery();
+            }
+
+            $delivery->order_id = $request->order_id;
+            $delivery->deliverer_id = $request->delivery_person;
+            $delivery->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Delivery assigned successfully.', [], []);
+            return response()->json($returnData,200);
+        }catch (\Exception $exception){
+            $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
+            return response()->json($returnData,500);
+        }
+    }
+
+    public function getAssignedOrder()
+    {
+        $user = auth()->user();
+        $deliveries = Delivery::with(['order', 'order.user', 'order.address.district', 'order.address.street'])->where('deliverer_id', $user->id)->get();
+        $returnData = $this->prepareResponse(false, 'success', compact('deliveries'), []);
+        return response()->json($returnData);
     }
 }

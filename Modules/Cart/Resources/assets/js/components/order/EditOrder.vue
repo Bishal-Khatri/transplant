@@ -32,11 +32,16 @@
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group mb-4">
                                     <label for="delivery_person">Delivery Person</label>
-                                    <select id="delivery_person" class="form-control m-b-xs delivery-select2" name="account" style="width: 100%">
+                                    <select id="delivery_person" class="form-control m-b-xs delivery-select2" name="account" style="width: 100%" v-model="delivery_person_id" data-placeholder="Select Delivery Person">
                                         <option value="">Select Delivery Person</option>
+                                        <option v-if="delivery_persons" v-for="delivery_person in delivery_persons" :value="delivery_person.id">{{ delivery_person.name || delivery_person.phone_number }}</option>
                                     </select>
-                                    <span class="form-text small text-danger" v-html="errors.get('description')"></span>
+                                    <span class="form-text small text-danger" v-html="errors.get('delivery_person')"></span>
                                 </div>
+                                <div v-if="order.delivery" class="float-left">
+                                    Delivery assigned to <a href="">{{ order.delivery.user.name || order.delivery.user.phone_number }}</a>
+                                </div>
+                                <button class="btn btn-sm btn-primary float-right" @click.prevent="assignOrder">Assign</button>
                             </div>
                         </div>
                     </div>
@@ -71,10 +76,12 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            Address: <strong class="c-white">{{ order.address.district.name }}, {{ order.address.street.name }}, {{ order.address.local_address }}</strong>
+                                            Address: <strong class="c-white">
+                                            {{ order.address.district.name || 'Not Available' }}, {{ order.address.street.name || 'Not Available' }}, {{ order.address.local_address || 'Not Available' }}
+                                        </strong>
                                         </td>
                                         <td>
-                                            Order Date: <strong class="c-white">{{ order.created_at}}</strong>
+                                            Order Date: <strong class="c-white">{{ order.created_at }}</strong>
                                         </td>
                                     </tr>
                                     <tr>
@@ -223,12 +230,36 @@
             order:'',
             payment_status: '',
             order_status: '',
+            delivery_person_id: '',
+            delivery_persons: '',
         }),
         async mounted() {
             this.getOrderDetails();
-            $('.delivery-select2').select2();
+            var vm = this;
+            $('.delivery-select2').select2().on('change', function (e) {
+                vm.delivery_person_id = e.target.value
+            });;
         },
         methods: {
+            async assignOrder(){
+                try {
+                    const formData = {
+                        order_id: this.order_id,
+                        delivery_person: this.delivery_person_id,
+                    };
+                    const response = await CartService.assignOrder(formData);
+                    if (response.data.error === false) {
+                        Errors.Notification(response);
+                    }
+                } catch (error) {
+                    this.saveBtnLoading = false;
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
+                }
+                this.delivery_person_id = '';
+                this.getOrderDetails();
+            },
+
             showPaymentStatusModal(status){
                 this.payment_status = status;
                 $("#updatePaymentModal").modal('show');
@@ -245,6 +276,7 @@
                     }
                 } catch (error) {
                     this.saveBtnLoading = false;
+                    this.errors.record(error.response.data);
                     Errors.Notification(error.response);
                 }
                 $("#updatePaymentModal").modal('hide');
@@ -268,6 +300,7 @@
                     }
                 } catch (error) {
                     this.saveBtnLoading = false;
+                    this.errors.record(error.response.data);
                     Errors.Notification(error.response);
                 }
                 $("#updateStatusModal").modal('hide');
@@ -280,6 +313,7 @@
                     const response = await CartService.getOrderDetails(this.order_id);
                     if (response.data.error === false) {
                         this.order = response.data.data.order;
+                        this.delivery_persons = response.data.data.delivery_persons;
                     }else{
                         Errors.Notification(response);
                     }

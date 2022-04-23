@@ -73,4 +73,9 @@ class Order extends Model
         $this->unique_id = $this->user_id.$this->address_id.$this->id;
         return $this->save();
     }
+
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class, 'order_id');
+    }
 }

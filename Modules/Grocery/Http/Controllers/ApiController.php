@@ -44,6 +44,7 @@ class ApiController extends Controller
                     'sku' => $value->sku,
                     'name' => $value->name,
                     'description' => $value->description,
+                    'service_charge' => $value->service_charge,
                     'main_image_original' => $value->main_image_original,
                     'main_image_large' => $value->main_image_large,
                     'main_image_medium' => $value->main_image_medium,

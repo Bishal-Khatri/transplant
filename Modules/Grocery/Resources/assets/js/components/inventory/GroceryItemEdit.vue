@@ -20,12 +20,12 @@
                             </div>
                             <div class="form-group mb-4">
                                 <label for="service_charge">Service Charge</label>
-                                <input type="text" class="form-control" id="service_charge" placeholder="Service Charge" v-model="service_charge">
+                                <input type="text" class="form-control" id="service_charge" placeholder="eg: Rs.70 - Rs.150" v-model="service_charge">
                                 <span class="form-text small text-danger" v-html="errors.get('service_charge')"></span>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="unit_size">Unit size</label>
-                                <input type="text" class="form-control" id="unit_size" placeholder="Unit size of item" v-model="unit_size">
+                                <input type="text" class="form-control" id="unit_size" placeholder="eg: 1.5 kg" v-model="unit_size">
                                 <span class="form-text small text-danger" v-html="errors.get('unit_size')"></span>
                             </div>
                             <div class="form-group mb-4">
@@ -264,8 +264,8 @@
                 });
             },
             setItemData(response){
-                console.log(response)
                 this.name = response.item_data.name;
+                this.service_charge = response.item_data.service_charge;
                 this.sku = response.item_data.sku;
                 this.description = response.item_data.description;
                 this.category_id = response.item_data.category_id;
@@ -294,6 +294,7 @@
                     formData.append("item_id", this.itemId);
                     formData.append("item_name", this.name);
                     this.sku ? formData.append("sku", this.sku) : '';
+                    this.service_charge ? formData.append("service_charge", this.service_charge) : '';
                     this.unit_size ? formData.append("unit_size", this.unit_size) : '';
                     var description = $("#description").val();
                     description ? formData.append("description", description): '';

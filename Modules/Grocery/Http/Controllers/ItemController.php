@@ -81,6 +81,7 @@ class ItemController extends Controller
                     'sku' => $value->sku,
                     'name' => $value->name,
                     'description' => $value->description,
+                    'service_charge' => $value->service_charge,
                     'main_image_original' => $value->main_image_original,
                     'main_image_large' => $value->main_image_large,
                     'main_image_medium' => $value->main_image_medium,
@@ -134,6 +135,7 @@ class ItemController extends Controller
 
         $item->name = $request->item_name;
         $item->sku = $request->sku;
+        $item->service_charge = $request->service_charge;
         $item->unit_size = $request->unit_size;
         $item->description = $request->description;
         $item->category_id = $request->category_id ? $request->category_id : null;

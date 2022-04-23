@@ -168,6 +168,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
         /*
          * Application Service Providers...
          */

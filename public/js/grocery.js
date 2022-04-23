@@ -16734,8 +16734,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     setItemData: function setItemData(response) {
-      console.log(response);
       this.name = response.item_data.name;
+      this.service_charge = response.item_data.service_charge;
       this.sku = response.item_data.sku;
       this.description = response.item_data.description;
       this.category_id = response.item_data.category_id;
@@ -16792,6 +16792,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formData.append("item_id", _this3.itemId);
                 formData.append("item_name", _this3.name);
                 _this3.sku ? formData.append("sku", _this3.sku) : '';
+                _this3.service_charge ? formData.append("service_charge", _this3.service_charge) : '';
                 _this3.unit_size ? formData.append("unit_size", _this3.unit_size) : '';
                 description = $("#description").val();
                 description ? formData.append("description", description) : '';
@@ -16808,10 +16809,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   formData.append("main_image", _this3.main_image, _this3.main_image.name);
                 }
 
-                _context3.next = 14;
+                _context3.next = 15;
                 return _services_InventoryService__WEBPACK_IMPORTED_MODULE_1__["default"].createItem(formData);
 
-              case 14:
+              case 15:
                 response = _context3.sent;
 
                 if (response.data.error === false) {
@@ -16820,27 +16821,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _resources_js_error__WEBPACK_IMPORTED_MODULE_4__["Errors"].Notification(response);
                 }
 
-                _context3.next = 22;
+                _context3.next = 23;
                 break;
 
-              case 18:
-                _context3.prev = 18;
+              case 19:
+                _context3.prev = 19;
                 _context3.t0 = _context3["catch"](1);
 
                 _this3.errors.record(_context3.t0.response.data);
 
                 _resources_js_error__WEBPACK_IMPORTED_MODULE_4__["Errors"].Notification(_context3.t0.response);
 
-              case 22:
+              case 23:
                 _app__WEBPACK_IMPORTED_MODULE_2__["EventBus"].$emit('itemAdded');
                 _this3.submitting = false;
 
-              case 24:
+              case 25:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 18]]);
+        }, _callee3, null, [[1, 19]]);
       }))();
     },
     handelImage: function handelImage(event) {
@@ -37405,7 +37406,7 @@ var render = function () {
                       attrs: {
                         type: "text",
                         id: "service_charge",
-                        placeholder: "Service Charge",
+                        placeholder: "eg: Rs.70 - Rs.150",
                       },
                       domProps: { value: _vm.service_charge },
                       on: {
@@ -37444,7 +37445,7 @@ var render = function () {
                       attrs: {
                         type: "text",
                         id: "unit_size",
-                        placeholder: "Unit size of item",
+                        placeholder: "eg: 1.5 kg",
                       },
                       domProps: { value: _vm.unit_size },
                       on: {

@@ -7,12 +7,9 @@ use App\Models\District;
 use App\Models\Category;
 use App\Models\Street;
 use App\Traits\SetResponse;
-use Illuminate\Contracts\Support\Renderable;
-
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Application\Entities\Banner;
-use Modules\Grocery\Entities\Item;
 use Modules\Restaurant\Entities\Restaurant;
 use Nwidart\Modules\Facades\Module;
 

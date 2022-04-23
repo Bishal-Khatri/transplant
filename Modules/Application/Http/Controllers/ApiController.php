@@ -2,7 +2,7 @@
 
 namespace Modules\Application\Http\Controllers;
 
-use App\Enum\ContentType;
+use App\Enum\CategoryType;
 use App\Models\District;
 use App\Models\Category;
 use App\Models\Street;
@@ -29,7 +29,7 @@ class ApiController extends Controller
 
         if(Module::has('Grocery')){
             $categories = Category::has('items')
-                ->where('type', ContentType::GROCERY)
+                ->where('type', CategoryType::GROCERY)
                 ->inRandomOrder()
                 ->limit(5)
                 ->get()

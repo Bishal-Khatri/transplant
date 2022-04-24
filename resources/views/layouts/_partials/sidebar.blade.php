@@ -60,6 +60,9 @@
                 <li class="{{ (request()->is('cart/order') OR request()->is('cart/order/*')) ? 'active' : '' }}">
                     <a href="{{ route('cart.order.index') }}">Orders</a>
                 </li>
+                <li class="{{ (request()->is('cart/order/image-order') OR request()->is('cart/order/image-order/*')) ? 'active' : '' }}">
+                    <a href="{{ route('cart.order.image-order') }}">Image Orders</a>
+                </li>
 
                 @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
                     <li class="{{ (request()->is('grocery/*') OR request()->is('category/grocery')) ? 'active' : '' }}">

@@ -20,5 +20,9 @@ export default {
 
     assignOrder(formData){
         return Api().post('/cart/web-api/order/assignOrder', formData);
+    },
+
+    getImageOrders(){
+        return Api().get('/cart/web-api/order/imageOrders');
     }
 }

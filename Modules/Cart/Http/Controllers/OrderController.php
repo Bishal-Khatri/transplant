@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Traits\SetResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Validator;
 use Modules\Cart\Entities\Delivery;
+use Modules\Cart\Entities\ImageOrder;
 use Modules\Cart\Entities\Order;
 
 class OrderController extends Controller
@@ -18,6 +20,42 @@ class OrderController extends Controller
     public function index()
     {
         return view('cart::order.index');
+    }
+
+    public function imageOrder()
+    {
+        return view('cart::order.image-order');
+    }
+
+    public function getImageOrders()
+    {
+        $imageOrders = ImageOrder::whereNull('order_id')->with(['order', 'orderBy'])->get();
+
+        $returnData = $this->prepareResponse(false, 'success', compact('imageOrders'), []);
+        return response()->json($returnData, 200);
+    }
+
+    public function saveImageOrder(Request $request)
+    {
+        $validator = Validator::make($request->all(),  [
+            'image' => 'required',
+        ]);
+
+        $user = auth()->user();
+
+        if($validator->fails() OR !$user){
+            return response()->json($this->prepareResponse(true, "validation error.", [], []));
+        }
+
+        $path = $request->file('image')->store('image_orders', 'public');
+
+        $imageOrder = new ImageOrder();
+        $imageOrder->image = $path;
+        $imageOrder->order_by = $user->id;
+        $imageOrder->save();
+
+        $returnData = $this->prepareResponse(false, 'success', compact('imageOrder'), []);
+        return response()->json($returnData, 200);
     }
 
     public function edit($order_id)

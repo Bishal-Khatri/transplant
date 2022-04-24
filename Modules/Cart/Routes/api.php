@@ -16,5 +16,8 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
         Route::get('/assignedOrder', [OrderController::class, 'getAssignedOrder']);
         Route::post('/updatePaymentStatus', [ OrderController::class, 'updatePaymentStatus']);
         Route::post('/updateOrderStatus', [ OrderController::class, 'updateOrderStatus']);
+
+
+        Route::post('/createImageOrder', [ OrderController::class, 'saveImageOrder']);
     });
 });

@@ -18,6 +18,7 @@ Route::prefix('cart')->middleware('auth')->group(function() {
     Route::group(['prefix' => 'order'], function () {
         Route::get('/', [OrderController::class, 'index'])->name('cart.order.index');
         Route::get('/edit/{order_id}', [OrderController::class, 'edit'])->name('cart.order.edit');
+        Route::get('/image-order', [OrderController::class, 'imageOrder'])->name('cart.order.image-order');
     });
 
     Route::group(['prefix' => 'web-api'],function() {
@@ -27,6 +28,8 @@ Route::prefix('cart')->middleware('auth')->group(function() {
             Route::post('/updatePaymentStatus', [ OrderController::class, 'updatePaymentStatus']);
             Route::post('/updateOrderStatus', [ OrderController::class, 'updateOrderStatus']);
             Route::post('/assignOrder', [ OrderController::class, 'assignOrder']);
+
+            Route::get('/imageOrders', [ OrderController::class, 'getImageOrders']);
         });
     });
 });

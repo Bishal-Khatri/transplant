@@ -64,6 +64,10 @@
                     <a href="{{ route('cart.order.image-order') }}">Image Orders</a>
                 </li>
 
+                <li class="{{ (request()->is('appointment/') OR request()->is('appointment/*')) ? 'active' : '' }}">
+                    <a href="{{ route('appointment.index') }}">Appointment</a>
+                </li>
+
                 @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
                     <li class="{{ (request()->is('grocery/*') OR request()->is('category/grocery')) ? 'active' : '' }}">
                         <a href="#catalog" data-toggle="collapse" aria-expanded="{{ (request()->is('grocery/*') OR request()->is('category/grocery')) ? 'true' : 'false' }}">

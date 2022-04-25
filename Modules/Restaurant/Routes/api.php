@@ -6,3 +6,7 @@ Route::post('/restaurant/show', [\Modules\Restaurant\Http\Controllers\ApiControl
 Route::group(['middleware' => 'auth:sanctum'], function (){
 
 });
+
+
+// APPOINTMENT
+Route::get('/appointment/list', [\Modules\Restaurant\Http\Controllers\AppointmentController::class, 'listAppointments']);

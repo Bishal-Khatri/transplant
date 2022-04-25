@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Restaurant\Http\Controllers\AppointmentController;
 use Modules\Restaurant\Http\Controllers\RestaurantController;
 use Modules\Restaurant\Http\Controllers\RestaurantClientController;
 
@@ -23,6 +24,15 @@ Route::group(['prefix' => 'restaurant', 'middleware' => ['auth', 'administrator'
         Route::delete('/deleteMenuItem/{id}', [RestaurantController::class, 'deleteMenuItem']);
         Route::post('/addAmenity', [RestaurantController::class, 'addAmenity']);
     });
+});
+
+// APPOINTMENT
+Route::group(['prefix' => 'appointment', 'as'=> 'appointment.'],function() {
+    Route::get('/', [AppointmentController::class, 'index'])->name('index');
+    Route::get('/create', [AppointmentController::class, 'create'])->name('create');
+    Route::get('/edit/{id}', [AppointmentController::class, 'edit'])->name('edit');
+    Route::post('/store', [AppointmentController::class, 'store'])->name('store');
+    Route::get('/delete/{id}', [AppointmentController::class, 'destroy'])->name('delete');
 });
 
 Route::post('/restaurant/web_api/saveItem', [RestaurantController::class, 'saveMenuItem'])->middleware('auth');

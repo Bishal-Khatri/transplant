@@ -36,6 +36,13 @@
                             @enderror
                         </div>
                         <div class="form-group mb-4">
+                            <label for="contact">Contact</label>
+                            <input type="text" name="contact" class="form-control" id="contact" placeholder="eg.9842xxxxxx" value="{{ isset($appointment) ? $appointment->contact : old('contact') }}">
+                            @error('contact')
+                            <span class="form-text small text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-4">
                             <label for="description">Description</label>
                             <textarea name="description" class="form-control" id="" cols="30" rows="10">{{ $appointment->description ?? old('description') }}</textarea>
                             @error('description')

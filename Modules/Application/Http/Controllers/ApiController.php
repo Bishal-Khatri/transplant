@@ -80,6 +80,10 @@ class ApiController extends Controller
                 "icon" => $this->getImageUrl('/images/modules/restaurant.png')
             ],
             [
+                "name" => "Appointment",
+                "icon" => $this->getImageUrl('/images/modules/appointment.png')
+            ],
+            [
                 "name" => "Fashion",
                 "icon" => $this->getImageUrl('/images/modules/fashion.png')
             ],

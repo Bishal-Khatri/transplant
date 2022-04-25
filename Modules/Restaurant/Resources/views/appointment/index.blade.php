@@ -42,6 +42,7 @@
                         <tr>
                             <th>#</th>
                             <th>Title</th>
+                            <th>Contact Number</th>
                             <th>Description</th>
                             <th style="width: 180px" class="text-right">Action</th>
                         </tr>
@@ -52,6 +53,9 @@
                                 <tr>
                                     <td>{{ $appointment->id }}</td>
                                     <td>{{ $appointment->title }}</td>
+                                    <td>
+                                      {{ $appointment->contact }}
+                                    </td>
                                     <td>
                                       {{ $appointment->description }}
                                     </td>

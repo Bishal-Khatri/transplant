@@ -47,7 +47,8 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255'
+            'title' => 'required|max:255',
+            'contact' => 'required|max:255'
         ]);
 
         if ($request->id AND !blank($request->id)){
@@ -57,10 +58,11 @@ class AppointmentController extends Controller
         }
 
         $appointment->title = $request->title;
+        $appointment->contact = $request->contact;
         $appointment->description = $request->description;
         $appointment->save();
 
-        session()->flash('success', 'Success <br> Amenity created/updated successfully.');
+        session()->flash('success', 'Success <br> Appointment listing created/updated successfully.');
         return redirect()->route('appointment.index');
     }
 
@@ -69,7 +71,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->delete();
 
-        session()->flash('success', 'Success <br> Amenity deleted successfully.');
+        session()->flash('success', 'Success <br> Appointment listing deleted successfully.');
         return redirect()->route('appointment.index');
     }
 }

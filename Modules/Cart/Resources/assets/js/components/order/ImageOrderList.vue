@@ -57,7 +57,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group pull-right">
-                                        <a class="btn btn-default btn-xs" :href="'/cart/order/edit/'+order.id"><i class="fa fa-folder"></i> Trash</a>
+                                        <a class="btn btn-default btn-xs" :href="'/cart/order/edit/'+order.id"><i class="fa fa-folder"></i> Archive</a>
                                     </div>
                                 </td>
                             </tr>

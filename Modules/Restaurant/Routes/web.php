@@ -27,7 +27,7 @@ Route::group(['prefix' => 'restaurant', 'middleware' => ['auth', 'administrator'
 });
 
 // APPOINTMENT
-Route::group(['prefix' => 'appointment', 'as'=> 'appointment.'],function() {
+Route::group(['prefix' => 'appointment', 'as'=> 'appointment.', 'middleware' => ['auth', 'administrator']],function() {
     Route::get('/', [AppointmentController::class, 'index'])->name('index');
     Route::get('/create', [AppointmentController::class, 'create'])->name('create');
     Route::get('/edit/{id}', [AppointmentController::class, 'edit'])->name('edit');

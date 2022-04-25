@@ -9,13 +9,41 @@ use App\Traits\SetResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
+use Kreait\Firebase\Messaging\CloudMessage;
 use Modules\Cart\Entities\Delivery;
 use Modules\Cart\Entities\ImageOrder;
 use Modules\Cart\Entities\Order;
+use Kreait\Firebase\Contract\Messaging;
 
 class OrderController extends Controller
 {
     use SetResponse;
+
+    private $messaging;
+
+    public function __construct(Messaging $messaging)
+    {
+        $this->messaging = $messaging;
+    }
+
+    public function sendFcm()
+    {
+        $deviceToken = 'device_token';
+        $notification = [
+            'title' => 'Apple',
+            'body' => 'Ball',
+        ];
+        $data = [
+            'first_key' => 'First Value',
+            'second_key' => 'Second Value',
+        ];
+        $message = CloudMessage::withTarget('token', $deviceToken)
+            ->withNotification($notification) // optional
+            ->withData($data);
+
+        $result = $this->messaging->send($message);
+        dd($result);
+    }
 
     public function index()
     {
@@ -37,6 +65,8 @@ class OrderController extends Controller
 
     public function saveImageOrder(Request $request)
     {
+//        $this->sendFcm();
+
         $validator = Validator::make($request->all(),  [
             'image' => 'required',
         ]);
@@ -53,6 +83,7 @@ class OrderController extends Controller
         $imageOrder->image = $path;
         $imageOrder->order_by = $user->id;
         $imageOrder->save();
+
 
         $returnData = $this->prepareResponse(false, 'success', compact('imageOrder'), []);
         return response()->json($returnData, 200);

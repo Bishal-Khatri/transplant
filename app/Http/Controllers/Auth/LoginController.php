@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -86,29 +87,41 @@ class LoginController extends Controller
 
     public function apiEmailLogin(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(),  [
             'email' => 'required|email',
             'password' => 'required',
             'device_name' => 'required',
         ]);
 
+        if($validator->fails()){
+            return response()->json($this->prepareResponse(true, "Validation error.", [], [$validator->errors()]));
+        }
+
         $user = User::where('email', $request->email)->first();
+
         if (! $user || ! Hash::check($request->password, $user->password)) {
             $response = $this->prepareResponse(true, 'The provided credentials are incorrect.', [], []);
             return $response;
         }
+
+        $this->updateUserData($user, $request);
+
         $token = $user->createToken($request->device_name)->plainTextToken;
+
         return $this->sendApiLoginResponse($user, $token);
     }
 
-
     public function validateOtp(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(),  [
             'phone_number' => ['required', 'regex:^\+?(?:977)?[ -]?(?:(?:(?:98|97)-?\d{8})|(?:01-?\d{7}))$^'],
             'otp' => ['required'],
             'device_name' => ['required']
         ]);
+
+        if($validator->fails()){
+            return response()->json($this->prepareResponse(true, "Validation error.", [], [$validator->errors()]));
+        }
 
         // validate otp
         $user = User::where('phone_number', $request->phone_number)->first();
@@ -127,9 +140,24 @@ class LoginController extends Controller
             return $response;
         }
 
+        $this->updateUserData($user, $request);
+
         $token = $user->createToken($request->device_name)->plainTextToken;
 
         return $this->sendApiLoginResponse($user, $token);
+    }
+
+    private function updateUserData($user, $request)
+    {
+        $user->os = $request->os;
+        $user->api_level = $request->api_level ?? '';
+        $user->brand = $request->brand ?? '';
+        $user->device = $request->device ?? '';
+        $user->model = $request->device_name ?? '';
+        $user->product = $request->product ?? '';
+        $user->version_code = $request->version_code ?? '';
+        $user->version_name = $request->version_name ?? '';
+        $user->save();
     }
 
     private function sendApiLoginResponse(User $user, $token)

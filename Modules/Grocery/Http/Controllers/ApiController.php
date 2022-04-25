@@ -2,7 +2,7 @@
 
 namespace Modules\Grocery\Http\Controllers;
 
-use App\Enum\ContentType;
+use App\Enum\CategoryType;
 use App\Models\Category;
 use App\Traits\SetResponse;
 use Illuminate\Http\Request;
@@ -59,7 +59,7 @@ class ApiController extends Controller
                 ];
             })
         );
-        $categories = Category::where('type', ContentType::GROCERY)->get();
+        $categories = Category::where('type', CategoryType::GROCERY)->get();
         $brands = Brand::all();
         $banner = Banner::where('key', 'grocery')->get();
         $returnData = $this->prepareResponse(false, 'success', compact('items', 'categories', 'brands', 'banner'), []);
@@ -68,17 +68,21 @@ class ApiController extends Controller
 
     public function show(Request $request)
     {
-        if (isset($request->item_id) AND !blank($request->item_id)){
-            $item = Item::where('id', $request->item_id)->with(['brand', 'category', 'images'])->first();
-            $inventory_details = [
-                'available_quantity' => $item->quantity(),
-                'max_price' => $item->itemMaxPrice(),
-            ];
-            $returnData = $this->prepareResponse(false, 'success', compact('item', 'inventory_details'), []);
-        }else{
-            $returnData = $this->prepareResponse(true, 'item not found.', [], []);
-        }
-        return response()->json($returnData, 200);
+       try{
+           if (isset($request->item_id) AND !blank($request->item_id)){
+               $item = Item::where('id', $request->item_id)->with(['brand', 'category', 'images'])->firstOrFail();
+               $inventory_details = [
+                   'available_quantity' => $item->quantity(),
+                   'max_price' => $item->itemMaxPrice(),
+               ];
+
+               $returnData = $this->prepareResponse(false, 'success', compact('item', 'inventory_details'), []);
+               return response()->json($returnData, 200);
+           }
+       }catch (\Exception $exception){
+           $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
+           return response()->json($returnData, 200);
+       }
     }
 
 }

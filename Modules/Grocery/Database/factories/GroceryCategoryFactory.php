@@ -1,7 +1,7 @@
 <?php
 namespace Modules\Grocery\Database\factories;
 
-use App\Enum\ContentType;
+use App\Enum\CategoryType;
 use App\Models\Category;
 use App\Traits\FileStore;
 use App\Traits\Slug;
@@ -28,7 +28,7 @@ class GroceryCategoryFactory extends Factory
         return [
             'name' => $word,
             'slug' => $this->createSlug($word),
-            'type' => ContentType::GROCERY
+            'type' => CategoryType::GROCERY
 //            'image_original' => $result['original'],
 //            'image_thumbnail' => $result['thumbnail'],
 //            'image_large' => $result['large'],

@@ -18,6 +18,7 @@ class CreateImageOrdersTable extends Migration
             $table->string('image');
             $table->unsignedBigInteger('order_by')->comment('user_id');
             $table->unsignedBigInteger('order_id')->nullable();
+            $table->integer('order_status');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -65,8 +65,6 @@ class OrderController extends Controller
 
     public function saveImageOrder(Request $request)
     {
-//        $this->sendFcm();
-
         $validator = Validator::make($request->all(),  [
             'image' => 'required',
         ]);
@@ -82,8 +80,8 @@ class OrderController extends Controller
         $imageOrder = new ImageOrder();
         $imageOrder->image = $path;
         $imageOrder->order_by = $user->id;
+        $imageOrder->order_status = OrderStatus::SUCCESS;
         $imageOrder->save();
-
 
         $returnData = $this->prepareResponse(false, 'success', compact('imageOrder'), []);
         return response()->json($returnData, 200);

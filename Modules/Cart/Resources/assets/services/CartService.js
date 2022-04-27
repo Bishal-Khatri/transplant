@@ -24,5 +24,9 @@ export default {
 
     getImageOrders(){
         return Api().get('/cart/web-api/order/imageOrders');
-    }
+    },
+
+    updateImageOrderStatus(formData){
+        return Api().post('/cart/web-api/order/updateImageOrderStatus', formData);
+    },
 }

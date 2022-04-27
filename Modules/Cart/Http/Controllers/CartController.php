@@ -122,7 +122,7 @@ class CartController extends Controller
         if (!isset($request->address_id) OR blank($request->address_id) OR $request->address_id == '-1'){
             $address = $this->createAddress($request);
             $address_id = $address->id;
-        }else{
+        }else {
             $address_id = $request->address_id;
         }
 
@@ -150,6 +150,13 @@ class CartController extends Controller
         $order->shipping_price = 0;
         $order->address_id = $address_id;
         $order->device_id = $request->device_id;
+
+        // image order
+        if($request->hasFile('image')){
+            $path = $request->file('image')->store('image_orders', 'public');
+            $order->image = $path;
+        }
+
         $order->save();
 
         $order->setUniqueId();

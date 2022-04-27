@@ -44,7 +44,9 @@
                                     {{ value.id }}
                                 </td>
                                 <td>
-                                    <img v-if="value.logo" alt="image" class="rounded image-md" :src="'/storage/'+value.logo">
+                                    <a href="#" v-if="value.logo" @click.prevent="$refs.imagePreview.openDialog('/storage/'+value.logo)">
+                                        <img  alt="image" class="rounded image-md" :src="'/storage/'+value.logo">
+                                    </a>
                                     <img v-else alt="image" class="rounded image-md" src="/images/blank.png">
                                 </td>
                                 <td>
@@ -54,7 +56,9 @@
                                 <td>
                                     <template v-if="value.user">
                                         <div class="float-left mr-2">
-                                            <img v-if="value.user.avatar" alt="image" class="rounded image-md text-left mr-1" :src="'/storage/'+value.user.avatar">
+                                            <a href="#" v-if="value.user.avatar" @click.prevent="$refs.imagePreview.openDialog('/storage/'+value.user.avatar)">
+                                                <img alt="image" class="rounded image-md text-left mr-1" :src="'/storage/'+value.user.avatar">
+                                            </a>
                                             <img v-else alt="image" class="rounded image-md text-left mr-1" src="/images/placeholder-dark.jpg">
                                         </div>
                                         <a href="#" >{{ value.user.name }}</a>
@@ -110,6 +114,7 @@
             </div>
         </div>
 
+        <image-preview ref="imagePreview"/>
     </div>
 </template>
 
@@ -118,11 +123,13 @@
     import {Errors} from "../../../../../../resources/js/error";
     import {EventBus} from "../app";
     import RestaurantService from "../services/RestaurantService";
+    import ImagePreview from "../../../../../../resources/js/components/ImagePreview";
 
     export default {
         name: "RestaurantList",
         components: {
             CreateRestaurant,
+            ImagePreview
         },
         data(){
             return{

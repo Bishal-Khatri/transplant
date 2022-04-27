@@ -34,7 +34,9 @@
                                     <small class="text-muted">Your image needs to be at least 500×500 pixels. Choose new file or Replace</small>
                                 </label>
                                 <input type="file" id="main-image" class="form-control-file mb-1" name="image" accept="image/png, image/jpeg" @change="handelImage">
-                                <img v-if="item_image_url" :src="item_image_url" alt="" name="image" class="rounded image-xl">
+                                <a href="#" v-if="item_image_url" @click.prevent="$refs.imagePreview.openDialog(item_image_url)">
+                                    <img :src="item_image_url" alt="" name="image" class="rounded image-xl">
+                                </a>
                                 <img v-else src="/images/placeholder-dark.jpg" alt="" id="main-image-preview" name="image" class="rounded image-xl">
                             </div>
                             <div class="form-group mb-4">
@@ -156,7 +158,9 @@
                             <img v-if="Object.keys(images).length === 0" src="/images/placeholder-dark.jpg" alt="" name="image" class="rounded image-xl">
                             <div class="row" v-else >
                                 <div class="col-md-4 text-center mb-4" v-for="image in images">
-                                    <img :src="'/storage/'+image.original" alt="" id="additional-image-preview" name="image" class="rounded mb-1 image-xl">
+                                    <a href="#" @click.prevent="$refs.imagePreview.openDialog('/storage/'+image.original)">
+                                        <img :src="'/storage/'+image.original" alt="" id="additional-image-preview" name="image" class="rounded mb-1 image-xl">
+                                    </a>
                                     <button class="btn btn-sm btn-outline-danger" @click.prevent="deleteAdditionalImage(image.id)" style="position: relative; top: 49px;">
                                         <i class="fa fa-trash"></i>
                                     </button>
@@ -188,7 +192,9 @@
                 </div>
             </div>
         </div>
+
         <add-quantity ref="addQuantity"></add-quantity>
+        <image-preview ref="imagePreview"/>
     </div>
 </template>
 
@@ -197,10 +203,12 @@
     import {EventBus} from "../../app";
     import AddQuantity from "./AddQuantity";
     import {Errors} from "../../../../../../../resources/js/error";
+    import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
     export default {
         name: "GroceryItemEdit",
         components: {
             AddQuantity,
+            ImagePreview
         },
         data: () => ({
             errors: new Errors(),
@@ -257,10 +265,10 @@
                     ]
                 });
                 $('.category-select2').select2().on('change', function (e) {
-                   vm.category_id = e.target.value
+                    vm.category_id = e.target.value
                 });
                 $('.brand-select2').select2().on('change', function (e) {
-                   vm.brand_id = e.target.value
+                    vm.brand_id = e.target.value
                 });
             },
             setItemData(response){

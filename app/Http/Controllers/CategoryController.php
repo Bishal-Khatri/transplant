@@ -37,6 +37,15 @@ class CategoryController extends Controller
         return view('category.index', compact('categories', 'root_categories', 'type'));
     }
 
+    public function appointmentIndex()
+    {
+        $type = CategoryType::APPOINTMENT;
+        $categories = Category::with('parent')->where('type', CategoryType::APPOINTMENT)->orderBy('id', 'desc')->paginate(10);
+        $root_categories = Category::where('parent_id', 0)->where('type', CategoryType::APPOINTMENT)->get();
+
+        return view('category.index', compact('categories', 'root_categories', 'type'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([

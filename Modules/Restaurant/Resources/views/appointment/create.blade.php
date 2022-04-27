@@ -1,5 +1,5 @@
 @extends('restaurant::layouts.master')
-@section('amenity_active') active @stop
+@section('appointment_active') active @stop
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -39,6 +39,21 @@
                             <label for="contact">Contact</label>
                             <input type="text" name="contact" class="form-control" id="contact" placeholder="eg.9842xxxxxx" value="{{ isset($appointment) ? $appointment->contact : old('contact') }}">
                             @error('contact')
+                            <span class="form-text small text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="category">Category</label>
+                            <select name="category" id="category" class="form-control">
+                                <option value="">Select Category</option>
+                                @if(isset($categories))
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ (isset($appointment) AND ($appointment->category->id == $category->id)) ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            @error('category')
                             <span class="form-text small text-danger">{{ $message }}</span>
                             @enderror
                         </div>

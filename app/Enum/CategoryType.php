@@ -5,4 +5,5 @@ interface CategoryType
 {
     const GROCERY = 'grocery';
     const RESTAURANT = 'restaurant';
+    const APPOINTMENT = 'appointment';
 }

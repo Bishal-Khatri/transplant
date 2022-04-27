@@ -2,6 +2,8 @@
 
 namespace Modules\Restaurant\Http\Controllers;
 
+use App\Enum\CategoryType;
+use App\Models\Category;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -14,41 +16,53 @@ class AppointmentController extends Controller
 
     public function listAppointments(Request $request)
     {
+        $categories = Category::where('type', CategoryType::APPOINTMENT)->get();
+
+        $category = $request->category ? $request->category : '';
         $filter = $request->filter ? $request->filter : '';
         $per_page = $request->per_page ? $request->per_page : 20;
 
         $query = Appointment::query();
-        $query->where('title', 'LIKE', '%'.$filter.'%')
+        $query->with('category')->where('title', 'LIKE', '%'.$filter.'%')
             ->orderBy('id', 'desc');
+
+        if (!blank($category)){
+            $query->whereHas('category', function($query) use ($category) {
+                $query->where('id', '=', $category);
+            });
+        }
 
         $appointments = $query->paginate($per_page);
 
-        $returnData = $this->prepareResponse(false, 'success', compact('appointments'), []);
+        $returnData = $this->prepareResponse(false, 'success', compact('appointments', 'categories'), []);
         return response()->json($returnData, 200);
     }
 
     public function index()
     {
-        $appointments = Appointment::paginate(20);
+        $appointments = Appointment::with('category')->paginate(20);
         return view('restaurant::appointment.index', compact('appointments'));
     }
 
     public function create()
     {
-        return view('restaurant::appointment.create');
+        $categories = Category::where('type', CategoryType::APPOINTMENT)->get();
+        return view('restaurant::appointment.create', compact('categories'));
     }
 
     public function edit($id)
     {
+        $categories = Category::where('type', CategoryType::APPOINTMENT)->get();
         $appointment = Appointment::findOrFail($id);
-        return view('restaurant::appointment.create', compact('appointment'));
+        return view('restaurant::appointment.create', compact('appointment', 'categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|max:255',
-            'contact' => 'required|max:255'
+            'contact' => 'required|max:255',
+            'category' => 'required',
         ]);
 
         if ($request->id AND !blank($request->id)){
@@ -58,6 +72,7 @@ class AppointmentController extends Controller
         }
 
         $appointment->title = $request->title;
+        $appointment->category_id = $request->category;
         $appointment->contact = $request->contact;
         $appointment->description = $request->description;
         $appointment->save();

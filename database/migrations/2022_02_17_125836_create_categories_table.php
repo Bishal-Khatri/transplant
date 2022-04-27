@@ -17,8 +17,8 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-//            $table->string('type')->comment('grocery,restaurant');
-            $table->enum('type', ['grocery', 'restaurant']);
+            $table->string('type');
+//            $table->enum('type', ['grocery', 'restaurant']);
             $table->string('image_original')->nullable();
             $table->string('image_large')->nullable();
             $table->string('image_medium')->nullable();

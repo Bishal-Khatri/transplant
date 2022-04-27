@@ -1,5 +1,5 @@
 @extends('restaurant::layouts.master')
-@section('amenity_active') active @stop
+@section('appointment_active') active @stop
 @section('content')
     <div class="row">
         <div class="col-lg-12">
@@ -42,6 +42,7 @@
                         <tr>
                             <th>#</th>
                             <th>Title</th>
+                            <th>Category</th>
                             <th>Contact Number</th>
                             <th>Description</th>
                             <th style="width: 180px" class="text-right">Action</th>
@@ -53,6 +54,7 @@
                                 <tr>
                                     <td>{{ $appointment->id }}</td>
                                     <td>{{ $appointment->title }}</td>
+                                    <td>{{ $appointment->category->name ?? '' }}</td>
                                     <td>
                                       {{ $appointment->contact }}
                                     </td>

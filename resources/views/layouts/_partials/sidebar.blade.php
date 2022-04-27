@@ -64,9 +64,20 @@
                     <a href="{{ route('cart.order.image-order') }}">Image Orders</a>
                 </li>
 
-                <li class="{{ (request()->is('appointment/') OR request()->is('appointment/*')) ? 'active' : '' }}">
-                    <a href="{{ route('appointment.index') }}">Appointment</a>
+                <li class="{{ (request()->is('appointment/*') OR request()->is('appointment')) ? 'active' : '' }}">
+                    <a href="#appointment" data-toggle="collapse" aria-expanded="{{ (request()->is('appointment/*') OR request()->is('appointment')) ? 'true' : 'false' }}">
+                        Appointments <span class="sub-nav-icon"> <i class="stroke-arrow"></i> </span>
+                    </a>
+                    <ul id="appointment" class="nav nav-second {{ (request()->is('appointment') OR request()->is('appointment/*')) ? 'collapse show' : 'collapse' }}">
+                        <li class="{{ (request()->is('appointment/*') OR request()->is('appointment/category')) ? 'active' : '' }}">
+                            <a href="{{ route('appointment.category.index') }}">Categories</a>
+                        </li>
+                        <li class="@yield('appointment_active')">
+                            <a href="{{ route('appointment.index') }}"> Listing</a>
+                        </li>
+                    </ul>
                 </li>
+
 
                 @if(Route::has('grocery.index') AND auth()->user()->hasAnyPermission(['list items', 'create items']))
                     <li class="{{ (request()->is('grocery/*') OR request()->is('category/grocery')) ? 'active' : '' }}">

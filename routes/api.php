@@ -6,6 +6,8 @@ Route::post('/login/email', [\App\Http\Controllers\Auth\LoginController::class, 
 Route::post('/login/phone', [\App\Http\Controllers\Auth\LoginController::class, 'apiPhoneLogin']);
 Route::post('/validateOtp', [\App\Http\Controllers\Auth\LoginController::class, 'validateOtp']);
 
+Route::get('/search', [\App\Http\Controllers\HomeController::class, 'search']);
+
 Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/me', [\App\Http\Controllers\Auth\LoginController::class, 'getMyProfile']);
     Route::post('/me', [\App\Http\Controllers\Auth\LoginController::class, 'updateMyProfile']);

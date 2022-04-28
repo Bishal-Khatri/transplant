@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Traits\SetResponse;
 use Illuminate\Http\Request;
+use Modules\Grocery\Entities\Item;
+use Modules\Restaurant\Entities\Restaurant;
+use Modules\Restaurant\Entities\RestaurantMenu;
 
 class HomeController extends Controller
 {
     use SetResponse;
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('search');
     }
 
     /**
@@ -36,4 +39,18 @@ class HomeController extends Controller
 //            return response()->json($this->prepareResponse(true, $exception->getMessage(), [], []), 404);
 //        }
 //    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $items = $restaurants = $restaurant_menu = [];
+
+        if ($query){
+            $items = Item::where('name', 'LIKE', "%{$query}%")->get();
+            $restaurants = Restaurant::where('status', 1)->where('name', 'LIKE', "%{$query}%")->get();
+            $restaurant_menu = RestaurantMenu::with('restaurant')->where('name', 'LIKE', "%{$query}%")->get();
+        }
+
+        return response()->json($this->prepareResponse(false, 'success', compact('items', 'restaurants', 'restaurant_menu'), []));
+    }
 }

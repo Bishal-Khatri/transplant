@@ -55,9 +55,9 @@
                         <table class="table table-responsive-sm">
                             <thead>
                             <tr>
-                                <th>
-                                    <input type="checkbox">
-                                </th>
+                                <!--<th>-->
+                                    <!--<input type="checkbox">-->
+                                <!--</th>-->
                                 <th>#</th>
                                 <!--<th>SKU</th>-->
                                 <th>Image</th>
@@ -73,7 +73,7 @@
                             </thead>
                             <tbody>
                             <tr v-if="items.length" v-for="(value, index) in items" :key="index">
-                                <td><input type="checkbox"></td>
+                                <!--<td><input type="checkbox"></td>-->
                                 <td>
                                     {{ value.id }}
                                 </td>

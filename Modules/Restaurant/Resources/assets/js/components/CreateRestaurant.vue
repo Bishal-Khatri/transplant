@@ -47,16 +47,20 @@
                                                     Main User
                                                     <span style="font-size: 18px" class="text-danger">*</span>
                                                 </label>
-                                                <div class="col-sm-6">
-                                                    <input type="text" v-model="main_user_email" class="form-control" id="main_user" placeholder="Email address" >
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="" v-model="user_id" data-placeholder="Select Main User">
+                                                        <option v-if="users" v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
+                                                    </select>
                                                     <span class="form-text small text-danger" v-html="errors.get('user')"></span>
-                                                    <span v-if="selected_user" class="label label-accent">{{ selected_user.name }}</span>
-                                                    <small class="text-accent">Validate user email address before submitting.</small>
+
+                                                    <!--<input type="text" v-model="main_user_email" class="form-control" id="main_user" placeholder="Email address" >-->
+                                                    <!--<span v-if="selected_user" class="label label-accent">{{ selected_user.name }}</span>-->
+                                                    <!--<small class="text-accent">Validate user email address before submitting.</small>-->
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <button class="btn btn-accent" v-if="user_submitting"><i class="fa fa-spinner fa-spin"></i></button>
-                                                    <button class="btn btn-accent btn-block" @click.prevent="getUser" v-else>Validate</button>
-                                                </div>
+                                                <!--<div class="col-md-3">-->
+                                                    <!--<button class="btn btn-accent" v-if="user_submitting"><i class="fa fa-spinner fa-spin"></i></button>-->
+                                                    <!--<button class="btn btn-accent btn-block" @click.prevent="getUser" v-else>Validate</button>-->
+                                                <!--</div>-->
                                             </div>
                                         </form>
                                     </div>
@@ -83,8 +87,9 @@
 
     export default {
         name: "CreateRestaurant",
-        props: {
-        },
+        props: [
+            'users'
+        ],
         components: {
         },
         data: () => ({
@@ -106,23 +111,23 @@
             openDialog() {
                 $("#create-restaurant-dialog").modal("show");
             },
-            async getUser() {
-                this.user_submitting = true;
-                if (this.main_user_email) {
-                    try {
-                        const response = await RestaurantService.getUserByEmail(this.main_user_email);
-                        if (response.data.error === false) {
-                            this.selected_user = response.data.data.user;
-                            this.user_id = response.data.data.user.id;
-                        }
-                        this.main_user_email = '';
-                    }catch (error) {
-                        this.saveBtnLoading = false;
-                        Errors.Notification(error.response);
-                    }
-                }
-                this.user_submitting = false;
-            },
+            // async getUser() {
+            //     this.user_submitting = true;
+            //     if (this.main_user_email) {
+            //         try {
+            //             const response = await RestaurantService.getUserByEmail(this.main_user_email);
+            //             if (response.data.error === false) {
+            //                 this.selected_user = response.data.data.user;
+            //                 this.user_id = response.data.data.user.id;
+            //             }
+            //             this.main_user_email = '';
+            //         }catch (error) {
+            //             this.saveBtnLoading = false;
+            //             Errors.Notification(error.response);
+            //         }
+            //     }
+            //     this.user_submitting = false;
+            // },
             async saveRestaurant() {
                 this.submitting = true;
                 try {

@@ -55,9 +55,31 @@ class OrderController extends Controller
         return view('cart::order.image-order');
     }
 
-    public function getImageOrders()
+    public function getImageOrders(Request $request)
     {
-        $imageOrders = ImageOrder::whereNull('order_id')->with(['order', 'orderBy'])->get();
+        $query = ImageOrder::query();
+        $query->whereNull('order_id')->with(['order', 'orderBy']);
+
+        if ($request->has('status_filter') AND $request->status_filter != 0 ){
+            if ($request->status_filter == OrderStatus::COMPLETED){
+                $query->where('order_status',OrderStatus::COMPLETED);
+            }
+            elseif($request->status_filter == OrderStatus::CANCELED){
+                $query->where('order_status',OrderStatus::CANCELED);
+            }
+            elseif($request->status_filter == OrderStatus::FAILED){
+                $query->where('order_status',OrderStatus::FAILED);
+            }elseif($request->status_filter == OrderStatus::PROCESSING){
+                $query->where('order_status',OrderStatus::PROCESSING);
+            }
+        }
+        else{
+            $query->where('order_status','<>',OrderStatus::COMPLETED);
+            $query->where('order_status','<>',OrderStatus::FAILED);
+            $query->where('order_status','<>',OrderStatus::CANCELED);
+        }
+
+        $imageOrders = $query->get();
 
         $returnData = $this->prepareResponse(false, 'success', compact('imageOrders'), []);
         return response()->json($returnData, 200);
@@ -216,5 +238,20 @@ class OrderController extends Controller
         $deliveries = Delivery::with(['order', 'order.user', 'order.address.district', 'order.address.street'])->where('deliverer_id', $user->id)->get();
         $returnData = $this->prepareResponse(false, 'success', compact('deliveries'), []);
         return response()->json($returnData);
+    }
+
+    public function updateImageOrderStatus(Request $request)
+    {
+        try{
+            $image_order = ImageOrder::findOrFail($request->order_id);
+            $image_order->order_status = $request->status;
+            $image_order->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Order status updated successfully.', [], []);
+            return response()->json($returnData);
+        }catch (\Exception $exception){
+            $returnData = $this->prepareResponse(true, $exception->getMessage(), [], []);
+            return response()->json($returnData);
+        }
     }
 }

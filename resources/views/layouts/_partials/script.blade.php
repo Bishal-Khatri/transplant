@@ -6,6 +6,7 @@
 <script src="{{ asset('asset/vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('asset/vendor/select2/dist/js/select2.js') }}"></script>
 <script src="{{ asset('asset/vendor/summernote/dist/summernote-bs4.js') }}"></script>
+<script src="{{ asset('asset/vendor/switchery/switchery.min.js') }}"></script>
 
 <!-- App scripts -->
 <script src="{{ asset('asset/scripts/luna.js') }}"></script>

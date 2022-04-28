@@ -41,8 +41,8 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
                             <th>Image</th>
+                            <th>Name</th>
                             <th>Display Status</th>
                             <th style="width: 180px" class="text-right">Action</th>
                         </tr>
@@ -52,7 +52,6 @@
                             @foreach($amenities as $amenity)
                                 <tr>
                                     <td>{{ $amenity->id }}</td>
-                                    <td>{{ $amenity->name }}</td>
                                     <td>
                                         @if($amenity->image)
                                             <img alt="image" class="rounded image-md" src="{{ Storage::url($amenity->image) }}">
@@ -60,19 +59,20 @@
                                             <img alt="image" class="rounded image-md" src="{{ asset('images/placeholder-dark.jpg') }}">
                                         @endif
                                     </td>
+                                    <td>{{ $amenity->name }}</td>
                                     <td>
                                         @if($amenity->status == 'true')
-                                            <button class="btn btn-accent btn-rounded btn-sm">Enabled</button>
+                                            <button class="btn btn-accent btn-sm">Enabled</button>
                                         @else
-                                            <button class="btn btn-default btn-rounded btn-sm">Disabled</button>
+                                            <button class="btn btn-secondary btn-sm">Disabled</button>
                                         @endif
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group pull-right">
-                                            <a href="{{ route('restaurant.amenity.edit', $amenity->id) }}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+                                            <a href="{{ route('restaurant.amenity.edit', $amenity->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a>
 
                                             <a href="{{ route('restaurant.amenity.delete', $amenity->id) }}"
-                                               class="btn btn-default btn-xs text-danger deleteAmenityModal" >
+                                               class="btn btn-default btn-sm text-danger deleteAmenityModal" >
                                                 <i class="fa fa-sticky-note"></i> Delete
                                             </a>
                                         </div>

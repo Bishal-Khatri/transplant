@@ -66,15 +66,15 @@
                                     </template>
                                 </td>
                                 <td>
-                                    <button class="btn btn-accent btn-rounded btn-sm" v-if="value.status === true">ENABLED</button>
-                                    <button class="btn btn-accent btn-rounded btn-sm" v-else-if="value.status === false">DISABLED</button>
+                                    <button class="btn btn-accent btn-sm" v-if="value.status === true">ENABLED</button>
+                                    <button class="btn btn-secondary btn-sm" v-else-if="value.status === false">DISABLED</button>
                                 </td>
                                 <td>
                                     <div class="btn-group pull-left">
-                                        <a class="btn btn-default btn-xs" :href="'/restaurant/edit/'+value.id">
+                                        <a class="btn btn-default btn-sm" :href="'/restaurant/edit/'+value.id">
                                             <i class="fa fa-pencil"></i> Edit
                                         </a>
-                                        <button class="btn btn-default btn-xs" @click.prevent="showDeleteModal(value.id)">
+                                        <button class="btn btn-default btn-sm" @click.prevent="showDeleteModal(value.id)">
                                             <i class="fa fa-trash text-danger"></i> Delete
                                         </button>
                                     </div>
@@ -89,9 +89,6 @@
         <div class="pull-right">
             <pagination :data="restaurants_pg" @pagination-change-page="getRestaurants"></pagination>
         </div>
-
-        <!--<preview-item ref="previewItem"></preview-item>-->
-        <create-restaurant ref="createRestaurant"/>
 
         <div class="modal fade" id="deleteRestaurantModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
             <div class="modal-dialog modal-sm modal-dialog-centered">
@@ -114,6 +111,8 @@
             </div>
         </div>
 
+        <!--<preview-item ref="previewItem"></preview-item>-->
+        <create-restaurant :users="users" ref="createRestaurant"/>
         <image-preview ref="imagePreview"/>
     </div>
 </template>
@@ -134,7 +133,7 @@
         data(){
             return{
                 deleteBtnLoading: false,
-
+                users: '',
                 meta:{
                     filter: '',
                     category: '',
@@ -160,6 +159,7 @@
                 const response = await RestaurantService.getRestaurant(page,this.meta);
                 this.restaurants_pg = response.data.data.restaurants;
                 this.restaurants = response.data.data.restaurants.data;
+                this.users = response.data.data.users;
             },
 
             showDeleteModal(restaurant_id){

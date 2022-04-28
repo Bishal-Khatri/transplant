@@ -5,6 +5,13 @@
                 <div class="panel panel-filled">
                     <div class="panel-body">
                         <div class="row">
+                            <div class="col-lg-10">
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 0 ? 'btn-primary':''" @click.prevent="getOrders(0)">ALL</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 2 ? 'btn-primary':''" @click.prevent="getOrders(2)">PROCESSING</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 4 ? 'btn-primary':''" @click.prevent="getOrders(4)">COMPLETED</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 5 ? 'btn-primary':''" @click.prevent="getOrders(5)">CANCELED</button>
+                                <button class="btn btn-lg btn-default btn-squared mt-2 mr-2" :class="status_filter === 6 ? 'btn-primary':''" @click.prevent="getOrders(6)">FAILED</button>
+                            </div>
                             <div class="col-lg-2">
                                 <div class="input-group m-b-xs m-t-xs">
                                     <input type="text" class="form-control" placeholder="Search by Unique ID" aria-describedby="button-addon2">
@@ -27,11 +34,14 @@
                                 <th>Order</th>
                                 <th>Image</th>
                                 <th>Order Date</th>
-                                <th class="text-right">Order Status</th>
-                                <!--<th style="width: 180px" class="text-right">Actions</th>-->
+                                <th>Order Status</th>
+                                <th style="width: 180px" class="text-right">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <tr v-if="!orders.length">
+                                <td colspan="7">No data available</td>
+                            </tr>
                             <tr v-for="order in orders" :key="order.id">
                                 <td>
                                     {{ order.id  }}
@@ -67,21 +77,17 @@
                                     <span v-if="order.order_status === 4" class="label label-success">COMPLETED</span>
                                     <span v-if="order.order_status === 5" class="label label-warning">CANCELED</span>
                                     <span v-if="order.order_status === 6" class="label label-danger">FAILED</span>
-
-                                    <select id="" class="form-control pull-right" @change.prevent="showOrderStatusModal($event, order.id)" style="width: 170px;" data-placeholder="Change Status">
-                                        <option value="1">New</option>
-                                        <option value="2">PROCESSING</option>
-                                        <option value="3">SHIPPED</option>
-                                        <option value="4">COMPLETED</option>
-                                        <option value="5">CANCELED</option>
-                                        <option value="6">FAILED</option>
+                                </td>
+                                <td class="text-right">
+                                    <select id="" class="form-control" @change.prevent="showOrderStatusModal($event, order.id)" style="width: 170px;" data-placeholder="Change Status">
+                                        <option value="1" :selected="order.order_status === 1">New</option>
+                                        <option value="2" :selected="order.order_status === 2">PROCESSING</option>
+                                        <option value="3" :selected="order.order_status === 3">SHIPPED</option>
+                                        <option value="4" :selected="order.order_status === 4">COMPLETED</option>
+                                        <option value="5" :selected="order.order_status === 5">CANCELED</option>
+                                        <option value="6" :selected="order.order_status === 6">FAILED</option>
                                     </select>
                                 </td>
-                                <!--<td>-->
-                                <!--<div class="btn-group pull-right">-->
-                                <!--<a class="btn btn-default btn-xs" :href="'/cart/order/edit/'+order.id"><i class="fa fa-folder"></i> Archive</a>-->
-                                <!--</div>-->
-                                <!--</td>-->
                             </tr>
                             </tbody>
                         </table>
@@ -127,6 +133,10 @@
         data(){
             return{
                 errors: new Errors(),
+                page: 1,
+                filter: '',
+                status_filter: 0,
+
                 orders:[],
                 order_id: '',
                 order_status: 1
@@ -136,12 +146,15 @@
             this.getOrders();
         },
         methods:{
-            async getOrders(){
-                const response = await CartService.getImageOrders();
+            async getOrders(status_filter = 0){
+                this.status_filter = status_filter;
+
+                const response = await CartService.getImageOrders(this.page, this.filter, this.status_filter);
                 this.orders = response.data.data.imageOrders;
             },
 
             showOrderStatusModal(event, order_id){
+                this.order_status = event.target.value;
                 this.order_id = order_id;
                 $("#change-order-status").modal('show');
             },

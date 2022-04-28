@@ -73,11 +73,11 @@
                                     <td>{!! data_get($category, 'parent.name') ?? "<code>root</code>" !!}</td>
                                     <td class="text-center">
                                         <div class="btn-group pull-right">
-                                            <a href="" class="btn btn-default btn-xs"><i class="fa fa-folder"></i> Items</a>
-                                            <a href="{{ route('grocery.category.edit', $category->id) }}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+                                            {{--<a href="" class="btn btn-default btn-xs"><i class="fa fa-folder"></i> Items</a>--}}
+                                            <a href="{{ route('grocery.category.edit', $category->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Edit</a>
 
                                             <a href="{{ route('grocery.category.delete', $category->id) }}"
-                                               class="btn btn-default btn-xs text-danger deleteModal" >
+                                               class="btn btn-default btn-sm text-danger deleteModal" >
                                                 <i class="fa fa-sticky-note"></i> Delete
                                             </a>
                                         </div>

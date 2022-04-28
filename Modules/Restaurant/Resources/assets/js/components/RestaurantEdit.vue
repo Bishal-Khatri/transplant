@@ -14,6 +14,10 @@
                                 <span class="form-text small text-danger" v-html="errors.get('restaurant_name')"></span>
                             </div>
                             <div class="form-group mb-4">
+                                <label for="restaurant_name">Display Status</label>
+                                <input type="checkbox" class="js-switch" v-model="status" :checked="status" />
+                            </div>
+                            <div class="form-group mb-4">
                                 <label for="address">Address</label>
                                 <input type="text" class="form-control" id="address" v-model="address">
                                 <span class="form-text small text-danger" v-html="errors.get('address')"></span>
@@ -37,7 +41,7 @@
                                     Main Image <span style="font-size: 18px" class="text-danger">*</span><br>
                                     <small class="text-muted">Your image needs to be at least 500×500 pixels. Choose new file or Replace</small>
                                 </label>
-                                <input type="file" id="main-image" class="form-control-file mb-1" name="image" accept="image/png, image/jpeg" @change="handelImage">
+                                <input type="file" id="main-image" class="form-control-file mb-1" style="width:200px" name="image" accept="image/png, image/jpeg" @change="handelImage">
                                 <img v-if="main_image_url" :src="main_image_url" alt="" name="image" class="rounded image-xl">
                                 <img v-else src="/images/placeholder-dark.jpg" alt="" id="main-image-preview" name="image" class="rounded image-xl">
                             </div>
@@ -48,23 +52,28 @@
                             </div>
                             <div class="form-group mb-4">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <label for="main_user">
                                             Main User
                                             <span style="font-size: 18px" class="text-danger">*</span>
                                         </label>
-                                        <input type="text" v-model="main_user_email" class="form-control" id="main_user" placeholder="Email address" >
-                                        <small class="text-accent">Validate user email address before submitting.</small>
+                                        <select class="form-control" id="main_user" v-model="user_id" data-placeholder="Select Main User">
+                                            <option v-if="users" v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
+                                        </select>
                                         <span class="form-text small text-danger" v-html="errors.get('user')"></span>
+
+                                        <!--<input type="text" v-model="main_user_email" class="form-control" id="main_user" placeholder="Email address" >-->
+                                        <!--<small class="text-accent">Validate user email address before submitting.</small>-->
+                                        <!--<span class="form-text small text-danger" v-html="errors.get('user')"></span>-->
                                     </div>
-                                    <div class="col-md-3 " style="margin-top: 34px">
-                                        <button class="btn btn-accent" v-if="user_submitting"><i class="fa fa-spinner fa-spin"></i></button>
-                                        <button class="btn btn-accent btn-block" @click.prevent="getUser" v-else>Validate</button>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <h5>Main User</h5>
-                                        <p v-if="selected_user" class="label label-accent text-dark">{{ selected_user.name }}</p>
-                                    </div>
+                                    <!--<div class="col-md-3 " style="margin-top: 34px">-->
+                                        <!--<button class="btn btn-accent" v-if="user_submitting"><i class="fa fa-spinner fa-spin"></i></button>-->
+                                        <!--<button class="btn btn-accent btn-block" @click.prevent="getUser" v-else>Validate</button>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-3">-->
+                                        <!--<h5>Main User</h5>-->
+                                        <!--<p v-if="selected_user" class="label label-accent text-dark">{{ selected_user.name }}</p>-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                             <a href="/grocery/item" class="btn btn-default">Discard</a>
@@ -174,6 +183,7 @@
             'restaurant',
             'categories',
             'amenities',
+            'users',
         ],
         data: () => ({
             errors: new Errors(),
@@ -189,8 +199,9 @@
             user_id: '',
             main_image_url: '',
             description: '',
-            main_user_email: '',
-            selected_user: '',
+            // main_user_email: '',
+            status: '',
+            // selected_user: '',
 
             images:[],
             selected_amenity:'',
@@ -223,6 +234,9 @@
             EventBus.$on('quantityDeleted', () => {
                 this.getItemDetails();
             });
+
+            var elem = document.querySelector('.js-switch');
+            var init = new Switchery(elem, { color: '#f6a821',size: 'small'});
         },
         methods: {
             async addAmenities() {
@@ -240,31 +254,33 @@
                     Errors.Notification(error.response);
                 }
             },
-            async getUser() {
-                this.user_submitting = true;
-                if (this.main_user_email) {
-                    try {
-                        const response = await RestaurantService.getUserByEmail(this.main_user_email);
-                        if (response.data.error === false) {
-                            this.selected_user = response.data.data.user;
-                            this.user_id = response.data.data.user.id;
-                        }
-                        this.main_user_email = '';
-                    }catch (error) {
-                        this.saveBtnLoading = false;
-                        Errors.Notification(error.response);
-                    }
-                }
-                this.user_submitting = false;
-            },
+            // async getUser() {
+            //     this.user_submitting = true;
+            //     if (this.main_user_email) {
+            //         try {
+            //             const response = await RestaurantService.getUserByEmail(this.main_user_email);
+            //             if (response.data.error === false) {
+            //                 this.selected_user = response.data.data.user;
+            //                 this.user_id = response.data.data.user.id;
+            //             }
+            //             this.main_user_email = '';
+            //         }catch (error) {
+            //             this.saveBtnLoading = false;
+            //             Errors.Notification(error.response);
+            //         }
+            //     }
+            //     this.user_submitting = false;
+            // },
             setItemData(){
                 this.restaurant_name = this.restaurant.name;
+                this.status = this.restaurant.status;
                 this.description = this.restaurant.description;
                 this.latitude = this.restaurant.latitude;
                 this.longitude = this.restaurant.longitude;
                 this.address = this.restaurant.address;
                 this.menu = this.restaurant.menu;
-                this.selected_user = this.restaurant.user;
+                // this.selected_user = this.restaurant.user;
+                this.user_id = this.restaurant.user.id;
 
                 if (this.restaurant.logo){
                     this.main_image_url = '/storage/' + this.restaurant.logo;
@@ -280,7 +296,8 @@
                     formData.append("address", this.address);
                     this.latitude ? formData.append("latitude", this.latitude) : '';
                     this.longitude ? formData.append("longitude", this.longitude) : '';
-                    formData.append("user", this.selected_user.id);
+                    formData.append("user", this.user_id);
+                    formData.append("status", this.status);
 
                     var description = $("#description").val();
                     description ? formData.append("description", description): '';

@@ -1,5 +1,7 @@
 @extends('cart::layouts.master')
 
+@section('image_order_active') active @stop
+
 @section('content')
     <div class="row">
         <div class="col-lg-12">

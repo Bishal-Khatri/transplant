@@ -3,7 +3,9 @@
 namespace Modules\Restaurant\Http\Controllers;
 
 use App\Enum\CategoryType;
+use App\Enum\UserType;
 use App\Models\Category;
+use App\Models\User;
 use App\Traits\FileStore;
 use App\Traits\SetResponse;
 use Illuminate\Http\Request;
@@ -110,11 +112,12 @@ class RestaurantController extends Controller
 
     public function edit($id)
     {
+        $users = User::where('user_type', UserType::RESTAURANT)->get();
         $restaurant = Restaurant::with('menu', 'menu.category', 'user')->findOrFail($id);
         $categories = Category::where('type', CategoryType::RESTAURANT)->get();
         $amenities = Amenity::where('status', true)->get();
 
-        return view('restaurant::restaurant-edit', compact('restaurant', 'categories', 'amenities'));
+        return view('restaurant::restaurant-edit', compact('restaurant', 'categories', 'amenities', 'users'));
     }
 
     public function store(Request $request)
@@ -150,6 +153,7 @@ class RestaurantController extends Controller
         $restaurant->address = $request->address;
         $restaurant->latitude = $request->latitude;
         $restaurant->longitude = $request->longitude;
+        $restaurant->status = $request->status === 'false' ? false : true;
         $restaurant->save();
 
         $returnData = $this->prepareResponse(false, 'Success <br> Restaurant created/updated successfully', compact('restaurant'), []);
@@ -158,6 +162,7 @@ class RestaurantController extends Controller
 
     public function apiListing(Request $request)
     {
+        $users = User::where('user_type', UserType::RESTAURANT)->get();
         $filter = $request->filter ? $request->filter : '';
         $per_page = $request->per_page ? $request->per_page : 20;
 
@@ -168,7 +173,7 @@ class RestaurantController extends Controller
 
         $restaurants = $query->paginate($per_page);
 
-        $returnData = $this->prepareResponse(false, 'success', compact('restaurants'), []);
+        $returnData = $this->prepareResponse(false, 'success', compact('restaurants', 'users'), []);
         return response()->json($returnData, 200);
     }
 

@@ -6,7 +6,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-2">
-                                <button @click.prevent="$refs.createBrand.openDialog()" class="btn btn-accent btn-block btn-lg mt-1">Add brand</button>
+                                <button @click.prevent="$refs.createBrand.openDialog()" class="btn btn-accent btn-block btn-lg mt-1">Add New Brand</button>
                             </div>
                             <div class="col-lg-8"></div>
                             <div class="col-lg-2">
@@ -30,9 +30,9 @@
                         <table class="table table-responsive-sm">
                             <thead>
                             <tr>
-                                <th style="width: 50px;">
-                                    <input type="checkbox">
-                                </th>
+                                <!--<th style="width: 50px;">-->
+                                    <!--<input type="checkbox">-->
+                                <!--</th>-->
                                 <th style="width: 50px;">#</th>
                                 <th style="width: 80px;">Image</th>
                                 <th>Brand Name</th>
@@ -43,7 +43,7 @@
                             </thead>
                             <tbody>
                             <tr v-if="brands && brands.length" v-for="(value, index) in brands" :key="index">
-                                <td><input type="checkbox"></td>
+                                <!--<td><input type="checkbox"></td>-->
                                 <td>
                                     {{ value.id }}
                                 </td>
@@ -58,12 +58,12 @@
 
                                     <div class="small"><i class="fa fa-clock-o"></i> Created {{ value.created_at }}</div>
                                 </td>
-                                <td>
-                                    <div class="btn-group pull-left">
-                                        <a class="btn btn-default btn-xs" href="#" @click.prevent="$refs.createBrand.openDialog(value)">
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <a class="btn btn-default btn-sm" href="#" @click.prevent="$refs.createBrand.openDialog(value)">
                                             <i class="fa fa-pencil"></i> Edit
                                         </a>
-                                        <button class="btn btn-default btn-xs text-danger" @click.prevent="showDeleteModal(value.id)">
+                                        <button class="btn btn-default btn-sm text-danger" @click.prevent="showDeleteModal(value.id)">
                                             <i class="fa fa-trash"></i> Delete
                                         </button>
                                     </div>

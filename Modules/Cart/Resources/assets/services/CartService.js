@@ -22,8 +22,8 @@ export default {
         return Api().post('/cart/web-api/order/assignOrder', formData);
     },
 
-    getImageOrders(){
-        return Api().get('/cart/web-api/order/imageOrders');
+    getImageOrders(page, filter, status_filter){
+        return Api().get('/cart/web-api/order/imageOrders?page=' + page + '&filter=' + filter + '&status_filter=' + status_filter);
     },
 
     updateImageOrderStatus(formData){

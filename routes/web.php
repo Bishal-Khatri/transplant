@@ -19,3 +19,7 @@ Route::get('/appointment/category', [CategoryController::class, 'appointmentInde
 Route::post('/category/store', [CategoryController::class, 'store'])->name('grocery.category.store');
 Route::get('/category/edit/{category_id}', [CategoryController::class, 'edit'])->name('grocery.category.edit');
 Route::delete('/category/delete/{category_id}', [CategoryController::class, 'destroy'])->name('grocery.category.delete');
+
+//Route::group(['middleware' => 'auth', 'prefix' => 'web_api'], function (){
+//    Route::post('/getUserByEmail', [\App\Http\Controllers\HomeController::class, 'getUserByEmail']);
+//});

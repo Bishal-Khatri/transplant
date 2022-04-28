@@ -20,8 +20,13 @@ class RestaurantClientController extends Controller
     {
         $categories = Category::where('type', CategoryType::RESTAURANT)->get();
         $user = Auth::user();
-        $restaurant = Restaurant::where('user_id', $user->id)->firstOrFail();
-        $menu = RestaurantMenu::where('restaurant_id', $restaurant->id)->get();
+        $restaurant = Restaurant::where('user_id', $user->id)->first();
+
+        $menu = [];
+        if ($restaurant){
+            $menu = RestaurantMenu::where('restaurant_id', $restaurant->id)->get();
+        }
+
         return view('restaurant::client.index', compact('restaurant', 'menu', 'categories'));
     }
 

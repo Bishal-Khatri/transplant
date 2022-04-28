@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="{{ asset('asset/vendor/toastr/toastr.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/vendor/select2/dist/css/select2.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/vendor/summernote/dist/summernote-bs4.css') }}"/>
+<link rel="stylesheet" href="{{ asset('asset/vendor/switchery/switchery.min.css') }}"/>
 
 <link rel="stylesheet" href="{{ asset('asset/styles/style.css') }}">
 <style>

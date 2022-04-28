@@ -30,6 +30,7 @@ Route::prefix('cart')->middleware('auth')->group(function() {
             Route::post('/assignOrder', [ OrderController::class, 'assignOrder']);
 
             Route::get('/imageOrders', [ OrderController::class, 'getImageOrders']);
+            Route::post('/updateImageOrderStatus', [ OrderController::class, 'updateImageOrderStatus']);
         });
     });
 });

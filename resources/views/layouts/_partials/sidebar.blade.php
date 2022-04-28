@@ -57,10 +57,10 @@
                 <li class="{{ (request()->is('')) ? 'active' : '' }}">
                     <a href="#">Settings</a>
                 </li>
-                <li class="{{ (request()->is('cart/order') OR request()->is('cart/order/*')) ? 'active' : '' }}">
+                <li class="@yield('order_active')">
                     <a href="{{ route('cart.order.index') }}">Orders</a>
                 </li>
-                <li class="{{ (request()->is('cart/order/image-order') OR request()->is('cart/order/image-order/*')) ? 'active' : '' }}">
+                <li class="@yield('image_order_active')">
                     <a href="{{ route('cart.order.image-order') }}">Image Orders</a>
                 </li>
 

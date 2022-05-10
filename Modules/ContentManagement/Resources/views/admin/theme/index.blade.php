@@ -10,7 +10,38 @@
             </div>
 
             <div class="clearfix"></div>
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Available Themes</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="{{ route('cms.theme.scan') }}" style="color: #5A738E;" type="submit">Scan</a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row">
+                                @foreach($available_themes as $value)
+                                    <div class="col-md-4">
+                                        <div class="x_panel">
+                                            <div class="x_content">
+                                                <h4>
+                                                    {{ $value->name }}
+                                                    @if($value->is_active)
+                                                        <span class="badge badge-warning">Active</span>
+                                                    @endif
+                                                </h4>
+                                                <a class="btn btn-primary btn-sm btn-" href="{{ route('cms.theme.activate', $value->id) }}">Activate</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4 col-sm-4">
                     <div class="x_panel">

@@ -1,5 +1,3 @@
-{{--<script src="{{ mix('js/contentmanagement.js') }}"></script>--}}
-
 <!-- jQuery -->
 <script src="{{ asset('asset/gentelella/vendors/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap -->

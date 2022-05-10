@@ -36,6 +36,8 @@ class ThemeController extends Controller
 
     public function adminIndex()
     {
+        $available_themes = Theme::all();
+
         if (!Theme::where('is_active', 1)->exists()){
             Theme::create([
                 'name' => 'Default',
@@ -44,7 +46,7 @@ class ThemeController extends Controller
         }
         $active_theme = Theme::where('is_active', 1)->first();
         $pages = Page::where('visibility', 1)->get();
-        return view('contentmanagement::admin.theme.index', compact('active_theme', 'pages'));
+        return view('contentmanagement::admin.theme.index', compact('active_theme', 'pages', 'available_themes'));
     }
 
     public function updateTheme(Request $request)
@@ -65,24 +67,41 @@ class ThemeController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function scanTheme()
     {
-        return view('contentmanagement::show');
+        $path    = '../Modules/ContentManagement/Resources/views/theme';
+        $available_themes = array_diff(scandir($path), array('.', '..'));
+
+        // remove obsolete themes
+        Theme::whereNotIn('name', $available_themes)->delete();
+
+        foreach ($available_themes as $value){
+            if (!Theme::where('name', $value)->exists()){
+                Theme::create([
+                    'name' => $value,
+                    'is_active' => 0
+                ]);
+            }
+        }
+
+        session()->flash('success', 'Success <br> Themes scanned successfully.');
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+    public function activateTheme($id)
     {
-        return view('contentmanagement::edit');
+        $themes = Theme::all();
+        foreach ($themes as $value){
+            $value->is_active = 0;
+            $value->save();
+        }
+
+        $activate = Theme::find($id);
+        $activate->is_active = 1;
+        $activate->save();
+
+        session()->flash('success', 'Success <br> Themes scanned successfully.');
+        return redirect()->back();
     }
 
     /**

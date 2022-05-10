@@ -35,6 +35,7 @@
         <!-- /footer content -->
     </div>
 </div>
+<script src="{{ mix('js/contentmanagement.js') }}"></script>
 @include('layouts.gentelella.script')
 </body>
 </html>

@@ -5,7 +5,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Dashboard</h3>
+                    <h3>Edit Page</h3>
                 </div>
             </div>
 

@@ -1,4 +1,4 @@
-@extends('contentmanagement::layouts.master')
+@extends('contentmanagement::theme.Default.layouts.master')
 
 @section('content')
     <h1>{{ $content->title }}</h1>

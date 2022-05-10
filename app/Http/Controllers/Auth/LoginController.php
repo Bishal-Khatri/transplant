@@ -43,8 +43,8 @@ class LoginController extends Controller
             case UserType::ADMINISTRATOR:
                 return RouteServiceProvider::ADMIN_HOME;
                 break;
-            case UserType::RESTAURANT:
-                return RouteServiceProvider::RESTAURANT_HOME;
+            case UserType::HOSPITAL:
+                return RouteServiceProvider::HOSPITAL_HOME;
                 break;
 
             default:

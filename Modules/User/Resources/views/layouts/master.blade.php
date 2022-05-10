@@ -6,37 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Page title -->
     <title>{{ config('app.name', 'Laravel') }} | User</title>
-    @include('layouts._partials.css')
+    @include('layouts.gentelella.css')
 </head>
-<body>
+<body class="nav-md">
 
-<!-- Wrapper-->
-<div class="wrapper">
+<div class="container body">
+    <div class="main_container">
 
-    <!-- Header-->
-@include('layouts._partials.nav')
-<!-- End header-->
+    @include('layouts.gentelella.navigation')
 
-    <!-- Navigation-->
-@include('layouts._partials.sidebar')
-<!-- End navigation-->
-
-    <!-- Main content-->
-    <section class="content">
-        <div class="container-fluid">
-            <div id="app">
-                @yield('content')
-            </div>
+    <!-- page content -->
+        <div id="app">
+            @yield('content')
         </div>
-    </section>
-    <!-- End main content-->
+        <!-- /page content -->
 
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                Bootstrap Admin Template
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
 </div>
-<!-- End wrapper-->
-
-@include('layouts._partials.script')
 <script src="{{ mix('js/user.js') }}"></script>
-@yield('script')
+@include('layouts.gentelella.script')
 </body>
 
 </html>

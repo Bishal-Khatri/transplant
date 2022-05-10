@@ -10,15 +10,15 @@
     <!-- Page title -->
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    @include('layouts._partials.css')
+    @include('layouts.gentelella.css')
 </head>
-<body class="blank">
+<body class="login">
 <div class="wrapper">
     <section class="content">
         @yield('content')
     </section>
 </div>
 
-@include('layouts._partials.script')
+@include('layouts.gentelella.script')
 </body>
 </html>

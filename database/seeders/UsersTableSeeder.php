@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\UserType;
 use App\Models\SmsTemplate;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -22,25 +23,17 @@ class UsersTableSeeder extends Seeder
                 'email' => "admin@iionstech.com",
                 'phone_number' => 9842721343,
                 'password' => Hash::make('super@iionstech#343'),
-                'user_type' => 'administrator',
+                'user_type' => UserType::ADMINISTRATOR,
                 'role' => 'super-admin'
             ],
-//            [
-//                'name' => 'Restaurant User',
-//                'email' => "restaurant@gmail.com",
-//                'phone_number' => 9842700001,
-//                'password' => Hash::make('password'),
-//                'user_type' => 'administrator',
-//                'role' => 'restaurant'
-//            ],
-//            [
-//                'name' => 'Administrator User',
-//                'email' => "administrator@gmail.com",
-//                'phone_number' => 9842700003,
-//                'password' => Hash::make('password'),
-//                'user_type' => 'administrator',
-//                'role' => 'administrator'
-//            ]
+            [
+                'name' => 'Hospital User',
+                'email' => "hospital@gmail.com",
+                'phone_number' => 9842700001,
+                'password' => Hash::make('password'),
+                'user_type' => UserType::HOSPITAL,
+                'role' => 'hospital'
+            ],
         ];
 
         foreach($users as $value){
@@ -52,7 +45,7 @@ class UsersTableSeeder extends Seeder
                 "user_type" => $value['user_type'],
             ]);
 
-            $user->assignRole($value['role']);
+//            $user->assignRole($value['role']);
         }
 
 

@@ -1,8 +1,6 @@
 {
-    "Grocery": true,
-    "Restaurant": true,
     "User": true,
-    "Application": true,
-    "Cart": true,
-    "ContentManagement": true
+    "ContentManagement": true,
+    "Hospital": true,
+    "Administrator": true
 }

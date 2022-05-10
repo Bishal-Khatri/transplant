@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../node_modules/axios/index.js":
-/*!*************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/index.js ***!
-  \*************************************************************/
+/*!**************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/index.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98,9 +98,9 @@ module.exports = __webpack_require__(/*! ./lib/axios */ "../../node_modules/axio
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/adapters/xhr.js":
-/*!************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/adapters/xhr.js ***!
-  \************************************************************************/
+/*!*************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/adapters/xhr.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -299,9 +299,9 @@ module.exports = function xhrAdapter(config) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/axios.js":
-/*!*****************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/axios.js ***!
-  \*****************************************************************/
+/*!******************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/axios.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -367,9 +367,9 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/cancel/Cancel.js":
-/*!*************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/cancel/Cancel.js ***!
-  \*************************************************************************/
+/*!**************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/cancel/Cancel.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -398,9 +398,9 @@ module.exports = Cancel;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/cancel/CancelToken.js":
-/*!******************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/cancel/CancelToken.js ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/cancel/CancelToken.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -467,9 +467,9 @@ module.exports = CancelToken;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/cancel/isCancel.js":
-/*!***************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/cancel/isCancel.js ***!
-  \***************************************************************************/
+/*!****************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/cancel/isCancel.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -484,9 +484,9 @@ module.exports = function isCancel(value) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/Axios.js":
-/*!**********************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/Axios.js ***!
-  \**********************************************************************/
+/*!***********************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/Axios.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -644,9 +644,9 @@ module.exports = Axios;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/InterceptorManager.js":
-/*!***********************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/InterceptorManager.js ***!
-  \***********************************************************************************/
+/*!************************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -710,9 +710,9 @@ module.exports = InterceptorManager;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/buildFullPath.js":
-/*!******************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/buildFullPath.js ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/buildFullPath.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -742,9 +742,9 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/createError.js":
-/*!****************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/createError.js ***!
-  \****************************************************************************/
+/*!*****************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/createError.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -772,9 +772,9 @@ module.exports = function createError(message, config, code, request, response) 
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/dispatchRequest.js":
-/*!********************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/dispatchRequest.js ***!
-  \********************************************************************************/
+/*!*********************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/dispatchRequest.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -866,9 +866,9 @@ module.exports = function dispatchRequest(config) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/enhanceError.js":
-/*!*****************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/enhanceError.js ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/enhanceError.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -920,9 +920,9 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/mergeConfig.js":
-/*!****************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/mergeConfig.js ***!
-  \****************************************************************************/
+/*!*****************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/mergeConfig.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1019,9 +1019,9 @@ module.exports = function mergeConfig(config1, config2) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/settle.js":
-/*!***********************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/settle.js ***!
-  \***********************************************************************/
+/*!************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/settle.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1056,9 +1056,9 @@ module.exports = function settle(resolve, reject, response) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/core/transformData.js":
-/*!******************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/core/transformData.js ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/core/transformData.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1090,9 +1090,9 @@ module.exports = function transformData(data, headers, fns) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/defaults.js":
-/*!********************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/defaults.js ***!
-  \********************************************************************/
+/*!*********************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/defaults.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1237,9 +1237,9 @@ module.exports = defaults;
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/bind.js":
-/*!************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/bind.js ***!
-  \************************************************************************/
+/*!*************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/bind.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1260,9 +1260,9 @@ module.exports = function bind(fn, thisArg) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/buildURL.js":
-/*!****************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/buildURL.js ***!
-  \****************************************************************************/
+/*!*****************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/buildURL.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1342,9 +1342,9 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/combineURLs.js":
-/*!*******************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/combineURLs.js ***!
-  \*******************************************************************************/
+/*!********************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1368,9 +1368,9 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/cookies.js":
-/*!***************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/cookies.js ***!
-  \***************************************************************************/
+/*!****************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/cookies.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1433,9 +1433,9 @@ module.exports = (
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/isAbsoluteURL.js":
-/*!*********************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \*********************************************************************************/
+/*!**********************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1459,9 +1459,9 @@ module.exports = function isAbsoluteURL(url) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/isAxiosError.js":
-/*!********************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/isAxiosError.js ***!
-  \********************************************************************************/
+/*!*********************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1482,9 +1482,9 @@ module.exports = function isAxiosError(payload) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/isURLSameOrigin.js":
-/*!***********************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \***********************************************************************************/
+/*!************************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1562,9 +1562,9 @@ module.exports = (
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/normalizeHeaderName.js":
-/*!***************************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
-  \***************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1586,9 +1586,9 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/parseHeaders.js":
-/*!********************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/parseHeaders.js ***!
-  \********************************************************************************/
+/*!*********************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1651,9 +1651,9 @@ module.exports = function parseHeaders(headers) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/spread.js":
-/*!**************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/spread.js ***!
-  \**************************************************************************/
+/*!***************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/spread.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1690,9 +1690,9 @@ module.exports = function spread(callback) {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/helpers/validator.js":
-/*!*****************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/helpers/validator.js ***!
-  \*****************************************************************************/
+/*!******************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/helpers/validator.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1807,9 +1807,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/axios/lib/utils.js":
-/*!*****************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/lib/utils.js ***!
-  \*****************************************************************/
+/*!******************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/lib/utils.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2168,9 +2168,9 @@ module.exports = {
 /***/ }),
 
 /***/ "../../node_modules/axios/package.json":
-/*!*****************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/axios/package.json ***!
-  \*****************************************************************/
+/*!******************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/axios/package.json ***!
+  \******************************************************************/
 /*! exports provided: name, version, description, main, scripts, repository, keywords, author, license, bugs, homepage, devDependencies, browser, jsdelivr, unpkg, typings, dependencies, bundlesize, default */
 /***/ (function(module) {
 
@@ -2179,9 +2179,9 @@ module.exports = JSON.parse("{\"name\":\"axios\",\"version\":\"0.21.4\",\"descri
 /***/ }),
 
 /***/ "../../node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js":
-/*!***********************************************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js ***!
-  \***********************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2772,9 +2772,9 @@ var LaravelVuePagination_component = normalizeComponent(
 /***/ }),
 
 /***/ "../../node_modules/vue/dist/vue.common.dev.js":
-/*!*************************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/vue/dist/vue.common.dev.js ***!
-  \*************************************************************************/
+/*!**************************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/vue/dist/vue.common.dev.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14793,9 +14793,9 @@ module.exports = Vue;
 /***/ }),
 
 /***/ "../../node_modules/vue/dist/vue.common.js":
-/*!*********************************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/node_modules/vue/dist/vue.common.js ***!
-  \*********************************************************************/
+/*!**********************************************************************!*\
+  !*** C:/xampp/htdocs/transplant/node_modules/vue/dist/vue.common.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14807,9 +14807,9 @@ if (false) {} else {
 /***/ }),
 
 /***/ "../../resources/js/error.js":
-/*!*******************************************************!*\
-  !*** C:/xampp/htdocs/d-one-web/resources/js/error.js ***!
-  \*******************************************************/
+/*!********************************************************!*\
+  !*** C:/xampp/htdocs/transplant/resources/js/error.js ***!
+  \********************************************************/
 /*! exports provided: Errors */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -15608,19 +15608,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getPageDetails: function getPageDetails(page_id) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/cms/admin/web-api/page/details/' + page_id);
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/cms/web-api/page/details/' + page_id);
   },
   updatePage: function updatePage(formData) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/cms/admin/web-api/page/update', formData);
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/cms/web-api/page/update', formData);
   },
   deleteSection: function deleteSection(section_id) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/cms/admin/web-api/page/deleteSection/' + section_id);
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/cms/web-api/page/deleteSection/' + section_id);
   },
   addSection: function addSection(formData) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/cms/admin/web-api/page/addSection', formData);
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/cms/web-api/page/addSection', formData);
   },
   updateSection: function updateSection(formData) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/cms/admin/web-api/page/updateSection', formData);
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/cms/web-api/page/updateSection', formData);
   }
 });
 
@@ -32618,7 +32618,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\d-one-web\Modules\ContentManagement\Resources\assets\js\app.js */"./Resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\transplant\Modules\ContentManagement\Resources\assets\js\app.js */"./Resources/assets/js/app.js");
 
 
 /***/ })

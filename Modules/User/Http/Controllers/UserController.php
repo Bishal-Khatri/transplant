@@ -29,7 +29,7 @@ class UserController extends Controller
 
     public function userListing(Request $request)
     {
-        $user_type = UserType::SUBSCRIBER;
+        $user_type = UserType::ADMINISTRATOR;
         if ($request->has('user_type') AND !blank($request->user_type)){
             $user_type = $request->user_type;
         }

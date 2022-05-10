@@ -36,6 +36,12 @@ class ThemeController extends Controller
 
     public function adminIndex()
     {
+        if (!Theme::where('is_active', 1)->exists()){
+            Theme::create([
+                'name' => 'Default',
+                'is_active' => 1
+            ]);
+        }
         $active_theme = Theme::where('is_active', 1)->first();
         $pages = Page::where('visibility', 1)->get();
         return view('contentmanagement::admin.theme.index', compact('active_theme', 'pages'));
@@ -44,6 +50,7 @@ class ThemeController extends Controller
     public function updateTheme(Request $request)
     {
         $theme_id = $request->theme_id;
+
         if (!$theme_id){
             $theme = new Theme();
         }else{

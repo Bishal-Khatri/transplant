@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('pin')->nullable();
             $table->string('phone_number')->unique()->nullable();
             $table->string('user_type',20)->comment('subscriber, administrator');
+            $table->string('avatar', 255)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

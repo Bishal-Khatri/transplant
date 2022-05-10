@@ -7,7 +7,7 @@
     <!-- Page title -->
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    @include('layouts._partials.css')
+    @include('layouts.gentelella.css')
 
 </head>
 <body>
@@ -33,17 +33,7 @@
 </div>
 <!-- End wrapper-->
 
-@include('layouts._partials.script')
-@yield('script')
-<script>
-    $(document).ready(function () {
-        $("#category-image").on("change", function (event) {
-            let newSrc = URL.createObjectURL(event.target.files[0]);
-            $('#cat-image-preview').attr('src', newSrc);
-        })
-    })
-</script>
-
+@include('layouts.gentelella.script')
 </body>
 
 </html>

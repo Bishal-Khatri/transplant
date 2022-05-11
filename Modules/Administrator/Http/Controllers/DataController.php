@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Administrator\Entities\Religion;
+use Modules\Administrator\Entities\EthnicGroup;
 
 class DataController extends Controller
 {
@@ -19,7 +20,7 @@ class DataController extends Controller
 
     public function ethnicGroupIndex()
     {
-
+        return view('administrator::pages.ethnic-groups-index');
     }
 
     public function diseaseIndex()
@@ -97,5 +98,61 @@ class DataController extends Controller
     }
     // RELIGIONS END
 
+    // Ethnic Group ethnic_groups
+    public function ethnicGroups(Request $request)
+    {
+        $query = EthnicGroup::query();
 
+        if ($request->has('filter') AND !blank($request->filter)) {
+            $query->where('title', 'LIKE', '%'.$request->filter.'%');
+        }
+
+        $ethnicGroups = $query->orderBy('id', 'desc')->paginate(10);
+
+        $returnData = $this->prepareResponse(false, 'success.', compact('ethnicGroups'), []);
+        return response()->json($returnData);
+    }
+
+    public function ethnicGroupStore(Request $request)
+    {
+        $request->validate([
+            'id' => 'nullable|integer',
+            'title' => 'required|max:255',
+        ]);
+
+        try {
+            if ($request->id) {
+                $ethnicGroup = EthnicGroup::findOrFail($request->id);
+            } else {
+                $ethnicGroup = new EthnicGroup();
+            }
+
+            $ethnicGroup->title = $request->title;
+            $ethnicGroup->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record created successfully.', [], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+
+    }
+
+    public function ethnicGroupDelete($id)
+    {
+        try {
+            $ethnicGroup = EthnicGroup::findOrFail($id);
+            $ethnicGroup->delete();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    } 
+    // End Ethnic Group
 }

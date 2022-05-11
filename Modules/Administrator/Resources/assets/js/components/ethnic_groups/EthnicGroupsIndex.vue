@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createReligion.openDialog()">Create New</a></li>
+                                    <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createEthnicGroup.openDialog()">Create New</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -29,38 +29,38 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-if="!religions.length">
+                            <tr v-if="!ethnicGroups.length">
                                 <td colspan="2">No items to display.</td>
                             </tr>
-                            <tr v-else v-for="(religion, index) in religions" :key="index">
+                            <tr v-else v-for="(EthnicGroup, index) in ethnicGroups" :key="index">
                                 <td>
-                                    <a class="mr-2" href="#" @click.prevent="$refs.createReligion.openDialog(religion)">{{ religion.title }}</a>
-                                    <small class="">Created on {{ religion.created_at }}</small>
+                                    <a class="mr-2" href="#" @click.prevent="$refs.createEthnicGroup.openDialog(EthnicGroup)">{{ EthnicGroup.title }}</a>
+                                    <small class="">Created on {{ EthnicGroup.created_at }}</small>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="#" @click.prevent="$refs.createReligion.openDialog(religion)" class="btn btn-secondary btn-sm" type="button">Edit</a>
-                                        <a href="#" @click.prevent="showDeleteModal(religion.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                        <a href="#" @click.prevent="$refs.createEthnicGroup.openDialog(EthnicGroup)" class="btn btn-secondary btn-sm" type="button">Edit</a>
+                                        <a href="#" @click.prevent="showDeleteModal(EthnicGroup.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                         <div class="pull-right">
-                            <pagination :data="religions_pg" @pagination-change-page="getReligions"></pagination>
+                            <pagination :data="ethnicGroups_pg" @pagination-change-page="getEthnicGroups"></pagination>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <create-religion ref="createReligion"></create-religion>
+        <create-EthnicGroup ref="createEthnicGroup"></create-EthnicGroup>
 
-        <div class="modal fade" id="delete-religion-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="delete-ethnicGroup-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Delete Religion</h4>
+                        <h4 class="modal-title" id="myModalLabel">Delete Ethnic Group</h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                         <button v-if="delete_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deleteReligion">Confirm</button>
+                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deleteEthnicGroup">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -79,15 +79,15 @@
 </template>
 
 <script>
-    import CreateReligion from "./CreateReligion";
+    import CreateEthnicGroup from "./CreateEthnicGroups";
     import DataService from "../../../services/DataService";
     import {Errors} from "../../../../../../../resources/js/error";
     import {EventBus} from "../../app";
 
     export default {
-        name: "ReligionIndex",
+        name: "EthnicGroupIndex",
         components: {
-            CreateReligion,
+            CreateEthnicGroup,
         },
         data(){
             return{
@@ -96,41 +96,41 @@
                 filter: '',
                 delete_id: '',
 
-                religions: {},
-                religions_pg: {},
+                ethnicGroups: {},
+                ethnicGroups_pg: {},
             }
         },
         computed: {
         },
         mounted() {
-            this.getReligions();
-            EventBus.$on('religionCreated', () => {
-                this.getReligions();
+            this.getEthnicGroups();
+            EventBus.$on('ethnicGroupCreated', () => {
+                this.getEthnicGroups();
             });
         },
         methods: {
             setSearch:_.debounce(function(){
-                this.getReligions();
+                this.getEthnicGroups();
             }, 800),
 
-            async getReligions(page = 1) {
-                const response = await DataService.getReligions(page, this.filter);
-                this.religions_pg = response.data.data.religions;
-                this.religions = response.data.data.religions.data;
+            async getEthnicGroups(page = 1) {
+                const response = await DataService.getEthnicGroups(page, this.filter);
+                this.ethnicGroups_pg = response.data.data.ethnicGroups;
+                this.ethnicGroups = response.data.data.ethnicGroups.data;
             },
 
             showDeleteModal(item_id) {
                 this.delete_id = item_id;
-                $("#delete-religion-dialog").modal('show');
+                $("#delete-ethnicGroup-dialog").modal('show');
             },
 
-            async deleteReligion() {
+            async deleteEthnicGroup() {
                 this.delete_submitting = true;
-                const response = await DataService.deleteReligion(this.delete_id);
+                const response = await DataService.deleteEthnicGroup(this.delete_id);
                 if (response.data.error === false) {
                     Errors.Notification(response);
-                    this.getReligions();
-                    $("#delete-religion-dialog").modal('hide');
+                    this.getEthnicGroups();
+                    $("#delete-ethnicGroup-dialog").modal('hide');
                 }
                 this.delete_id = '';
                 this.delete_submitting = false;

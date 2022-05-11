@@ -13,4 +13,14 @@ export default {
     deleteReligion(id){
         return Api().delete('/admin/web-api/religions/delete/'+id);
     },
+    // For Ethnic Group
+    getEthnicGroups(page,filter){
+        return Api().get('/admin/web-api/ethnic-groups?page=' + page + '&filter=' + filter);
+    },
+    saveEthnicGroup(formData){
+        return Api().post('/admin/web-api/ethnic-groups/create', formData);
+    },
+    deleteEthnicGroup(id){
+        return Api().delete('/admin/web-api/ethnic-groups/delete/'+id);
+    },
 }

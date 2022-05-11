@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.occupation') }}">
                             <i class="fa fa-dashboard"></i> Occupations
                         </a>
                     </li>

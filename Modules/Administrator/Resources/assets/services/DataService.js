@@ -43,4 +43,14 @@ export default {
     deleteEducationLevel(id){
         return Api().delete('/admin/web-api/education-levels/delete/'+id);
     },
+    // For Occupations 
+    getOccupations(page,filter){
+        return Api().get('/admin/web-api/occupations?page=' + page + '&filter=' + filter);
+    },
+    saveOccupation(formData){
+        return Api().post('/admin/web-api/occupations/create', formData);
+    },
+    deleteOccupation(id){
+        return Api().delete('/admin/web-api/occupations/delete/'+id);
+    },
 }

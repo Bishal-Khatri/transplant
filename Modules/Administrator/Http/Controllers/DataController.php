@@ -10,6 +10,7 @@ use Modules\Administrator\Entities\Religion;
 use Modules\Administrator\Entities\EthnicGroup;
 use Modules\Administrator\Entities\Disease;
 use Modules\Administrator\Entities\EducationLevel;
+use Modules\Administrator\Entities\Occupation;
 
 class DataController extends Controller
 {
@@ -28,7 +29,6 @@ class DataController extends Controller
     public function diseaseIndex()
     {
         return view('administrator::pages.disease-index');
-
     }
 
     public function educationLevelIndex()
@@ -38,7 +38,7 @@ class DataController extends Controller
 
     public function occupationIndex()
     {
-
+        return view('administrator::pages.occupation-index');
     }
 
     // WEB APIS
@@ -274,4 +274,61 @@ class DataController extends Controller
          }
      } 
      // End Education Level
+
+    // Occupation
+    public function occupations(Request $request)
+    {
+        $query = Occupation::query();
+
+        if ($request->has('filter') AND !blank($request->filter)) {
+            $query->where('title', 'LIKE', '%'.$request->filter.'%');
+        }
+
+        $occupations = $query->orderBy('id', 'desc')->paginate(10);
+
+        $returnData = $this->prepareResponse(false, 'success.', compact('occupations'), []);
+        return response()->json($returnData);
+    }
+
+    public function occupationStore(Request $request)
+    {
+        $request->validate([
+            'id' => 'nullable|integer',
+            'title' => 'required|max:255',
+        ]);
+
+        try {
+            if ($request->id) {
+                $occupation = Occupation::findOrFail($request->id);
+            } else {
+                $occupation = new Occupation();
+            }
+
+            $occupation->title = $request->title;
+            $occupation->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record created successfully.', [], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+
+    }
+
+    public function occupationDelete($id)
+    {
+        try {
+            $occupation = Occupation::findOrFail($id);
+            $occupation->delete();
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
+    // Occupation END
 }

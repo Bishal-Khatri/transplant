@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.education-level') }}">
                             <i class="fa fa-dashboard"></i> Education Level
                         </a>
                     </li>

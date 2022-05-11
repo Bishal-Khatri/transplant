@@ -33,4 +33,14 @@ export default {
     deleteDisease(id){
         return Api().delete('/admin/web-api/diseases/delete/'+id);
     },
+    // For Education Levels 
+    getEducationLevels(page,filter){
+        return Api().get('/admin/web-api/education-levels?page=' + page + '&filter=' + filter);
+    },
+    saveEducationLevel(formData){
+        return Api().post('/admin/web-api/education-levels/create', formData);
+    },
+    deleteEducationLevel(id){
+        return Api().delete('/admin/web-api/education-levels/delete/'+id);
+    },
 }

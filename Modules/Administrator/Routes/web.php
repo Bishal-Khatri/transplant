@@ -20,6 +20,10 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         Route::delete('/religions/delete/{id}', [DataController::class, 'religionsDelete']);
         // RELIGIONS END
 
-
+        // Ethnic Group 
+        Route::get('/ethnic-groups', [DataController::class, 'ethnicGroups']);
+        Route::post('/ethnic-groups/create', [DataController::class, 'ethnicGroupStore']);
+        Route::delete('/ethnic-groups/delete/{id}', [DataController::class, 'ethnicGroupDelete']);
+        // End Ethnic Group
     });
 });

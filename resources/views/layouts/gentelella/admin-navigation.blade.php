@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.ethnic-group') }}">
                             <i class="fa fa-dashboard"></i> Ethnic Groups
                         </a>
                     </li>

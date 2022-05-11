@@ -1,5 +1,8 @@
 import Vue from 'vue';
-Vue.component('example', require('./components/Example.vue').default);
+
+window._ = require('lodash');
+
+Vue.component('religion-index', require('./components/religion/ReligionIndex.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 export const EventBus = new Vue();

@@ -31,6 +31,31 @@
                             <i class="fa fa-dashboard"></i> Dashboard
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.religion') }}">
+                            <i class="fa fa-dashboard"></i> Religions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.index') }}">
+                            <i class="fa fa-dashboard"></i> Ethnic Groups
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.index') }}">
+                            <i class="fa fa-dashboard"></i> Diseases
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.index') }}">
+                            <i class="fa fa-dashboard"></i> Education Level
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.index') }}">
+                            <i class="fa fa-dashboard"></i> Occupations
+                        </a>
+                    </li>
                 </ul>
 
                 <h3>Content Management</h3>

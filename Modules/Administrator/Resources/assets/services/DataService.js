@@ -23,4 +23,14 @@ export default {
     deleteEthnicGroup(id){
         return Api().delete('/admin/web-api/ethnic-groups/delete/'+id);
     },
+    // For Diseases 
+    getDiseases(page,filter){
+        return Api().get('/admin/web-api/diseases?page=' + page + '&filter=' + filter);
+    },
+    saveDisease(formData){
+        return Api().post('/admin/web-api/diseases/create', formData);
+    },
+    deleteDisease(id){
+        return Api().delete('/admin/web-api/diseases/delete/'+id);
+    },
 }

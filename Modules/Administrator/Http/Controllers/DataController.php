@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Administrator\Entities\Religion;
 use Modules\Administrator\Entities\EthnicGroup;
+use Modules\Administrator\Entities\Disease;
 
 class DataController extends Controller
 {
@@ -25,6 +26,7 @@ class DataController extends Controller
 
     public function diseaseIndex()
     {
+        return view('administrator::pages.disease-index');
 
     }
 
@@ -155,4 +157,62 @@ class DataController extends Controller
         }
     } 
     // End Ethnic Group
+
+    // Diseases
+    public function diseases(Request $request)
+    {
+        $query = Disease::query();
+
+        if ($request->has('filter') AND !blank($request->filter)) {
+            $query->where('title', 'LIKE', '%'.$request->filter.'%');
+        }
+
+        $diseases = $query->orderBy('id', 'desc')->paginate(10);
+
+        $returnData = $this->prepareResponse(false, 'success.', compact('diseases'), []);
+        return response()->json($returnData);
+    }
+
+    public function diseaseStore(Request $request)
+    {
+        $request->validate([
+            'id' => 'nullable|integer',
+            'title' => 'required|max:255',
+        ]);
+
+        try {
+            if ($request->id) {
+                $disease = Disease::findOrFail($request->id);
+            } else {
+                $disease = new Disease();
+            }
+
+            $disease->title = $request->title;
+            $disease->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record created successfully.', [], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+
+    }
+
+    public function diseaseDelete($id)
+    {
+        try {
+            $disease = Disease::findOrFail($id);
+            $disease->delete();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
+    // Diseases END
 }

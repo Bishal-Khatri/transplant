@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.disease') }}">
                             <i class="fa fa-dashboard"></i> Diseases
                         </a>
                     </li>

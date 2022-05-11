@@ -40,7 +40,7 @@
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <a href="#" @click.prevent="$refs.createReligion.openDialog(religion)" class="btn btn-secondary btn-sm" type="button">Edit</a>
-                                        <a href="#" @click.prevent="showDeleteModal(religion.id)" class="btn btn-secondary btn-sm deleteModal" type="button">Delete</a>
+                                        <a href="#" @click.prevent="showDeleteModal(religion.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
                                     </div>
                                 </td>
                             </tr>

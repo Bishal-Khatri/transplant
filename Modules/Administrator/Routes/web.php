@@ -25,5 +25,23 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         Route::post('/ethnic-groups/create', [DataController::class, 'ethnicGroupStore']);
         Route::delete('/ethnic-groups/delete/{id}', [DataController::class, 'ethnicGroupDelete']);
         // End Ethnic Group
+
+        // Diseases
+        Route::get('/diseases', [DataController::class, 'diseases']);
+        Route::post('/diseases/create', [DataController::class, 'diseaseStore']);
+        Route::delete('/diseases/delete/{id}', [DataController::class, 'diseaseDelete']);
+        // End Diseases
+        
+        // Education Levels
+        Route::get('education-levels', [DataController::class, 'educationLevels']);
+        Route::post('/education-levels/create', [DataController::class, 'educationLevelStore']);
+        Route::delete('/education-levels/delete/{id}', [DataController::class, 'educationLevelDelete']);
+        // End  Education Levels
+
+        //  Occupations
+        Route::get('occupations', [DataController::class, 'occupations']);
+        Route::post('/occupations/create', [DataController::class, 'occupationStore']);
+        Route::delete('/occupations/delete/{id}', [DataController::class, 'occupationDelete']);
+        // End Occupations
     });
 });

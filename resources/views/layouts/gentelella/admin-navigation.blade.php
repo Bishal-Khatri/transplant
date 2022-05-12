@@ -42,17 +42,17 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.disease') }}">
                             <i class="fa fa-dashboard"></i> Diseases
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.education-level') }}">
                             <i class="fa fa-dashboard"></i> Education Level
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.index') }}">
+                        <a href="{{ route('admin.occupation') }}">
                             <i class="fa fa-dashboard"></i> Occupations
                         </a>
                     </li>

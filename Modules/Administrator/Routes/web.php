@@ -11,6 +11,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/disease', [DataController::class, 'diseaseIndex'])->name('admin.disease');
     Route::get('/education-level', [DataController::class, 'educationLevelIndex'])->name('admin.education-level');
     Route::get('/occupation', [DataController::class, 'occupationIndex'])->name('admin.occupation');
+    Route::get('/province', [DataController::class, 'provinceIndex'])->name('admin.province');
 
     Route::group(['prefix' => 'web-api'],function() {
 
@@ -43,5 +44,11 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         Route::post('/occupations/create', [DataController::class, 'occupationStore']);
         Route::delete('/occupations/delete/{id}', [DataController::class, 'occupationDelete']);
         // End Occupations
+
+         //  Province
+         Route::get('province', [DataController::class, 'province']);
+         Route::post('/province/create', [DataController::class, 'provinceStore']);
+         Route::delete('/province/delete/{id}', [DataController::class, 'provinceDelete']);
+         // End Province
     });
 });

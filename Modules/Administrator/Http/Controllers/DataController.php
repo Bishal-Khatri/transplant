@@ -11,6 +11,7 @@ use Modules\Administrator\Entities\EthnicGroup;
 use Modules\Administrator\Entities\Disease;
 use Modules\Administrator\Entities\EducationLevel;
 use Modules\Administrator\Entities\Occupation;
+use Modules\Administrator\Entities\Province;
 
 class DataController extends Controller
 {
@@ -39,6 +40,9 @@ class DataController extends Controller
     public function occupationIndex()
     {
         return view('administrator::pages.occupation-index');
+    }
+    public function provinceIndex(){
+        return view('administrator::pages.province-index');
     }
 
     // WEB APIS
@@ -331,4 +335,64 @@ class DataController extends Controller
         }
     }
     // Occupation END
+
+    // province
+    public function province(Request $request)
+    {
+        $query = Province::query();
+        if ($request->has('filter') AND !blank($request->filter)) {
+            $query->where('title', 'LIKE', '%'.$request->filter.'%');
+        }
+
+        $provinces = $query->withCount([
+            'districts',
+        ])->orderBy('id', 'desc')->paginate(10);
+        
+
+        $returnData = $this->prepareResponse(false, 'success.', compact('provinces'), []);
+        return response()->json($returnData);
+    }
+
+    public function provinceStore(Request $request)
+    {
+        $request->validate([
+            'id' => 'nullable|integer',
+            'title' => 'required|max:255',
+        ]);
+
+        try {
+            if ($request->id) {
+                $province = Province::findOrFail($request->id);
+            } else {
+                $province = new province();
+            }
+
+            $province->title = $request->title;
+            $province->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record created successfully.', [], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+
+    }
+
+    public function provinceDelete($id)
+    {
+        try {
+            $province = Province::findOrFail($id);
+            $province->delete();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
+// provinceS END
 }

@@ -56,6 +56,11 @@
                             <i class="fa fa-dashboard"></i> Occupations
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.province') }}">
+                            <i class="fa fa-dashboard"></i> Province
+                        </a>
+                    </li>
                 </ul>
 
                 <h3>Content Management</h3>

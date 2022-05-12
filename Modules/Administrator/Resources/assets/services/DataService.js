@@ -53,4 +53,14 @@ export default {
     deleteOccupation(id){
         return Api().delete('/admin/web-api/occupations/delete/'+id);
     },
+    // For Province 
+    getProvince(page,filter){
+        return Api().get('/admin/web-api/province?page=' + page + '&filter=' + filter);
+    },
+    saveProvince(formData){
+        return Api().post('/admin/web-api/province/create', formData);
+    },
+    deleteProvince(id){
+        return Api().delete('/admin/web-api/province/delete/'+id);
+    },
 }

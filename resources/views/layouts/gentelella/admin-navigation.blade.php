@@ -61,6 +61,11 @@
                             <i class="fa fa-dashboard"></i> Province
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.district') }}">
+                            <i class="fa fa-dashboard"></i> District
+                        </a>
+                    </li>
                 </ul>
 
                 <h3>Content Management</h3>

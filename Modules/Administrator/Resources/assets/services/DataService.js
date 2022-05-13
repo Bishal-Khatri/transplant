@@ -63,4 +63,16 @@ export default {
     deleteProvince(id){
         return Api().delete('/admin/web-api/province/delete/'+id);
     },
+    // For District 
+    getDistrict(page,filter,province_id=null){
+        let params="";
+        province_id ? params='&province_id=' +province_id:null;
+        return Api().get('/admin/web-api/district?page=' + page + '&filter=' + filter+params);
+    },
+    saveDistrict(formData){
+        return Api().post('/admin/web-api/district/create', formData);
+    },
+    deleteDistrict(id){
+        return Api().delete('/admin/web-api/district/delete/'+id);
+    },
 }

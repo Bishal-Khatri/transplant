@@ -12,6 +12,7 @@ use Modules\Administrator\Entities\Disease;
 use Modules\Administrator\Entities\EducationLevel;
 use Modules\Administrator\Entities\Occupation;
 use Modules\Administrator\Entities\Province;
+use Modules\Administrator\Entities\District;
 
 class DataController extends Controller
 {
@@ -43,6 +44,12 @@ class DataController extends Controller
     }
     public function provinceIndex(){
         return view('administrator::pages.province-index');
+    }
+    public function districtIndex(Request $request){
+        $province_id =$request->get('province_id');
+        return view('administrator::pages.district-index',[
+            'province_id'=>$province_id
+        ]);
     }
 
     // WEB APIS
@@ -364,7 +371,7 @@ class DataController extends Controller
             if ($request->id) {
                 $province = Province::findOrFail($request->id);
             } else {
-                $province = new province();
+                $province = new Province();
             }
 
             $province->title = $request->title;
@@ -394,5 +401,67 @@ class DataController extends Controller
             return response()->json($returnData, 500);
         }
     }
-// provinceS END
+    // provinceS END
+
+    // District
+    public function district(Request $request)
+    {
+        $query = District::query();
+        if ($request->has('filter') AND !blank($request->filter)) {
+            $query->where('title', 'LIKE', '%'.$request->filter.'%');
+        }
+        $request->province_id && $query = $query->where('province_id',$request->province_id);
+        $districts = $query->withCount([
+            'municipalities',
+            'palikas',
+        ])->with('province')->orderBy('id', 'desc')->paginate(10);
+    
+        $returnData = $this->prepareResponse(false, 'success.', compact('districts'), []);
+        return response()->json($returnData);
+    }
+
+    public function districtStore(Request $request)
+    {
+        $request->validate([
+            'id' => 'nullable|integer',
+            'province_id'=>'required|integer',
+            'title' => 'required|max:255',
+        ]);
+
+        try {
+            if ($request->id) {
+                $district = District::findOrFail($request->id);
+            } else {
+                $district = new District();
+            }
+
+            $district->title = $request->title;
+            $district->province_id=$request->province_id;
+            $district->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record created successfully.', [], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+
+    }
+
+    public function districtDelete($id)
+    {
+        try {
+            $district = District::findOrFail($id);
+            $district->delete();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
+    // District END
 }

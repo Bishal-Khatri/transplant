@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createProvince.openDialog()">Create New</a></li>
+                                    <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createDistrict.openDialog()">Create New</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -24,47 +24,51 @@
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Districts</th>
+                                <th>District</th>
+                                <th>Municipalities</th>
+                                <th>Palikas</th>
                                 <th style="width: 180px" class="text-right">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-if="!provinces.length">
-                                <td colspan="3">No items to display.</td>
+                            <tr v-if="!districts.length">
+                                <td colspan="4">No items to display.</td>
                             </tr>
-                            <tr v-else v-for="(province, index) in provinces" :key="index">
+                            <tr v-else v-for="(district, index) in districts" :key="index">
                                 <td>
-                                    <a class="mr-2" href="#" @click.prevent="$refs.createProvince.openDialog(province)">{{ province.title }}</a>
-                                    <small class="">Created on {{ province.created_at }}</small>
+                                    <a class="mr-2" href="#" @click.prevent="$refs.createDistrict.openDialog(district)">{{ district.title }}</a>
+                                    <small class="">Created on {{ district.created_at }}</small>
                                 </td>
                                 <td>
-                                    <a class="mr-2" :href="`${district_path}?province_id=${province.id}`"  >{{ province.districts_count>1?`${ province.districts_count} Districts`:`${ province.districts_count} District` }} </a>
+                                     <a class="mr-2" href="#"  >{{ district.municipalities_count>1?`${ district.municipalities_count} Municipalities`:`${ district.municipalities_count} Municipality` }} </a>
+                                </td>
+                                <td>
+                                     <a class="mr-2" href="#"  >{{ district.palikas_count>1?`${ district.palikas_count} Palikas`:`${ district.palikas_count} Palika` }} </a>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="#" @click.prevent="$refs.createProvince.openDialog(province)" class="btn btn-secondary btn-sm" type="button">Edit</a>
-                                        <a href="#" @click.prevent="showDeleteModal(province.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                        <a href="#" @click.prevent="$refs.createDistrict.openDialog(district)" class="btn btn-secondary btn-sm" type="button">Edit</a>
+                                        <a href="#" @click.prevent="showDeleteModal(district.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
                                     </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                         <div class="pull-right">
-                            <pagination :data="provinces_pg" @pagination-change-page="getProvince"></pagination>
+                            <pagination :data="districts_pg" @pagination-change-page="getDistrict"></pagination>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <create-province ref="createProvince"></create-province>
+        <create-district ref="createDistrict" :province_id="province_id"></create-district>
 
-        <div class="modal fade" id="delete-province-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="delete-district-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Delete Province</h4>
+                        <h4 class="modal-title" id="myModalLabel">Delete District</h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -74,7 +78,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                         <button v-if="delete_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deleteProvince">Confirm</button>
+                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deleteDistrict">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -83,18 +87,18 @@
 </template>
 
 <script>
-    import createProvince from "./CreateProvince";
+    import createDistrict from "./CreateDistrict";
     import DataService from "../../../services/DataService";
     import {Errors} from "../../../../../../../resources/js/error";
     import {EventBus} from "../../app";
 
     export default {
+        name: "districtIndex",
         props:[
-            'district_path'
+            'province_id',
         ],
-        name: "provinceIndex",
         components: {
-            createProvince,
+            createDistrict,
         },
         data(){
             return{
@@ -102,42 +106,41 @@
                 delete_submitting: false,
                 filter: '',
                 delete_id: '',
-
-                provinces: {},
-                provinces_pg: {},
+                districts: {},
+                districts_pg: {},
             }
         },
         computed: {
         },
         mounted() {
-            this.getProvince();
-            EventBus.$on('provinceCreated', () => {
-                this.getProvince();
+            this.getDistrict();
+            EventBus.$on('districtCreated', () => {
+                this.getDistrict();
             });
         },
         methods: {
             setSearch:_.debounce(function(){
-                this.getProvince();
+                this.getDistrict();
             }, 800),
 
-            async getProvince(page = 1) {
-                const response = await DataService.getProvince(page, this.filter);
-                this.provinces_pg = response.data.data.provinces;
-                this.provinces = response.data.data.provinces.data;
+            async getDistrict(page = 1) {
+                const response = await DataService.getDistrict(page, this.filter,this.province_id);
+                this.districts_pg = response.data.data.districts;
+                this.districts = response.data.data.districts.data;
             },
 
             showDeleteModal(item_id) {
                 this.delete_id = item_id;
-                $("#delete-province-dialog").modal('show');
+                $("#delete-district-dialog").modal('show');
             },
 
-            async deleteProvince() {
+            async deleteDistrict() {
                 this.delete_submitting = true;
-                const response = await DataService.deleteProvince(this.delete_id);
+                const response = await DataService.deleteDistrict(this.delete_id);
                 if (response.data.error === false) {
                     Errors.Notification(response);
-                    this.getProvince();
-                    $("#delete-province-dialog").modal('hide');
+                    this.getDistrict();
+                    $("#delete-district-dialog").modal('hide');
                 }
                 this.delete_id = '';
                 this.delete_submitting = false;

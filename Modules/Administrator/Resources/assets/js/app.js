@@ -8,6 +8,7 @@ Vue.component('disease-index', require('./components/disease/DiseaseIndex.vue').
 Vue.component('education-level-index', require('./components/education_levels/EducationLevelIndex.vue').default);
 Vue.component('occupation-index', require('./components/occupation/OccupationIndex.vue').default);
 Vue.component('province-index', require('./components/province/ProvinceIndex.vue').default);
+Vue.component('district-index', require('./components/district/DistrictIndex.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 export const EventBus = new Vue();

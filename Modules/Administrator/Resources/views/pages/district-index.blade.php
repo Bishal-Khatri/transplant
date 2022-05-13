@@ -5,11 +5,13 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Province</h3>
+                    <h3>District</h3>
                 </div>
             </div>
+
             <div class="clearfix"></div>
-            <province-index district_path="{{route("admin.district")}}"/>
+
+            <district-index province_id="{{ $province_id }}"/>
         </div>
     </div>
 @endsection

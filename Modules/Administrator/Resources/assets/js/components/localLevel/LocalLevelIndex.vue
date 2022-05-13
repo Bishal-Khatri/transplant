@@ -45,9 +45,14 @@
                                     <button v-if="municipality_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
                                     <button v-else type="button" class="btn btn-success btn-sm" @click="saveMunicipality">Save</button>
                                 </td>
-                                <td> <input type="text" class="form-control"  placeholder="Palika" > </td>
                                 <td>
-                                    <button  class="btn btn-success btn-sm" type="button">Save</button>
+                                    <input type="text" class="form-control"  placeholder="Palika" v-model="palika_title" @keydown.enter="()=>{
+                                        palika_id='';
+                                        palika_edit_mode=false;
+                                    }">
+                                </td>
+                                <td>
+                                    <button  class="btn btn-success btn-sm" type="button"  @click="savePalika" >Save</button>
                                 </td>
                             </tr>
                             <tr>
@@ -67,7 +72,7 @@
                                         <td class="text-right">
                                             <div class="btn-group"  v-if="!(municipality_edit_mode && municipality_id==municipality.id)">
                                                 <a href="#" class="btn btn-secondary btn-sm" type="button" @click="editMunicipality(municipality)">Edit</a>
-                                                <a href="#" @click.prevent="showDeleteModal(municipality.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                                <a href="#" @click.prevent="showDeleteModal(municipality.id,'municipality')" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
                                             </div>
                                             <div class="btn-group"  v-else>
                                                 <a href="#"  class="btn btn-success btn-sm" type="button" @click.prevent="saveMunicipality">Save</a>
@@ -93,7 +98,48 @@
                                     </tr>
                                      </table>
                                 </td>
-                                <td colspan="2"></td>
+                                <td colspan="2">
+                                    <table style="width: -webkit-fill-available;">
+                                    <tr v-if="!palikas.length">
+                                        <td colspan="2">No Palika to display.</td>
+                                    </tr>
+                                    <tr v-else v-for="(palika, index) in palikas" :key="index">
+                                        <td v-if="!(palika_edit_mode && palika_id==palika.id)" >
+                                            <a class="mr-2" @click="editPalika(palika)">{{ palika.title }}</a>
+                                            <small class="">Created on {{ palika.created_at }}</small>
+                                        </td>
+                                        <td v-else>
+                                            <input type="text" class="form-control"  placeholder="palika" v-model="palika_edit_title"> 
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group"  v-if="!(palika_edit_mode && palika_id==palika.id)">
+                                                <a href="#" class="btn btn-secondary btn-sm" type="button" @click="editPalika(palika)">Edit</a>
+                                                <a href="#" @click.prevent="showDeleteModal(palika.id,'palika')" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                            </div>
+                                            <div class="btn-group"  v-else>
+                                                <a href="#"  class="btn btn-success btn-sm" type="button" @click.prevent="savePalika">Save</a>
+                                                <a href="#" class="btn btn-secondary btn-sm" type="button" @click.prevent="()=>{
+                                                    palika_edit_mode=false;
+                                                    clearPalika();
+                                                }">Cancel</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <pagination :data="palikas_pg" @pagination-change-page="getPalikas"></pagination>
+                                            <input type="text" 
+                                                class="form-control"
+                                                placeholder="Search palikas" 
+                                                    v-model="palika_filter"
+                                                    @keydown.backspace="setPalikaSearch"
+                                                    @keydown.enter="setPalikaSearch"
+                                                    @keypress="setPalikaSearch"
+                                            >
+                                        </td>
+                                    </tr>
+                                     </table>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -105,11 +151,11 @@
 
    
 
-        <div class="modal fade" id="delete-municipality-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="delete-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Delete municipality</h4>
+                        <h4 class="modal-title" id="myModalLabel">Delete {{ delete_model_data.title }}</h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -119,7 +165,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                         <button v-if="delete_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deleteMunicipality">Confirm</button>
+                        <button v-else type="submit" class="btn btn-danger btn-sm" v-if="delete_model_data.isfor=='municipality'" @click.prevent="deleteMunicipality">Confirm</button>
+                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deletePalika">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -144,6 +191,11 @@
                 filter: '',
                 delete_id: '',
                 submitting: false,
+                // delete model
+                delete_model_data:{
+                    title:"",
+                    isfor:""
+                },
 
                 // municipality
                 municipality_edit_mode:false,
@@ -155,14 +207,25 @@
                 municipalities:{},
                 municipalities_pg: {},
 
+                // palika
+                palika_edit_mode:false,
+                palika_filter: '',
+                palika_submitting: false,
+                palika_id:'',
+                palika_title:'',
+                palika_edit_title:'',
+                palikas:{},
+                palikas_pg: {},
             }
         },
         computed: {
         },
         mounted() {
             this.getMunicipalities();
+            this.getPalikas();
         },
         methods: {
+            // For Municipalities
             setMunicipalitySearch:_.debounce(function(){
                 this.getMunicipalities();
             }, 800),
@@ -173,10 +236,7 @@
                         id: this.municipality_id,
                         title:this.municipality_title,
                         district_id:this.district_id,
-                    };
-                    console.log(formData);
-                    console.log(this.municipality_edit_mode);
-                    
+                    };                    
                     if(this.municipality_edit_mode){
                         formData.title=this.municipality_edit_title;
                     }
@@ -206,9 +266,13 @@
                 this.municipalities_pg = response.data.data.municipalities;
                 this.municipalities = response.data.data.municipalities.data;
             },
-            showDeleteModal(item_id) {
+            showDeleteModal(item_id,isfor) {
+                this.delete_model_data={
+                    title:isfor==="municipality"?"<unicipality":"Palika",
+                    isfor
+                };
                 this.delete_id = item_id;
-                $("#delete-municipality-dialog").modal('show');
+                $("#delete-dialog").modal('show');
             },
             async deleteMunicipality() {
                 this.delete_submitting = true;
@@ -216,7 +280,7 @@
                 if (response.data.error === false) {
                     Errors.Notification(response);
                     this.getMunicipalities();
-                    $("#delete-municipality-dialog").modal('hide');
+                    $("#delete-dialog").modal('hide');
                 }
                 this.delete_id = '';
                 this.delete_submitting = false;
@@ -224,6 +288,61 @@
             clearMunicipality(){
                 this.municipality_edit_mode=false;
                 this.municipality_id=this.municipality_title=this.municipality_edit_title='';
+            },
+            // For Palika
+            setPalikaSearch:_.debounce(function(){
+                this.getPalikas();
+            }, 800),
+            async savePalika(){
+                this.palika_submitting = true;
+                try {
+                    const formData = {
+                        id: this.palika_id,
+                        title:this.palika_title,
+                        district_id:this.district_id,
+                    };
+                    if(this.palika_edit_mode){
+                        formData.title=this.palika_edit_title;
+                    }
+                    const response = await DataService.savePalika(formData);
+                    console.log(response);
+                    if (response.error === false) {
+                        Errors.Notification(response);
+                    }
+                    this.clearPalika();
+                    this.getPalikas();
+                    this.palika_submitting = false;
+                } catch (error) {
+                    this.palika_submitting = false;
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
+                }
+                this.palika_submitting = false;
+            },
+            editPalika(palika){
+                this.palika_edit_mode=true;
+                this.palika_id=palika.id;
+                this.palika_edit_title=palika.title;
+            },
+            async getPalikas(page = 1) {
+                const response = await DataService.getPalika(page, this.palika_filter,this.district_id);
+                this.palikas_pg = response.data.data.palikas;
+                this.palikas = response.data.data.palikas.data;
+            },
+            async deletePalika() {
+                this.delete_submitting = true;
+                const response = await DataService.deletePalika(this.delete_id);
+                if (response.data.error === false) {
+                    Errors.Notification(response);
+                    this.getPalikas();
+                    $("#delete-dialog").modal('hide');
+                }
+                this.delete_id = '';
+                this.delete_submitting = false;
+            },
+            clearPalika(){
+                this.palika_edit_mode=false;
+                this.palika_id=this.palika_title=this.palika_edit_title='';
             }
         }
     }

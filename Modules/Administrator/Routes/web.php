@@ -64,5 +64,11 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         Route::post('/municipality/create', [DataController::class, 'municipalityStore']);
         Route::delete('/municipality/delete/{id}', [DataController::class, 'municipalityDelete']);
          // End Municipality
+
+        //  Palika Level
+        Route::get('palika', [DataController::class, 'palika']);
+        Route::post('/palika/create', [DataController::class, 'palikaStore']);
+        Route::delete('/palika/delete/{id}', [DataController::class, 'palikaDelete']);
+        // End Palika
     });
 });

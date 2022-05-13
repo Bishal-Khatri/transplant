@@ -66,11 +66,6 @@
                             <i class="fa fa-dashboard"></i> District
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin.local-level') }}">
-                            <i class="fa fa-dashboard"></i> Local Level  
-                        </a>
-                    </li>
                 </ul>
 
                 <h3>Content Management</h3>

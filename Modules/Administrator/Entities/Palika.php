@@ -15,4 +15,11 @@ class Palika extends Model
     {
         return \Modules\Administrator\Database\factories\PalikaFactory::new();
     }
+    public function district(){
+        return $this->belongsTo(District::class);
+    }
+    public function getCreatedAtAttribute($value)
+    {
+        return date('M d Y', strtotime($value));
+    }
 }

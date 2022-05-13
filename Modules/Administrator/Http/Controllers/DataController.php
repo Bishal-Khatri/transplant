@@ -14,6 +14,7 @@ use Modules\Administrator\Entities\Occupation;
 use Modules\Administrator\Entities\Province;
 use Modules\Administrator\Entities\District;
 use Modules\Administrator\Entities\Municipality;
+use Modules\Administrator\Entities\Palika;
 
 class DataController extends Controller
 {
@@ -529,4 +530,62 @@ class DataController extends Controller
         }
     }
     // Municipality END
+
+    //Palika
+    public function palika(Request $request)
+    {
+        $query = Palika::query();
+        if ($request->has('filter') AND !blank($request->filter)) {
+            $query->where('title', 'LIKE', '%'.$request->filter.'%');
+        }
+        $request->district_id && $query = $query->where('district_id',$request->district_id);
+        $palikas = $query->with('district')->orderBy('id', 'desc')->paginate(10);
+        $returnData = $this->prepareResponse(false, 'success.', compact('palikas'), []);
+        return response()->json($returnData);
+    }
+
+    public function palikaStore(Request $request)
+    {
+        $request->validate([
+            'id' => 'nullable|integer',
+            'district_id'=>'required|integer',
+            'title' => 'required|max:255',
+        ]);
+
+        try {
+            if ($request->id) {
+                $palika = Palika::findOrFail($request->id);
+            } else {
+                $palika = new Palika();
+            }
+
+            $palika->title = $request->title;
+            $palika->district_id=$request->district_id;
+            $palika->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record created successfully.', [], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+
+    }
+
+    public function palikaDelete($id)
+    {
+        try {
+            $palika = Palika::findOrFail($id);
+            $palika->delete();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
+    // Palika END
 }

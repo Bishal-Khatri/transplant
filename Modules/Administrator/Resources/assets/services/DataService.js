@@ -89,4 +89,16 @@ export default {
         return Api().delete('/admin/web-api/municipality/delete/'+id);
     },
 
+    // For Palika
+    getPalika(page,filter,district_id=null){
+        let params="";
+        district_id ? params='&district_id=' +district_id:null;
+        return Api().get('/admin/web-api/palika?page=' + page + '&filter=' + filter+params);
+    },
+    savePalika(formData){
+        return Api().post('/admin/web-api/palika/create', formData);
+    },
+    deletePalika(id){
+        return Api().delete('/admin/web-api/palika/delete/'+id);
+    },
 }

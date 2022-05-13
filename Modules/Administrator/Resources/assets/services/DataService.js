@@ -53,4 +53,52 @@ export default {
     deleteOccupation(id){
         return Api().delete('/admin/web-api/occupations/delete/'+id);
     },
+    // For Province 
+    getProvince(page,filter){
+        return Api().get('/admin/web-api/province?page=' + page + '&filter=' + filter);
+    },
+    saveProvince(formData){
+        return Api().post('/admin/web-api/province/create', formData);
+    },
+    deleteProvince(id){
+        return Api().delete('/admin/web-api/province/delete/'+id);
+    },
+    // For District 
+    getDistrict(page,filter,province_id=null){
+        let params="";
+        province_id ? params='&province_id=' +province_id:null;
+        return Api().get('/admin/web-api/district?page=' + page + '&filter=' + filter+params);
+    },
+    saveDistrict(formData){
+        return Api().post('/admin/web-api/district/create', formData);
+    },
+    deleteDistrict(id){
+        return Api().delete('/admin/web-api/district/delete/'+id);
+    },
+
+    // For Municipality
+    getMunicipality(page,filter,district_id=null){
+        let params="";
+        district_id ? params='&district_id=' +district_id:null;
+        return Api().get('/admin/web-api/municipality?page=' + page + '&filter=' + filter+params);
+    },
+    saveMunicipality(formData){
+        return Api().post('/admin/web-api/municipality/create', formData);
+    },
+    deleteMunicipality(id){
+        return Api().delete('/admin/web-api/municipality/delete/'+id);
+    },
+
+    // For Palika
+    getPalika(page,filter,district_id=null){
+        let params="";
+        district_id ? params='&district_id=' +district_id:null;
+        return Api().get('/admin/web-api/palika?page=' + page + '&filter=' + filter+params);
+    },
+    savePalika(formData){
+        return Api().post('/admin/web-api/palika/create', formData);
+    },
+    deletePalika(id){
+        return Api().delete('/admin/web-api/palika/delete/'+id);
+    },
 }

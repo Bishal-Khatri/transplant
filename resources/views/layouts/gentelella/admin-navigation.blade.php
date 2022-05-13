@@ -40,6 +40,16 @@
                             <li><a href="{{ route('admin.occupation') }}">Occupations</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.province') }}">
+                            <i class="fa fa-dashboard"></i> Province
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.district') }}">
+                            <i class="fa fa-dashboard"></i> District
+                        </a>
+                    </li>
                 </ul>
 
                 <h3 class="mt-4">Content Management</h3>

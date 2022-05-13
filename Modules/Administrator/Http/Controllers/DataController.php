@@ -13,6 +13,7 @@ use Modules\Administrator\Entities\EducationLevel;
 use Modules\Administrator\Entities\Occupation;
 use Modules\Administrator\Entities\Province;
 use Modules\Administrator\Entities\District;
+use Modules\Administrator\Entities\Municipality;
 
 class DataController extends Controller
 {
@@ -49,6 +50,12 @@ class DataController extends Controller
         $province_id =$request->get('province_id');
         return view('administrator::pages.district-index',[
             'province_id'=>$province_id
+        ]);
+    }
+    public function localLevelIndex(Request $request){
+        $district_id =$request->get('district_id');
+        return view('administrator::pages.local-level-index',[
+            'district_id'=>$district_id
         ]);
     }
 
@@ -464,4 +471,62 @@ class DataController extends Controller
         }
     }
     // District END
+
+    //Municipality
+    public function municipality(Request $request)
+    {
+        $query = Municipality::query();
+        if ($request->has('filter') AND !blank($request->filter)) {
+            $query->where('title', 'LIKE', '%'.$request->filter.'%');
+        }
+        $request->district_id && $query = $query->where('district_id',$request->district_id);
+        $municipalities = $query->with('district')->orderBy('id', 'desc')->paginate(10);
+        $returnData = $this->prepareResponse(false, 'success.', compact('municipalities'), []);
+        return response()->json($returnData);
+    }
+
+    public function municipalityStore(Request $request)
+    {
+        $request->validate([
+            'id' => 'nullable|integer',
+            'district_id'=>'required|integer',
+            'title' => 'required|max:255',
+        ]);
+
+        try {
+            if ($request->id) {
+                $municipality = Municipality::findOrFail($request->id);
+            } else {
+                $municipality = new Municipality();
+            }
+
+            $municipality->title = $request->title;
+            $municipality->district_id=$request->district_id;
+            $municipality->save();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record created successfully.', [], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+
+    }
+
+    public function municipalityDelete($id)
+    {
+        try {
+            $municipality = Municipality::findOrFail($id);
+            $municipality->delete();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Record deleted successfully.', [], []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
+    // Municipality END
 }

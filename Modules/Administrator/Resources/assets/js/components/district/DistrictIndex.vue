@@ -40,10 +40,10 @@
                                     <small class="">Created on {{ district.created_at }}</small>
                                 </td>
                                 <td>
-                                     <a class="mr-2" href="#"  >{{ district.municipalities_count>1?`${ district.municipalities_count} Municipalities`:`${ district.municipalities_count} Municipality` }} </a>
+                                     <a class="mr-2" :href="`${local_level_route}?district_id=${district.id}`"  >{{ district.municipalities_count>1?`${ district.municipalities_count} Municipalities`:`${ district.municipalities_count} Municipality` }} </a>
                                 </td>
                                 <td>
-                                     <a class="mr-2" href="#"  >{{ district.palikas_count>1?`${ district.palikas_count} Palikas`:`${ district.palikas_count} Palika` }} </a>
+                                     <a class="mr-2" :href="`${local_level_route}?district_id=${district.id}`"  >{{ district.palikas_count>1?`${ district.palikas_count} Palikas`:`${ district.palikas_count} Palika` }} </a>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
@@ -96,6 +96,7 @@
         name: "districtIndex",
         props:[
             'province_id',
+            'local_level_route'
         ],
         components: {
             createDistrict,

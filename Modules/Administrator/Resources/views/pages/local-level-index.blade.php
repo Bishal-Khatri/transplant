@@ -5,13 +5,13 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>District</h3>
+                    <h3>Local Level</h3>
                 </div>
             </div>
 
             <div class="clearfix"></div>
 
-            <district-index province_id="{{ $province_id }}" local_level_route={{ route('admin.local-level') }}/>
+            <local-level-index district_id="{{ $district_id }}"/>
         </div>
     </div>
 @endsection

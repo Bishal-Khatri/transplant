@@ -9,6 +9,7 @@ Vue.component('education-level-index', require('./components/education_levels/Ed
 Vue.component('occupation-index', require('./components/occupation/OccupationIndex.vue').default);
 Vue.component('province-index', require('./components/province/ProvinceIndex.vue').default);
 Vue.component('district-index', require('./components/district/DistrictIndex.vue').default);
+Vue.component('local-level-index', require('./components/localLevel/LocalLevelIndex.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 export const EventBus = new Vue();

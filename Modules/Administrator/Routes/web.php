@@ -13,6 +13,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/occupation', [DataController::class, 'occupationIndex'])->name('admin.occupation');
     Route::get('/province', [DataController::class, 'provinceIndex'])->name('admin.province');
     Route::get('/district', [DataController::class, 'districtIndex'])->name('admin.district');
+    Route::get('/local-level', [DataController::class, 'localLevelIndex'])->name('admin.local-level');
 
     Route::group(['prefix' => 'web-api'],function() {
 
@@ -57,5 +58,11 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         Route::post('/district/create', [DataController::class, 'districtStore']);
         Route::delete('/district/delete/{id}', [DataController::class, 'districtDelete']);
          // End District
+
+        //  Municipality Level
+        Route::get('municipality', [DataController::class, 'municipality']);
+        Route::post('/municipality/create', [DataController::class, 'municipalityStore']);
+        Route::delete('/municipality/delete/{id}', [DataController::class, 'municipalityDelete']);
+         // End Municipality
     });
 });

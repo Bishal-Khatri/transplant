@@ -75,4 +75,18 @@ export default {
     deleteDistrict(id){
         return Api().delete('/admin/web-api/district/delete/'+id);
     },
+
+    // For Municipality
+    getMunicipality(page,filter,district_id=null){
+        let params="";
+        district_id ? params='&district_id=' +district_id:null;
+        return Api().get('/admin/web-api/municipality?page=' + page + '&filter=' + filter+params);
+    },
+    saveMunicipality(formData){
+        return Api().post('/admin/web-api/municipality/create', formData);
+    },
+    deleteMunicipality(id){
+        return Api().delete('/admin/web-api/municipality/delete/'+id);
+    },
+
 }

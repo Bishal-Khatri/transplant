@@ -36,6 +36,8 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
     // MENU //
     Route::group(['prefix' => 'menu', 'as'=> 'cms.menu.'], function () {
         Route::get('/', [MenuController::class, 'admin_index'])->name('index');
+        Route::post('create', [MenuController::class, 'create'])->name('create');
+        Route::post('select', [MenuController::class, 'selectMenu'])->name('select');
         Route::post('save', [MenuController::class, 'save'])->name('save');
         Route::post('saveOrder', [MenuController::class, 'saveMenuOrder'])->name('saveOrder');
         Route::post('addPageToMenu', [MenuController::class, 'addPageToMenu'])->name('addPageToMenu');

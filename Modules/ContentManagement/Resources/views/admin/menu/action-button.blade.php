@@ -1,4 +1,4 @@
-<button class="btn btn-sm btn-default edit_btn mr-2 mt-1"
+<button class="btn btn-sm btn-link edit_btn mr-2"
         style="color: #fff;"
         data-level="{{$level}}"
         data-target="{{$data->target}}"
@@ -14,6 +14,6 @@
 
 <button
     style="color: #fff;"
-    class="btn btn-default btn-sm delete_btn mt-1" data-id="{{$data->id}}">
+    class="btn btn-default btn-sm delete_btn" data-id="{{$data->id}}">
     <i class="fa fa-trash"></i>
 </button>

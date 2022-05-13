@@ -31,67 +31,36 @@
                             <i class="fa fa-dashboard"></i> Dashboard
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin.religion') }}">
-                            <i class="fa fa-dashboard"></i> Religions
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.ethnic-group') }}">
-                            <i class="fa fa-dashboard"></i> Ethnic Groups
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.disease') }}">
-                            <i class="fa fa-dashboard"></i> Diseases
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.education-level') }}">
-                            <i class="fa fa-dashboard"></i> Education Level
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.occupation') }}">
-                            <i class="fa fa-dashboard"></i> Occupations
-                        </a>
+                    <li><a><i class="fa fa-database"></i> Data Sets <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('admin.religion') }}">Religions</a></li>
+                            <li><a href="{{ route('admin.ethnic-group') }}">Ethnic Groups</a></li>
+                            <li><a href="{{ route('admin.disease') }}">Diseases</a></li>
+                            <li><a href="{{ route('admin.education-level') }}">Education Level</a></li>
+                            <li><a href="{{ route('admin.occupation') }}">Occupations</a></li>
+                        </ul>
                     </li>
                 </ul>
 
-                <h3>Content Management</h3>
+                <h3 class="mt-4">Content Management</h3>
                 <ul class="nav side-menu">
-                    <li>
-                        <a href="{{ route('cms.page.index') }}">
-                            <i class="fa fa-folder-o"></i> Pages
-                        </a>
+                    <li><a><i class="fa fa-folder-o"></i> Pages <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('cms.page.index') }}">Pages</a></li>
+                            <li><a href="{{ route('cms.category.index') }}">Categories</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="{{ route('cms.category.index') }}">
-                            <i class="fa fa-folder-open"></i> Categories
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('cms.theme.index') }}">
-                            <i class="fa fa-laptop"></i> Theme Setting
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('cms.menu.index') }}">
-                            <i class="fa fa-file-image-o"></i> Menu
-                        </a>
+                    <li><a><i class="fa fa-laptop"></i> Theme Setting <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('cms.menu.index') }}">Menu</a></li>
+                            <li><a href="{{ route('cms.theme.index') }}">Customization</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{{ route('cms.storage.gallery.index') }}">
                             <i class="fa fa-dropbox"></i> Storage
                         </a>
                     </li>
-                    {{--<li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>--}}
-                    {{--<ul class="nav child_menu">--}}
-                    {{--<li><a href="index.html">Dashboard</a></li>--}}
-                    {{--<li><a href="index2.html">Dashboard2</a></li>--}}
-                    {{--<li><a href="index3.html">Dashboard3</a></li>--}}
-                    {{--</ul>--}}
-                    {{--</li>--}}
 
                 </ul>
             </div>

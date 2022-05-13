@@ -32,7 +32,11 @@
                                                         <span class="badge badge-warning">Active</span>
                                                     @endif
                                                 </h4>
-                                                <a class="btn btn-primary btn-sm btn-" href="{{ route('cms.theme.activate', $value->id) }}">Activate</a>
+                                                @if($value->is_active)
+                                                    <button type="button" class="btn btn-primary btn-sm">Active</button>
+                                                @else
+                                                    <a class="btn btn-secondary btn-sm" href="{{ route('cms.theme.activate', $value->id) }}">Activate</a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -43,10 +47,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-4">
+                <div class="col-md-6 col-sm-6">
                     <div class="x_panel">
-                        <form action="{{ route('cms.theme.update') }}" method="post">
-
+                        <form action="{{ route('cms.theme.update') }}" method="post" enctype="multipart/form-data">
                             <div class="x_title">
                                 <h2>General</h2>
                                 <ul class="nav navbar-right panel_toolbox">
@@ -57,9 +60,22 @@
                             <div class="x_content">
                                 @csrf
                                 <input type="hidden" name="theme_id" value="{{ $active_theme->id ?? '' }}">
+
+                                @if(isset($active_theme) AND !blank($active_theme->logo))
+                                    <div class="col-md-12 ">
+                                        <img src="{{ asset('storage/'.$active_theme->logo) }}" alt="logo" class="rounded image-xl">
+                                        <p>Current Logo</p>
+                                    </div>
+                                @endif
+
                                 <div class="col-md-12 col-sm-12 form-group">
-                                    <label for="title">Page Title</label>
-                                    <input type="text" class="form-control" name="title" placeholder="Page Title" value="{{ $active_theme->title ?? '' }}">
+                                    <label for="title">Website Logo</label>
+                                    <input type="file" class="form-control" name="logo" placeholder="Website Logo">
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 form-group">
+                                    <label for="title">Website Name</label>
+                                    <input type="text" class="form-control" name="title" placeholder="Website Name" value="{{ $active_theme->title ?? '' }}">
                                 </div>
 
                                 <div class="col-md-12 col-sm-12 form-group">
@@ -69,6 +85,17 @@
                                         @if(isset($pages) AND !blank($pages))
                                             @foreach($pages as $page)
                                                 <option value="{{ $page->id }}" @if(!blank($active_theme) AND $active_theme->homepage_id == $page->id) selected @endif>{{ $page->title }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                                <div class="col-md-12 col-sm-12 form-group">
+                                    <label for="titlme">Navigation Menu</label>
+                                    <select class="form-control" name="nav_menu_id">
+                                        <option value="" selected>Choose Menu</option>
+                                        @if(isset($menus) AND !blank($menus))
+                                            @foreach($menus as $menu)
+                                                <option value="{{ $menu->id }}" @if(!blank($active_theme) AND $active_theme->nav_menu_id == $menu->id) selected @endif>{{ $menu->title }}</option>
                                             @endforeach
                                         @endif
                                     </select>

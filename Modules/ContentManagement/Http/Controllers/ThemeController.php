@@ -5,6 +5,8 @@ namespace Modules\ContentManagement\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
+use Modules\ContentManagement\Entities\Menu;
 use Modules\ContentManagement\Entities\Page;
 use Modules\ContentManagement\Entities\Theme;
 use Modules\ContentManagement\Enum\ContentType;
@@ -37,6 +39,7 @@ class ThemeController extends Controller
     public function adminIndex()
     {
         $available_themes = Theme::all();
+        $menus = Menu::all();
 
         if (!Theme::where('is_active', 1)->exists()){
             Theme::create([
@@ -46,7 +49,7 @@ class ThemeController extends Controller
         }
         $active_theme = Theme::where('is_active', 1)->first();
         $pages = Page::where('visibility', 1)->get();
-        return view('contentmanagement::admin.theme.index', compact('active_theme', 'pages', 'available_themes'));
+        return view('contentmanagement::admin.theme.index', compact('active_theme', 'pages', 'available_themes', 'menus'));
     }
 
     public function updateTheme(Request $request)
@@ -57,8 +60,21 @@ class ThemeController extends Controller
             $theme = new Theme();
         }else{
             $theme = Theme::findOrFail($theme_id);
+
+            // remove old file
+            if ($request->hasFile('logo')){
+                Storage::delete($theme->logo);
+            }
+
         }
+
+        if ($request->hasFile('logo')){
+            $path = $request->file('logo')->store('site', 'public');
+            $theme->logo = $path;
+        }
+
         $theme->homepage_id = $request->homepage_id;
+        $theme->nav_menu_id = $request->nav_menu_id;
         $theme->title = $request->title;
         $theme->copyright = $request->copyright_text;
         $theme->save();

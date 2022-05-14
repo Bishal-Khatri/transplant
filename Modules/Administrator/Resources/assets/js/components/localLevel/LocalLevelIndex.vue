@@ -1,24 +1,19 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-12 col-sm-12  ">
+            <div class="col-md-6 col-sm-6">
                 <div class="x_panel">
                     <div class="x_title">
                         <div class="row">
-                            <div class="col-md-3">
-                                <input type="text" 
-                                    class="form-control"
-                                    placeholder="Search" 
-                                        v-model="filter"
-                                        @keydown.backspace="setMunicipalitySearch"
-                                        @keydown.enter="setMunicipalitySearch"
-                                        @keypress="setMunicipalitySearch"
+                            <div class="col-md-6">
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Search Municipalities"
+                                       v-model="municipality_filter"
+                                       @keydown.backspace="setMunicipalitySearch"
+                                       @keydown.enter="setMunicipalitySearch"
+                                       @keypress="setMunicipalitySearch"
                                 >
-                            </div>
-                            <div class="col-md-9">
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" href="#">Create New</a></li>
-                                </ul>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -28,128 +23,141 @@
                             <thead>
                             <tr>
                                 <th>Municipalities</th>
-                                <th>Action</th>
-                                <th>Palikas</th>
-                                <th>Action</th>
+                                <th class="text-right">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>
-                                    <input type="text" class="form-control"  placeholder="Municipality" v-model="municipality_title" @keydown.enter="()=>{
-                                        municipality_id='';
-                                        municipality_edit_mode=false;
-                                    }">
+                                    <input type="text" class="form-control"
+                                           placeholder="Enter new municipality name"
+                                           v-model="municipality_title"
+                                           @keyup.13="()=>{ municipality_id=''; municipality_edit_mode=false; }">
                                 </td>
-                                <td>
-                                    <button v-if="municipality_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                                    <button v-else type="button" class="btn btn-success btn-sm" @click="saveMunicipality">Save</button>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control"  placeholder="Palika" v-model="palika_title" @keydown.enter="()=>{
-                                        palika_id='';
-                                        palika_edit_mode=false;
-                                    }">
-                                </td>
-                                <td>
-                                    <button  class="btn btn-success btn-sm" type="button"  @click="savePalika" >Save</button>
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <button v-if="municipality_submitting" type="button" class="btn btn-primary btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                                        <button v-else type="button" class="btn btn-primary btn-sm" @click.prevent="saveMunicipality">Create</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" @click.prevent="clearMunicipality">Cancel</button>
+                                    </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <table style="width: -webkit-fill-available;">
-                                    <tr v-if="!municipalities.length">
-                                        <td colspan="2">No Municipality to display.</td>
-                                    </tr>
-                                    <tr v-else v-for="(municipality, index) in municipalities" :key="index">
-                                        <td v-if="!(municipality_edit_mode && municipality_id==municipality.id)" >
-                                            <a class="mr-2" @click="editMunicipality(municipality)">{{ municipality.title }}</a>
-                                            <small class="">Created on {{ municipality.created_at }}</small>
-                                        </td>
-                                        <td v-else>
-                                            <input type="text" class="form-control"  placeholder="Municipality" v-model="municipality_edit_title"> 
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="btn-group"  v-if="!(municipality_edit_mode && municipality_id==municipality.id)">
-                                                <a href="#" class="btn btn-secondary btn-sm" type="button" @click="editMunicipality(municipality)">Edit</a>
-                                                <a href="#" @click.prevent="showDeleteModal(municipality.id,'municipality')" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
-                                            </div>
-                                            <div class="btn-group"  v-else>
-                                                <a href="#"  class="btn btn-success btn-sm" type="button" @click.prevent="saveMunicipality">Save</a>
-                                                <a href="#" class="btn btn-secondary btn-sm" type="button" @click.prevent="()=>{
-                                                    municipality_edit_mode=false;
-                                                    clearMunicipality();
-                                                }">Cancel</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <pagination :data="municipalities_pg" @pagination-change-page="getMunicipalities"></pagination>
-                                            <input type="text" 
-                                                class="form-control"
-                                                placeholder="Search Municipalities" 
-                                                    v-model="municipality_filter"
-                                                    @keydown.backspace="setMunicipalitySearch"
-                                                    @keydown.enter="setMunicipalitySearch"
-                                                    @keypress="setMunicipalitySearch"
-                                            >
-                                        </td>
-                                    </tr>
-                                     </table>
+
+                            <tr v-if="!municipalities.length">
+                                <td colspan="2">No Municipality to display.</td>
+                            </tr>
+
+                            <tr v-else v-for="(municipality, index) in municipalities" :key="index">
+                                <td v-if="!(municipality_edit_mode && municipality_id==municipality.id)" >
+                                    <a class="mr-2">{{ municipality.title }}</a>
+                                    <small class="">Created on {{ municipality.created_at }}</small>
                                 </td>
-                                <td colspan="2">
-                                    <table style="width: -webkit-fill-available;">
-                                    <tr v-if="!palikas.length">
-                                        <td colspan="2">No Palika to display.</td>
-                                    </tr>
-                                    <tr v-else v-for="(palika, index) in palikas" :key="index">
-                                        <td v-if="!(palika_edit_mode && palika_id==palika.id)" >
-                                            <a class="mr-2" @click="editPalika(palika)">{{ palika.title }}</a>
-                                            <small class="">Created on {{ palika.created_at }}</small>
-                                        </td>
-                                        <td v-else>
-                                            <input type="text" class="form-control"  placeholder="palika" v-model="palika_edit_title"> 
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="btn-group"  v-if="!(palika_edit_mode && palika_id==palika.id)">
-                                                <a href="#" class="btn btn-secondary btn-sm" type="button" @click="editPalika(palika)">Edit</a>
-                                                <a href="#" @click.prevent="showDeleteModal(palika.id,'palika')" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
-                                            </div>
-                                            <div class="btn-group"  v-else>
-                                                <a href="#"  class="btn btn-success btn-sm" type="button" @click.prevent="savePalika">Save</a>
-                                                <a href="#" class="btn btn-secondary btn-sm" type="button" @click.prevent="()=>{
-                                                    palika_edit_mode=false;
-                                                    clearPalika();
-                                                }">Cancel</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <pagination :data="palikas_pg" @pagination-change-page="getPalikas"></pagination>
-                                            <input type="text" 
-                                                class="form-control"
-                                                placeholder="Search palikas" 
-                                                    v-model="palika_filter"
-                                                    @keydown.backspace="setPalikaSearch"
-                                                    @keydown.enter="setPalikaSearch"
-                                                    @keypress="setPalikaSearch"
-                                            >
-                                        </td>
-                                    </tr>
-                                     </table>
+                                <td v-else>
+                                    <input type="text" class="form-control"  placeholder="Municipality" v-model="municipality_edit_title">
+                                </td>
+                                <td class="text-right">
+                                    <div class="btn-group"  v-if="!(municipality_edit_mode && municipality_id==municipality.id)">
+                                        <a href="#" class="btn btn-secondary btn-sm" type="button" @click.prevent="editMunicipality(municipality)">Edit</a>
+                                        <a href="#" @click.prevent="showDeleteModal(municipality.id,'municipality')" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                    </div>
+                                    <div class="btn-group" v-else>
+                                        <button v-if="municipality_submitting" type="button" class="btn btn-primary btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                                        <button v-else type="button" class="btn btn-primary btn-sm" @click.prevent="saveMunicipality">Save</button>
+                                        <a href="#" class="btn btn-secondary btn-sm" type="button"
+                                           @click.prevent="()=>{municipality_edit_mode=false;clearMunicipality();}">Cancel
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                       
+                        <div class="float-right">
+                            <pagination :data="municipalities_pg" @pagination-change-page="getMunicipalities"></pagination>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Search Palikas"
+                                       v-model="palika_filter"
+                                       @keydown.backspace="setPalikaSearch"
+                                       @keydown.enter="setPalikaSearch"
+                                       @keypress="setPalikaSearch"
+                                >
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                            <tr>
+                                <th>Palikas</th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           placeholder="Enter new palika name"
+                                           v-model="palika_title"
+                                           @keypress.enter="()=>{ palika_id=''; palika_edit_mode=false;}"
+                                           @keydown.enter="()=>{ palika_id=''; palika_edit_mode=false;}">
+                                </td>
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm" type="button" @click.prevent="savePalika" >Create</button>
+                                        <button class="btn btn-secondary btn-sm" type="button" @click.prevent="clearPalika">Cancel</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr v-if="!palikas.length">
+                                <td colspan="2">No Palikas to display.</td>
+                            </tr>
+                            <tr v-else v-for="(palika, index) in palikas" :key="index">
+                                <td>
+                                    <template v-if="!(palika_edit_mode && palika_id==palika.id)" >
+                                        <a class="mr-2" @click.prevent="editPalika(palika)">{{ palika.title }}</a>
+                                        <small class="">Created on {{ palika.created_at }}</small>
+                                    </template>
+                                    <template v-else>
+                                        <input type="text" class="form-control"  placeholder="palika" v-model="palika_edit_title">
+                                    </template>
+                                </td>
+
+                                <td class="text-right">
+                                    <div class="btn-group"  v-if="!(palika_edit_mode && palika_id==palika.id)">
+                                        <a href="#" class="btn btn-secondary btn-sm" type="button" @click.prevent="editPalika(palika)">Edit</a>
+                                        <a href="#" @click.prevent="showDeleteModal(palika.id,'palika')" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                    </div>
+                                    <div class="btn-group" v-else>
+                                        <button v-if="palika_submitting" type="button" class="btn btn-primary btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                                        <button v-else type="button" class="btn btn-primary btn-sm" @click.prevent="savePalika">Save</button>
+                                        <a href="#" class="btn btn-secondary btn-sm" type="button"
+                                           @click.prevent="()=>{palika_edit_mode=false;clearPalika(); }">
+                                            Cancel
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="float-right">
+                            <pagination :data="palikas_pg" @pagination-change-page="getPalikas"></pagination>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-   
 
         <div class="modal fade" id="delete-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
@@ -191,6 +199,7 @@
                 filter: '',
                 delete_id: '',
                 submitting: false,
+                palika_submitting: false,
                 // delete model
                 delete_model_data:{
                     title:"",
@@ -210,7 +219,6 @@
                 // palika
                 palika_edit_mode:false,
                 palika_filter: '',
-                palika_submitting: false,
                 palika_id:'',
                 palika_title:'',
                 palika_edit_title:'',
@@ -229,6 +237,7 @@
             setMunicipalitySearch:_.debounce(function(){
                 this.getMunicipalities();
             }, 800),
+
             async saveMunicipality(){
                 this.municipality_submitting = true;
                 try {
@@ -236,7 +245,7 @@
                         id: this.municipality_id,
                         title:this.municipality_title,
                         district_id:this.district_id,
-                    };                    
+                    };
                     if(this.municipality_edit_mode){
                         formData.title=this.municipality_edit_title;
                     }
@@ -256,16 +265,19 @@
                 }
                 this.municipality_submitting = false;
             },
+
             editMunicipality(municipality){
                 this.municipality_edit_mode=true;
                 this.municipality_id=municipality.id;
                 this.municipality_edit_title=municipality.title;
             },
+
             async getMunicipalities(page = 1) {
                 const response = await DataService.getMunicipality(page, this.municipality_filter,this.district_id);
                 this.municipalities_pg = response.data.data.municipalities;
                 this.municipalities = response.data.data.municipalities.data;
             },
+
             showDeleteModal(item_id,isfor) {
                 this.delete_model_data={
                     title:isfor==="municipality"?"<unicipality":"Palika",
@@ -274,6 +286,7 @@
                 this.delete_id = item_id;
                 $("#delete-dialog").modal('show');
             },
+
             async deleteMunicipality() {
                 this.delete_submitting = true;
                 const response = await DataService.deleteMunicipality(this.delete_id);
@@ -285,14 +298,18 @@
                 this.delete_id = '';
                 this.delete_submitting = false;
             },
+
             clearMunicipality(){
                 this.municipality_edit_mode=false;
                 this.municipality_id=this.municipality_title=this.municipality_edit_title='';
             },
+
             // For Palika
+
             setPalikaSearch:_.debounce(function(){
                 this.getPalikas();
             }, 800),
+
             async savePalika(){
                 this.palika_submitting = true;
                 try {

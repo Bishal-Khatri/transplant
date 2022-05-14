@@ -16856,6 +16856,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17842,6 +17855,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17855,6 +17876,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       filter: '',
       delete_id: '',
       submitting: false,
+      palika_submitting: false,
       // delete model
       delete_model_data: {
         title: "",
@@ -17872,7 +17894,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // palika
       palika_edit_mode: false,
       palika_filter: '',
-      palika_submitting: false,
       palika_id: '',
       palika_title: '',
       palika_edit_title: '',
@@ -18674,6 +18695,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -38176,88 +38199,6 @@ var render = function () {
                     },
                   }),
                   _vm._v(" "),
-                  _c("label", [_vm._v("Province")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.filter,
-                        expression: "filter",
-                      },
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", placeholder: "Select Province" },
-                    domProps: { value: _vm.filter },
-                    on: {
-                      keydown: [
-                        function ($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "backspace",
-                              undefined,
-                              $event.key,
-                              undefined
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.setSearch.apply(null, arguments)
-                        },
-                        function ($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          return _vm.setSearch.apply(null, arguments)
-                        },
-                      ],
-                      keypress: _vm.setSearch,
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.filter = $event.target.value
-                      },
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    {
-                      staticClass:
-                        "list-group col-9 justify-content-center align-item-center text-dark p-2 m-2",
-                      attrs: { id: "province_group" },
-                    },
-                    _vm._l(_vm.provinces, function (province, index) {
-                      return _c(
-                        "li",
-                        {
-                          key: index,
-                          staticClass: "list-group-item",
-                          on: {
-                            click: function ($event) {
-                              return _vm.setProvince(province.id, index)
-                            },
-                          },
-                        },
-                        [_vm._v(_vm._s(province.title))]
-                      )
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -38480,26 +38421,22 @@ var render = function () {
                         : _vm._l(_vm.districts, function (district, index) {
                             return _c("tr", { key: index }, [
                               _c("td", [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "mr-2",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function ($event) {
-                                        $event.preventDefault()
-                                        return _vm.$refs.createDistrict.openDialog(
-                                          district
-                                        )
+                                _c("h4", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "mr-2",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function ($event) {
+                                          $event.preventDefault()
+                                          return _vm.$refs.createDistrict.openDialog(
+                                            district
+                                          )
+                                        },
                                       },
                                     },
-                                  },
-                                  [_vm._v(_vm._s(district.title))]
-                                ),
-                                _vm._v(" "),
-                                _c("small", {}, [
-                                  _vm._v(
-                                    "Created on " + _vm._s(district.created_at)
+                                    [_vm._v(_vm._s(district.title))]
                                   ),
                                 ]),
                               ]),
@@ -39706,23 +39643,23 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12 col-sm-12  " }, [
+      _c("div", { staticClass: "col-md-6 col-sm-6" }, [
         _c("div", { staticClass: "x_panel" }, [
           _c("div", { staticClass: "x_title" }, [
             _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "col-md-6" }, [
                 _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.filter,
-                      expression: "filter",
+                      value: _vm.municipality_filter,
+                      expression: "municipality_filter",
                     },
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text", placeholder: "Search" },
-                  domProps: { value: _vm.filter },
+                  attrs: { type: "text", placeholder: "Search Municipalities" },
+                  domProps: { value: _vm.municipality_filter },
                   on: {
                     keydown: [
                       function ($event) {
@@ -39761,13 +39698,362 @@ var render = function () {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.filter = $event.target.value
+                      _vm.municipality_filter = $event.target.value
                     },
                   },
                 }),
               ]),
-              _vm._v(" "),
-              _vm._m(0),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "clearfix" }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "x_content" }, [
+            _c(
+              "table",
+              { staticClass: "table table-striped jambo_table bulk_action" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  [
+                    _c("tr", [
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.municipality_title,
+                              expression: "municipality_title",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Enter new municipality name",
+                          },
+                          domProps: { value: _vm.municipality_title },
+                          on: {
+                            keyup: function ($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                $event.keyCode !== 13
+                              ) {
+                                return null
+                              }
+                              return function () {
+                                _vm.municipality_id = ""
+                                _vm.municipality_edit_mode = false
+                              }.apply(null, arguments)
+                            },
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.municipality_title = $event.target.value
+                            },
+                          },
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        _c("div", { staticClass: "btn-group" }, [
+                          _vm.municipality_submitting
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary btn-sm",
+                                  attrs: { type: "button" },
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-spinner fa-spin",
+                                  }),
+                                ]
+                              )
+                            : _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary btn-sm",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function ($event) {
+                                      $event.preventDefault()
+                                      return _vm.saveMunicipality.apply(
+                                        null,
+                                        arguments
+                                      )
+                                    },
+                                  },
+                                },
+                                [_vm._v("Create")]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.clearMunicipality.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
+                              },
+                            },
+                            [_vm._v("Cancel")]
+                          ),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    !_vm.municipalities.length
+                      ? _c("tr", [
+                          _c("td", { attrs: { colspan: "2" } }, [
+                            _vm._v("No Municipality to display."),
+                          ]),
+                        ])
+                      : _vm._l(
+                          _vm.municipalities,
+                          function (municipality, index) {
+                            return _c("tr", { key: index }, [
+                              !(
+                                _vm.municipality_edit_mode &&
+                                _vm.municipality_id == municipality.id
+                              )
+                                ? _c("td", [
+                                    _c("a", { staticClass: "mr-2" }, [
+                                      _vm._v(_vm._s(municipality.title)),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("small", {}, [
+                                      _vm._v(
+                                        "Created on " +
+                                          _vm._s(municipality.created_at)
+                                      ),
+                                    ]),
+                                  ])
+                                : _c("td", [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.municipality_edit_title,
+                                          expression: "municipality_edit_title",
+                                        },
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        placeholder: "Municipality",
+                                      },
+                                      domProps: {
+                                        value: _vm.municipality_edit_title,
+                                      },
+                                      on: {
+                                        input: function ($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.municipality_edit_title =
+                                            $event.target.value
+                                        },
+                                      },
+                                    }),
+                                  ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-right" }, [
+                                !(
+                                  _vm.municipality_edit_mode &&
+                                  _vm.municipality_id == municipality.id
+                                )
+                                  ? _c("div", { staticClass: "btn-group" }, [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "btn btn-secondary btn-sm",
+                                          attrs: { href: "#", type: "button" },
+                                          on: {
+                                            click: function ($event) {
+                                              $event.preventDefault()
+                                              return _vm.editMunicipality(
+                                                municipality
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Edit")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm deleteModal",
+                                          attrs: { href: "#", type: "button" },
+                                          on: {
+                                            click: function ($event) {
+                                              $event.preventDefault()
+                                              return _vm.showDeleteModal(
+                                                municipality.id,
+                                                "municipality"
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Delete")]
+                                      ),
+                                    ])
+                                  : _c("div", { staticClass: "btn-group" }, [
+                                      _vm.municipality_submitting
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-primary btn-sm",
+                                              attrs: { type: "button" },
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass:
+                                                  "fa fa-spinner fa-spin",
+                                              }),
+                                            ]
+                                          )
+                                        : _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-primary btn-sm",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function ($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.saveMunicipality.apply(
+                                                    null,
+                                                    arguments
+                                                  )
+                                                },
+                                              },
+                                            },
+                                            [_vm._v("Save")]
+                                          ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "btn btn-secondary btn-sm",
+                                          attrs: { href: "#", type: "button" },
+                                          on: {
+                                            click: function ($event) {
+                                              $event.preventDefault()
+                                              return function () {
+                                                _vm.municipality_edit_mode = false
+                                                _vm.clearMunicipality()
+                                              }.apply(null, arguments)
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _vm._v(
+                                            "Cancel\n                                    "
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                              ]),
+                            ])
+                          }
+                        ),
+                  ],
+                  2
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "float-right" },
+              [
+                _c("pagination", {
+                  attrs: { data: _vm.municipalities_pg },
+                  on: { "pagination-change-page": _vm.getMunicipalities },
+                }),
+              ],
+              1
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 col-sm-6" }, [
+        _c("div", { staticClass: "x_panel" }, [
+          _c("div", { staticClass: "x_title" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.palika_filter,
+                      expression: "palika_filter",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Search Palikas" },
+                  domProps: { value: _vm.palika_filter },
+                  on: {
+                    keydown: [
+                      function ($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "backspace",
+                            undefined,
+                            $event.key,
+                            undefined
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.setPalikaSearch.apply(null, arguments)
+                      },
+                      function ($event) {
+                        if (
+                          !$event.type.indexOf("key") &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        return _vm.setPalikaSearch.apply(null, arguments)
+                      },
+                    ],
+                    keypress: _vm.setPalikaSearch,
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.palika_filter = $event.target.value
+                    },
+                  },
+                }),
+              ]),
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "clearfix" }),
@@ -39780,653 +40066,294 @@ var render = function () {
               [
                 _vm._m(1),
                 _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.municipality_title,
-                            expression: "municipality_title",
+                _c(
+                  "tbody",
+                  [
+                    _c("tr", [
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.palika_title,
+                              expression: "palika_title",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Enter new palika name",
                           },
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "Municipality" },
-                        domProps: { value: _vm.municipality_title },
-                        on: {
-                          keydown: function ($event) {
-                            if (
-                              !$event.type.indexOf("key") &&
-                              _vm._k(
-                                $event.keyCode,
-                                "enter",
-                                13,
-                                $event.key,
-                                "Enter"
-                              )
-                            ) {
-                              return null
-                            }
-                            return function () {
-                              _vm.municipality_id = ""
-                              _vm.municipality_edit_mode = false
-                            }.apply(null, arguments)
+                          domProps: { value: _vm.palika_title },
+                          on: {
+                            keypress: function ($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return function () {
+                                _vm.palika_id = ""
+                                _vm.palika_edit_mode = false
+                              }.apply(null, arguments)
+                            },
+                            keydown: function ($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return function () {
+                                _vm.palika_id = ""
+                                _vm.palika_edit_mode = false
+                              }.apply(null, arguments)
+                            },
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.palika_title = $event.target.value
+                            },
                           },
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.municipality_title = $event.target.value
-                          },
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm.municipality_submitting
-                        ? _c(
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        _c("div", { staticClass: "btn-group" }, [
+                          _c(
                             "button",
                             {
-                              staticClass: "btn btn-danger btn-sm",
+                              staticClass: "btn btn-primary btn-sm",
                               attrs: { type: "button" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.savePalika.apply(null, arguments)
+                                },
+                              },
                             },
-                            [_c("i", { staticClass: "fa fa-spinner fa-spin" })]
-                          )
-                        : _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-success btn-sm",
-                              attrs: { type: "button" },
-                              on: { click: _vm.saveMunicipality },
-                            },
-                            [_vm._v("Save")]
+                            [_vm._v("Create")]
                           ),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.palika_title,
-                            expression: "palika_title",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "Palika" },
-                        domProps: { value: _vm.palika_title },
-                        on: {
-                          keydown: function ($event) {
-                            if (
-                              !$event.type.indexOf("key") &&
-                              _vm._k(
-                                $event.keyCode,
-                                "enter",
-                                13,
-                                $event.key,
-                                "Enter"
-                              )
-                            ) {
-                              return null
-                            }
-                            return function () {
-                              _vm.palika_id = ""
-                              _vm.palika_edit_mode = false
-                            }.apply(null, arguments)
-                          },
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.palika_title = $event.target.value
-                          },
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-success btn-sm",
-                          attrs: { type: "button" },
-                          on: { click: _vm.savePalika },
-                        },
-                        [_vm._v("Save")]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", { attrs: { colspan: "2" } }, [
-                      _c(
-                        "table",
-                        { staticStyle: { width: "-webkit-fill-available" } },
-                        [
-                          !_vm.municipalities.length
-                            ? _c("tr", [
-                                _c("td", { attrs: { colspan: "2" } }, [
-                                  _vm._v("No Municipality to display."),
-                                ]),
-                              ])
-                            : _vm._l(
-                                _vm.municipalities,
-                                function (municipality, index) {
-                                  return _c("tr", { key: index }, [
-                                    !(
-                                      _vm.municipality_edit_mode &&
-                                      _vm.municipality_id == municipality.id
-                                    )
-                                      ? _c("td", [
-                                          _c(
-                                            "a",
-                                            {
-                                              staticClass: "mr-2",
-                                              on: {
-                                                click: function ($event) {
-                                                  return _vm.editMunicipality(
-                                                    municipality
-                                                  )
-                                                },
-                                              },
-                                            },
-                                            [_vm._v(_vm._s(municipality.title))]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("small", {}, [
-                                            _vm._v(
-                                              "Created on " +
-                                                _vm._s(municipality.created_at)
-                                            ),
-                                          ]),
-                                        ])
-                                      : _c("td", [
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value:
-                                                  _vm.municipality_edit_title,
-                                                expression:
-                                                  "municipality_edit_title",
-                                              },
-                                            ],
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "text",
-                                              placeholder: "Municipality",
-                                            },
-                                            domProps: {
-                                              value:
-                                                _vm.municipality_edit_title,
-                                            },
-                                            on: {
-                                              input: function ($event) {
-                                                if ($event.target.composing) {
-                                                  return
-                                                }
-                                                _vm.municipality_edit_title =
-                                                  $event.target.value
-                                              },
-                                            },
-                                          }),
-                                        ]),
-                                    _vm._v(" "),
-                                    _c("td", { staticClass: "text-right" }, [
-                                      !(
-                                        _vm.municipality_edit_mode &&
-                                        _vm.municipality_id == municipality.id
-                                      )
-                                        ? _c(
-                                            "div",
-                                            { staticClass: "btn-group" },
-                                            [
-                                              _c(
-                                                "a",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-secondary btn-sm",
-                                                  attrs: {
-                                                    href: "#",
-                                                    type: "button",
-                                                  },
-                                                  on: {
-                                                    click: function ($event) {
-                                                      return _vm.editMunicipality(
-                                                        municipality
-                                                      )
-                                                    },
-                                                  },
-                                                },
-                                                [_vm._v("Edit")]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "a",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-danger btn-sm deleteModal",
-                                                  attrs: {
-                                                    href: "#",
-                                                    type: "button",
-                                                  },
-                                                  on: {
-                                                    click: function ($event) {
-                                                      $event.preventDefault()
-                                                      return _vm.showDeleteModal(
-                                                        municipality.id,
-                                                        "municipality"
-                                                      )
-                                                    },
-                                                  },
-                                                },
-                                                [_vm._v("Delete")]
-                                              ),
-                                            ]
-                                          )
-                                        : _c(
-                                            "div",
-                                            { staticClass: "btn-group" },
-                                            [
-                                              _c(
-                                                "a",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-success btn-sm",
-                                                  attrs: {
-                                                    href: "#",
-                                                    type: "button",
-                                                  },
-                                                  on: {
-                                                    click: function ($event) {
-                                                      $event.preventDefault()
-                                                      return _vm.saveMunicipality.apply(
-                                                        null,
-                                                        arguments
-                                                      )
-                                                    },
-                                                  },
-                                                },
-                                                [_vm._v("Save")]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "a",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-secondary btn-sm",
-                                                  attrs: {
-                                                    href: "#",
-                                                    type: "button",
-                                                  },
-                                                  on: {
-                                                    click: function ($event) {
-                                                      $event.preventDefault()
-                                                      return function () {
-                                                        _vm.municipality_edit_mode = false
-                                                        _vm.clearMunicipality()
-                                                      }.apply(null, arguments)
-                                                    },
-                                                  },
-                                                },
-                                                [_vm._v("Cancel")]
-                                              ),
-                                            ]
-                                          ),
-                                    ]),
-                                  ])
-                                }
-                              ),
                           _vm._v(" "),
-                          _c("tr", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.clearPalika.apply(null, arguments)
+                                },
+                              },
+                            },
+                            [_vm._v("Cancel")]
+                          ),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    !_vm.palikas.length
+                      ? _c("tr", [
+                          _c("td", { attrs: { colspan: "2" } }, [
+                            _vm._v("No Palikas to display."),
+                          ]),
+                        ])
+                      : _vm._l(_vm.palikas, function (palika, index) {
+                          return _c("tr", { key: index }, [
                             _c(
                               "td",
-                              { attrs: { colspan: "2" } },
                               [
-                                _c("pagination", {
-                                  attrs: { data: _vm.municipalities_pg },
-                                  on: {
-                                    "pagination-change-page":
-                                      _vm.getMunicipalities,
-                                  },
-                                }),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.municipality_filter,
-                                      expression: "municipality_filter",
-                                    },
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Search Municipalities",
-                                  },
-                                  domProps: { value: _vm.municipality_filter },
-                                  on: {
-                                    keydown: [
-                                      function ($event) {
-                                        if (
-                                          !$event.type.indexOf("key") &&
-                                          _vm._k(
-                                            $event.keyCode,
-                                            "backspace",
-                                            undefined,
-                                            $event.key,
-                                            undefined
-                                          )
-                                        ) {
-                                          return null
-                                        }
-                                        return _vm.setMunicipalitySearch.apply(
-                                          null,
-                                          arguments
-                                        )
-                                      },
-                                      function ($event) {
-                                        if (
-                                          !$event.type.indexOf("key") &&
-                                          _vm._k(
-                                            $event.keyCode,
-                                            "enter",
-                                            13,
-                                            $event.key,
-                                            "Enter"
-                                          )
-                                        ) {
-                                          return null
-                                        }
-                                        return _vm.setMunicipalitySearch.apply(
-                                          null,
-                                          arguments
-                                        )
-                                      },
-                                    ],
-                                    keypress: _vm.setMunicipalitySearch,
-                                    input: function ($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.municipality_filter =
-                                        $event.target.value
-                                    },
-                                  },
-                                }),
-                              ],
-                              1
-                            ),
-                          ]),
-                        ],
-                        2
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { colspan: "2" } }, [
-                      _c(
-                        "table",
-                        { staticStyle: { width: "-webkit-fill-available" } },
-                        [
-                          !_vm.palikas.length
-                            ? _c("tr", [
-                                _c("td", { attrs: { colspan: "2" } }, [
-                                  _vm._v("No Palika to display."),
-                                ]),
-                              ])
-                            : _vm._l(_vm.palikas, function (palika, index) {
-                                return _c("tr", { key: index }, [
-                                  !(
-                                    _vm.palika_edit_mode &&
-                                    _vm.palika_id == palika.id
-                                  )
-                                    ? _c("td", [
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "mr-2",
-                                            on: {
-                                              click: function ($event) {
-                                                return _vm.editPalika(palika)
-                                              },
-                                            },
-                                          },
-                                          [_vm._v(_vm._s(palika.title))]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("small", {}, [
-                                          _vm._v(
-                                            "Created on " +
-                                              _vm._s(palika.created_at)
-                                          ),
-                                        ]),
-                                      ])
-                                    : _c("td", [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.palika_edit_title,
-                                              expression: "palika_edit_title",
-                                            },
-                                          ],
-                                          staticClass: "form-control",
-                                          attrs: {
-                                            type: "text",
-                                            placeholder: "palika",
-                                          },
-                                          domProps: {
-                                            value: _vm.palika_edit_title,
-                                          },
+                                !(
+                                  _vm.palika_edit_mode &&
+                                  _vm.palika_id == palika.id
+                                )
+                                  ? [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "mr-2",
                                           on: {
-                                            input: function ($event) {
-                                              if ($event.target.composing) {
-                                                return
-                                              }
-                                              _vm.palika_edit_title =
-                                                $event.target.value
+                                            click: function ($event) {
+                                              $event.preventDefault()
+                                              return _vm.editPalika(palika)
                                             },
                                           },
-                                        }),
+                                        },
+                                        [_vm._v(_vm._s(palika.title))]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("small", {}, [
+                                        _vm._v(
+                                          "Created on " +
+                                            _vm._s(palika.created_at)
+                                        ),
                                       ]),
-                                  _vm._v(" "),
-                                  _c("td", { staticClass: "text-right" }, [
-                                    !(
-                                      _vm.palika_edit_mode &&
-                                      _vm.palika_id == palika.id
-                                    )
+                                    ]
+                                  : [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.palika_edit_title,
+                                            expression: "palika_edit_title",
+                                          },
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: {
+                                          type: "text",
+                                          placeholder: "palika",
+                                        },
+                                        domProps: {
+                                          value: _vm.palika_edit_title,
+                                        },
+                                        on: {
+                                          input: function ($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.palika_edit_title =
+                                              $event.target.value
+                                          },
+                                        },
+                                      }),
+                                    ],
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-right" }, [
+                              !(
+                                _vm.palika_edit_mode &&
+                                _vm.palika_id == palika.id
+                              )
+                                ? _c("div", { staticClass: "btn-group" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn btn-secondary btn-sm",
+                                        attrs: { href: "#", type: "button" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.editPalika(palika)
+                                          },
+                                        },
+                                      },
+                                      [_vm._v("Edit")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "btn btn-danger btn-sm deleteModal",
+                                        attrs: { href: "#", type: "button" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.showDeleteModal(
+                                              palika.id,
+                                              "palika"
+                                            )
+                                          },
+                                        },
+                                      },
+                                      [_vm._v("Delete")]
+                                    ),
+                                  ])
+                                : _c("div", { staticClass: "btn-group" }, [
+                                    _vm.palika_submitting
                                       ? _c(
-                                          "div",
-                                          { staticClass: "btn-group" },
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-primary btn-sm",
+                                            attrs: { type: "button" },
+                                          },
                                           [
-                                            _c(
-                                              "a",
-                                              {
-                                                staticClass:
-                                                  "btn btn-secondary btn-sm",
-                                                attrs: {
-                                                  href: "#",
-                                                  type: "button",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    return _vm.editPalika(
-                                                      palika
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [_vm._v("Edit")]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "a",
-                                              {
-                                                staticClass:
-                                                  "btn btn-danger btn-sm deleteModal",
-                                                attrs: {
-                                                  href: "#",
-                                                  type: "button",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.showDeleteModal(
-                                                      palika.id,
-                                                      "palika"
-                                                    )
-                                                  },
-                                                },
-                                              },
-                                              [_vm._v("Delete")]
-                                            ),
+                                            _c("i", {
+                                              staticClass:
+                                                "fa fa-spinner fa-spin",
+                                            }),
                                           ]
                                         )
                                       : _c(
-                                          "div",
-                                          { staticClass: "btn-group" },
-                                          [
-                                            _c(
-                                              "a",
-                                              {
-                                                staticClass:
-                                                  "btn btn-success btn-sm",
-                                                attrs: {
-                                                  href: "#",
-                                                  type: "button",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    $event.preventDefault()
-                                                    return _vm.savePalika.apply(
-                                                      null,
-                                                      arguments
-                                                    )
-                                                  },
-                                                },
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-primary btn-sm",
+                                            attrs: { type: "button" },
+                                            on: {
+                                              click: function ($event) {
+                                                $event.preventDefault()
+                                                return _vm.savePalika.apply(
+                                                  null,
+                                                  arguments
+                                                )
                                               },
-                                              [_vm._v("Save")]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "a",
-                                              {
-                                                staticClass:
-                                                  "btn btn-secondary btn-sm",
-                                                attrs: {
-                                                  href: "#",
-                                                  type: "button",
-                                                },
-                                                on: {
-                                                  click: function ($event) {
-                                                    $event.preventDefault()
-                                                    return function () {
-                                                      _vm.palika_edit_mode = false
-                                                      _vm.clearPalika()
-                                                    }.apply(null, arguments)
-                                                  },
-                                                },
-                                              },
-                                              [_vm._v("Cancel")]
-                                            ),
-                                          ]
+                                            },
+                                          },
+                                          [_vm._v("Save")]
                                         ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn btn-secondary btn-sm",
+                                        attrs: { href: "#", type: "button" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return function () {
+                                              _vm.palika_edit_mode = false
+                                              _vm.clearPalika()
+                                            }.apply(null, arguments)
+                                          },
+                                        },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        Cancel\n                                    "
+                                        ),
+                                      ]
+                                    ),
                                   ]),
-                                ])
-                              }),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c(
-                              "td",
-                              { attrs: { colspan: "2" } },
-                              [
-                                _c("pagination", {
-                                  attrs: { data: _vm.palikas_pg },
-                                  on: {
-                                    "pagination-change-page": _vm.getPalikas,
-                                  },
-                                }),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.palika_filter,
-                                      expression: "palika_filter",
-                                    },
-                                  ],
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Search palikas",
-                                  },
-                                  domProps: { value: _vm.palika_filter },
-                                  on: {
-                                    keydown: [
-                                      function ($event) {
-                                        if (
-                                          !$event.type.indexOf("key") &&
-                                          _vm._k(
-                                            $event.keyCode,
-                                            "backspace",
-                                            undefined,
-                                            $event.key,
-                                            undefined
-                                          )
-                                        ) {
-                                          return null
-                                        }
-                                        return _vm.setPalikaSearch.apply(
-                                          null,
-                                          arguments
-                                        )
-                                      },
-                                      function ($event) {
-                                        if (
-                                          !$event.type.indexOf("key") &&
-                                          _vm._k(
-                                            $event.keyCode,
-                                            "enter",
-                                            13,
-                                            $event.key,
-                                            "Enter"
-                                          )
-                                        ) {
-                                          return null
-                                        }
-                                        return _vm.setPalikaSearch.apply(
-                                          null,
-                                          arguments
-                                        )
-                                      },
-                                    ],
-                                    keypress: _vm.setPalikaSearch,
-                                    input: function ($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.palika_filter = $event.target.value
-                                    },
-                                  },
-                                }),
-                              ],
-                              1
-                            ),
-                          ]),
-                        ],
-                        2
-                      ),
-                    ]),
-                  ]),
-                ]),
+                            ]),
+                          ])
+                        }),
+                  ],
+                  2
+                ),
               ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "float-right" },
+              [
+                _c("pagination", {
+                  attrs: { data: _vm.palikas_pg },
+                  on: { "pagination-change-page": _vm.getPalikas },
+                }),
+              ],
+              1
             ),
           ]),
         ]),
@@ -40526,13 +40453,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-9" }, [
-      _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
-        _c("li", [
-          _c("a", { staticStyle: { color: "#5A738E" }, attrs: { href: "#" } }, [
-            _vm._v("Create New"),
-          ]),
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Municipalities")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Action")]),
       ]),
     ])
   },
@@ -40542,13 +40467,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Municipalities")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Action")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Palikas")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Action")]),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Action")]),
       ]),
     ])
   },
@@ -41310,52 +41231,66 @@ var render = function () {
                         : _vm._l(_vm.provinces, function (province, index) {
                             return _c("tr", { key: index }, [
                               _c("td", [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "mr-2",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function ($event) {
-                                        $event.preventDefault()
-                                        return _vm.$refs.createProvince.openDialog(
-                                          province
-                                        )
+                                _c("h4", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "mr-2",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function ($event) {
+                                          $event.preventDefault()
+                                          return _vm.$refs.createProvince.openDialog(
+                                            province
+                                          )
+                                        },
                                       },
                                     },
-                                  },
-                                  [_vm._v(_vm._s(province.title))]
-                                ),
-                                _vm._v(" "),
-                                _c("small", {}, [
-                                  _vm._v(
-                                    "Created on " + _vm._s(province.created_at)
+                                    [_vm._v(_vm._s(province.title))]
                                   ),
                                 ]),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
+                                _vm._v(" "),
                                 _c(
-                                  "a",
-                                  {
-                                    staticClass: "mr-2",
-                                    attrs: {
-                                      href:
-                                        _vm.district_path +
-                                        "?province_id=" +
-                                        province.id,
-                                    },
-                                  },
+                                  "ul",
+                                  { staticClass: "list-unstyled text-left" },
                                   [
-                                    _vm._v(
-                                      _vm._s(
-                                        province.districts_count > 1
-                                          ? province.districts_count +
-                                              " Districts"
-                                          : province.districts_count +
-                                              " District"
-                                      ) + " "
-                                    ),
+                                    _c("li", [
+                                      _c("strong", { staticClass: "mr-2" }, [
+                                        _vm._v("Districts"),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn-link",
+                                          attrs: {
+                                            href:
+                                              _vm.district_path +
+                                              "?province_id=" +
+                                              province.id,
+                                          },
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              province.districts_count > 1
+                                                ? province.districts_count +
+                                                    " Districts"
+                                                : "" + province.districts_count
+                                            ) + " View"
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c("small", {}, [
+                                        _vm._v(
+                                          "Created on " +
+                                            _vm._s(province.created_at)
+                                        ),
+                                      ]),
+                                    ]),
                                   ]
                                 ),
                               ]),
@@ -41496,8 +41431,6 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Title")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Districts")]),
         _vm._v(" "),
         _c(
           "th",

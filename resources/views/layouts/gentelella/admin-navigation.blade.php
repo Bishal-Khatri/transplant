@@ -38,17 +38,8 @@
                             <li><a href="{{ route('admin.disease') }}">Diseases</a></li>
                             <li><a href="{{ route('admin.education-level') }}">Education Level</a></li>
                             <li><a href="{{ route('admin.occupation') }}">Occupations</a></li>
+                            <li><a href="{{ route('admin.province') }}">Province</a></li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.province') }}">
-                            <i class="fa fa-dashboard"></i> Province
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.district') }}">
-                            <i class="fa fa-dashboard"></i> District
-                        </a>
                     </li>
                 </ul>
 

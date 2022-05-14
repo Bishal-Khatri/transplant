@@ -11,6 +11,9 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/disease', [DataController::class, 'diseaseIndex'])->name('admin.disease');
     Route::get('/education-level', [DataController::class, 'educationLevelIndex'])->name('admin.education-level');
     Route::get('/occupation', [DataController::class, 'occupationIndex'])->name('admin.occupation');
+    Route::get('/province', [DataController::class, 'provinceIndex'])->name('admin.province');
+    Route::get('/district', [DataController::class, 'districtIndex'])->name('admin.district');
+    Route::get('/local-level', [DataController::class, 'localLevelIndex'])->name('admin.local-level');
 
     Route::group(['prefix' => 'web-api'],function() {
 
@@ -43,5 +46,29 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         Route::post('/occupations/create', [DataController::class, 'occupationStore']);
         Route::delete('/occupations/delete/{id}', [DataController::class, 'occupationDelete']);
         // End Occupations
+
+         //  Province
+         Route::get('province', [DataController::class, 'province']);
+         Route::post('/province/create', [DataController::class, 'provinceStore']);
+         Route::delete('/province/delete/{id}', [DataController::class, 'provinceDelete']);
+         // End Province
+        
+        //  District
+        Route::get('district', [DataController::class, 'district']);
+        Route::post('/district/create', [DataController::class, 'districtStore']);
+        Route::delete('/district/delete/{id}', [DataController::class, 'districtDelete']);
+         // End District
+
+        //  Municipality Level
+        Route::get('municipality', [DataController::class, 'municipality']);
+        Route::post('/municipality/create', [DataController::class, 'municipalityStore']);
+        Route::delete('/municipality/delete/{id}', [DataController::class, 'municipalityDelete']);
+         // End Municipality
+
+        //  Palika Level
+        Route::get('palika', [DataController::class, 'palika']);
+        Route::post('/palika/create', [DataController::class, 'palikaStore']);
+        Route::delete('/palika/delete/{id}', [DataController::class, 'palikaDelete']);
+        // End Palika
     });
 });

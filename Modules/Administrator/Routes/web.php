@@ -1,5 +1,6 @@
 <?php
 
+use Modules\Administrator\Http\Controllers\AddressController;
 use Modules\Administrator\Http\Controllers\AdministratorController;
 use Modules\Administrator\Http\Controllers\DataController;
 
@@ -11,9 +12,10 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/disease', [DataController::class, 'diseaseIndex'])->name('admin.disease');
     Route::get('/education-level', [DataController::class, 'educationLevelIndex'])->name('admin.education-level');
     Route::get('/occupation', [DataController::class, 'occupationIndex'])->name('admin.occupation');
-    Route::get('/province', [DataController::class, 'provinceIndex'])->name('admin.province');
-    Route::get('/district', [DataController::class, 'districtIndex'])->name('admin.district');
-    Route::get('/local-level', [DataController::class, 'localLevelIndex'])->name('admin.local-level');
+
+    Route::get('/province', [AddressController::class, 'provinceIndex'])->name('admin.province');
+    Route::get('/district', [AddressController::class, 'districtIndex'])->name('admin.district');
+    Route::get('/local-level', [AddressController::class, 'localLevelIndex'])->name('admin.local-level');
 
     Route::group(['prefix' => 'web-api'],function() {
 
@@ -23,7 +25,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         Route::delete('/religions/delete/{id}', [DataController::class, 'religionsDelete']);
         // RELIGIONS END
 
-        // Ethnic Group 
+        // Ethnic Group
         Route::get('/ethnic-groups', [DataController::class, 'ethnicGroups']);
         Route::post('/ethnic-groups/create', [DataController::class, 'ethnicGroupStore']);
         Route::delete('/ethnic-groups/delete/{id}', [DataController::class, 'ethnicGroupDelete']);
@@ -34,7 +36,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         Route::post('/diseases/create', [DataController::class, 'diseaseStore']);
         Route::delete('/diseases/delete/{id}', [DataController::class, 'diseaseDelete']);
         // End Diseases
-        
+
         // Education Levels
         Route::get('education-levels', [DataController::class, 'educationLevels']);
         Route::post('/education-levels/create', [DataController::class, 'educationLevelStore']);
@@ -48,27 +50,27 @@ Route::prefix('admin')->middleware('auth')->group(function() {
         // End Occupations
 
          //  Province
-         Route::get('province', [DataController::class, 'province']);
-         Route::post('/province/create', [DataController::class, 'provinceStore']);
-         Route::delete('/province/delete/{id}', [DataController::class, 'provinceDelete']);
+         Route::get('province', [AddressController::class, 'province']);
+         Route::post('/province/create', [AddressController::class, 'provinceStore']);
+         Route::delete('/province/delete/{id}', [AddressController::class, 'provinceDelete']);
          // End Province
-        
+
         //  District
-        Route::get('district', [DataController::class, 'district']);
-        Route::post('/district/create', [DataController::class, 'districtStore']);
-        Route::delete('/district/delete/{id}', [DataController::class, 'districtDelete']);
+        Route::get('district', [AddressController::class, 'district']);
+        Route::post('/district/create', [AddressController::class, 'districtStore']);
+        Route::delete('/district/delete/{id}', [AddressController::class, 'districtDelete']);
          // End District
 
         //  Municipality Level
-        Route::get('municipality', [DataController::class, 'municipality']);
-        Route::post('/municipality/create', [DataController::class, 'municipalityStore']);
-        Route::delete('/municipality/delete/{id}', [DataController::class, 'municipalityDelete']);
+        Route::get('municipality', [AddressController::class, 'municipality']);
+        Route::post('/municipality/create', [AddressController::class, 'municipalityStore']);
+        Route::delete('/municipality/delete/{id}', [AddressController::class, 'municipalityDelete']);
          // End Municipality
 
         //  Palika Level
-        Route::get('palika', [DataController::class, 'palika']);
-        Route::post('/palika/create', [DataController::class, 'palikaStore']);
-        Route::delete('/palika/delete/{id}', [DataController::class, 'palikaDelete']);
+        Route::get('palika', [AddressController::class, 'palika']);
+        Route::post('/palika/create', [AddressController::class, 'palikaStore']);
+        Route::delete('/palika/delete/{id}', [AddressController::class, 'palikaDelete']);
         // End Palika
     });
 });

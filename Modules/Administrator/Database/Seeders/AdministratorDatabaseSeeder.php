@@ -2,6 +2,8 @@
 
 namespace Modules\Administrator\Database\Seeders;
 
+use Database\Seeders\DistrictsTableSeeder;
+use Database\Seeders\ProvinceTableSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +17,5 @@ class AdministratorDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-        // $this->call("OthersTableSeeder");
     }
 }

@@ -25,7 +25,6 @@
                             <thead>
                             <tr>
                                 <th>Title</th>
-                                <th>Districts</th>
                                 <th style="width: 180px" class="text-right">Action</th>
                             </tr>
                             </thead>
@@ -35,11 +34,14 @@
                             </tr>
                             <tr v-else v-for="(province, index) in provinces" :key="index">
                                 <td>
-                                    <a class="mr-2" href="#" @click.prevent="$refs.createProvince.openDialog(province)">{{ province.title }}</a>
-                                    <small class="">Created on {{ province.created_at }}</small>
-                                </td>
-                                <td>
-                                    <a class="mr-2" :href="`${district_path}?province_id=${province.id}`"  >{{ province.districts_count>1?`${ province.districts_count} Districts`:`${ province.districts_count} District` }} </a>
+                                    <h4><a class="mr-2" href="#" @click.prevent="$refs.createProvince.openDialog(province)">{{ province.title }}</a></h4>
+                                    <ul class="list-unstyled text-left">
+                                        <li>
+                                            <strong class="mr-2">Districts</strong>
+                                            <a :href="`${district_path}?province_id=${province.id}`" class="btn-link">{{ province.districts_count>1?`${ province.districts_count} Districts`:`${ province.districts_count}` }} View</a>
+                                        </li>
+                                        <li> <small class="">Created on {{ province.created_at }}</small></li>
+                                    </ul>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">

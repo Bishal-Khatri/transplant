@@ -5,7 +5,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>District</h3>
+                    <h3>Districts on {{ $province->title ?? '' }}</h3>
                 </div>
             </div>
 

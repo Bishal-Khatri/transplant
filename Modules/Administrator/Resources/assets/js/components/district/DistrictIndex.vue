@@ -36,8 +36,21 @@
                             </tr>
                             <tr v-else v-for="(district, index) in districts" :key="index">
                                 <td>
-                                    <a class="mr-2" href="#" @click.prevent="$refs.createDistrict.openDialog(district)">{{ district.title }}</a>
-                                    <small class="">Created on {{ district.created_at }}</small>
+                                    <h4><a class="mr-2" href="#" @click.prevent="$refs.createDistrict.openDialog(district)">{{ district.title }}</a></h4>
+                                    <!--<ul class="list-unstyled text-left">-->
+                                        <!--<li>-->
+                                            <!--<strong class="mr-2">Municipalities</strong>-->
+                                            <!--<a :href="`${local_level_route}?district_id=${district.id}`"  class="btn-link">-->
+                                                <!--{{ district.municipalities_count>1?`${ district.municipalities_count} Municipalities`:`${ district.municipalities_count}` }} View-->
+                                            <!--</a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<strong class="mr-2">Palikas</strong>-->
+                                            <!--<a :href="`${local_level_route}?district_id=${district.id}`" class="btn-link">{{ district.palikas_count>1?`${ district.palikas_count}`:`${ district.palikas_count}` }} View</a>-->
+                                        <!--</li>-->
+                                        <!--<li> <small class="">Created on {{ district.created_at }}</small></li>-->
+                                    <!--</ul>-->
+                                    <!--<small class="">Created on {{ district.created_at }}</small>-->
                                 </td>
                                 <td>
                                      <a class="mr-2" :href="`${local_level_route}?district_id=${district.id}`"  >{{ district.municipalities_count>1?`${ district.municipalities_count} Municipalities`:`${ district.municipalities_count} Municipality` }} </a>

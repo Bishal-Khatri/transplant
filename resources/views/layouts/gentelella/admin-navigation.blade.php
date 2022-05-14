@@ -56,7 +56,7 @@
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-folder-o"></i> Pages <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{ route('cms.page.index') }}">Pages</a></li>
+                            <li><a href="{{ route('cms.page.index') }}">All Pages</a></li>
                             <li><a href="{{ route('cms.category.index') }}">Categories</a></li>
                         </ul>
                     </li>
@@ -125,11 +125,10 @@
                     </div>
                 </li>
                 <li role="presentation" class="nav-item dropdown open">
-                    <a href="{{ route('cms.index') }}" >
-                        <i class="fa fa-globe"></i>
+                    <a href="{{ route('cms.index') }}" target="_blank">
+                        <i class="fa fa-globe" style="font-size: 30px;"></i>
                     </a>
                 </li>
-
             </ul>
         </nav>
     </div>

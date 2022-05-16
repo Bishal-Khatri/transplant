@@ -4,33 +4,46 @@
             <div class="col-md-3 col-lg-3 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Sections <small>All available sections</small></h2>
+                        <h2><i class="fa fa-bars"></i> Page Sections</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div class="">
-                            <ul class="to_do">
-                                <li>
-                                    <p>Slider <a class="float-right" href="#" @click.prevent="addSection('slider')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
 
-                                </li>
-                                <li>
-                                    <p>Text Field <a class="float-right" href="#" @click.prevent="addSection('text')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
-                                <li>
-                                    <p>Image <a class="float-right" href="" @click.prevent="addSection('image')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
-                                <li>
-                                    <p>Image Gallery <a class="float-right" href="" @click.prevent="addSection('gallery')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
-                                <li>
-                                    <p>File Downloads <a class="float-right" href="" @click.prevent="addSection('file_download')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
-                                <li>
-                                    <p>Pdf <a class="float-right" href="" @click.prevent="addSection('pdf')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
+                        <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="component-tab" data-toggle="tab" href="#component" role="tab" aria-controls="home" aria-selected="true">Components</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="widget-tab" data-toggle="tab" href="#widget" role="tab" aria-controls="profile" aria-selected="false">Widget</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="component" role="tabpanel" aria-labelledby="home-tab">
+                                <ul class="to_do">
+                                    <li>
+                                        <p>Slider <a class="float-right" href="#" @click.prevent="addSection('slider')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>Text Field <a class="float-right" href="#" @click.prevent="addSection('text')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>Image <a class="float-right" href="" @click.prevent="addSection('image')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>Image Gallery <a class="float-right" href="" @click.prevent="addSection('gallery')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>File Downloads <a class="float-right" href="" @click.prevent="addSection('file_download')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>Pdf <a class="float-right" href="" @click.prevent="addSection('pdf')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
 
-                            </ul>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="widget" role="tabpanel" aria-labelledby="profile-tab">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -40,16 +53,16 @@
                     <div class="x_title">
                         <h2>Page</h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <li>
-                                <a class="btn btn-link" v-if="submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
-                                <a class="btn btn-link" href="" v-else @click.prevent="updatePage">Save Section</a>
+                            <li class="mr-3">
+                                <a class="" style="color: #5A738E;" v-if="submitting" href="">Saving <i class="fa fa-spinner fa-spin"></i></a>
+                                <a class="" style="color: #5A738E;" v-else @click.prevent="updatePage" href="">Save Section</a>
                             </li>
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
+                                    <a class="dropdown-item" href="#">Enable</a>
+                                    <a class="dropdown-item" href="#">Disable</a>
                                 </div>
                             </li>
                             <li><a class="" @click.prevent="getPageDetails"><i class="fa fa-refresh"></i></a></li>
@@ -58,19 +71,21 @@
                     </div>
                     <div class="x_content">
                         <form class="form-label-left input_mask">
-                            <div class="col-md-12 col-sm-12  form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" v-model="title" placeholder="Page Title">
-                                <span class="fa fa-align-left form-control-feedback left" aria-hidden="true"></span>
-                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                    <input type="text" class="form-control has-feedback-left" v-model="title" placeholder="Page Title">
+                                    <span class="fa fa-align-left form-control-feedback left" aria-hidden="true"></span>
+                                </div>
 
-                            <div class="col-md-12 col-sm-12  form-group has-feedback">
-                                <textarea class="form-control" name="" cols="30" rows="5" placeholder="Short Description" v-model="short_description"></textarea>
-                            </div>
-                            <div class="col-md-12 col-sm-12  form-group">
-                                <select class="form-control" v-model="category_id">
-                                    <option value="" selected>Choose Category</option>
-                                    <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
-                                </select>
+                                <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                    <textarea class="form-control" name="" cols="30" rows="5" placeholder="Short Description" v-model="short_description"></textarea>
+                                </div>
+                                <div class="col-md-12 col-sm-12  form-group">
+                                    <select class="form-control" v-model="category_id">
+                                        <option value="" selected>Choose Category</option>
+                                        <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+                                    </select>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -78,33 +93,22 @@
 
                 <!--<pre>{{sections}}</pre>-->
 
-                <template v-if="sections.length" v-for="(section, index) in sections">
+                <div v-if="sections.length" v-for="(section, index) in sections" :key="index">
 
-                    <div v-if="section.type === 'text'">
-                        <rich-text :page="page" :section="section"></rich-text>
-                    </div>
+                    <rich-text v-if="section.type === 'text'" :page="page" :section="section"></rich-text>
 
-                    <div v-if="section.type === 'slider'">
-                        <slider :page="page" :section="section" :sliders="sliders"></slider>
-                    </div>
+                    <slider v-if="section.type === 'slider'" :page="page" :section="section" :sliders="sliders"></slider>
 
-                    <div v-if="section.type === 'image'">
-                        <image-field :page="page" :section="section"></image-field>
-                    </div>
+                    <image-field v-if="section.type === 'image'" :page="page" :section="section"></image-field>
 
-                    <div v-if="section.type === 'gallery'">
-                        <gallery :page="page" :section="section" :galleries="galleries"></gallery>
-                    </div>
+                    <gallery v-if="section.type === 'gallery'" :page="page" :section="section" :galleries="galleries"></gallery>
 
-                    <div v-else-if="section.type === 'file_download'">
-                        <file-download :page="page" :section="section"></file-download>
-                    </div>
+                    <file-download v-else-if="section.type === 'file_download'" :page="page" :section="section"></file-download>
 
-                    <div v-else-if="section.type === 'pdf'">
-                        <pdf :page="page" :section="section"></pdf>
-                    </div>
+                    <pdf v-else-if="section.type === 'pdf'" :page="page" :section="section"></pdf>
 
-                </template>
+                </div>
+
             </div>
 
 

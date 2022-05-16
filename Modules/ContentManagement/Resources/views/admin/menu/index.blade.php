@@ -248,7 +248,7 @@
                                                             {{Illuminate\Support\Str::limit($page['title'], 25, $end='...')}}
                                                             <form action="{{ route('cms.menu.addPageToMenu') }}" method="post">
                                                                 @csrf
-                                                                <input type="hidden" name="menu_id" value="1">
+                                                                <input type="hidden" name="menu_id" value="{{ $selected_menu->id }}">
                                                                 <input type="hidden" name="page_id" value="{{ $page['id'] }}">
                                                                 <button type="submit" class="btn btn-xs btn-default mt-1">
                                                                     <i class="fa fa-plus"></i>
@@ -275,7 +275,7 @@
                                                             {{Illuminate\Support\Str::limit($category['name'], 25, $end='...')}}
                                                             <form action="{{ route('cms.menu.addCategoryToMenu') }}" method="post">
                                                                 @csrf
-                                                                <input type="hidden" name="menu_id" value="1">
+                                                                <input type="hidden" name="menu_id" value="{{ $selected_menu->id }}">
                                                                 <input type="hidden" name="category_id" value="{{ $category['id'] }}">
                                                                 <button type="submit" class="btn btn-xs btn-default mt-1">
                                                                     <i class="fa fa-plus"></i>
@@ -444,6 +444,8 @@
 @stop
 @section('script')
     <script type="text/javascript">
+        const selected_menu = @json($selected_menu);
+
         $('.dd').nestable({
             maxDepth:3
         });
@@ -523,22 +525,22 @@
             $("#edit_image_url").prop('src', URL.createObjectURL(event.target.files[0]));
         });
 
-        $('.add_page').on('click', function(){
-            let post_id = $(this).data("post_id");
-            $.ajax({
-                type: "POST",
-                url: "{{ route('cms.menu.addPageToMenu') }}",
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {post_id:post_id},
-                success: function (response) {
-                    if (response === 'success'){
-                        window.location.reload();
-                    }
-                }
-            });
-        });
+        {{--$('.add_page').on('click', function(){--}}
+            {{--let post_id = $(this).data("post_id");--}}
+            {{--$.ajax({--}}
+                {{--type: "POST",--}}
+                {{--url: "{{ route('cms.menu.addPageToMenu') }}",--}}
+                {{--headers: {--}}
+                    {{--'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')--}}
+                {{--},--}}
+                {{--data: {post_id:post_id, menu_id: selected_menu.id},--}}
+                {{--success: function (response) {--}}
+                    {{--if (response === 'success'){--}}
+                        {{--window.location.reload();--}}
+                    {{--}--}}
+                {{--}--}}
+            {{--});--}}
+        {{--});--}}
 
         $(".modal").on("hidden.bs.modal", function () {
             $("#edit_id").val("");

@@ -15779,6 +15779,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -16280,6 +16284,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DeleteSection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeleteSection */ "./Resources/assets/js/components/page/section/DeleteSection.vue");
 //
 //
 //
@@ -16317,8 +16322,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "FileDownload"
+  name: "FileDownload",
+  props: ['page', 'section'],
+  components: {
+    DeleteSection: _DeleteSection__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
 });
 
 /***/ }),
@@ -16755,6 +16765,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DeleteSection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeleteSection */ "./Resources/assets/js/components/page/section/DeleteSection.vue");
 //
 //
 //
@@ -16792,8 +16803,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Pdf"
+  name: "Pdf",
+  props: ['page', 'section'],
+  components: {
+    DeleteSection: _DeleteSection__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
 });
 
 /***/ }),
@@ -18463,147 +18479,175 @@ var render = function () {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "x_content" }, [
-            _c("div", {}, [
-              _c("ul", { staticClass: "to_do" }, [
-                _c("li", [
-                  _c("p", [
-                    _vm._v("Slider "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "float-right",
-                        attrs: { href: "#" },
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.addSection("slider")
-                          },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-plus mr-1" }),
-                        _vm._v("Add"),
-                      ]
-                    ),
-                  ]),
-                ]),
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "tab-content", attrs: { id: "myTabContent" } },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "tab-pane fade show active",
+                    attrs: {
+                      id: "component",
+                      role: "tabpanel",
+                      "aria-labelledby": "home-tab",
+                    },
+                  },
+                  [
+                    _c("ul", { staticClass: "to_do" }, [
+                      _c("li", [
+                        _c("p", [
+                          _vm._v("Slider "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.addSection("slider")
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-plus mr-1" }),
+                              _vm._v("Add"),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("p", [
+                          _vm._v("Text Field "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.addSection("text")
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-plus mr-1" }),
+                              _vm._v("Add"),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("p", [
+                          _vm._v("Image "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right",
+                              attrs: { href: "" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.addSection("image")
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-plus mr-1" }),
+                              _vm._v("Add"),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("p", [
+                          _vm._v("Image Gallery "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right",
+                              attrs: { href: "" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.addSection("gallery")
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-plus mr-1" }),
+                              _vm._v("Add"),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("p", [
+                          _vm._v("File Downloads "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right",
+                              attrs: { href: "" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.addSection("file_download")
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-plus mr-1" }),
+                              _vm._v("Add"),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _c("p", [
+                          _vm._v("Pdf "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right",
+                              attrs: { href: "" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.addSection("pdf")
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-plus mr-1" }),
+                              _vm._v("Add"),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                    ]),
+                  ]
+                ),
                 _vm._v(" "),
-                _c("li", [
-                  _c("p", [
-                    _vm._v("Text Field "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "float-right",
-                        attrs: { href: "#" },
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.addSection("text")
-                          },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-plus mr-1" }),
-                        _vm._v("Add"),
-                      ]
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("p", [
-                    _vm._v("Image "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "float-right",
-                        attrs: { href: "" },
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.addSection("image")
-                          },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-plus mr-1" }),
-                        _vm._v("Add"),
-                      ]
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("p", [
-                    _vm._v("Image Gallery "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "float-right",
-                        attrs: { href: "" },
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.addSection("gallery")
-                          },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-plus mr-1" }),
-                        _vm._v("Add"),
-                      ]
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("p", [
-                    _vm._v("File Downloads "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "float-right",
-                        attrs: { href: "" },
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.addSection("file_download")
-                          },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-plus mr-1" }),
-                        _vm._v("Add"),
-                      ]
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("p", [
-                    _vm._v("Pdf "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "float-right",
-                        attrs: { href: "" },
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.addSection("pdf")
-                          },
-                        },
-                      },
-                      [
-                        _c("i", { staticClass: "fa fa-plus mr-1" }),
-                        _vm._v("Add"),
-                      ]
-                    ),
-                  ]),
-                ]),
-              ]),
-            ]),
+                _c("div", {
+                  staticClass: "tab-pane fade",
+                  attrs: {
+                    id: "widget",
+                    role: "tabpanel",
+                    "aria-labelledby": "profile-tab",
+                  },
+                }),
+              ]
+            ),
           ]),
         ]),
       ]),
@@ -18617,17 +18661,23 @@ var render = function () {
               _c("h2", [_vm._v("Page")]),
               _vm._v(" "),
               _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
-                _c("li", [
+                _c("li", { staticClass: "mr-3" }, [
                   _vm.submitting
                     ? _c(
                         "a",
-                        { staticClass: "btn btn-link", attrs: { href: "" } },
-                        [_c("i", { staticClass: "fa fa-spinner fa-spin" })]
+                        {
+                          staticStyle: { color: "#5A738E" },
+                          attrs: { href: "" },
+                        },
+                        [
+                          _vm._v("Saving "),
+                          _c("i", { staticClass: "fa fa-spinner fa-spin" }),
+                        ]
                       )
                     : _c(
                         "a",
                         {
-                          staticClass: "btn btn-link",
+                          staticStyle: { color: "#5A738E" },
                           attrs: { href: "" },
                           on: {
                             click: function ($event) {
@@ -18640,9 +18690,9 @@ var render = function () {
                       ),
                 ]),
                 _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
                 _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("li", [
                   _c(
@@ -18665,120 +18715,128 @@ var render = function () {
             _vm._v(" "),
             _c("div", { staticClass: "x_content" }, [
               _c("form", { staticClass: "form-label-left input_mask" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "col-md-12 col-sm-12  form-group has-feedback",
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.title,
-                          expression: "title",
-                        },
-                      ],
-                      staticClass: "form-control has-feedback-left",
-                      attrs: { type: "text", placeholder: "Page Title" },
-                      domProps: { value: _vm.title },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.title = $event.target.value
-                        },
-                      },
-                    }),
-                    _vm._v(" "),
-                    _c("span", {
-                      staticClass:
-                        "fa fa-align-left form-control-feedback left",
-                      attrs: { "aria-hidden": "true" },
-                    }),
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "col-md-12 col-sm-12  form-group has-feedback",
-                  },
-                  [
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.short_description,
-                          expression: "short_description",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        name: "",
-                        cols: "30",
-                        rows: "5",
-                        placeholder: "Short Description",
-                      },
-                      domProps: { value: _vm.short_description },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.short_description = $event.target.value
-                        },
-                      },
-                    }),
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12 col-sm-12  form-group" }, [
+                _c("div", { staticClass: "row" }, [
                   _c(
-                    "select",
+                    "div",
                     {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.category_id,
-                          expression: "category_id",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      on: {
-                        change: function ($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function (o) {
-                              return o.selected
-                            })
-                            .map(function (o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.category_id = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        },
-                      },
+                      staticClass:
+                        "col-md-12 col-sm-12  form-group has-feedback",
                     },
                     [
-                      _c("option", { attrs: { value: "", selected: "" } }, [
-                        _vm._v("Choose Category"),
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.categories, function (category) {
-                        return _c(
-                          "option",
-                          { domProps: { value: category.id } },
-                          [_vm._v(_vm._s(category.name))]
-                        )
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.title,
+                            expression: "title",
+                          },
+                        ],
+                        staticClass: "form-control has-feedback-left",
+                        attrs: { type: "text", placeholder: "Page Title" },
+                        domProps: { value: _vm.title },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.title = $event.target.value
+                          },
+                        },
                       }),
-                    ],
-                    2
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass:
+                          "fa fa-align-left form-control-feedback left",
+                        attrs: { "aria-hidden": "true" },
+                      }),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-md-12 col-sm-12  form-group has-feedback",
+                    },
+                    [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.short_description,
+                            expression: "short_description",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          name: "",
+                          cols: "30",
+                          rows: "5",
+                          placeholder: "Short Description",
+                        },
+                        domProps: { value: _vm.short_description },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.short_description = $event.target.value
+                          },
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-12 col-sm-12  form-group" },
+                    [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.category_id,
+                              expression: "category_id",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.category_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                          },
+                        },
+                        [
+                          _c("option", { attrs: { value: "", selected: "" } }, [
+                            _vm._v("Choose Category"),
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.categories, function (category) {
+                            return _c(
+                              "option",
+                              { domProps: { value: category.id } },
+                              [_vm._v(_vm._s(category.name))]
+                            )
+                          }),
+                        ],
+                        2
+                      ),
+                    ]
                   ),
                 ]),
               ]),
@@ -18787,83 +18845,52 @@ var render = function () {
           _vm._v(" "),
           _vm._l(_vm.sections, function (section, index) {
             return _vm.sections.length
-              ? [
-                  section.type === "text"
-                    ? _c(
-                        "div",
-                        [
-                          _c("rich-text", {
-                            attrs: { page: _vm.page, section: section },
-                          }),
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  section.type === "slider"
-                    ? _c(
-                        "div",
-                        [
-                          _c("slider", {
-                            attrs: {
-                              page: _vm.page,
-                              section: section,
-                              sliders: _vm.sliders,
-                            },
-                          }),
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  section.type === "image"
-                    ? _c(
-                        "div",
-                        [
-                          _c("image-field", {
-                            attrs: { page: _vm.page, section: section },
-                          }),
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  section.type === "gallery"
-                    ? _c(
-                        "div",
-                        [
-                          _c("gallery", {
-                            attrs: {
-                              page: _vm.page,
-                              section: section,
-                              galleries: _vm.galleries,
-                            },
-                          }),
-                        ],
-                        1
-                      )
-                    : section.type === "file_download"
-                    ? _c(
-                        "div",
-                        [
-                          _c("file-download", {
-                            attrs: { page: _vm.page, section: section },
-                          }),
-                        ],
-                        1
-                      )
-                    : section.type === "pdf"
-                    ? _c(
-                        "div",
-                        [
-                          _c("pdf", {
-                            attrs: { page: _vm.page, section: section },
-                          }),
-                        ],
-                        1
-                      )
-                    : _vm._e(),
-                ]
+              ? _c(
+                  "div",
+                  { key: index },
+                  [
+                    section.type === "text"
+                      ? _c("rich-text", {
+                          attrs: { page: _vm.page, section: section },
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    section.type === "slider"
+                      ? _c("slider", {
+                          attrs: {
+                            page: _vm.page,
+                            section: section,
+                            sliders: _vm.sliders,
+                          },
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    section.type === "image"
+                      ? _c("image-field", {
+                          attrs: { page: _vm.page, section: section },
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    section.type === "gallery"
+                      ? _c("gallery", {
+                          attrs: {
+                            page: _vm.page,
+                            section: section,
+                            galleries: _vm.galleries,
+                          },
+                        })
+                      : section.type === "file_download"
+                      ? _c("file-download", {
+                          attrs: { page: _vm.page, section: section },
+                        })
+                      : section.type === "pdf"
+                      ? _c("pdf", {
+                          attrs: { page: _vm.page, section: section },
+                        })
+                      : _vm._e(),
+                  ],
+                  1
+                )
               : _vm._e()
           }),
         ],
@@ -18879,12 +18906,61 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "x_title" }, [
       _c("h2", [
-        _vm._v("Sections "),
-        _c("small", [_vm._v("All available sections")]),
+        _c("i", { staticClass: "fa fa-bars" }),
+        _vm._v(" Page Sections"),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "clearfix" }),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      {
+        staticClass: "nav nav-tabs bar_tabs",
+        attrs: { id: "myTab", role: "tablist" },
+      },
+      [
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link active",
+              attrs: {
+                id: "component-tab",
+                "data-toggle": "tab",
+                href: "#component",
+                role: "tab",
+                "aria-controls": "home",
+                "aria-selected": "true",
+              },
+            },
+            [_vm._v("Components")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                id: "widget-tab",
+                "data-toggle": "tab",
+                href: "#widget",
+                role: "tab",
+                "aria-controls": "profile",
+                "aria-selected": "false",
+              },
+            },
+            [_vm._v("Widget")]
+          ),
+        ]),
+      ]
+    )
   },
   function () {
     var _vm = this
@@ -18923,11 +18999,11 @@ var staticRenderFns = [
         },
         [
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Settings 1"),
+            _vm._v("Enable"),
           ]),
           _vm._v(" "),
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Settings 2"),
+            _vm._v("Disable"),
           ]),
         ]
       ),
@@ -19058,113 +19134,144 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
+  return _c(
+    "div",
+    [
       _c("div", { staticClass: "x_panel" }, [
         _c("div", { staticClass: "x_title" }, [
           _c("h2", [_vm._v("FileDownload")]),
           _vm._v(" "),
           _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
-            _c("li", [
-              _c("a", { staticClass: "btn btn-link" }, [_vm._v("Save")]),
-            ]),
-            _c("li", [
-              _c("a", { staticClass: "collapse-link" }, [
-                _c("i", { staticClass: "fa fa-chevron-up" }),
-              ]),
-            ]),
+            _vm._m(0),
+            _vm._m(1),
             _vm._v(" "),
-            _c("li", { staticClass: "dropdown" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("li", [
               _c(
                 "a",
                 {
-                  staticClass: "dropdown-toggle",
-                  attrs: {
-                    href: "#",
-                    "data-toggle": "dropdown",
-                    role: "button",
-                    "aria-expanded": "false",
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.$refs.deleteSection.openDialog(_vm.section.id)
+                    },
                   },
                 },
-                [_c("i", { staticClass: "fa fa-wrench" })]
+                [_c("i", { staticClass: "fa fa-close" })]
               ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "dropdown-menu",
-                  attrs: { "aria-labelledby": "dropdownMenuButton" },
-                },
-                [
-                  _c(
-                    "a",
-                    { staticClass: "dropdown-item", attrs: { href: "#" } },
-                    [_vm._v("Settings 1")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "dropdown-item", attrs: { href: "#" } },
-                    [_vm._v("Settings 2")]
-                  ),
-                ]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", {}, [_c("i", { staticClass: "fa fa-refresh" })]),
             ]),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "clearfix" }),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "x_content" }, [
-          _c("form", { staticClass: "form-label-left input_mask" }, [
-            _c(
-              "div",
-              { staticClass: "col-md-12 col-sm-12  form-group has-feedback" },
-              [
-                _c("input", {
-                  staticClass: "form-control has-feedback-left",
-                  attrs: {
-                    type: "text",
-                    id: "inputSuccess2",
-                    placeholder: "Page Title",
-                  },
-                }),
-                _vm._v(" "),
-                _c("span", {
-                  staticClass: "fa fa-align-left form-control-feedback left",
-                  attrs: { "aria-hidden": "true" },
-                }),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-12 col-sm-12  form-group has-feedback" },
-              [
-                _c("textarea", {
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "",
-                    id: "",
-                    cols: "30",
-                    rows: "5",
-                    placeholder: "Short Description",
-                  },
-                }),
-              ]
-            ),
+        _vm._m(3),
+      ]),
+      _vm._v(" "),
+      _c("delete-section", { ref: "deleteSection" }),
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { staticClass: "btn btn-link" }, [_vm._v("Save")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { staticClass: "collapse-link" }, [
+        _c("i", { staticClass: "fa fa-chevron-up" }),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "dropdown" }, [
+      _c(
+        "a",
+        {
+          staticClass: "dropdown-toggle",
+          attrs: {
+            href: "#",
+            "data-toggle": "dropdown",
+            role: "button",
+            "aria-expanded": "false",
+          },
+        },
+        [_c("i", { staticClass: "fa fa-wrench" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          attrs: { "aria-labelledby": "dropdownMenuButton" },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Settings 1"),
           ]),
-        ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Settings 2"),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "x_content" }, [
+      _c("form", { staticClass: "form-label-left input_mask" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-12 col-sm-12  form-group has-feedback" },
+          [
+            _c("input", {
+              staticClass: "form-control has-feedback-left",
+              attrs: {
+                type: "text",
+                id: "inputSuccess2",
+                placeholder: "Page Title",
+              },
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "fa fa-align-left form-control-feedback left",
+              attrs: { "aria-hidden": "true" },
+            }),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-12 col-sm-12  form-group has-feedback" },
+          [
+            _c("textarea", {
+              staticClass: "form-control",
+              attrs: {
+                name: "",
+                id: "",
+                cols: "30",
+                rows: "5",
+                placeholder: "Short Description",
+              },
+            }),
+          ]
+        ),
       ]),
     ])
   },
@@ -19752,113 +19859,144 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
+  return _c(
+    "div",
+    [
       _c("div", { staticClass: "x_panel" }, [
         _c("div", { staticClass: "x_title" }, [
           _c("h2", [_vm._v("Pdf")]),
           _vm._v(" "),
           _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
-            _c("li", [
-              _c("a", { staticClass: "btn btn-link" }, [_vm._v("Save")]),
-            ]),
-            _c("li", [
-              _c("a", { staticClass: "collapse-link" }, [
-                _c("i", { staticClass: "fa fa-chevron-up" }),
-              ]),
-            ]),
+            _vm._m(0),
+            _vm._m(1),
             _vm._v(" "),
-            _c("li", { staticClass: "dropdown" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("li", [
               _c(
                 "a",
                 {
-                  staticClass: "dropdown-toggle",
-                  attrs: {
-                    href: "#",
-                    "data-toggle": "dropdown",
-                    role: "button",
-                    "aria-expanded": "false",
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.$refs.deleteSection.openDialog(_vm.section.id)
+                    },
                   },
                 },
-                [_c("i", { staticClass: "fa fa-wrench" })]
+                [_c("i", { staticClass: "fa fa-close" })]
               ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "dropdown-menu",
-                  attrs: { "aria-labelledby": "dropdownMenuButton" },
-                },
-                [
-                  _c(
-                    "a",
-                    { staticClass: "dropdown-item", attrs: { href: "#" } },
-                    [_vm._v("Settings 1")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    { staticClass: "dropdown-item", attrs: { href: "#" } },
-                    [_vm._v("Settings 2")]
-                  ),
-                ]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", {}, [_c("i", { staticClass: "fa fa-refresh" })]),
             ]),
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "clearfix" }),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "x_content" }, [
-          _c("form", { staticClass: "form-label-left input_mask" }, [
-            _c(
-              "div",
-              { staticClass: "col-md-12 col-sm-12  form-group has-feedback" },
-              [
-                _c("input", {
-                  staticClass: "form-control has-feedback-left",
-                  attrs: {
-                    type: "text",
-                    id: "inputSuccess2",
-                    placeholder: "Page Title",
-                  },
-                }),
-                _vm._v(" "),
-                _c("span", {
-                  staticClass: "fa fa-align-left form-control-feedback left",
-                  attrs: { "aria-hidden": "true" },
-                }),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-12 col-sm-12  form-group has-feedback" },
-              [
-                _c("textarea", {
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "",
-                    id: "",
-                    cols: "30",
-                    rows: "5",
-                    placeholder: "Short Description",
-                  },
-                }),
-              ]
-            ),
+        _vm._m(3),
+      ]),
+      _vm._v(" "),
+      _c("delete-section", { ref: "deleteSection" }),
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { staticClass: "btn btn-link" }, [_vm._v("Save")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { staticClass: "collapse-link" }, [
+        _c("i", { staticClass: "fa fa-chevron-up" }),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "dropdown" }, [
+      _c(
+        "a",
+        {
+          staticClass: "dropdown-toggle",
+          attrs: {
+            href: "#",
+            "data-toggle": "dropdown",
+            role: "button",
+            "aria-expanded": "false",
+          },
+        },
+        [_c("i", { staticClass: "fa fa-wrench" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          attrs: { "aria-labelledby": "dropdownMenuButton" },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Settings 1"),
           ]),
-        ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Settings 2"),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "x_content" }, [
+      _c("form", { staticClass: "form-label-left input_mask" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-12 col-sm-12  form-group has-feedback" },
+          [
+            _c("input", {
+              staticClass: "form-control has-feedback-left",
+              attrs: {
+                type: "text",
+                id: "inputSuccess2",
+                placeholder: "Page Title",
+              },
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "fa fa-align-left form-control-feedback left",
+              attrs: { "aria-hidden": "true" },
+            }),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-12 col-sm-12  form-group has-feedback" },
+          [
+            _c("textarea", {
+              staticClass: "form-control",
+              attrs: {
+                name: "",
+                id: "",
+                cols: "30",
+                rows: "5",
+                placeholder: "Short Description",
+              },
+            }),
+          ]
+        ),
       ]),
     ])
   },

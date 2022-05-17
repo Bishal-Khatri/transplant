@@ -13,11 +13,6 @@ use Modules\ContentManagement\Enum\ContentType;
 
 class ThemeController extends Controller
 {
-
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
         $active_theme = Theme::where('is_active', 1)->first();
@@ -33,6 +28,7 @@ class ThemeController extends Controller
         }
 
         $index_file = 'contentmanagement::theme'.'.'.$active_theme->name.'.'.'index';
+
         return view($index_file, compact('content', 'active_theme'));
     }
 
@@ -85,7 +81,7 @@ class ThemeController extends Controller
 
     public function scanTheme()
     {
-        $path    = '../Modules/ContentManagement/Resources/views/theme';
+        $path = '../Modules/ContentManagement/Resources/views/theme';
         $available_themes = array_diff(scandir($path), array('.', '..'));
 
         // remove obsolete themes
@@ -118,26 +114,5 @@ class ThemeController extends Controller
 
         session()->flash('success', 'Success <br> Themes scanned successfully.');
         return redirect()->back();
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

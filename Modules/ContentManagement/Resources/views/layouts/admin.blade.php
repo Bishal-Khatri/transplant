@@ -10,6 +10,7 @@
 
     <title>Organ Transplant | </title>
     @include('layouts.gentelella.css')
+    <link href="{{ asset('asset/gentelella/vendors/switchery/dist/switchery.min.css') }}" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -36,6 +37,21 @@
     </div>
 </div>
 <script src="{{ mix('js/contentmanagement.js') }}"></script>
-@include('layouts.gentelella.script')
+@include('layouts.gentelella.script')r
+<script src="{{ asset('asset/gentelella/vendors/switchery/dist/switchery.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        if ($(".js-switch")[0]) {
+            var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+            elems.forEach(function (html) {
+                var switchery = new Switchery(html, {
+                    color: '#26B99A'
+                });
+                console.log(switchery)
+                alert()
+            });
+        }
+    });
+</script>
 </body>
 </html>

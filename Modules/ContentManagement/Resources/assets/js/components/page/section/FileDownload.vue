@@ -14,8 +14,7 @@
                             <a class="dropdown-item" href="#">Settings 2</a>
                         </div>
                     </li>
-                    <li><a class=""><i class="fa fa-refresh"></i></a>
-                    </li>
+                    <li><a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -32,12 +31,22 @@
                 </form>
             </div>
         </div>
+        <delete-section ref="deleteSection"></delete-section>
     </div>
 </template>
 
 <script>
+    import DeleteSection from "./DeleteSection";
+
     export default {
-        name: "FileDownload"
+        name: "FileDownload",
+        props: [
+            'page',
+            'section',
+        ],
+        components: {
+            DeleteSection,
+        },
     }
 </script>
 

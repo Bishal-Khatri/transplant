@@ -88,12 +88,19 @@ class PageController extends Controller
 
     public function addSection(Request $request)
     {
-//        $page = Page::with(['sections'])->whereId($request->page_id)->firstOrFail();
+        $request->validate([
+            'page_id' => 'required|integer',
+            'section_name' => 'required',
+            'section_type' => 'required',
+        ]);
 
         $section = new PageSection();
         $section->page_id = $request->page_id;
+        $section->title = 'Untitled';
         $section->order = 0;
-        $section->type = $request->type;
+        $section->section_type = $request->section_type;
+        $section->section_name = $request->section_name;
+        $section->visibility = 0;
         $section->save();
 
         $returnData = $this->prepareResponse(false, 'Success <br>Section Added Successfully.', [], []);
@@ -103,6 +110,9 @@ class PageController extends Controller
     public function updateSection(Request $request)
     {
 //        dd($request->all());
+        $request->validate([
+            'section_id' => 'required|integer',
+        ]);
         $section = PageSection::findOrFail($request->section_id);
 
         if ($request->hasFile('image')){

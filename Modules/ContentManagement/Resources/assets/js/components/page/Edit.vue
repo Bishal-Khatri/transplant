@@ -21,6 +21,9 @@
                             <div class="tab-pane fade show active" id="component" role="tabpanel" aria-labelledby="home-tab">
                                 <ul class="to_do">
                                     <li>
+                                        <p>Call To Action <a class="float-right" href="#" @click.prevent="addSection('call_to_action', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
                                         <p>Slider <a class="float-right" href="#" @click.prevent="addSection('slider')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
                                     </li>
                                     <li>
@@ -95,6 +98,8 @@
 
                 <div v-if="sections.length" v-for="(section, index) in sections" :key="index">
 
+                    <call-to-action>v-if="section.type === 'call_to_action'" :page="page" :section="section"></call-to-action>
+
                     <rich-text v-if="section.type === 'text'" :page="page" :section="section"></rich-text>
 
                     <slider v-if="section.type === 'slider'" :page="page" :section="section" :sliders="sliders"></slider>
@@ -127,9 +132,11 @@
     import Slider from "./section/Slider";
     import Pdf from "./section/Pdf";
     import ImageField from "./section/ImageField";
+    import CallToAction from "./section/CallToAction";
     export default {
         name: "Edit",
         components: {
+            CallToAction,
             RichText,
             Gallery,
             ImageField,
@@ -169,10 +176,11 @@
                 this.short_description = this.page_details.short_description;
                 this.category_id = this.page_details.category_id;
             },
-            async addSection(type) {
+            async addSection(section_name, section_type) {
                 const formData = {
                     page_id: this.page.id,
-                    type: type
+                    section_name: section_name,
+                    section_type: section_type
                 };
                 const response = await PageService.addSection(formData);
                 if (response.data.error === false) {

@@ -18,13 +18,11 @@ class CreatePageSectionsTable extends Migration
             $table->unsignedBigInteger('page_id');
             $table->text('title', 255)->nullable();
             $table->integer('order');
-            $table->string('type')->comment('slider,image,pdf,gallery,text,file_download');
-            $table->json('slider_id')->nullable();
-            $table->text('image_url')->nullable();
-            $table->text('pdf_url')->nullable();
-            $table->json('gallery_id')->nullable();
+            $table->string('section_type')->comment('component, widget');
+            $table->string('section_name')->comment('slider,image,pdf,gallery,text,file_download');
+            $table->json('background')->nullable()->comment('type & image_url');
+            $table->json('json_data')->nullable()->comment('eg: {"image_url": "http://localhost/image.jpg"}');
             $table->longText('text')->nullable();
-            $table->json('file_download_urls')->nullable();
             $table->boolean('visibility')->default(1);
             $table->timestamps();
         });

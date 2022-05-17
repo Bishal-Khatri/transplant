@@ -6,7 +6,8 @@ use Modules\ContentManagement\Http\Controllers\admin\PageController;
 use Modules\ContentManagement\Http\Controllers\admin\StorageController;
 use Modules\ContentManagement\Http\Controllers\ThemeController;
 
-Route::get('/', 'ThemeController@index')->name('cms.index');
+Route::get('/', [ThemeController::class, 'index'])->name('cms.index');
+Route::get('/register-hospital', [HomeController::class, 'registerHospital'])->name('register-hospital');
 
 Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
     Route::get('/', [HomeController::class, 'index'])->name('cms.admin');

@@ -324,6 +324,7 @@
     <i class="stack-interface stack-up-open-big"></i>
 </a>
 
+<script src="{{ mix('js/contentmanagement.js') }}"></script>
 @include('contentmanagement::theme.Stack._partials.scripts')
 </body>
 </html>

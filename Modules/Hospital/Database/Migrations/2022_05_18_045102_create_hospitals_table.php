@@ -24,7 +24,7 @@ class CreateHospitalsTable extends Migration
             $table->enum('hospital_type', ['government', 'private']);
             $table->string('application_letter')->nullable();
             $table->string('human_resource')->nullable();
-            $table->text('tools_list')->nullable();
+            $table->string('tools_list')->nullable();
             $table->string('administrative_document')->nullable();
             $table->string('sanchalan_swikriti')->nullable();
             $table->string('renewal_letter')->nullable();
@@ -33,7 +33,7 @@ class CreateHospitalsTable extends Migration
             $table->string('company_registration')->nullable();
             $table->enum('approve_status', ['unapproved', 'approved', 'rejected'])->default('unapproved');
             $table->timestamp('approved_date')->nullable();
-            $table->string('approved_by')->nullable();
+            $table->unsignedBigInteger('approved_by')->nullable();
             $table->text('reject_message')->nullable();
             $table->enum('verification_status', ['none', 'document_verified', 'physical_verified', 'verified'])->default('none');
             $table->unsignedBigInteger('active_license_id')->nullable();

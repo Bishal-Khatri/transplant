@@ -18,6 +18,7 @@ class CreateMunicipalitiesTable extends Migration
             $table->string('title');
             $table->unsignedBigInteger('district_id');
             $table->timestamps();
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
         });
     }
 

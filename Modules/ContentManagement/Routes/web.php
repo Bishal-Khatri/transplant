@@ -5,6 +5,7 @@ use Modules\ContentManagement\Http\Controllers\admin\MenuController;
 use Modules\ContentManagement\Http\Controllers\admin\PageController;
 use Modules\ContentManagement\Http\Controllers\admin\StorageController;
 use Modules\ContentManagement\Http\Controllers\ThemeController;
+use Modules\ContentManagement\Http\Controllers\PublicController;
 
 Route::get('/', [ThemeController::class, 'index'])->name('cms.index');
 Route::get('/register-hospital', [HomeController::class, 'registerHospital'])->name('register-hospital');
@@ -60,4 +61,10 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
         Route::post('/page/addSection', [PageController::class, 'addSection']);
         Route::post('/page/updateSection', [PageController::class, 'updateSection']);
     });
+});
+
+Route::group(['prefix' => 'web-api/public'],function() {
+    Route::get('/province', [PublicController::class, 'province']);
+    Route::get('/district', [PublicController::class, 'district']);
+    Route::get('/municipality', [PublicController::class, 'municipality']);
 });

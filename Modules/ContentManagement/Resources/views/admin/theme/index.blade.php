@@ -63,7 +63,7 @@
 
                                 @if(isset($active_theme) AND !blank($active_theme->logo))
                                     <div class="col-md-12 ">
-                                        <img src="{{ asset('storage/'.$active_theme->logo) }}" alt="logo" class="rounded image-xl">
+                                        <img src="{{ asset('storage/'.$active_theme->logo) }}" alt="logo" class="rounded" width="350">
                                         <p>Current Logo</p>
                                     </div>
                                 @endif

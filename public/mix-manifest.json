@@ -6,5 +6,6 @@
     "/js/cart.js": "/js/cart.js?id=73ba5bdd7ccff995e19e",
     "/js/user.js": "/js/user.js",
     "/js/contentmanagement.js": "/js/contentmanagement.js",
-    "/js/administrator.js": "/js/administrator.js"
+    "/js/administrator.js": "/js/administrator.js",
+    "/js/hospital.js": "/js/hospital.js"
 }

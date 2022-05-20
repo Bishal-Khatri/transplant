@@ -4,7 +4,7 @@ use Modules\Administrator\Http\Controllers\AddressController;
 use Modules\Administrator\Http\Controllers\AdministratorController;
 use Modules\Administrator\Http\Controllers\DataController;
 
-Route::prefix('admin')->middleware('auth')->group(function() {
+Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() {
     Route::get('/', [AdministratorController::class, 'index'])->name('admin.index');
 
     Route::get('/religion', [DataController::class, 'religionIndex'])->name('admin.religion');

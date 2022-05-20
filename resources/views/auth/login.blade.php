@@ -35,8 +35,8 @@
                         <br />
 
                         <div>
-                            <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                            <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            <h2><img src="{{ $active_theme->logo ? 'storage/'.$active_theme->logo : '' }}" alt="logo" width="350"></h2>
+                            <p>{!! $active_theme->copyright ?? '©2022 All Rights Reserved. iions technology Pvt. Ltd.' !!}</p>
                         </div>
                     </div>
                 </form>

@@ -7,7 +7,6 @@
         <title>Module Administrator</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/administrator.css') }}"> --}}
         @include('layouts.gentelella.css')
     </head>
     <body class="nav-md">

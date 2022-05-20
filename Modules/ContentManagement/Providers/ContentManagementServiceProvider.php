@@ -4,6 +4,7 @@ namespace Modules\ContentManagement\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\ContentManagement\Entities\Theme;
 
 class ContentManagementServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,16 @@ class ContentManagementServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        view()->composer('*', function ($view) {
+            $active_theme = Theme::where('is_active', 1)->first();
+
+            if (!$active_theme OR blank($active_theme)){
+                return abort(404, 'Theme not activated');
+            }
+
+            $view->with(compact('active_theme'));
+        });
     }
 
     /**

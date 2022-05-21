@@ -16,4 +16,9 @@ class License extends Model
     {
         return \Modules\Hospital\Database\factories\LicenseFactory::new();
     }
+
+    public function licenseable()
+    {
+        return $this->morphTo();
+    }
 }

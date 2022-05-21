@@ -15,4 +15,15 @@ class Hospital extends Model
     {
         return \Modules\ContentManagement\Database\factories\HospitalFactory::new();
     }
+
+    public function license()
+    {
+        return $this->morphMany(License::class, 'licenseable');
+    }
+
+    public function getLicense()
+    {
+        $licenses = $this->license()->get();
+        return $licenses->last();
+    }
 }

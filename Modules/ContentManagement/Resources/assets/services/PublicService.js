@@ -10,7 +10,4 @@ export default {
     getMunicipality(district_id){
         return Api().get('/web-api/public/municipality'+'?district_id='+district_id);
     },
-    getPalika(district_id){
-        return Api().get('/web-api/public/palika'+'?district_id='+district_id);
-    }
 }

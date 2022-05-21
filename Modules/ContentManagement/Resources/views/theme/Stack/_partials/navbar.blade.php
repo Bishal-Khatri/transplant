@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-3 col-md-2">
                     <a href="/">
-{{--                        <img src="{{ $active_theme->logo ? 'storage/'.$active_theme->logo : '' }}" alt="logo" width="400">--}}
+                        {{--                        <img src="{{ $active_theme->logo ? 'storage/'.$active_theme->logo : '' }}" alt="logo" width="400">--}}
                         <img class="logo logo-dark" alt="logo" src="{{ $active_theme->logo ? 'storage/'.$active_theme->logo : '' }}" />
                         <img class="logo logo-light" alt="logo" src="{{ $active_theme->logo ? 'storage/'.$active_theme->logo : '' }}" />
                     </a>
@@ -94,9 +94,11 @@
                     </div>
                     <!--end module-->
                     <div class="bar__module">
-                        <a class="btn btn--sm type--uppercase btn-outline-danger" href="#">
-                            <span class="btn__text">Register Hospital</span>
-                        </a>
+                        @if(Route::has('register-hospital'))
+                            <a class="btn btn--sm type--uppercase btn-outline-danger" href="{{ route('register-hospital') }}">
+                                <span class="btn__text">Register Hospital</span>
+                            </a>
+                        @endif
                     </div>
                     <!--end module-->
                 </div>

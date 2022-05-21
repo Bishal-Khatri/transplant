@@ -20,8 +20,8 @@ class CreateHospitalsTable extends Migration
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('municipality_id');
             $table->string('palika_name');
-            $table->enum('transplant_type', ['kidney', 'liver']);
-            $table->enum('hospital_type', ['government', 'private']);
+            $table->string('transplant_type')->default('none');
+            $table->integer('hospital_type')->default(0);
             $table->string('application_letter')->nullable();
             $table->string('human_resource')->nullable();
             $table->string('tools_list')->nullable();
@@ -31,11 +31,11 @@ class CreateHospitalsTable extends Migration
             $table->string('pan')->nullable();
             $table->string('tax_clearance')->nullable();
             $table->string('company_registration')->nullable();
-            $table->enum('approve_status', ['unapproved', 'approved', 'rejected'])->default('unapproved');
             $table->timestamp('approved_date')->nullable();
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->text('reject_message')->nullable();
-            $table->enum('verification_status', ['none', 'document_verified', 'physical_verified', 'verified'])->default('none');
+            $table->string('approve_status')->default('unapproved');
+            $table->integer('verification_status')->default(0);
             $table->unsignedBigInteger('active_license_id')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();

@@ -8,7 +8,8 @@ use Modules\ContentManagement\Http\Controllers\ThemeController;
 use Modules\ContentManagement\Http\Controllers\PublicController;
 
 Route::get('/', [ThemeController::class, 'index'])->name('cms.index');
-Route::get('/register-hospital', [HomeController::class, 'registerHospital'])->name('register-hospital');
+Route::get('/register-hospital', [\Modules\Hospital\Http\Controllers\HospitalController::class, 'getRegisterHospital'])->name('register-hospital');
+Route::post('/register-hospital', [\Modules\Hospital\Http\Controllers\HospitalController::class, 'registerHospital']);
 
 Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
     Route::get('/', [HomeController::class, 'index'])->name('cms.admin');

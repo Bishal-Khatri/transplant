@@ -1,8 +1,11 @@
 @extends('contentmanagement::theme.Stack.layouts.master')
 
 @section('content')
-    <section class="text-center height-50">
-        <div class="container pos-vertical-center">
+    <section class="text-center imagebg space--lg" data-overlay="3">
+        <div class="background-image-holder">
+            <img alt="background" src="/themes/stack/img/landing-19.jpg" />
+        </div>
+        <div class="container">
             <div class="row">
                 <div class="col-md-8 col-lg-6">
                     <h1>Hospital Registration Form</h1>

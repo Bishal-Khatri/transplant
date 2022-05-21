@@ -2,6 +2,7 @@
 
 namespace Modules\ContentManagement\Http\Controllers;
 
+use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,20 +13,24 @@ use Modules\Administrator\Entities\Province;
 
 class PublicController extends Controller
 {
-    public function province(){
+    use SetResponse;
+
+    public function province()
+    {
         $provinces = Province::all();
-        return response()->json($provinces);
+
+        return response()->json($this->prepareResponse(false, 'success', compact('provinces'), []));
     }
-    public function district(Request $request){
+    public function district(Request $request)
+    {
         $districts = District::where('province_id',$request->province_id)->get();
-        return response()->json($districts);
+
+        return response()->json($this->prepareResponse(false, 'success', compact('districts'), []));
     }
-    public function municipality(Request $request){
+    public function municipality(Request $request)
+    {
         $municipalities = Municipality::where('district_id',$request->district_id)->get();
-        return response()->json($municipalities);
-    }
-    public function palika(Request $request){
-        $palikas = Palika::where('district_id',$request->district_id)->get();
-        return response()->json($palikas);
+
+        return response()->json($this->prepareResponse(false, 'success', compact('municipalities'), []));
     }
 }

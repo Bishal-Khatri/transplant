@@ -12,9 +12,4 @@ class HomeController extends Controller
     {
         return view('contentmanagement::admin.dashboard');
     }
-
-    public function registerHospital()
-    {
-        return view('contentmanagement::theme.Stack.pages.register-hospital');
-    }
 }

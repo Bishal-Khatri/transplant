@@ -86,7 +86,7 @@
                                         <section class="imageblock feature-large bg--white border--round ">
                                             <div class="imageblock__content col-lg-5 col-md-3 pos-left">
                                                 <div class="background-image-holder">
-                                                    <img alt="image" src="img/cowork-11.jpg" />
+                                                    <img alt="image" src="/themes/stack/img/cowork-11.jpg" />
                                                 </div>
                                             </div>
                                             <div class="container">
@@ -324,7 +324,7 @@
     <i class="stack-interface stack-up-open-big"></i>
 </a>
 
-<script src="{{ mix('js/contentmanagement.js') }}"></script>
 @include('contentmanagement::theme.Stack._partials.scripts')
+<script src="{{ mix('js/contentmanagement.js') }}"></script>
 </body>
 </html>

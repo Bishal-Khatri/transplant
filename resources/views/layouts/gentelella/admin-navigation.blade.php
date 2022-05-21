@@ -41,6 +41,11 @@
                             <li><a href="{{ route('admin.province') }}">Province</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.hospital.list') }}">
+                            <i class="fa fa-hospital-o"></i> Hospital List
+                        </a>
+                    </li>
                 </ul>
 
                 <h3 class="mt-4">Content Management</h3>

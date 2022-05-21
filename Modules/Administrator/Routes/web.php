@@ -17,6 +17,9 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
     Route::get('/district', [AddressController::class, 'districtIndex'])->name('admin.district');
     Route::get('/local-level', [AddressController::class, 'localLevelIndex'])->name('admin.local-level');
 
+    // hospital waiting list
+    Route::get('/hospital-list', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'listHospitals'])->name('admin.hospital.list');
+
     Route::group(['prefix' => 'web-api'],function() {
 
         // RELIGIONS

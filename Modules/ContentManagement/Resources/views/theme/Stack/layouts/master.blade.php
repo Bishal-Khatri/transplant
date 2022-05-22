@@ -9,12 +9,12 @@
 </head>
 <body class=" ">
 <a id="start"></a>
-<section class="bar bar-3 bar--sm bg--secondary" style="background-color: #1e5ea4; color: #fff;">
+<section class="bar bar-3 bar--xs bg--blue">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
                 <div class="bar__module">
-                    <span class="type--fade">Nepal Medical Council (NMC)</span>
+                    <span class="type--fine-print color--white">Nepal Medical Council (NMC)</span>
                 </div>
             </div>
             <div class="col-lg-6 text-right text-left-xs text-left-sm">
@@ -86,7 +86,7 @@
                                         <section class="imageblock feature-large bg--white border--round ">
                                             <div class="imageblock__content col-lg-5 col-md-3 pos-left">
                                                 <div class="background-image-holder">
-                                                    <img alt="image" src="img/cowork-11.jpg" />
+                                                    <img alt="image" src="/themes/stack/img/cowork-11.jpg" />
                                                 </div>
                                             </div>
                                             <div class="container">
@@ -324,7 +324,7 @@
     <i class="stack-interface stack-up-open-big"></i>
 </a>
 
-<script src="{{ mix('js/contentmanagement.js') }}"></script>
 @include('contentmanagement::theme.Stack._partials.scripts')
+<script src="{{ mix('js/contentmanagement.js') }}"></script>
 </body>
 </html>

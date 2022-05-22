@@ -14,5 +14,8 @@
         "laravel-mix": "^5.0.1",
         "laravel-mix-merge-manifest": "^0.1.2",
         "vue": "^2.6.12"
+    },
+    "dependencies": {
+        "vue-wizard-steps": "^1.0.7"
     }
 }

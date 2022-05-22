@@ -2,78 +2,116 @@
 
 namespace Modules\Hospital\Http\Controllers;
 
+use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Hospital\Entities\Hospital;
+use Modules\Hospital\Enum\HospitalApproveStatus;
+use Modules\Hospital\Enum\HospitalVerificationStatus;
+
+use function PHPUnit\Framework\throwException;
 
 class HospitalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    use SetResponse;
+
+    public function patients()
+    {
+        return view('hospital::patient.index');
+    }
+
+    public function profile()
+    {
+        return view('hospital::profile.index');
+    }
+
     public function index()
     {
         return view('hospital::index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function getRegisterHospital()
     {
-        return view('hospital::create');
+        return view('contentmanagement::theme.Stack.pages.register-hospital');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function registerHospital(Request $request)
     {
-        //
-    }
+        if(!$request->agree){
+            throw \Illuminate\Validation\ValidationException::withMessages(['agree' => 'You must agree to the terms and conditions.']);
+        }
+        $request->validate([
+            'hospital_name' => 'required|string|max:255',
+            'province' => 'required|exists:provinces,id',
+            'district' => 'required|exists:districts,id',
+            'municipality' => 'required|exists:municipalities,id',
+            'palika' => 'required:string|max:255',
+            'transplant_type' => 'required',
+            'hospital_type' => 'required',
+            'application_letter' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'human_resource' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'tools_list' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'administrative_document' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'sanchalan_swikriti' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'renewal_letter' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'pan' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'tax_clearance' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'agree'=>'required|boolean',
+        ]);
+        
+        
+        $hospital = new Hospital();
+        $hospital->hospital_name = $request->hospital_name;
+        $hospital->province_id = $request->province;
+        $hospital->district_id = $request->district;
+        $hospital->municipality_id = $request->municipality;
+        $hospital->palika_name = $request->palika;
+        $hospital->transplant_type = $request->transplant_type;
+        $hospital->hospital_type = $request->hospital_type;
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('hospital::show');
-    }
+        if ($request->hasFile('application_letter')){
+            $application_letter_path = $request->file('application_letter')->store('hospital_files', 'public');
+            $hospital->application_letter = $application_letter_path;
+        }
+        if ($request->hasFile('human_resource')){
+            $human_resource_path = $request->file('human_resource')->store('hospital_files', 'public');
+            $hospital->human_resource = $human_resource_path;
+        }
+        if ($request->hasFile('tools_list')){
+            $tools_list_path = $request->file('tools_list')->store('hospital_files', 'public');
+            $hospital->tools_list = $tools_list_path;
+        }
+        if ($request->hasFile('administrative_document')){
+            $administrative_document_path = $request->file('administrative_document')->store('hospital_files', 'public');
+            $hospital->administrative_document = $administrative_document_path;
+        }
+        if ($request->hasFile('sanchalan_swikriti')){
+            $sanchalan_swikriti_path = $request->file('sanchalan_swikriti')->store('hospital_files', 'public');
+            $hospital->sanchalan_swikriti = $sanchalan_swikriti_path;
+        }
+        if ($request->hasFile('renewal_letter')){
+            $renewal_letter_path = $request->file('renewal_letter')->store('hospital_files', 'public');
+            $hospital->renewal_letter = $renewal_letter_path;
+        }
+        if ($request->hasFile('pan')){
+            $pan_path = $request->file('pan')->store('hospital_files', 'public');
+            $hospital->pan = $pan_path;
+        }
+        if ($request->hasFile('tax_clearance')){
+            $tax_clearance_path = $request->file('tax_clearance')->store('hospital_files', 'public');
+            $hospital->tax_clearance = $tax_clearance_path;
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('hospital::edit');
-    }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $hospital->approve_status = HospitalApproveStatus::UNAPPROVED;
+        $hospital->verification_status = HospitalVerificationStatus::NONE;
+        $hospital->status = 0;
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        $hospital->save();
+
+        //save data
+        $returnData = $this->prepareResponse(false, 'success', [], []);
+        return response()->json($returnData);
     }
 }

@@ -4,7 +4,7 @@ use Modules\Administrator\Http\Controllers\AddressController;
 use Modules\Administrator\Http\Controllers\AdministratorController;
 use Modules\Administrator\Http\Controllers\DataController;
 
-Route::prefix('admin')->middleware('auth')->group(function() {
+Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() {
     Route::get('/', [AdministratorController::class, 'index'])->name('admin.index');
 
     Route::get('/religion', [DataController::class, 'religionIndex'])->name('admin.religion');
@@ -16,6 +16,9 @@ Route::prefix('admin')->middleware('auth')->group(function() {
     Route::get('/province', [AddressController::class, 'provinceIndex'])->name('admin.province');
     Route::get('/district', [AddressController::class, 'districtIndex'])->name('admin.district');
     Route::get('/local-level', [AddressController::class, 'localLevelIndex'])->name('admin.local-level');
+
+    // hospital waiting list
+    Route::get('/hospital-list', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'listHospitals'])->name('admin.hospital.list');
 
     Route::group(['prefix' => 'web-api'],function() {
 

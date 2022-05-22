@@ -2776,6 +2776,9 @@ a {
 .bg--secondary {
   background: #fafafa;
 }
+.bg--blue {
+    background: #1e5ea4;
+}
 .bg--primary {
   background: #ff4f4f;
 }

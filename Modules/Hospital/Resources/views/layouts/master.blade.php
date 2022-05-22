@@ -33,7 +33,7 @@
         <!-- /footer content -->
     </div>
 </div>
-{{-- <script src="{{ mix('js/hospital.js') }}"></script> --}}
+ <script src="{{ mix('js/hospital.js') }}"></script>
 @include('layouts.gentelella.script')
 </body>
 </html>

@@ -1,16 +1,14 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Modules\Hospital\Http\Controllers\HospitalController;
 
-Route::prefix('hospital')->group(function() {
-    Route::get('/', 'HospitalController@index');
+//Route::prefix('hospital')->middleware(['auth', 'hospital'])->group(function() {
+Route::group(['prefix' => 'hospital', 'middleware' => ['auth', 'hospital'], 'as' => 'hospital.'],function() {
+    Route::get('/', [HospitalController::class, 'index'])->name('index');
+
+    Route::group(['middleware' => 'license'], function (){
+        Route::get('/patient', [HospitalController::class, 'patients'])->name('patients');
+    });
+
+    Route::get('/profile', [HospitalController::class, 'profile'])->name('profile');
 });

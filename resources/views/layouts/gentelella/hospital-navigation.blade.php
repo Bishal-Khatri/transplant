@@ -24,41 +24,18 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-                <h3>Content Management</h3>
+                <h3>Main Menu</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a href="{{ route('cms.page.index') }}">
-                            <i class="fa fa-folder-o"></i> Pages
+                        <a href="{{ route('hospital.patients') }}">
+                            <i class="fa fa-folder-o"></i> Patient Waiting List
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('cms.category.index') }}">
-                            <i class="fa fa-folder-open"></i> Categories
+                        <a href="{{ route('hospital.profile') }}">
+                            <i class="fa fa-folder-open"></i> Profile
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('cms.theme.index') }}">
-                            <i class="fa fa-laptop"></i> Theme Setting
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('cms.menu.index') }}">
-                            <i class="fa fa-file-image-o"></i> Menu
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('cms.storage.gallery.index') }}">
-                            <i class="fa fa-dropbox"></i> Storage
-                        </a>
-                    </li>
-                    {{--<li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>--}}
-                    {{--<ul class="nav child_menu">--}}
-                    {{--<li><a href="index.html">Dashboard</a></li>--}}
-                    {{--<li><a href="index2.html">Dashboard2</a></li>--}}
-                    {{--<li><a href="index3.html">Dashboard3</a></li>--}}
-                    {{--</ul>--}}
-                    {{--</li>--}}
-
                 </ul>
             </div>
         </div>
@@ -75,9 +52,6 @@
             <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
             </a>
-            {{--<a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">--}}
-            {{--<span class="glyphicon glyphicon-off" aria-hidden="true"></span>--}}
-            {{--</a>--}}
             <a data-toggle="tooltip" href="{{ route('logout') }}" data-placement="top" title="Logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>

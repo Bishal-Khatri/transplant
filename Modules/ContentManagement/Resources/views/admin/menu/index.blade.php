@@ -193,177 +193,181 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2><i class="fa fa-link"></i> Links</h2>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
+                    @if(isset($selected_menu) AND !blank($selected_menu))
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-link"></i> Links</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
 
-                            <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#link" role="tab" aria-controls="link" aria-selected="true">External Link</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#page" role="tab" aria-controls="page" aria-selected="false">Pages</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="false">Categories</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="link" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="row">
-                                        <div class="col-md-12 p-4">
-                                            <form action="{{ route('cms.menu.save') }}" method="post" enctype="multipart/form-data" data-parsley-validate>
-                                                @csrf
-                                                <div class="form-group row">
-                                                    <label for="display_name">Display Name <span class="text-danger">*</span></label>
-                                                    <input type="text" id="display_name" class="form-control" name="display_name" required value="{{ old('display_name') }}"/>
-                                                    @error('display_name')
-                                                    <span class="form-text small text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="link">Link <span class="text-danger">*</span></label>
-                                                    <input type="text" id="link" class="form-control" name="link" placeholder="https://example.com" required value="{{ old('link') }}"/>
-                                                    @error('link')
-                                                    <span class="form-text text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group row">
-                                                    <button class="btn btn-sm btn-primary">Add</button>
-                                                </div>
-                                            </form>
+                                <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#link" role="tab" aria-controls="link" aria-selected="true">External Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#page" role="tab" aria-controls="page" aria-selected="false">Pages</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="false">Categories</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="link" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-12 p-4">
+                                                <form action="{{ route('cms.menu.save') }}" method="post" enctype="multipart/form-data" data-parsley-validate>
+                                                    @csrf
+                                                    <div class="form-group row">
+                                                        <label for="display_name">Display Name <span class="text-danger">*</span></label>
+                                                        <input type="text" id="display_name" class="form-control" name="display_name" required value="{{ old('display_name') }}"/>
+                                                        @error('display_name')
+                                                        <span class="form-text small text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="link">Link <span class="text-danger">*</span></label>
+                                                        <input type="text" id="link" class="form-control" name="link" placeholder="https://example.com" required value="{{ old('link') }}"/>
+                                                        @error('link')
+                                                        <span class="form-text text-danger">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <button class="btn btn-sm btn-primary">Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="page" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="list-group" style="max-height: 370px;overflow-y: scroll">
-                                                @if(isset($pages) AND !blank($pages))
-                                                    @foreach($pages as $page)
+                                    <div class="tab-pane fade" id="page" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="list-group" style="max-height: 370px;overflow-y: scroll">
+                                                    @if(isset($pages) AND !blank($pages))
+                                                        @foreach($pages as $page)
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                {{Illuminate\Support\Str::limit($page['title'], 25, $end='...')}}
+                                                                <form action="{{ route('cms.menu.addPageToMenu') }}" method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="menu_id" value="{{ $selected_menu->id }}">
+                                                                    <input type="hidden" name="page_id" value="{{ $page['id'] }}">
+                                                                    <button type="submit" class="btn btn-xs btn-default mt-1">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        @endforeach
+                                                    @else
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            {{Illuminate\Support\Str::limit($page['title'], 25, $end='...')}}
-                                                            <form action="{{ route('cms.menu.addPageToMenu') }}" method="post">
-                                                                @csrf
-                                                                <input type="hidden" name="menu_id" value="{{ $selected_menu->id }}">
-                                                                <input type="hidden" name="page_id" value="{{ $page['id'] }}">
-                                                                <button type="submit" class="btn btn-xs btn-default mt-1">
-                                                                    <i class="fa fa-plus"></i>
-                                                                </button>
-                                                            </form>
+                                                            No categories found
                                                         </li>
-                                                    @endforeach
-                                                @else
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        No categories found
-                                                    </li>
-                                                @endif
-                                            </ul>
+                                                    @endif
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="contact-tab">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="list-group" style="max-height: 370px;overflow-y: scroll">
-                                                @if($categories->count())
-                                                    @foreach($categories as $category)
+                                    <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="contact-tab">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="list-group" style="max-height: 370px;overflow-y: scroll">
+                                                    @if($categories->count())
+                                                        @foreach($categories as $category)
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                {{Illuminate\Support\Str::limit($category['name'], 25, $end='...')}}
+                                                                <form action="{{ route('cms.menu.addCategoryToMenu') }}" method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" name="menu_id" value="{{ $selected_menu->id }}">
+                                                                    <input type="hidden" name="category_id" value="{{ $category['id'] }}">
+                                                                    <button type="submit" class="btn btn-xs btn-default mt-1">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        @endforeach
+                                                    @else
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            {{Illuminate\Support\Str::limit($category['name'], 25, $end='...')}}
-                                                            <form action="{{ route('cms.menu.addCategoryToMenu') }}" method="post">
-                                                                @csrf
-                                                                <input type="hidden" name="menu_id" value="{{ $selected_menu->id }}">
-                                                                <input type="hidden" name="category_id" value="{{ $category['id'] }}">
-                                                                <button type="submit" class="btn btn-xs btn-default mt-1">
-                                                                    <i class="fa fa-plus"></i>
-                                                                </button>
-                                                            </form>
+                                                            No categories found
                                                         </li>
-                                                    @endforeach
-                                                @else
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        No categories found
-                                                    </li>
-                                                @endif
-                                            </ul>
+                                                    @endif
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <div class="col-md-6 col-sm-6">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Menu Structure: <code class="ml-3">{{ $selected_menu->title ?? 'Not-Available' }}</code></h2>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    @if(isset($menu_items) AND !blank($menu_items))
-                                        <div class="dd" id="nestable2">
-                                            <ol class="dd-list">
-                                                @foreach($menu_items as $value)
-                                                    <li class="dd-item" data-id="{{ $value->id }}">
-                                                        <div class="dd-handle"> <span class="drag-indicator"></span>
-                                                            <div class="drag-title float-left">
-                                                                {{ $value->display_name }}
+                    @if(isset($selected_menu) AND !blank($selected_menu))
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Menu Structure: <code class="ml-3">{{ $selected_menu->title ?? 'Not-Available' }}</code></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @if(isset($menu_items) AND !blank($menu_items))
+                                            <div class="dd" id="nestable2">
+                                                <ol class="dd-list">
+                                                    @foreach($menu_items as $value)
+                                                        <li class="dd-item" data-id="{{ $value->id }}">
+                                                            <div class="dd-handle"> <span class="drag-indicator"></span>
+                                                                <div class="drag-title float-left">
+                                                                    {{ $value->display_name }}
+                                                                </div>
+                                                                <div class="dd-nodrag btn-group float-right">
+                                                                    @include('contentmanagement::admin.menu.action-button', ['data' => $value, 'level' => 1])
+                                                                </div>
                                                             </div>
-                                                            <div class="dd-nodrag btn-group float-right">
-                                                                @include('contentmanagement::admin.menu.action-button', ['data' => $value, 'level' => 1])
-                                                            </div>
-                                                        </div>
-                                                        @if ($value->children->count())
-                                                            <ol class="dd-list">
-                                                                @foreach($value->children as $child)
-                                                                    <li class="dd-item" data-id="{{ $child->id }}">
-                                                                        <div class="dd-handle"> <span class="drag-indicator"></span>
-                                                                            <div class="drag-title float-left">
-                                                                                {{ $child->display_name }}
+                                                            @if ($value->children->count())
+                                                                <ol class="dd-list">
+                                                                    @foreach($value->children as $child)
+                                                                        <li class="dd-item" data-id="{{ $child->id }}">
+                                                                            <div class="dd-handle"> <span class="drag-indicator"></span>
+                                                                                <div class="drag-title float-left">
+                                                                                    {{ $child->display_name }}
+                                                                                </div>
+                                                                                <div class="dd-nodrag btn-group float-right">
+                                                                                    @include('contentmanagement::admin.menu.action-button', ['data' => $child, 'level' => 2])
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="dd-nodrag btn-group float-right">
-                                                                                @include('contentmanagement::admin.menu.action-button', ['data' => $child, 'level' => 2])
-                                                                            </div>
-                                                                        </div>
-                                                                        @if ($child->children->count())
-                                                                            <ol class="dd-list">
-                                                                                @foreach($child->children as $subchild)
-                                                                                    <li class="dd-item" data-id="{{ $subchild->id }}">
-                                                                                        <div class="dd-handle"> <span class="drag-indicator"></span>
-                                                                                            <div class="drag-title float-left">
-                                                                                                {{ $subchild->display_name }}
+                                                                            @if ($child->children->count())
+                                                                                <ol class="dd-list">
+                                                                                    @foreach($child->children as $subchild)
+                                                                                        <li class="dd-item" data-id="{{ $subchild->id }}">
+                                                                                            <div class="dd-handle"> <span class="drag-indicator"></span>
+                                                                                                <div class="drag-title float-left">
+                                                                                                    {{ $subchild->display_name }}
+                                                                                                </div>
+                                                                                                <div class="dd-nodrag btn-group float-right">
+                                                                                                    @include('contentmanagement::admin.menu.action-button', ['data' => $subchild, 'level' => 3])
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <div class="dd-nodrag btn-group float-right">
-                                                                                                @include('contentmanagement::admin.menu.action-button', ['data' => $subchild, 'level' => 3])
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                @endforeach
-                                                                            </ol>
-                                                                        @endif
-                                                                    </li>
-                                                                @endforeach
-                                                            </ol>
-                                                        @endif
-                                                    </li>
-                                                @endforeach
-                                            </ol>
-                                        </div>
-                                    @else
-                                        <p>No items available.</p>
-                                    @endif
+                                                                                        </li>
+                                                                                    @endforeach
+                                                                                </ol>
+                                                                            @endif
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ol>
+                                                            @endif
+                                                        </li>
+                                                    @endforeach
+                                                </ol>
+                                            </div>
+                                        @else
+                                            <p>No items available.</p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
+                            <div class="card-footer p-0">
+                                <button class="btn btn-primary btn-sm float-right saveMenuOrder">Save Order</button>
+                            </div>
                         </div>
-                        <div class="card-footer p-0">
-                            <button class="btn btn-primary btn-sm float-right saveMenuOrder">Save Order</button>
-                        </div>
-                    </div>
+                    @endif
                 </div>
 
             </div>
@@ -526,20 +530,20 @@
         });
 
         {{--$('.add_page').on('click', function(){--}}
-            {{--let post_id = $(this).data("post_id");--}}
-            {{--$.ajax({--}}
-                {{--type: "POST",--}}
-                {{--url: "{{ route('cms.menu.addPageToMenu') }}",--}}
-                {{--headers: {--}}
-                    {{--'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')--}}
-                {{--},--}}
-                {{--data: {post_id:post_id, menu_id: selected_menu.id},--}}
-                {{--success: function (response) {--}}
-                    {{--if (response === 'success'){--}}
-                        {{--window.location.reload();--}}
-                    {{--}--}}
-                {{--}--}}
-            {{--});--}}
+        {{--let post_id = $(this).data("post_id");--}}
+        {{--$.ajax({--}}
+        {{--type: "POST",--}}
+        {{--url: "{{ route('cms.menu.addPageToMenu') }}",--}}
+        {{--headers: {--}}
+        {{--'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')--}}
+        {{--},--}}
+        {{--data: {post_id:post_id, menu_id: selected_menu.id},--}}
+        {{--success: function (response) {--}}
+        {{--if (response === 'success'){--}}
+        {{--window.location.reload();--}}
+        {{--}--}}
+        {{--}--}}
+        {{--});--}}
         {{--});--}}
 
         $(".modal").on("hidden.bs.modal", function () {

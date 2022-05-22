@@ -17675,6 +17675,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17698,6 +17707,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       hospital_type: '',
       transplant_type: '',
       application_letter: '',
+      human_resource: '',
+      tools_list: '',
+      administrative_document: '',
+      sanchalan_swikriti: '',
+      renewal_letter: '',
+      pan: '',
+      tax_clearance: '',
+      agree: false,
       provinces: {},
       districts: {},
       municipalities: {},
@@ -17786,6 +17803,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (modal === 'application_letter') {
         this.application_letter = event.target.files[0];
       }
+
+      if (modal === 'human_resource') {
+        this.human_resource = event.target.files[0];
+      }
+
+      if (modal === 'tools_list') {
+        this.tools_list = event.target.files[0];
+      }
+
+      if (modal === 'administrative_document') {
+        this.administrative_document = event.target.files[0];
+      }
+
+      if (modal === 'sanchalan_swikriti') {
+        this.sanchalan_swikriti = event.target.files[0];
+      }
+
+      if (modal === 'renewal_letter') {
+        this.renewal_letter = event.target.files[0];
+      }
+
+      if (modal === 'pan') {
+        this.pan = event.target.files[0];
+      }
+
+      if (modal === 'tax_clearance') {
+        this.tax_clearance = event.target.files[0];
+      }
     },
     submit: function submit() {
       var _this4 = this;
@@ -17806,15 +17851,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this4.palika ? formData.append("palika", _this4.palika) : '';
                 formData.append("hospital_type", _this4.hospital_type);
                 formData.append("transplant_type", _this4.transplant_type);
+                _this4.application_letter ? formData.append("application_letter", _this4.application_letter) : '';
+                _this4.human_resource ? formData.append("human_resource", _this4.human_resource) : '';
+                _this4.tools_list ? formData.append("tools_list", _this4.tools_list) : '';
+                _this4.administrative_document ? formData.append("administrative_document", _this4.administrative_document) : '';
+                _this4.sanchalan_swikriti ? formData.append("sanchalan_swikriti", _this4.sanchalan_swikriti) : '';
+                _this4.renewal_letter ? formData.append("renewal_letter", _this4.renewal_letter) : '';
+                _this4.pan ? formData.append("pan", _this4.pan) : '';
+                _this4.tax_clearance ? formData.append("tax_clearance", _this4.tax_clearance) : '';
+                formData.append("agree", _this4.agree ? 1 : 0);
 
                 if (_this4.application_letter) {
                   formData.append("application_letter", _this4.application_letter, _this4.application_letter.name);
                 }
 
-                _context4.next = 13;
+                if (_this4.human_resource) {
+                  formData.append("human_resource", _this4.human_resource, _this4.human_resource.name);
+                }
+
+                if (_this4.tools_list) {
+                  formData.append("tools_list", _this4.tools_list, _this4.tools_list.name);
+                }
+
+                if (_this4.administrative_document) {
+                  formData.append("administrative_document", _this4.administrative_document, _this4.administrative_document.name);
+                }
+
+                if (_this4.sanchalan_swikriti) {
+                  formData.append("sanchalan_swikriti", _this4.sanchalan_swikriti, _this4.sanchalan_swikriti.name);
+                }
+
+                if (_this4.renewal_letter) {
+                  formData.append("renewal_letter", _this4.renewal_letter, _this4.renewal_letter.name);
+                }
+
+                if (_this4.pan) {
+                  formData.append("pan", _this4.pan, _this4.pan.name);
+                }
+
+                if (_this4.tax_clearance) {
+                  formData.append("tax_clearance", _this4.tax_clearance, _this4.tax_clearance.name);
+                }
+
+                _context4.next = 29;
                 return _services_HospitalFrontendService__WEBPACK_IMPORTED_MODULE_3__["default"].registerHospital(formData);
 
-              case 13:
+              case 29:
                 response = _context4.sent;
 
                 if (response.data.error === false) {
@@ -17823,24 +17905,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this4.clearForm();
                 }
 
-                _context4.next = 20;
+                _context4.next = 36;
                 break;
 
-              case 17:
-                _context4.prev = 17;
+              case 33:
+                _context4.prev = 33;
                 _context4.t0 = _context4["catch"](1);
 
                 _this4.errors.record(_context4.t0.response.data);
 
-              case 20:
+              case 36:
                 _this4.submitting = false;
 
-              case 21:
+              case 37:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[1, 17]]);
+        }, _callee4, null, [[1, 33]]);
       }))();
     },
     clearForm: function clearForm() {
@@ -21908,11 +21990,7 @@ var render = function () {
                         _vm._v(" "),
                         _c("input", {
                           staticClass: "form-control",
-                          attrs: {
-                            type: "file",
-                            name: "hospital_name",
-                            placeholder: "Application Letter",
-                          },
+                          attrs: { type: "file", name: "application_letter" },
                           on: {
                             change: function ($event) {
                               return _vm.handelImage(
@@ -21933,21 +22011,222 @@ var render = function () {
                         }),
                       ]),
                       _vm._v(" "),
-                      _vm._m(2),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "file", name: "human_resource" },
+                          on: {
+                            change: function ($event) {
+                              return _vm.handelImage($event, "human_resource")
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("human_resource")),
+                          },
+                        }),
+                      ]),
                       _vm._v(" "),
-                      _vm._m(3),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "file", name: "tools_list" },
+                          on: {
+                            change: function ($event) {
+                              return _vm.handelImage($event, "tools_list")
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("tools_list")),
+                          },
+                        }),
+                      ]),
                       _vm._v(" "),
-                      _vm._m(4),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "file",
+                            name: "administrative_document",
+                          },
+                          on: {
+                            change: function ($event) {
+                              return _vm.handelImage(
+                                $event,
+                                "administrative_document"
+                              )
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.errors.get("administrative_document")
+                            ),
+                          },
+                        }),
+                      ]),
                       _vm._v(" "),
-                      _vm._m(5),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm._m(5),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "file", name: "sanchalan_swikriti" },
+                          on: {
+                            change: function ($event) {
+                              return _vm.handelImage(
+                                $event,
+                                "sanchalan_swikriti"
+                              )
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.errors.get("sanchalan_swikriti")
+                            ),
+                          },
+                        }),
+                      ]),
                       _vm._v(" "),
-                      _vm._m(6),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm._m(6),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "file", name: "renewal_letter" },
+                          on: {
+                            change: function ($event) {
+                              return _vm.handelImage($event, "renewal_letter")
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("renewal_letter")),
+                          },
+                        }),
+                      ]),
                       _vm._v(" "),
-                      _vm._m(7),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm._m(7),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "file", name: "pan" },
+                          on: {
+                            change: function ($event) {
+                              return _vm.handelImage($event, "pan")
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("pan")),
+                          },
+                        }),
+                      ]),
                       _vm._v(" "),
-                      _vm._m(8),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _vm._m(8),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "file", name: "tax_clearance" },
+                          on: {
+                            change: function ($event) {
+                              return _vm.handelImage($event, "tax_clearance")
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("tax_clearance")),
+                          },
+                        }),
+                      ]),
                       _vm._v(" "),
-                      _vm._m(9),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("div", { staticClass: "input-checkbox" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.agree,
+                                expression: "agree",
+                              },
+                            ],
+                            attrs: { type: "checkbox", name: "agree" },
+                            domProps: {
+                              checked: Array.isArray(_vm.agree)
+                                ? _vm._i(_vm.agree, null) > -1
+                                : _vm.agree,
+                            },
+                            on: {
+                              change: function ($event) {
+                                var $$a = _vm.agree,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 && (_vm.agree = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.agree = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.agree = $$c
+                                }
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("label"),
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(9),
+                      ]),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "small text-danger",
+                        staticStyle: {
+                          "margin-top": "-2rem",
+                          "margin-left": "2rem",
+                        },
+                        domProps: {
+                          innerHTML: _vm._s(_vm.errors.get("agree")),
+                        },
+                      }),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-12" }, [
                         _vm.submitting
@@ -22038,171 +22317,86 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("label", [
-        _vm._v("Human Resource "),
-        _c("span", { staticClass: "small text-info ml-1" }, [
-          _vm._v("Supported file type: < JPEG, JPG, PNG >"),
-        ]),
+    return _c("label", [
+      _vm._v("Human Resource "),
+      _c("span", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
       ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "file",
-          name: "hospital_name",
-          placeholder: "Application Letter",
-        },
-      }),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("label", [
-        _vm._v("Tools List "),
-        _c("span", { staticClass: "small text-info ml-1" }, [
-          _vm._v("Supported file type: < JPEG, JPG, PNG >"),
-        ]),
+    return _c("label", [
+      _vm._v("Tools List "),
+      _c("span", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
       ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "file",
-          name: "hospital_name",
-          placeholder: "Application Letter",
-        },
-      }),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("label", [
-        _vm._v("Administrative Document "),
-        _c("span", { staticClass: "small text-info ml-1" }, [
-          _vm._v("Supported file type: < JPEG, JPG, PNG >"),
-        ]),
+    return _c("label", [
+      _vm._v("Administrative Document "),
+      _c("span", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
       ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "file",
-          name: "hospital_name",
-          placeholder: "Application Letter",
-        },
-      }),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("label", [
-        _vm._v("Sanchalan Swrikity "),
-        _c("span", { staticClass: "small text-info ml-1" }, [
-          _vm._v("Supported file type: < JPEG, JPG, PNG >"),
-        ]),
+    return _c("label", [
+      _vm._v("Sanchalan Swrikity "),
+      _c("span", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
       ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "file",
-          name: "hospital_name",
-          placeholder: "Application Letter",
-        },
-      }),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("label", [
-        _vm._v("Renewal Letter "),
-        _c("span", { staticClass: "small text-info ml-1" }, [
-          _vm._v("Supported file type: < JPEG, JPG, PNG >"),
-        ]),
+    return _c("label", [
+      _vm._v("Renewal Letter "),
+      _c("span", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
       ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "file",
-          name: "hospital_name",
-          placeholder: "Application Letter",
-        },
-      }),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("label", [
-        _vm._v("PAN "),
-        _c("span", { staticClass: "small text-info ml-1" }, [
-          _vm._v("Supported file type: < JPEG, JPG, PNG >"),
-        ]),
+    return _c("label", [
+      _vm._v("PAN "),
+      _c("span", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
       ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "file",
-          name: "hospital_name",
-          placeholder: "Application Letter",
-        },
-      }),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("label", [
-        _vm._v("TAX Clearance "),
-        _c("span", { staticClass: "small text-info ml-1" }, [
-          _vm._v("Supported file type: < JPEG, JPG, PNG >"),
-        ]),
+    return _c("label", [
+      _vm._v("TAX Clearance "),
+      _c("span", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
       ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          type: "file",
-          name: "hospital_name",
-          placeholder: "Application Letter",
-        },
-      }),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "input-checkbox" }, [
-        _c("input", { attrs: { type: "checkbox", name: "agree" } }),
-        _vm._v(" "),
-        _c("label"),
-      ]),
-      _vm._v(" "),
-      _c("span", [
-        _vm._v("I have read and agree to the"),
-        _c("a", { attrs: { href: "#" } }, [_vm._v("terms and conditions")]),
-      ]),
+    return _c("span", [
+      _vm._v("I have read and agree to the"),
+      _c("a", { attrs: { href: "#" } }, [_vm._v("terms and conditions")]),
     ])
   },
 ]

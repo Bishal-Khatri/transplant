@@ -38,9 +38,10 @@ class HospitalController extends Controller
 
     public function registerHospital(Request $request)
     {
-        if(!$request->agree){
-            throw \Illuminate\Validation\ValidationException::withMessages(['agree' => 'You must agree to the terms and conditions.']);
-        }
+//        dd($request->all());
+//        if(!$request->agree){
+//            throw \Illuminate\Validation\ValidationException::withMessages(['agree' => 'You must agree to the terms and conditions.']);
+//        }
         $request->validate([
             'hospital_name' => 'required|string|max:255',
             'province' => 'required|exists:provinces,id',
@@ -57,10 +58,12 @@ class HospitalController extends Controller
             'renewal_letter' => 'required|mimes:png,jpeg,svg,jpg,pdf',
             'pan' => 'required|mimes:png,jpeg,svg,jpg,pdf',
             'tax_clearance' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'agree'=>'required|boolean',
+            'agree'=>'required',
+        ], [
+            'agree.required' => 'You must agree to the terms and conditions.'
         ]);
-        
-        
+
+
         $hospital = new Hospital();
         $hospital->hospital_name = $request->hospital_name;
         $hospital->province_id = $request->province;

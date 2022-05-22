@@ -27,13 +27,41 @@
                     </div>
                     <div class="boxed bg--secondary boxed--lg boxed--border" v-else>
                         <form class="row" @submit.prevent="submit">
-
+                            <div class="col-md-12">
+                                <h5>Hospital Details</h5>
+                            </div>
                             <div class="col-md-12">
                                 <label>Hospital Name</label>
                                 <input type="text" name="name" placeholder="Type Name Here" v-model="hospital_name"/>
                                 <span class="small text-danger" v-html="errors.get('hospital_name')"></span>
                             </div>
 
+                            <div class="col-md-6">
+                                <label>Hospital Type</label>
+                                <div class="input-select">
+                                    <select v-model="hospital_type" >
+                                        <option value="">Select Hospital Type</option>
+                                        <option value="1">Government</option>
+                                        <option value="2">Private</option>
+                                    </select>
+                                    <span class="small text-danger" v-html="errors.get('hospital_type')"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Transplant Type</label>
+                                <div class="input-select">
+                                    <select v-model="transplant_type" >
+                                        <option value="">Select Transplant Type</option>
+                                        <option value="kidney">KIDNEY</option>
+                                        <option value="liver">LIVER</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <hr>
+                                <h5>Address</h5>
+                            </div>
                             <div class="col-md-6">
                                 <label>Province</label>
                                 <div class="input-select">
@@ -73,74 +101,72 @@
                                 <span class="small text-danger" v-html="errors.get('palika')"></span>
                             </div>
 
+                            <div class="col-md-12 mt-3">
+                                <hr>
+                                <h5>Document Files</h5>
+                            </div>
                             <div class="col-md-6">
-                                <label>Hospital Type</label>
-                                <div class="input-select">
-                                    <select v-model="hospital_type" >
-                                        <option value="">Select Hospital Type</option>
-                                        <option value="1">Government</option>
-                                        <option value="2">Private</option>
-                                    </select>
-                                    <span class="small text-danger" v-html="errors.get('hospital_type')"></span>
+                                <div class="file-wrapper">
+                                    <label>Application Letter <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="application_letter" @change="handelImage($event, 'application_letter')"  >
+                                    <span class="small text-danger" v-html="errors.get('application_letter')"></span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="file-wrapper">
+                                    <label>Human Resource <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="human_resource"  @change="handelImage($event, 'human_resource')">
+                                    <span class="small text-danger" v-html="errors.get('human_resource')"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label>Transplant Type</label>
-                                <div class="input-select">
-                                    <select v-model="transplant_type" >
-                                        <option value="">Select Transplant Type</option>
-                                        <option value="kidney">KIDNEY</option>
-                                        <option value="liver">LIVER</option>
-                                    </select>
+                                <div class="file-wrapper">
+                                    <label>Tools List <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="tools_list" @change="handelImage($event, 'tools_list')">
+                                    <span class="small text-danger" v-html="errors.get('tools_list')"></span>
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
-                                <label>Application Letter <span class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></span></label>
-                                <input type="file" class="form-control" name="application_letter" @change="handelImage($event, 'application_letter')"  >
-                                <span class="small text-danger" v-html="errors.get('application_letter')"></span>
+                            <div class="col-md-6">
+                                <div class="file-wrapper">
+                                    <label>Administrative Document <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="administrative_document" @change="handelImage($event, 'administrative_document')">
+                                    <span class="small text-danger" v-html="errors.get('administrative_document')"></span>
+                                </div>
                             </div>
 
-                            <div class="col-md-12">
-                                <label>Human Resource <span class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></span></label>
-                                <input type="file" class="form-control" name="human_resource"  @change="handelImage($event, 'human_resource')">
-                                <span class="small text-danger" v-html="errors.get('human_resource')"></span>
+                            <div class="col-md-6">
+                                <div class="file-wrapper">
+                                    <label>Sanchalan Swrikity <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="sanchalan_swikriti"  @change="handelImage($event, 'sanchalan_swikriti')">
+                                    <span class="small text-danger" v-html="errors.get('sanchalan_swikriti')"></span>
+                                </div>
                             </div>
 
-                            <div class="col-md-12">
-                                <label>Tools List <span class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></span></label>
-                                <input type="file" class="form-control" name="tools_list" @change="handelImage($event, 'tools_list')">
-                                <span class="small text-danger" v-html="errors.get('tools_list')"></span>
+                            <div class="col-md-6">
+                                <div class="file-wrapper">
+                                    <label>Renewal Letter <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="renewal_letter" @change="handelImage($event, 'renewal_letter')">
+                                    <span class="small text-danger" v-html="errors.get('renewal_letter')"></span>
+                                </div>
                             </div>
 
-                            <div class="col-md-12">
-                                <label>Administrative Document <span class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></span></label>
-                                <input type="file" class="form-control" name="administrative_document" @change="handelImage($event, 'administrative_document')">
-                                <span class="small text-danger" v-html="errors.get('administrative_document')"></span>
+                            <div class="col-md-6">
+                                <div class="file-wrapper">
+                                    <label>PAN <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="pan"  @change="handelImage($event, 'pan')">
+                                    <span class="small text-danger" v-html="errors.get('pan')"></span>
+                                </div>
                             </div>
-
-                            <div class="col-md-12">
-                                <label>Sanchalan Swrikity <span class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></span></label>
-                                <input type="file" class="form-control" name="sanchalan_swikriti"  @change="handelImage($event, 'sanchalan_swikriti')">
-                                <span class="small text-danger" v-html="errors.get('sanchalan_swikriti')"></span>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label>Renewal Letter <span class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></span></label>
-                                <input type="file" class="form-control" name="renewal_letter" @change="handelImage($event, 'renewal_letter')">
-                                <span class="small text-danger" v-html="errors.get('renewal_letter')"></span>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label>PAN <span class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></span></label>
-                                <input type="file" class="form-control" name="pan"  @change="handelImage($event, 'pan')">
-                                <span class="small text-danger" v-html="errors.get('pan')"></span>
-                            </div>
-                            <div class="col-md-12">
-                                <label>TAX Clearance <span class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></span></label>
-                                <input type="file" class="form-control" name="tax_clearance"  @change="handelImage($event, 'tax_clearance')">
-                                <span class="small text-danger" v-html="errors.get('tax_clearance')"></span>
+                            <div class="col-md-6">
+                                <div class="file-wrapper">
+                                    <label>TAX Clearance <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="tax_clearance"  @change="handelImage($event, 'tax_clearance')">
+                                    <span class="small text-danger" v-html="errors.get('tax_clearance')"></span>
+                                </div>
                             </div>
 
 
@@ -149,12 +175,16 @@
                                     <input type="checkbox" name="agree" v-model="agree" />
                                     <label></label>
                                 </div>
-                                <span>I have read and agree to the<a href="#">terms and conditions</a></span>
+                                <span>I have read and agree to the <a href="#">terms and conditions</a></span>
+                                <p class="small text-danger" v-html="errors.get('agree')" ></p>
+
                             </div>
-                                <span class="small text-danger" v-html="errors.get('agree')" style="margin-top: -2rem;margin-left: 2rem;"></span>
-                            
+
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn--primary" v-if="submitting">Submitting Form ....</button>
+                                <!--<button type="submit" class="btn btn&#45;&#45;primary text-center" v-if="submitting"><i class="cs-loader"></i></button>-->
+                                <button type="submit" class="btn btn--primary text-center" v-if="submitting">
+                                    Submitting Form ...
+                                </button>
                                 <button type="submit" class="btn btn--primary" v-else>Submit Form</button>
                             </div>
                         </form>
@@ -277,7 +307,7 @@
                     this.renewal_letter ? formData.append("renewal_letter", this.renewal_letter) : '';
                     this.pan ? formData.append("pan", this.pan) : '';
                     this.tax_clearance ? formData.append("tax_clearance", this.tax_clearance) : '';
-                    formData.append("agree", this.agree?1:0);
+                    this.agree ? formData.append("agree", this.agree) : '';
 
                     if(this.application_letter){
                         formData.append("application_letter", this.application_letter, this.application_letter.name);
@@ -303,7 +333,7 @@
                     if(this.tax_clearance){
                         formData.append("tax_clearance", this.tax_clearance, this.tax_clearance.name);
                     }
-                    
+
                     const response = await HospitalFrontendService.registerHospital(formData);
                     if (response.data.error === false) {
                         this.display_success_message = true;
@@ -323,5 +353,29 @@
     };
 </script>
 
-<style>
+<style scoped>
+    .file-wrapper{
+        border: 1px solid #ECECEC;
+        border-radius: 6px;
+        padding: 21px;
+        margin: 2px;
+    }
+
+    .cs-loader {
+        display: flex;
+        border: 2px solid #f3f3f3 !important;; /* Light grey */
+        border-top: 2px solid #3498db !important;; /* Blue */
+        border-radius: 50% !important;;
+        width: 25px !important;;
+        height: 25px !important;;
+        animation: spin 2s linear infinite !important;
+        position: relative;
+        left: 50%;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
 </style>

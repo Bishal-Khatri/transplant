@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createDisease.openDialog()">Create New</a></li>
+                                    <li><a style="color: #5A738E;" href="/hospital/patient/create">Create New</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             </tr>
                             <tr v-else v-for="(patient, index) in patients" :key="index">
                                 <td>
-                                    <a class="mr-2" href="#" @click.prevent="$refs.createDisease.openDialog(disease)">{{ patient.title }}</a>
+                                    <a class="mr-2" href="#">{{ patient.title }}</a>
                                     <small class="">Created on {{ patient.created_at }}</small>
                                 </td>
                                 <td class="text-right">
@@ -58,6 +58,7 @@
 
 <script>
     import {Errors} from "../../../../../../../resources/js/error";
+    import PatientService from "../../../services/PatientService";
 
     export default {
         name: "PatientList",
@@ -76,7 +77,16 @@
         },
         methods: {
             setSearch:_.debounce(function(){
+                this.getPatients();
             }, 800),
+
+            async getPatients(page = 1){
+                const response = await PatientService.getPatients(page, filter);
+                if (response.data.error === false){
+                    this.patients_pg = response.data.patients;
+                    this.patients = response.data.patients.data;
+                }
+            }
 
         }
     }

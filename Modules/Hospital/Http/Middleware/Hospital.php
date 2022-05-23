@@ -20,6 +20,13 @@ class Hospital
         if (auth()->user()->user_type != UserType::HOSPITAL){
             abort(403);
         }
+
+        $user = auth()->user();
+        $hospital = $user->hospital;
+        if (!$hospital OR !$hospital->status){
+            abort(403, 'This account has been disabled.');
+        }
+
         return $next($request);
     }
 }

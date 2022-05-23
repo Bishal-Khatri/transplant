@@ -2,7 +2,7 @@ import Api from './Api';
 
 export default {
 
-    getReligions(page,filter){
-        return Api().get('/admin/web-api/religions?page=' + page + '&filter=' + filter);
+    getPatients(page,filter){
+        return Api().get('/hospital/web-api/patient-list?page=' + page + '&filter=' + filter);
     },
 }

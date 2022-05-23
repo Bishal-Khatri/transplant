@@ -16265,6 +16265,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   deletePalika: function deletePalika(id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/web-api/palika/delete/' + id);
+  },
+  getHospitals: function getHospitals(page, filter, filter_by) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/hospitals?page=' + page + '&filter=' + filter + '&filter_by=' + filter_by);
   }
 });
 
@@ -17828,36 +17831,64 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "diseaseIndex",
+  name: "hospitalIndex",
   components: {},
   data: function data() {
     return {
+      hospitalTypesEnum: ['Government', 'Private'],
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"](),
       delete_submitting: false,
       filter: '',
+      filter_by: '',
       delete_id: '',
-      diseases: {},
-      diseases_pg: {}
+      hospitals: {},
+      hospitals_pg: {}
     };
   },
   computed: {},
   mounted: function mounted() {
     var _this = this;
 
-    this.getDiseases();
-    _app__WEBPACK_IMPORTED_MODULE_3__["EventBus"].$on('diseaseCreated', function () {
-      _this.getDiseases();
+    this.getHospitals();
+    _app__WEBPACK_IMPORTED_MODULE_3__["EventBus"].$on('hospitalCreated', function () {
+      _this.getHospitals();
     });
   },
   methods: {
     setSearch: _.debounce(function () {
-      this.getDiseases();
+      this.getHospitals();
     }, 800),
-    getDiseases: function getDiseases() {
+    getHospitals: function getHospitals() {
       var _arguments = arguments,
           _this2 = this;
 
@@ -17869,12 +17900,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
                 _context.next = 3;
-                return _services_DataService__WEBPACK_IMPORTED_MODULE_1__["default"].getDiseases(page, _this2.filter);
+                return _services_DataService__WEBPACK_IMPORTED_MODULE_1__["default"].getHospitals(page, _this2.filter, _this2.filter_by);
 
               case 3:
                 response = _context.sent;
-                _this2.diseases_pg = response.data.data.diseases;
-                _this2.diseases = response.data.data.diseases.data;
+                _this2.hospitals_pg = response.data;
+                _this2.hospitals = response.data.data;
 
               case 6:
               case "end":
@@ -17886,42 +17917,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     showDeleteModal: function showDeleteModal(item_id) {
       this.delete_id = item_id;
-      $("#delete-disease-dialog").modal('show');
-    },
-    deleteDisease: function deleteDisease() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _this3.delete_submitting = true;
-                _context2.next = 3;
-                return _services_DataService__WEBPACK_IMPORTED_MODULE_1__["default"].deleteDisease(_this3.delete_id);
-
-              case 3:
-                response = _context2.sent;
-
-                if (response.data.error === false) {
-                  _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"].Notification(response);
-
-                  _this3.getDiseases();
-
-                  $("#delete-disease-dialog").modal('hide');
-                }
-
-                _this3.delete_id = '';
-                _this3.delete_submitting = false;
-
-              case 7:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
+      $("#delete-hospital-dialog").modal('show');
     }
   }
 });
@@ -39973,7 +39969,64 @@ var render = function () {
                 }),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-9" }, [
+              _c("div", { staticClass: "col-md-3" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter_by,
+                        expression: "filter_by",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filter_by = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [
+                      _vm._v("Filter By"),
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "HospitalTypes" } }, [
+                      _vm._v("Hospital Type"),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "HospitalVerificationStatus" } },
+                      [_vm._v("Verification Status")]
+                    ),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "TransplantTypes" } }, [
+                      _vm._v("Transplant Type"),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "HospitalApproveStatus" } },
+                      [_vm._v("Approve Status")]
+                    ),
+                  ]
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
                 _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
                   _c("li", [
                     _c(
@@ -39984,7 +40037,7 @@ var render = function () {
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
-                            return _vm.$refs.createDisease.openDialog()
+                            return _vm.$refs.createhospital.openDialog()
                           },
                         },
                       },
@@ -40008,13 +40061,13 @@ var render = function () {
                 _c(
                   "tbody",
                   [
-                    !_vm.diseases.length
+                    !_vm.hospitals.length
                       ? _c("tr", [
-                          _c("td", { attrs: { colspan: "2" } }, [
+                          _c("td", { attrs: { colspan: "7" } }, [
                             _vm._v("No items to display."),
                           ]),
                         ])
-                      : _vm._l(_vm.diseases, function (disease, index) {
+                      : _vm._l(_vm.hospitals, function (hospital, index) {
                           return _c("tr", { key: index }, [
                             _c("td", [
                               _c(
@@ -40025,20 +40078,52 @@ var render = function () {
                                   on: {
                                     click: function ($event) {
                                       $event.preventDefault()
-                                      return _vm.$refs.createDisease.openDialog(
-                                        disease
+                                      return _vm.$refs.createhospital.openDialog(
+                                        hospital
                                       )
                                     },
                                   },
                                 },
-                                [_vm._v(_vm._s(disease.title))]
+                                [_vm._v(_vm._s(hospital.hospital_name))]
                               ),
                               _vm._v(" "),
                               _c("small", {}, [
                                 _vm._v(
-                                  "Created on " + _vm._s(disease.created_at)
+                                  "Created on " + _vm._s(hospital.created_at)
                                 ),
                               ]),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(hospital.transplant_type)),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.hospitalTypesEnum[
+                                    hospital.hospital_type - 1
+                                  ]
+                                )
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(hospital.approved_by) +
+                                  "  " +
+                                  _vm._s(
+                                    hospital.approved_date
+                                      ? "On " + hospital.approved_date
+                                      : ""
+                                  )
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(hospital.approve_status))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(hospital.licenses_number)),
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-right" }, [
@@ -40046,18 +40131,43 @@ var render = function () {
                                 _c(
                                   "a",
                                   {
-                                    staticClass: "btn btn-secondary btn-sm",
-                                    attrs: { href: "#", type: "button" },
+                                    staticClass: "btn btn-sm btn-primary mr-2",
+                                    attrs: { href: "#" },
                                     on: {
                                       click: function ($event) {
                                         $event.preventDefault()
-                                        return _vm.$refs.createDisease.openDialog(
-                                          disease
+                                        return _vm.$refs.createhospital.openDialog(
+                                          hospital
                                         )
                                       },
                                     },
                                   },
-                                  [_vm._v("Edit")]
+                                  [
+                                    _c("i", { staticClass: "fa fa-eye" }),
+                                    _vm._v(
+                                      "View\n                                    "
+                                    ),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-sm btn-danger mr-2",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.disableHospital(hospital)
+                                      },
+                                    },
+                                  },
+                                  [
+                                    _c("i", { staticClass: "fa fa-ban" }),
+                                    _vm._v(
+                                      "Disable\n                                    "
+                                    ),
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -40069,7 +40179,7 @@ var render = function () {
                                     on: {
                                       click: function ($event) {
                                         $event.preventDefault()
-                                        return _vm.showDeleteModal(disease.id)
+                                        return _vm.showDeleteModal(hospital.id)
                                       },
                                     },
                                   },
@@ -40090,8 +40200,8 @@ var render = function () {
               { staticClass: "pull-right" },
               [
                 _c("pagination", {
-                  attrs: { data: _vm.diseases_pg },
-                  on: { "pagination-change-page": _vm.getDiseases },
+                  attrs: { data: _vm.hospitals_pg },
+                  on: { "pagination-change-page": _vm.getHospitals },
                 }),
               ],
               1
@@ -40106,7 +40216,7 @@ var render = function () {
       {
         staticClass: "modal fade",
         attrs: {
-          id: "delete-disease-dialog",
+          id: "delete-hospital-dialog",
           tabindex: "-1",
           role: "dialog",
           "aria-hidden": "true",
@@ -40149,7 +40259,7 @@ var render = function () {
                         on: {
                           click: function ($event) {
                             $event.preventDefault()
-                            return _vm.deleteDisease.apply(null, arguments)
+                            return _vm.deletehospital.apply(null, arguments)
                           },
                         },
                       },
@@ -40170,13 +40280,19 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Title")]),
+        _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c(
-          "th",
-          { staticClass: "text-right", staticStyle: { width: "180px" } },
-          [_vm._v("Action")]
-        ),
+        _c("th", [_vm._v("Transplant Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Hospital Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Approved On")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Accessibility")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Licenses")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-right" }, [_vm._v("Action")]),
       ]),
     ])
   },
@@ -40186,7 +40302,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h4", { staticClass: "modal-title", attrs: { id: "myModalLabel" } }, [
-        _vm._v("Delete disease"),
+        _vm._v("Delete hospital"),
       ]),
       _vm._v(" "),
       _c(

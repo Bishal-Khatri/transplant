@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\ContentManagement\Entities;
+namespace Modules\Hospital\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +13,6 @@ class Patient extends Model
     
     protected static function newFactory()
     {
-        return \Modules\ContentManagement\Database\factories\PatientFactory::new();
+        return \Modules\Hospital\Database\factories\PatientFactory::new();
     }
 }

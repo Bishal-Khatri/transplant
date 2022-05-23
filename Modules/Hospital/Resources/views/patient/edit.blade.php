@@ -11,7 +11,11 @@
 
             <div class="clearfix"></div>
 
-            <patient-create/>
+            <patient-update :patient="{{ $patient }}"
+                            :religions="{{ $religions }}"
+                            :ethnic_groups="{{ $ethnic_groups }}"
+                            :education_levels="{{ $education_levels }}"
+                            :occupations="{{ $occupations }}"></patient-update>
         </div>
     </div>
 @endsection

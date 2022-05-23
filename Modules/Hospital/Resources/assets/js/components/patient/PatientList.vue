@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" href="/hospital/patient/create">Create New</a></li>
+                                    <li><a style="color: #5A738E;" :href="'/hospital/patient/update/'+1">Create New</a></li>
                                 </ul>
                             </div>
                         </div>

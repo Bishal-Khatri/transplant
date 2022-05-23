@@ -101,8 +101,8 @@ export default {
     deletePalika(id){
         return Api().delete('/admin/web-api/palika/delete/'+id);
     },
-    getHospitals(page,filter,filter_by){
-        return Api().get('/admin/web-api/hospitals?page=' + page + '&filter=' + filter+'&filter_by='+filter_by);
+    getHospitals(page,filter,filter_by,filter_by_option){
+        return Api().get('/admin/web-api/hospitals?page=' + page + '&filter=' + filter+'&filter_by='+filter_by+'&filter_by_option='+filter_by_option);
     }
     
 }

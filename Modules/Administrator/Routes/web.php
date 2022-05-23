@@ -3,7 +3,7 @@
 use Modules\Administrator\Http\Controllers\AddressController;
 use Modules\Administrator\Http\Controllers\AdministratorController;
 use Modules\Administrator\Http\Controllers\DataController;
-
+use Modules\Administrator\Http\Controllers\HospitalController;
 Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() {
     Route::get('/', [AdministratorController::class, 'index'])->name('admin.index');
 
@@ -75,5 +75,11 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
         Route::post('/palika/create', [AddressController::class, 'palikaStore']);
         Route::delete('/palika/delete/{id}', [AddressController::class, 'palikaDelete']);
         // End Palika
+
+        // Hospital
+        Route::get('/hospitals', [HospitalController::class, 'hospitals']);
+        Route::post('/hospitals/create', [HospitalController::class, 'store']);
+        Route::delete('/hospitals/delete/{id}', [HospitalController::class, 'delete']);
+        // End Hospital
     });
 });

@@ -6,20 +6,14 @@ use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\ContentManagement\Entities\Patient;
 use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Enum\HospitalApproveStatus;
 use Modules\Hospital\Enum\HospitalVerificationStatus;
 
-use function PHPUnit\Framework\throwException;
-
 class HospitalController extends Controller
 {
     use SetResponse;
-
-    public function patients()
-    {
-        return view('hospital::patient.index');
-    }
 
     public function profile()
     {
@@ -38,9 +32,6 @@ class HospitalController extends Controller
 
     public function registerHospital(Request $request)
     {
-        if(!$request->agree){
-            throw \Illuminate\Validation\ValidationException::withMessages(['agree' => 'You must agree to the terms and conditions.']);
-        }
         $request->validate([
             'hospital_name' => 'required|string|max:255',
             'province' => 'required|exists:provinces,id',
@@ -57,10 +48,12 @@ class HospitalController extends Controller
             'renewal_letter' => 'required|mimes:png,jpeg,svg,jpg,pdf',
             'pan' => 'required|mimes:png,jpeg,svg,jpg,pdf',
             'tax_clearance' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'agree'=>'required|boolean',
+            'agree'=>'required',
+        ], [
+            'agree.required' => 'You must agree to the terms and conditions.'
         ]);
-        
-        
+
+
         $hospital = new Hospital();
         $hospital->hospital_name = $request->hospital_name;
         $hospital->province_id = $request->province;
@@ -114,4 +107,5 @@ class HospitalController extends Controller
         $returnData = $this->prepareResponse(false, 'success', [], []);
         return response()->json($returnData);
     }
+
 }

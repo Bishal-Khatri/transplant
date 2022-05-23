@@ -36,5 +36,25 @@
         background-color: #2A3F54;
         border-color: #2A3F54;
     }
+
+
+    element.style {
+        border: 0;
+    }
+    .navbar {
+        margin-bottom: 0;
+    }
+    .nav_title {
+        width: 230px;
+        float: left;
+        background: #EDEDED;
+        border-radius: 0;
+        height: 57px;
+        padding: 0;
+    }
+
+    .required{
+        color: red;
+    }
 </style>
 @yield('css')

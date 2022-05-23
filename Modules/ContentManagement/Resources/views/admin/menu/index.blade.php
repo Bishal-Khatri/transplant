@@ -233,7 +233,7 @@
                                                         @enderror
                                                     </div>
                                                     <div class="form-group row">
-                                                        <button class="btn btn-sm btn-primary">Add</button>
+                                                        <button class="btn btn-sm btn-dark">Add</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -361,10 +361,11 @@
                                             <p>No items available.</p>
                                         @endif
                                     </div>
+                                    <div class="col-md-12">
+                                        <hr>
+                                        <button class="btn btn-dark btn-sm saveMenuOrder">Save Order</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-footer p-0">
-                                <button class="btn btn-primary btn-sm float-right saveMenuOrder">Save Order</button>
                             </div>
                         </div>
                     @endif
@@ -387,11 +388,11 @@
                         <p>You are about to delete this menu permanently. Continue?</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-secondary btn-xs" data-dismiss="modal">Discard</a>
+                        <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</a>
                         <form action="{{ route('cms.menu.delete') }}" method="post">
                             @csrf
                             <input type="hidden" name="menu_id" id="delete_input">
-                            <button type="submit" class="btn btn-primary btn-xs">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </div>
                 </div>

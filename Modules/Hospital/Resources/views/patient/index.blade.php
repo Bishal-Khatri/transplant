@@ -5,7 +5,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Patient Waiting List</h3>
+                    <h3>Patient Listing</h3>
                 </div>
             </div>
 

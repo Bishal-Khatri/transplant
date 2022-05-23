@@ -17,6 +17,11 @@ class License extends Model
         return \Modules\Hospital\Database\factories\LicenseFactory::new();
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return date('M d Y', strtotime($value));
+    }
+
     public function licenseable()
     {
         return $this->morphTo();

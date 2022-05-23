@@ -37,59 +37,64 @@
                 <div class="col-lg-11 col-md-12 text-right text-left-xs text-left-sm">
                     <div class="bar__module">
                         <ul class="menu-horizontal text-left">
-                            <li class="">
-                                <a href="/" class="">Home</a>
-                            </li>
-                            <li class="">
-                                <a href="/" class="">About Us</a>
-                            </li>
-                            <li class="dropdown">
-                                <span class="dropdown__trigger">Notices</span>
-                                <div class="dropdown__container">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="dropdown__content col-lg-2 col-md-4">
-                                                <ul class="menu-vertical">
-                                                    <li class="">
-                                                        <a href="/" class="">About</a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="/" class="">Careers</a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="/" class="">Contact</a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="/" class="">Pricing</a>
-                                                    </li>
-                                                    <li class="">
-                                                        <a href="/" class="">Accounts</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!--end dropdown content-->
-                                        </div>
-                                        <!--end row-->
-                                    </div>
-                                </div>
-                                <!--end dropdown container-->
-                            </li>
-                            <li class="">
-                                <a href="/" class="">Documents</a>
-                            </li>
-                            <li class="">
-                                <a href="/" class="">Doctors</a>
-                            </li>
-                            <li class="">
-                                <a href="/" class="">Gallery</a>
-                            </li>
-                            <li class="">
-                                <a href="/" class="">License</a>
-                            </li>
-                            <li class="">
-                                <a href="/" class="">Hospitals</a>
-                            </li>
+                            @if(isset($nav_menu) AND !blank($nav_menu))
+                                @foreach($nav_menu as $menu)
+                                    @if(isset($menu->children) AND !blank($menu->children))
+                                        <li class="dropdown">
+                                            <span class="dropdown__trigger">{{ $menu->display_name ?? 'No Name' }}</span>
+                                            <div class="dropdown__container">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="dropdown__content col-lg-2 col-md-4">
+                                                            <ul class="menu-vertical">
+                                                                @foreach($menu->children as $children)
 
+                                                                    @if(isset($children->children) AND !blank($children->children))
+                                                                        <li class="dropdown">
+                                                                            <span class="dropdown__trigger">{{ $children->display_name ?? 'No Name' }}</span>
+                                                                            <div class="dropdown__container">
+                                                                                <div class="container">
+                                                                                    <div class="row">
+                                                                                        <div class="dropdown__content col-lg-2 col-md-4">
+                                                                                            <ul class="menu-vertical">
+                                                                                                @foreach($children->children as $subChildren)
+                                                                                                <li>
+                                                                                                    <a href="{{ $subChildren->url }}">
+                                                                                                       {{ $subChildren->display_name ?? 'No Name' }}
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                @endforeach
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                        <!--end dropdown content-->
+                                                                                    </div>
+                                                                                    <!--end row-->
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end dropdown container-->
+                                                                        </li>
+                                                                    @else
+                                                                        <li class="">
+                                                                            <a href="{{ $children->url }}" class="">{{ $children->display_name ?? 'No Name' }}</a>
+                                                                        </li>
+                                                                    @endif
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                        <!--end dropdown content-->
+                                                    </div>
+                                                    <!--end row-->
+                                                </div>
+                                            </div>
+                                            <!--end dropdown container-->
+                                        </li>
+                                    @else
+                                        <li class="">
+                                            <a href="{{ $menu->$menu }}" class="">{{ $menu->display_name ?? 'No Name' }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                     <!--end module-->

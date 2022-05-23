@@ -16,6 +16,11 @@ class Hospital extends Model
         return \Modules\ContentManagement\Database\factories\HospitalFactory::new();
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return date('M d Y', strtotime($value));
+    }
+
     public function license()
     {
         return $this->morphMany(License::class, 'licenseable');

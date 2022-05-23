@@ -4,6 +4,8 @@ namespace Modules\ContentManagement\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\ContentManagement\Entities\Menu;
+use Modules\ContentManagement\Entities\MenuPage;
 use Modules\ContentManagement\Entities\Theme;
 
 class ContentManagementServiceProvider extends ServiceProvider
@@ -37,7 +39,10 @@ class ContentManagementServiceProvider extends ServiceProvider
                 return abort(404, 'Theme not activated');
             }
 
-            $view->with(compact('active_theme'));
+            $nav_menu_id = $active_theme->nav_menu_id;
+            $nav_menu = MenuPage::where('menu_id',$nav_menu_id)->where('parent_id', 0)->with('children', 'children.children')->orderBy('order')->get();
+
+            $view->with(compact('active_theme', 'nav_menu'));
         });
     }
 

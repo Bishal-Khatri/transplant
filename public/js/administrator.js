@@ -16266,8 +16266,8 @@ __webpack_require__.r(__webpack_exports__);
   deletePalika: function deletePalika(id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/web-api/palika/delete/' + id);
   },
-  getHospitals: function getHospitals(page, filter, filter_by) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/hospitals?page=' + page + '&filter=' + filter + '&filter_by=' + filter_by);
+  getHospitals: function getHospitals(page, filter, filter_by, filter_by_option) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/hospitals?page=' + page + '&filter=' + filter + '&filter_by=' + filter_by + '&filter_by_option=' + filter_by_option);
   }
 });
 
@@ -17857,6 +17857,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17866,6 +17872,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       hospitalTypesEnum: ['Government', 'Private'],
+      filter_by_options: [],
+      filter_by_option: '',
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"](),
       delete_submitting: false,
       filter: '',
@@ -17874,6 +17882,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       hospitals: {},
       hospitals_pg: {}
     };
+  },
+  watch: {
+    filter_by: function filter_by(value) {
+      console.log(this.filter_by_options);
+
+      switch (value) {
+        case 'HospitalTypes':
+          this.filter_by_options = [{
+            value: 1,
+            text: 'Government'
+          }, {
+            value: 2,
+            text: 'Private'
+          }];
+          break;
+
+        case 'HospitalVerificationStatus':
+          this.filter_by_options = [{
+            value: 0,
+            text: 'None'
+          }, {
+            value: 1,
+            text: 'Document Verified'
+          }, {
+            value: 2,
+            text: 'Physical Verified'
+          }, {
+            value: 3,
+            text: 'Verified'
+          }];
+          break;
+
+        case 'TransplantTypes':
+          this.filter_by_options = [{
+            value: 'kidney',
+            text: 'Kidney'
+          }, {
+            value: 'liver',
+            text: 'Liver'
+          }];
+          break;
+
+        case 'HospitalApproveStatus':
+          this.filter_by_options = [{
+            value: 0,
+            text: 'None'
+          }, {
+            value: 1,
+            text: 'Approved'
+          }, {
+            value: 2,
+            text: 'Rejected'
+          }];
+          break;
+
+        default:
+          this.filter_by_options = [];
+          break;
+      }
+    }
   },
   computed: {},
   mounted: function mounted() {
@@ -17900,7 +17968,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
                 _context.next = 3;
-                return _services_DataService__WEBPACK_IMPORTED_MODULE_1__["default"].getHospitals(page, _this2.filter, _this2.filter_by);
+                return _services_DataService__WEBPACK_IMPORTED_MODULE_1__["default"].getHospitals(page, _this2.filter, _this2.filter_by, _this2.filter_by_option);
 
               case 3:
                 response = _context.sent;
@@ -40026,7 +40094,58 @@ var render = function () {
                 ),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "col-md-3" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filter_by_option,
+                        expression: "filter_by_option",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: [
+                        function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.filter_by_option = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        function ($event) {
+                          return _vm.getHospitals()
+                        },
+                      ],
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { value: "", selected: "" } }, [
+                      _vm._v("Filter By Options"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.filter_by_options, function (option, index) {
+                      return _c(
+                        "option",
+                        { key: index, domProps: { value: option.value } },
+                        [_vm._v(_vm._s(option.text))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-3" }, [
                 _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
                   _c("li", [
                     _c(

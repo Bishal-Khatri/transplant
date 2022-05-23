@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-12 col-sm-12  ">
+            <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
                         <div class="row">
@@ -14,8 +14,15 @@
                             </div>
                             <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" :href="'/hospital/patient/update/'+1">Create New</a></li>
+                                    <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createPatient.openDialog()">Register New Patient</a></li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <select name="" id="" class="form-control">
+                                    <option value="">Filter Value</option>
+                                </select>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -24,22 +31,31 @@
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr>
-                                <th>Title</th>
+                                <th>Patient's Photo</th>
+                                <th>Patient's Name</th>
+                                <th>Citizenship Number</th>
                                 <th style="width: 180px" class="text-right">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-if="!patients.length">
-                                <td colspan="2">No items to display.</td>
+                                <td colspan="4">No items to display.</td>
                             </tr>
                             <tr v-else v-for="(patient, index) in patients" :key="index">
+                                <td style="width: 150px;">
+                                    <a v-if="patient.image" href="#" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
+                                        <img :src="'/storage/'+patient.image" alt="" class="rounded" width="60">
+                                    </a>
+                                    <img v-else src="/images/placeholder-dark.jpg" alt="">
+                                </td>
                                 <td>
-                                    <a class="mr-2" href="#">{{ patient.title }}</a>
+                                    <a class="mr-2" :href="'/hospital/patient/update/'+patient.id">{{ patient.name }}</a> <br>
                                     <small class="">Created on {{ patient.created_at }}</small>
                                 </td>
+                                <td>{{ patient.citizenship_number }}</td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="#" @click.prevent="$refs.createDisease.openDialog(patient)" class="btn btn-secondary btn-sm" type="button">Edit</a>
+                                        <a href="#" class="btn btn-secondary btn-sm" :href="'/hospital/patient/update/'+patient.id" type="button">Details</a>
                                         <a href="#" @click.prevent="showDeleteModal(patient.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
                                     </div>
                                 </td>
@@ -53,12 +69,37 @@
                 </div>
             </div>
         </div>
+        <patient-create ref="createPatient"/>
+        <image-preview ref="imagePreview"/>
+
+        <div class="modal fade" id="delete-patient-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Delete Patient</h4>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-3">
+                        <p><strong>Attention !</strong> Are you sure you want to permanently delete this record?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <button v-if="delete_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deletePatient">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import {Errors} from "../../../../../../../resources/js/error";
     import PatientService from "../../../services/PatientService";
+    import PatientCreate from "./PatientCreate";
+    import {EventBus} from "../../app";
+    import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
 
     export default {
         name: "PatientList",
@@ -69,11 +110,21 @@
 
                 patients: {},
                 patients_pg: {},
+                delete_submitting: '',
+                delete_id: '',
             }
+        },
+        components: {
+            PatientCreate,
+            ImagePreview
         },
         computed: {
         },
         mounted() {
+            this.getPatients();
+            EventBus.$on('patientCreated', () => {
+                this.getPatients();
+            });
         },
         methods: {
             setSearch:_.debounce(function(){
@@ -81,12 +132,29 @@
             }, 800),
 
             async getPatients(page = 1){
-                const response = await PatientService.getPatients(page, filter);
+                const response = await PatientService.getPatients(page, this.filter);
                 if (response.data.error === false){
-                    this.patients_pg = response.data.patients;
-                    this.patients = response.data.patients.data;
+                    this.patients_pg = response.data.data.patients;
+                    this.patients = response.data.data.patients.data;
                 }
-            }
+            },
+
+            showDeleteModal(patient_id) {
+                this.delete_id = patient_id;
+                $("#delete-patient-dialog").modal('show');
+            },
+
+            async deletePatient() {
+                this.delete_submitting = true;
+                const response = await PatientService.deletePatient(this.delete_id);
+                if (response.data.error === false) {
+                    Errors.Notification(response);
+                    this.getPatients();
+                    $("#delete-patient-dialog").modal('hide');
+                }
+                this.delete_id = '';
+                this.delete_submitting = false;
+            },
 
         }
     }

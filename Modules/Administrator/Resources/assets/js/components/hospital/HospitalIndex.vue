@@ -21,7 +21,13 @@
                                     <option value="HospitalApproveStatus">Approve Status</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
+                                <select class="form-control" v-model="filter_by_option" @change="getHospitals()">
+                                    <option value="" selected>Filter By Options</option>
+                                    <option v-for="(option, index) in filter_by_options" :key="index" :value="option.value">{{ option.text }}</option>
+                                </select>
+                            </div>       
+                            <div class="col-md-3">
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createhospital.openDialog()">Create New</a></li>
                                 </ul>
@@ -115,6 +121,8 @@
         data(){
             return{
                 hospitalTypesEnum: ['Government', 'Private'],
+                filter_by_options: [],
+                filter_by_option: '',
                 errors: new Errors(),
                 delete_submitting: false,
                 filter: '',
@@ -124,6 +132,73 @@
                 hospitals: {},
                 hospitals_pg: {},
             }
+        },
+        watch:{
+            filter_by(value){
+                 console.log(this.filter_by_options);
+                switch(value){
+                    case 'HospitalTypes':
+                        this.filter_by_options = [{
+                            value: 1,
+                            text: 'Government'
+                        },{
+                            value: 2,
+                            text: 'Private'
+                        }];
+                        break;
+                    case 'HospitalVerificationStatus':
+                        this.filter_by_options = [
+                            {
+                                value: 0,
+                                text: 'None'
+                            },
+                            {
+                                value: 1,
+                                text: 'Document Verified'
+                            },
+                                                        {
+                                value: 2,
+                                text: 'Physical Verified'
+                            },
+                            {
+                                value: 3,
+                                text: 'Verified'
+                            }
+                        ];
+                        break;
+                    case 'TransplantTypes':
+                        this.filter_by_options =[
+                            {
+                                value: 'kidney',
+                                text: 'Kidney'
+                            },
+                            {
+                                value: 'liver',
+                                text: 'Liver'
+                            }
+                        ];
+                        break;
+                    case 'HospitalApproveStatus':
+                        this.filter_by_options = [
+                            {
+                                value: 0,
+                                text: 'None'
+                            },
+                            {
+                                value: 1,
+                                text: 'Approved'
+                            },
+                            {
+                                value: 2,
+                                text: 'Rejected'
+                            }
+                        ];
+                        break;
+                    default:
+                        this.filter_by_options = [];
+                        break;
+                }
+            },
         },
         computed: {
         },
@@ -139,7 +214,7 @@
             }, 800),
 
             async getHospitals(page = 1) {
-                const response = await DataService.getHospitals(page, this.filter,this.filter_by);
+                const response = await DataService.getHospitals(page, this.filter,this.filter_by,this.filter_by_option);
                 this.hospitals_pg = response.data;
                 this.hospitals = response.data.data;
             },

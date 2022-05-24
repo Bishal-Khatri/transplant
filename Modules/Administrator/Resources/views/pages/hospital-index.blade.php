@@ -11,7 +11,7 @@
 
             <div class="clearfix"></div>
 
-            <hospital-index/>
+            <hospital-index route="{{route('admin.hospital.index')}}"/>
         </div>
     </div>
 @endsection

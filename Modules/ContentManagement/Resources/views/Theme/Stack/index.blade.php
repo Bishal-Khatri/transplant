@@ -24,15 +24,14 @@
 
     @if(isset($content->sections) AND !blank($content->sections))
         @foreach($content->sections as $section)
-            @include("Theme.Stack.sections.component.text.style_1", $section)
 
-            {{--@php--}}
-                {{--$view_file = 'contentmanagement::Theme.'.$active_theme->name.'.sections.' . $section->section_type . '.' . $section->section_name . '.style_1'--}}
-            {{--@endphp--}}
+            @php
+                $view_file = 'contentmanagement::Theme.'.$active_theme->name.'.sections.' . $section->section_type . '.' . $section->section_name . '.style_1'
+            @endphp
 
-            {{--@if($section->visibility)--}}
-                {{--@include($view_file, $section)--}}
-            {{--@endif--}}
+            @if($section->visibility)
+                @include($view_file, $section)
+            @endif
 
         @endforeach
     @endif

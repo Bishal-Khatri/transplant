@@ -65,7 +65,7 @@
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <!-- view -->
-                                        <a class="btn btn-sm btn-primary mr-2" href="#" @click.prevent="$refs.createhospital.openDialog(hospital)">
+                                        <a class="btn btn-sm btn-primary mr-2" :href="`${route}/${hospital.id}`">
                                             <i class="fa fa-eye"></i>View
                                         </a>
                                         <!-- disable -->
@@ -118,6 +118,7 @@
         name: "hospitalIndex",
         components: {
         },
+        props: ['route'],
         data(){
             return{
                 hospitalTypesEnum: ['Government', 'Private'],

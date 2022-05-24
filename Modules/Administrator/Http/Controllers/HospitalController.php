@@ -35,6 +35,14 @@ class HospitalController extends Controller
         $hospitals = $query->orderBy('id', 'desc')->paginate(10);
         return response()->json($hospitals);
     }
+    public function hospitals_view($id){
+        $hospital = json_encode(Hospital::with([
+            'province',
+            'district',
+            'municipality',
+        ])->find($id));
+        return view('administrator::pages.hospital-detail',compact('hospital'));
+    }
     // // delete hospital
     // public function delete($id)
     // {

@@ -2,27 +2,6 @@
 
 @section('content')
 
-    @if($content->title_visibility)
-        <section class="text-center imagebg space--lg" data-overlay="3">
-            <div class="background-image-holder">
-                <img alt="background" src="/themes/stack/img/landing-19.jpg" />
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-lg-6">
-                        <h1>{{ $content->title ?? '' }}</h1>
-                        <p class="lead">
-                            {{ $content->short_description ?? '' }}
-                        </p>
-                    </div>
-                </div>
-                <!--end of row-->
-            </div>
-            <!--end of container-->
-        </section>
-    @endif
-
-
     @if(isset($content->sections) AND !blank($content->sections))
         @foreach($content->sections as $section)
 
@@ -37,8 +16,40 @@
         @endforeach
     @endif
 
-
-
+    {{--<section class="cover height-80 imagebg switchable siwtchable--switch" data-overlay="8">--}}
+        {{--<div class="background-image-holder">--}}
+            {{--<img alt="background" src="{{ asset('themes/stack/images/banner.jpg') }}" />--}}
+        {{--</div>--}}
+        {{--<div class="container pos-vertical-center">--}}
+            {{--<div class="row justify-content-around">--}}
+                {{--<div class="col-lg-5 col-md-7">--}}
+                    {{--<div class="switchable__text">--}}
+                        {{--<h1>--}}
+                            {{--Welcome to NMC--}}
+                        {{--</h1>--}}
+                        {{--<p class="lead">--}}
+                            {{--Nepal Medical Council (NMC) was established in 2020 by the act of Parliament.--}}
+                        {{--</p>--}}
+                        {{--<a class="btn btn--primary type--uppercase" href="/">--}}
+                            {{--<span class="btn__text">Read More</span>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-lg-6 col-md-4 col-12">--}}
+                    {{--<div class="video-cover border--round box-shadow-wide">--}}
+                        {{--<div class="background-image-holder">--}}
+                            {{--<img alt="image" src="{{ asset('themes/stack/images/banner.jpg') }}" />--}}
+                        {{--</div>--}}
+                        {{--<div class="video-play-icon"></div>--}}
+                        {{--<iframe data-src="https://www.youtube.com/embed/6p45ooZOOPo?autoplay=1" allowfullscreen="allowfullscreen"></iframe>--}}
+                    {{--</div>--}}
+                    {{--<!--end video cover-->--}}
+                {{--</div>--}}
+            {{--</div>--}}
+            {{--<!--end of row-->--}}
+        {{--</div>--}}
+        {{--<!--end of container-->--}}
+    {{--</section>--}}
     {{--<section class="text-center">--}}
         {{--<div class="container">--}}
             {{--<div class="row justify-content-center">--}}
@@ -204,9 +215,9 @@
                             {{--Each purchase of Stack comes with six months free support &mdash; and a lifetime of free content and bug-fix updates.--}}
                         {{--</p>--}}
                         {{--<a class="btn btn--primary type--uppercase" href="#">--}}
-    {{--<span class="btn__text">--}}
-    {{--Purchase on Envato--}}
-    {{--</span>--}}
+                                    {{--<span class="btn__text">--}}
+                                        {{--Purchase on Envato--}}
+                                    {{--</span>--}}
                             {{--<span class="label">$19 USD</span>--}}
                         {{--</a>--}}
                     {{--</div>--}}

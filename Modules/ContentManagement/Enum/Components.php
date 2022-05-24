@@ -13,4 +13,5 @@ interface Components
     const FULL_IMAGE = 'full_image';
     const FULL_PDF = 'full_pdf';
     const VERTICAL_PROCESS = 'vertical_process';
+    const BANNER = 'banner';
 }

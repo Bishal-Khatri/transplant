@@ -2,11 +2,11 @@
     <div>
         <div class="x_panel">
             <div class="x_title">
-                <h2>Call To Action <input type="checkbox" class="js-switch ml-4" v-model="visibility" /> Visible</h2>
+                <h2>Banner - Home Page <input type="checkbox" class="js-switch ml-4" v-model="visibility" /> Visible</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="btn btn-link" v-if="submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
-                        <a class="btn btn-link text-accent" style="color: #5A738E;"  href="" v-else @click.prevent="updateSection">Save Section</a>
+                        <a class="btn btn-link" href="" v-else @click.prevent="updateSection" style="color: #5A738E;" >Save Section</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     <li><a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a></li>
@@ -65,30 +65,31 @@
 
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                    Background
+                                    Background Image
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <div class="row">
-                                        <div class="btn-group form-check" >
-                                            <label class="btn btn-secondary" :class="type === 'light' ? 'active' : ''">
-                                                <input type="radio" class="join-btn" value="light" v-model="type"> Light
-                                            </label>
-                                            <label class="btn btn-secondary" :class="type === 'bg--secondary' ? 'active' : ''">
-                                                <input type="radio" class="join-btn" value="bg--secondary" v-model="type"> Medium
-                                            </label>
-                                            <label class="btn btn-secondary" :class="type === 'bg--dark' ? 'active' : ''">
-                                                <input type="radio" class="join-btn" value="bg--dark" v-model="type"> Dark
-                                            </label>
-                                            <label class="btn btn-secondary" :class="type === 'bg--primary' ? 'active' : ''">
-                                                <input type="radio" class="join-btn" value="bg--primary" v-model="type"> Primary
-                                            </label>
-                                            <!--<label class="btn btn-secondary">-->
-                                                <!--<input type="radio" class="join-btn" value="image" v-model="background"> Image-->
-                                            <!--</label>-->
-                                        </div>
-                                    </div>
+                                    <input type="text" v-model="background_image" class="form-control" disabled>
                                 </div>
                             </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Thumbnail Image
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" v-model="image_url" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Video Url (Youtube)
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" v-model="video_url" class="form-control" disabled>
+                                </div>
+                            </div>
+
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
                                     Button Name
@@ -102,7 +103,7 @@
                                     Button Link
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" v-model="link" class="form-control">
+                                    <input type="text" v-model="button_link" class="form-control">
                                 </div>
                             </div>
                         </form>
@@ -110,21 +111,23 @@
                 </div>
             </div>
         </div>
+
         <delete-section ref="deleteSection"></delete-section>
     </div>
 </template>
 
 <script>
-    import DeleteSection from "./DeleteSection";
     import {Errors} from "../../../../../../../../resources/js/error";
-    import PageService from "../../../../services/PageService";
+    import DeleteSection from "./DeleteSection";
     import {EventBus} from "../../../app";
+    import PageService from "../../../../services/PageService";
 
     export default {
-        name: "CallToAction",
+        name: "Banner",
         props: [
             'page',
             'section',
+            'sliders',
         ],
         components: {
             DeleteSection,
@@ -139,49 +142,61 @@
                 visibility: 1,
                 section_order: 0,
 
-                type: 'light',
-                button_name: 'Go',
-                link: '',
+                background_image: "http://127.0.0.1:8000/themes/stack/images/banner.jpg",
+                image_url: "http://127.0.0.1:8000/themes/stack/images/banner.jpg",
+                video_url: "https://www.youtube.com/embed/6p45ooZOOPo?autoplay=1",
+                button_name: "Read More",
+                button_link: "",
             }
         },
         async mounted(){
             await this.setData();
+            this.init();
         },
         methods:{
             async setData(){
                 this.title = this.section.title;
-                this.body = this.section.text;
                 this.visibility = this.section.visibility;
                 this.section_order = this.section.order;
+                this.body = this.section.text;
 
-                let background = JSON.parse(this.section.background);
-                this.type = background.type;
+                // parse background
+                // let background = JSON.parse(this.section.background);
+                // this.background_image = json_data.image_url;
 
-                let json_data = JSON.parse(this.section.json_data);
-                this.button_name = json_data.button_name;
-                this.link = json_data.link;
+                // parse media
+                // let json_data = JSON.parse(this.section.json_data);
+                // this.image_url = json_data.image_url;
+                // this.video_url = json_data.video_url;
+            },
+            async init(){
             },
 
             async updateSection(){
                 this.submitting = true;
-                let background = JSON.stringify({
-                    type: this.type,
-                    image_url: ''
-                });
-                let json_data = JSON.stringify({
-                    button_name: this.button_name,
-                    link: this.link
-                });
-
                 try {
+
+                    let background = JSON.stringify({
+                        type: 'image',
+                        image_url: this.background_image
+                    });
+
+                    let json_data = JSON.stringify({
+                        image_url: this.image_url,
+                        video_url: this.video_url,
+                        button_name: this.button_name,
+                        button_link: this.button_link,
+                    });
+
+
                     const formData = {
                         section_id: this.section.id,
                         title: this.title,
                         text: this.body,
                         visibility: this.visibility,
                         order: this.section_order,
-                        background: background,
                         json_data: json_data,
+                        background: background,
                     };
 
                     const response = await PageService.updateSection(formData);

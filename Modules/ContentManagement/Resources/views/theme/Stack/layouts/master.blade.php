@@ -256,7 +256,9 @@
 @include('contentmanagement::theme.Stack._partials.navbar')
 
 <div class="main-container">
+
     @yield('content')
+
     <footer class="footer-3 text-center-xs space--xs ">
         <div class="container">
             <div class="row">

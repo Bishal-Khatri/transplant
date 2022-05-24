@@ -2,40 +2,47 @@
     <div>
         <div class="x_panel">
             <div class="x_title">
-                <h2>RichText Section</h2>
+                <h2>RichText Section <input type="checkbox" class="js-switch ml-4" v-model="visibility" /> Visible</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="btn btn-link" v-if="submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
-                        <a class="btn btn-link" href="" v-else @click.prevent="updateSection">Save Section</a>
+                        <a class="btn btn-link" href="" v-else @click.prevent="updateSection" style="color: #5A738E;" >Save Section</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Settings 1</a>
-                            <a class="dropdown-item" href="#">Settings 2</a>
-                        </div>
-                    </li>
                     <li><a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <form class="form-label-left input_mask">
-                    <div class="checkbox col-md-12 col-sm-12  form-group">
-                        <label><input type="checkbox" v-model="visibility"> Visibility</label>
+                <form class="form-horizontal form-label-left">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                            Section Order
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" v-model="section_order" class="form-control">
+                            <span class="form-text small text-danger" v-html="errors.get('section_order')"></span>
+                        </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 form-group">
-                        <input type="number" style="width: 150px;" class="form-control form-control-sm" v-model="section_order" placeholder="Section Order">
-                    </div>
-                    <div class="col-md-12 col-sm-12  form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" v-model="title" id="inputSuccess2" placeholder="Section Title">
-                        <span class="fa fa-align-left form-control-feedback left" aria-hidden="true"></span>
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                            Section Title
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" v-model="title" class="form-control">
+                            <span class="form-text small text-danger" v-html="errors.get('title')"></span>
+                        </div>
                     </div>
 
                     <div class="col-md-12 col-sm-12  form-group has-feedback">
-                        <textarea class="form-control summernote" v-model="body" id="body" cols="30" rows="5" placeholder="Text"></textarea>
-                        <span class="form-text small text-danger" v-html="errors.get('body')"></span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                            Section Body
+                        </label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <textarea class="form-control summernote" v-model="body" id="body" cols="30" rows="5" placeholder="Text"></textarea>
+                            <span class="form-text small text-danger" v-html="errors.get('body')"></span>
+                        </div>
                     </div>
                 </form>
             </div>

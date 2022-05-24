@@ -21,7 +21,9 @@ class ThemeController extends Controller
             return abort(404, 'Theme not activated');
         }
 
-        $content = Page::where('content_type', ContentType::PAGE)->where('visibility', 1)->with('sections')->whereId($active_theme->homepage_id)->first();
+        $content = Page::where('content_type', ContentType::PAGE)
+            ->where('visibility', 1)->with('sections')
+            ->whereId($active_theme->homepage_id)->first();
 
         if (!$content OR blank($content)){
             return view('contentmanagement::default-page');

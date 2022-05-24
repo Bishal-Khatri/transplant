@@ -13,20 +13,22 @@
             <div class="x_content">
                 <ul class="nav nav-tabs justify-content-end bar_tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="home" aria-selected="true">Content</a>
+                        <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="home" aria-selected="true">
+                            Header
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="style-tab" data-toggle="tab" href="#style" role="tab" aria-controls="profile" aria-selected="false">Style</a>
+                        <a class="nav-link" id="style-tab" data-toggle="tab" href="#style" role="tab" aria-controls="profile" aria-selected="false">
+                            Content
+                        </a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
-
-                    </div>
-                    <div class="tab-pane fade" id="style" role="tabpanel" aria-labelledby="style-tab">
                         <form class="form-label-left input_mask">
                             <div class="col-md-12 col-sm-12  form-group has-feedback">
                                 <input type="text" class="form-control has-feedback-left" id="order" placeholder="Order">
+                                <span class="fa fa-align-left form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <div class="col-md-12 col-sm-12  form-group has-feedback">
                                 <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Page Title">
@@ -37,6 +39,9 @@
                                 <textarea class="form-control" name="" id="" cols="30" rows="5" placeholder="Short Description"></textarea>
                             </div>
                         </form>
+                    </div>
+                    <div class="tab-pane fade" id="style" role="tabpanel" aria-labelledby="style-tab">
+
                     </div>
                 </div>
 

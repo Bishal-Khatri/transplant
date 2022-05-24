@@ -32,12 +32,7 @@
                                     <li>
                                         <p>Image <a class="float-right" href="" @click.prevent="addSection('image')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
                                     </li>
-                                    <li>
-                                        <p>Image Gallery <a class="float-right" href="" @click.prevent="addSection('gallery')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                    </li>
-                                    <li>
-                                        <p>File Downloads <a class="float-right" href="" @click.prevent="addSection('file_download')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                    </li>
+
                                     <li>
                                         <p>Pdf <a class="float-right" href="" @click.prevent="addSection('pdf')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
                                     </li>
@@ -45,7 +40,14 @@
                                 </ul>
                             </div>
                             <div class="tab-pane fade" id="widget" role="tabpanel" aria-labelledby="profile-tab">
-
+                                <ul class="to_do">
+                                    <li>
+                                        <p>Image Gallery <a class="float-right" href="" @click.prevent="addSection('gallery')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>File Downloads <a class="float-right" href="" @click.prevent="addSection('file_download')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -98,7 +100,7 @@
 
                 <div v-if="sections.length" v-for="(section, index) in sections" :key="index">
 
-                    <call-to-action>v-if="section.type === 'call_to_action'" :page="page" :section="section"></call-to-action>
+                    <call-to-action v-if="section.section_name === 'call_to_action'" :page="page" :section="section"></call-to-action>
 
                     <rich-text v-if="section.type === 'text'" :page="page" :section="section"></rich-text>
 

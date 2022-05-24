@@ -15990,6 +15990,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -16378,6 +16380,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DeleteSection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeleteSection */ "./Resources/assets/js/components/page/section/DeleteSection.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -19997,6 +20004,44 @@ var render = function () {
                       _vm._v(" "),
                       _c("li", [
                         _c("p", [
+                          _vm._v("Pdf "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "float-right",
+                              attrs: { href: "" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.addSection("pdf")
+                                },
+                              },
+                            },
+                            [
+                              _c("i", { staticClass: "fa fa-plus mr-1" }),
+                              _vm._v("Add"),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "tab-pane fade",
+                    attrs: {
+                      id: "widget",
+                      role: "tabpanel",
+                      "aria-labelledby": "profile-tab",
+                    },
+                  },
+                  [
+                    _c("ul", { staticClass: "to_do" }, [
+                      _c("li", [
+                        _c("p", [
                           _vm._v("Image Gallery "),
                           _c(
                             "a",
@@ -20040,41 +20085,9 @@ var render = function () {
                           ),
                         ]),
                       ]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c("p", [
-                          _vm._v("Pdf "),
-                          _c(
-                            "a",
-                            {
-                              staticClass: "float-right",
-                              attrs: { href: "" },
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.addSection("pdf")
-                                },
-                              },
-                            },
-                            [
-                              _c("i", { staticClass: "fa fa-plus mr-1" }),
-                              _vm._v("Add"),
-                            ]
-                          ),
-                        ]),
-                      ]),
                     ]),
                   ]
                 ),
-                _vm._v(" "),
-                _c("div", {
-                  staticClass: "tab-pane fade",
-                  attrs: {
-                    id: "widget",
-                    role: "tabpanel",
-                    "aria-labelledby": "profile-tab",
-                  },
-                }),
               ]
             ),
           ]),
@@ -20278,11 +20291,11 @@ var render = function () {
                   "div",
                   { key: index },
                   [
-                    _c("call-to-action", [
-                      _vm._v(
-                        'v-if="section.type === \'call_to_action\'" :page="page" :section="section">'
-                      ),
-                    ]),
+                    section.section_name === "call_to_action"
+                      ? _c("call-to-action", {
+                          attrs: { page: _vm.page, section: section },
+                        })
+                      : _vm._e(),
                     _vm._v(" "),
                     section.type === "text"
                       ? _c("rich-text", {
@@ -20562,7 +20575,7 @@ var staticRenderFns = [
                   "aria-selected": "true",
                 },
               },
-              [_vm._v("Content")]
+              [_vm._v("\n                        Header\n                    ")]
             ),
           ]),
           _vm._v(" "),
@@ -20580,30 +20593,25 @@ var staticRenderFns = [
                   "aria-selected": "false",
                 },
               },
-              [_vm._v("Style")]
+              [
+                _vm._v(
+                  "\n                        Content\n                    "
+                ),
+              ]
             ),
           ]),
         ]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "tab-content", attrs: { id: "myTabContent" } }, [
-        _c("div", {
-          staticClass: "tab-pane fade show active",
-          attrs: {
-            id: "content",
-            role: "tabpanel",
-            "aria-labelledby": "content-tab",
-          },
-        }),
-        _vm._v(" "),
         _c(
           "div",
           {
-            staticClass: "tab-pane fade",
+            staticClass: "tab-pane fade show active",
             attrs: {
-              id: "style",
+              id: "content",
               role: "tabpanel",
-              "aria-labelledby": "style-tab",
+              "aria-labelledby": "content-tab",
             },
           },
           [
@@ -20615,6 +20623,11 @@ var staticRenderFns = [
                   _c("input", {
                     staticClass: "form-control has-feedback-left",
                     attrs: { type: "text", id: "order", placeholder: "Order" },
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticClass: "fa fa-align-left form-control-feedback left",
+                    attrs: { "aria-hidden": "true" },
                   }),
                 ]
               ),
@@ -20658,6 +20671,15 @@ var staticRenderFns = [
             ]),
           ]
         ),
+        _vm._v(" "),
+        _c("div", {
+          staticClass: "tab-pane fade",
+          attrs: {
+            id: "style",
+            role: "tabpanel",
+            "aria-labelledby": "style-tab",
+          },
+        }),
       ]),
     ])
   },

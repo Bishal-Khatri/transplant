@@ -26,7 +26,7 @@
         @foreach($content->sections as $section)
 
             @php
-                $view_file = 'contentmanagement::Theme.'.$active_theme->name.'.sections.' . $section->section_type . '.' . $section->section_name . '.style_1'
+                $view_file = 'contentmanagement::theme.'.$active_theme->name.'.sections.' . $section->section_type . '.' . $section->section_name . '.style_1'
             @endphp
 
             @if($section->visibility)

@@ -1,3 +1,4 @@
+require('./bootstrap')
 import Vue from 'vue';
 Vue.component('register-hospital', require('./frontend/RegisterHospital.vue').default);
 

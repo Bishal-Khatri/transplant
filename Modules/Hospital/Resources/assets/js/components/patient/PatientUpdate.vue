@@ -966,7 +966,7 @@
         },
         methods: {
             changeTab(prevIndex,nextIndex){
-                this.refs.update-patient.nextTab()
+                // this.refs.update-patient.nextTab()
                 if(prevIndex === 0){
                     // create new patient
                 }

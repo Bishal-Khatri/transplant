@@ -15,20 +15,20 @@ class CreatePatientsTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
             $table->string('name');
-            $table->string('gender');
-            $table->string('date_of_birth');
-            $table->string('marital_status');
-            $table->unsignedBigInteger('occupation_id');
-            $table->unsignedBigInteger('religion_id');
-            $table->unsignedBigInteger('education_level_id');
-            $table->unsignedBigInteger('ethnic_group_id');
             $table->string('citizenship_number');
-            $table->string('nationality');
-            $table->string('passport_number');
-            $table->string('father_name');
-            $table->string('mother_name');
+            $table->string('image')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('date_of_birth')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->unsignedBigInteger('occupation_id')->nullable();
+            $table->unsignedBigInteger('religion_id')->nullable();
+            $table->unsignedBigInteger('education_level_id')->nullable();
+            $table->unsignedBigInteger('ethnic_group_id')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('passport_number')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('mother_name')->nullable();
             $table->timestamps();
         });
     }

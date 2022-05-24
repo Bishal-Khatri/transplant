@@ -52,5 +52,9 @@
         height: 57px;
         padding: 0;
     }
+
+    .required{
+        color: red;
+    }
 </style>
 @yield('css')

@@ -16,22 +16,19 @@ class HospitalController extends Controller
     public function hospitals(Request $request)
     {
         $query = Hospital::query();
-        if ($request->has('filter') AND !blank($request->filter)) {
+        if ($request->has('filter_by') AND !blank($request->filter_by)) {
             if($request->filter_by=="HospitalTypes"){
-                if(str_contains("government",strtolower($request->filter))){
-                    $query->where('hospital_type',1);
-                }else{
-                    $query->where('hospital_type',2);
-                }
+                    $query->where('hospital_type',$request->filter_by_option);
             }else if($request->filter_by=="HospitalVerificationStatus"){
-                $query->where('verification_status', 'LIKE', '%'.$request->filter.'%');
+                $query->where('verification_status', $request->filter_by_option);
             }else if($request->filter_by=="TransplantTypes"){
-                $query->where('transplant_type', 'LIKE', '%'.$request->filter.'%');
+                $query->where('transplant_type', $request->filter_by_option);
             }else if($request->filter_by=="HospitalApproveStatus"){
-                $query->where('approve_status','LIKE', '%'.$request->filter.'%');
+                $query->where('approve_status',$request->filter_by_option);
             }else if($request->filter_by=="VerificationStatus"){
-                $query->where('verification_status','LIKE', '%'.$request->filter.'%');
-            }else{
+                $query->where('verification_status',$request->filter_by_option);
+            }
+            if($request->has('filter')){
                 $query->where('hospital_name', 'LIKE', '%'.$request->filter.'%');
             }
         }

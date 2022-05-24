@@ -108,13 +108,4 @@ class HospitalController extends Controller
         return response()->json($returnData);
     }
 
-    public function getPatientList()
-    {
-        $query = Patient::query();
-        $patients = $query->paginate(10);
-
-        $returnData = $this->prepareResponse(false, 'success', compact('patients'), []);
-        return response()->json($returnData);
-    }
-
 }

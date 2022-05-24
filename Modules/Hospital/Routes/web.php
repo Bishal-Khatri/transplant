@@ -15,6 +15,10 @@ Route::group(['prefix' => 'hospital', 'middleware' => ['auth', 'hospital'], 'as'
     Route::get('/profile', [HospitalController::class, 'profile'])->name('profile');
 
     Route::group(['prefix' => 'web-api'], function (){
-        Route::get('/patient-list', [HospitalController::class, 'getPatientList']);
+        Route::group(['prefix' => 'patient'], function (){
+            Route::get('/list', [PatientController::class, 'getPatientList']);
+            Route::post('/create', [PatientController::class, 'savePatient']);
+            Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);
+        });
     });
 });

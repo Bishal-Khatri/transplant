@@ -3,6 +3,7 @@ import Vue from 'vue';
 window._ = require('lodash');
 
 Vue.component('hospital-index', require('./components/hospital/HospitalIndex.vue').default);
+Vue.component('hospital-details', require('./components/hospital/HospitalView.vue').default);
 Vue.component('religion-index', require('./components/religion/ReligionIndex.vue').default);
 Vue.component('ethnic-groups-index', require('./components/ethnic_groups/EthnicGroupsIndex.vue').default);
 Vue.component('disease-index', require('./components/disease/DiseaseIndex.vue').default);

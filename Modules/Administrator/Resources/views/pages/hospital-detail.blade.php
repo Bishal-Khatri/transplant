@@ -8,10 +8,8 @@
                     <h3>Hospital Listing</h3>
                 </div>
             </div>
-
             <div class="clearfix"></div>
-
-            <hospital-index route="{{route('admin.hospital.index')}}"/>
+            <hospital-details  hospital_json="{{ $hospital }}"/>
         </div>
     </div>
 @endsection

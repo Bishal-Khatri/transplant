@@ -4,7 +4,9 @@ namespace Modules\Hospital\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Modules\Administrator\Entities\Province;
+use Modules\Administrator\Entities\District;
+use Modules\Administrator\Entities\Municipality;
 class Hospital extends Model
 {
     use HasFactory;
@@ -30,5 +32,15 @@ class Hospital extends Model
     {
         $licenses = $this->license()->get();
         return $licenses->last();
+    }
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+    public function district(){
+        return $this->belongsTo(District::class);
+    }
+    public function municipality(){
+        return $this->belongsTo(Municipality::class);
     }
 }

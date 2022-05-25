@@ -1,179 +1,287 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Hospital Name</label>
-                    <input type="text" class="form-control"  :value="hospital.hospital_name" readonly>
-                </div>
+            <div class="col-md-8">
+                <section class="x_panel">
+                    <div class="x_title row">
+                        <h2 class="col-md-3 pl-1">Hospital Name</h2>
+                        <h2 class="text-accent col-md-9">{{ hospital.hospital_name }}</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="project_detail">
+                            <p class="title">General Details</p>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Hospital Type
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input class="form-control"  v-if="hospital.hospital_type === 1"  value="GOVERNMENT" readonly/>
+                                    <input v-else  value="PRIVATE" class="form-control" readonly/>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label >Hospital Type</label>
-                    <input type="text" class="form-control"  :value="hospital.hospital_type" readonly>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Transplant Type
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input class="form-control" :value="hospital.transplant_type ? hospital.transplant_type.toUpperCase() : ''" readonly/>
+                                </div>
+                            </div>
+                            <hr>
+                            <p class="title">Address</p>
 
-                <div class="form-group">
-                    <label >transplant_type</label>
-                    <input type="text" class="form-control"  :value="hospital.transplant_type" readonly>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Province
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input class="form-control" :value="hospital.province ? hospital.province.title : 'Not-Availabl'" readonly/>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label >approved_date</label>
-                    <input type="text" class="form-control"  :value="hospital.approved_date" readonly>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    District
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input class="form-control" :value="hospital.district ? hospital.district.title : 'Not-Available'" readonly/>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label >approved_by</label>
-                    <input type="text" class="form-control"  :value="hospital.approved_by" readonly>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Municipality
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input class="form-control" :value="hospital.municipality ? hospital.municipality.title : 'Not-Available'" readonly/>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label >reject_message</label>
-                    <input type="text" class="form-control"  :value="hospital.reject_message" readonly>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Palika
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input class="form-control" :value="hospital.palika_name || 'Not-Available'" readonly/>
+                                </div>
+                            </div>
+                            <p></p>
+                            <hr>
+                            <p class="title">Status</p>
 
-                <div class="form-group">
-                    <label >approve_status</label>
-                    <input type="text" class="form-control"  :value="hospital.approve_status" readonly>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Accessibility
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <div class="btn-group" role="group">
+                                        <button id="status" type="button" class="btn btn-accent btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span v-if="hospital.status === 1">Enabled</span>
+                                            <span v-else>Disabled</span>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="status"
+                                             x-placement="bottom-start"
+                                             style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('status', 1)">Enable</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('status', 0)">Disable</a>
+                                        </div>
+                                    </div>
 
-                <div class="form-group">
-                    <label >verification_status</label>
-                    <input type="text" class="form-control"  :value="hospital.verification_status" readonly>
-                </div>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label >active_license_id</label>
-                    <input type="text" class="form-control"  :value="hospital.active_license_id" readonly>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Verification status
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <div class="btn-group" role="group">
+                                        <button id="verification" type="button" class="btn btn-accent btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span v-if="hospital.verification_status === 0">NONE</span>
+                                            <span v-if="hospital.verification_status === 1">DOCUMENT VERIFIED</span>
+                                            <span v-if="hospital.verification_status === 2">PHYSICALLY VERIFIED</span>
+                                            <span v-if="hospital.verification_status === 3">VERIFIED</span>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="verification"
+                                             x-placement="bottom-start"
+                                             style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('verification_status', 'DOCUMENT_VERIFIED')">Document Verified</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('verification_status', 'PHYSICAL_VERIFIED')">Physically Verified</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('verification_status', 'VERIFIED')">Verified</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="province">Province</label>
-                    <input type="text" class="form-control" id="province" v-model="hospital.province.title || 'Not-Available'" disabled>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Approval status
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <span class="btn btn-sm btn-accent">{{ hospital.approve_status ? hospital.approve_status.toUpperCase() : '' }}</span>
+                                    <span v-if="hospital.approve_status === 'rejected'">
+                                        <label for="">Reject Message</label>
+                                        <textarea name="" id="" cols="30" rows="10">{{ hospital.reject_message }}</textarea>
+                                    </span>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="district">District</label>
-                    <input type="text" class="form-control" id="district" v-model="hospital.district.title || 'Not-Available'" disabled>
-                </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Approved By
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <p class="mt-2">
+                                        <span v-if="hospital.approved_by">{{ hospital.approved_by || 'Not-Available' }} On {{ hospital.approved_date }}</span>
+                                        <span v-else>Not-Available</span>
+                                    </p>
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="municipality">Municipality</label>
-                    <input type="text" class="form-control" id="municipality" v-model="hospital.municipality.title || 'Not-Available'" disabled>
-                </div>
+                        </div>
 
-                <div class="form-group">
-                    <label for="palika">Palika</label>
-                    <input type="text" class="form-control" id="palika" v-model="hospital.palika_name" disabled>
-                </div>
+                        <br>
+                        <h5>Files & Docuemnts</h5>
+                        <ul class="list-unstyled project_files">
+                            <li>
+                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
+                                    <i class="fa fa-file"></i> Application Letter
+                                    <i :class="hospital.application_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href=""  @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
+                                    <i class="fa fa-file"></i> Human Resource
+                                    <i :class="hospital.human_resource ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tools_list}`)">
+                                    <i class="fa fa-file"></i> Tools & Equipment list
+                                    <i :class="hospital.tools_list ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.administrative_document}`)">
+                                    <i class="fa fa-file"></i> Administrative Document
+                                    <i :class="hospital.administrative_document ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.sanchalan_swikriti}`)">
+                                    <i class="fa fa-file"></i> Sanchalan Swikriti
+                                    <i :class="hospital.sanchalan_swikriti ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.renewal_letter}`)">
+                                    <i class="fa fa-file"></i> Renewal Letter
+                                    <i :class="hospital.renewal_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.pan}`)">
+                                    <i class="fa fa-file"></i> PAN
+                                    <i :class="hospital.pan ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tax_clearance}`)">
+                                    <i class="fa fa-file"></i> Tax Clearance
+                                    <i :class="hospital.tax_clearance ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-3">
+                            <h2 class="text-accent">Access User</h2>
+
+                        </div>
+                        <div class="col-md-9">
+                            <!--disable old license is create-->
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a style="color: #5A738E;" href="#">Change User</a></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-unstyled project_files">
+                            <li>
+                                <strong>User's Name:</strong> Bishal Khatri
+                            </li>
+                            <li>
+                                <strong>Email Address:</strong> bishal.khatri343@gmail.com
+                            </li>
+                            <li>
+                                <strong>Password:</strong> <a href="">Change Password</a>
+                            </li>
+                            <li>
+                                <strong>Created At:</strong> Apr 23 2022
+                            </li>
+                            <li>
+                                <strong>Updated At:</strong> Apr 23 2022
+                            </li>
+                        </ul>
+                    </div>
+
+                </section>
+
+
+                <section class="x_panel">
+                    <div class="x_title">
+                        <div class="col-md-3">
+                            <h2 class="text-accent">License</h2>
+
+                        </div>
+                        <div class="col-md-9">
+                            <!--disable old license is create-->
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a style="color: #5A738E;" href="#">Create New License</a></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-unstyled project_files">
+                            <li>
+                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
+                                    <!-- Show license details: issue_date, expiry_date, license_number, issued_by on click-->
+                                    <i class="fa fa-certificate"></i> < license number >
+                                    <i :class="hospital.application_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href=""  @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
+                                    <i class="fa fa-certificate"></i> < license number >
+                                    <small class="text-danger">Expired</small>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </section>
+
             </div>
         </div>
 
+        <hr>
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped jambo_table">
-                    <thead>
-                    <tr>
-                        <th>File Type</th>
-                        <th>File Name</th>
-                        <th>File</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Application Letter</td>
-                        <td>
-                            <a href="#" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">{{hospital.application_letter}}</a>
-                        </td>
-                        <td>
-                            <img :src="`/storage/${hospital.application_letter}`" alt="" class="img-preview"
-                                 @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Human Resource</td>
-                        <td>
-                            <a href="#" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">{{hospital.human_resource}}</a>
-                        </td>
-                        <td>
-                            <img :src="`/storage/${hospital.human_resource}`" alt="" class="img-preview"
-                                 @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Tools & Equipment list</td>
-                        <td>
-                            <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tools_list}`)">{{hospital.tools_list}}</a>
-                        </td>
-                        <td>
-                            <img :src="`/storage/${hospital.tools_list}`" alt="" class="img-preview"
-                                 @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tools_list}`)">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Administrative Document</td>
-                        <td>
-                            <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.administrative_document}`)">{{hospital.administrative_document}}</a>
-                        </td>
-                        <td>
-                            <img :src="`/storage/${hospital.administrative_document}`" alt="" class="img-preview"
-                                 @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.administrative_document}`)">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Sanchalan Swikriti</td>
-                        <td>
-                            <a href="#" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.sanchalan_swikriti}`)">{{hospital.sanchalan_swikriti}}</a>
-                        </td>
-                        <td>
-                            <img :src="`/storage/${hospital.sanchalan_swikriti}`" alt="" class="img-preview"
-                                 @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.sanchalan_swikriti}`)">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Renewal Letter</td>
-                        <td>
-                            <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.renewal_letter}`)">{{hospital.renewal_letter}}</a>
-                        </td>
-                        <td>
-                            <img :src="`/storage/${hospital.renewal_letter}`" alt="" class="img-preview"
-                                 @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.renewal_letter}`)">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>PAN</td>
-                        <td>
-                            <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.pan}`)">{{hospital.pan}}</a>
-                        </td>
-                        <td>
-                            <img :src="`/storage/${hospital.pan}`" alt="" class="img-preview"
-                                 @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.pan}`)">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Tax Clearance</td>
-                        <td>
-                            <a href="#" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tax_clearance}`)">{{hospital.tax_clearance}}</a>
-                        </td>
-                        <td>
-                            <img :src="`/storage/${hospital.tax_clearance}`" alt="" class="img-preview"
-                                 @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tax_clearance}`)">
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-md-12 text-left">
                 <button class="btn btn-accent btn-sm" @click.prevent="approve()">Approve</button>
                 <button class="btn btn-danger btn-sm" @click.prevent="reject()">Reject</button>
             </div>
@@ -210,7 +318,7 @@
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Approve Hospital</h4>
+                        <h4 class="modal-title ml-2">Approve Hospital</h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -220,6 +328,7 @@
                             Enter new login credentials for portal accessibility and click <code>Approve</code> button.
                         </p>
                         <!-- login info -->
+                        <h2>Login Credentials</h2>
                         <div class="form-group row">
                             <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
                                 Full Name
@@ -292,7 +401,7 @@
             return{
                 errors: new Errors(),
 
-                hospital:'',
+                hospital: {},
                 reject_submitting:false,
                 approve_submitting:false,
                 // approve

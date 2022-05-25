@@ -35,6 +35,7 @@
                             <tr v-else v-for="(religion, index) in religions" :key="index">
                                 <td>
                                     <a class="mr-2" href="#" @click.prevent="$refs.createReligion.openDialog(religion)">{{ religion.title }}</a>
+                                    <br>
                                     <small class="">Created on {{ religion.created_at }}</small>
                                 </td>
                                 <td class="text-right">

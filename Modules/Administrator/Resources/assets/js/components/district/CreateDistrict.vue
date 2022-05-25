@@ -27,8 +27,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                        <button v-if="submitting" type="button" class="btn btn-primary btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                        <button v-else type="submit" class="btn btn-success btn-sm" @click.prevent="saveDistrict">Save</button>
+                        <button v-if="submitting" type="button" class="btn btn-accent btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button v-else type="submit" class="btn btn-accent btn-sm" @click.prevent="saveDistrict">Save</button>
                     </div>
                 </div>
             </div>

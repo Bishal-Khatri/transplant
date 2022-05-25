@@ -15804,6 +15804,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -36948,17 +36971,73 @@ var render = function () {
                 ]),
               ]),
               _vm._v(" "),
-              _vm._m(0),
-              _vm._v(" "),
               _c("div", { staticClass: "clearfix" }),
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "x_content" }, [
+              _c("div", { staticClass: "row mb-3" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "mb-2", staticStyle: { display: "flex" } },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        { staticClass: "nav navbar-right panel_toolbox" },
+                        [
+                          _c("li", [
+                            _c("button", [
+                              _vm._v("Hospital Type: GOVERNMENT "),
+                              _c("i", {
+                                staticClass: "fa fa-times",
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.removeFilter.apply(
+                                      null,
+                                      arguments
+                                    )
+                                  },
+                                },
+                              }),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _c("button", [
+                              _vm._v("Hospital Type: GOVERNMENT "),
+                              _c("i", {
+                                staticClass: "fa fa-times",
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.removeFilter.apply(
+                                      null,
+                                      arguments
+                                    )
+                                  },
+                                },
+                              }),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(1),
+                        ]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(2),
+                ]),
+              ]),
+              _vm._v(" "),
               _c(
                 "table",
                 { staticClass: "table table-striped jambo_table bulk_action" },
                 [
-                  _vm._m(1),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -37113,9 +37192,9 @@ var render = function () {
             { staticClass: "modal-dialog modal-sm modal-dialog-centered" },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(2),
+                _vm._m(4),
                 _vm._v(" "),
-                _vm._m(3),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
                   _c(
@@ -37165,14 +37244,73 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-2" }, [
-      _c("div", { staticClass: "col-md-3" }, [
-        _c(
-          "select",
-          { staticClass: "form-control", attrs: { name: "", id: "" } },
-          [_c("option", { attrs: { value: "" } }, [_vm._v("Filter Value")])]
-        ),
-      ]),
+    return _c("h4", { staticClass: "mr-3" }, [
+      _c("i", { staticClass: "fa fa-filter mr-1" }),
+      _vm._v(" Filter\n                                "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c(
+        "a",
+        { staticStyle: { color: "rgb(90, 115, 142)" }, attrs: { href: "#" } },
+        [_vm._v("Clear Filter")]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            id: "filter-hospital-type",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+          },
+        },
+        [
+          _vm._v(
+            "\n                                    Hospital Type\n                                "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: {
+            position: "absolute",
+            "will-change": "transform",
+            top: "0px",
+            left: "0px",
+            transform: "translate3d(0px, 38px, 0px)",
+          },
+          attrs: {
+            "aria-labelledby": "filter-hospital-type",
+            "x-placement": "bottom-start",
+          },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("GOVERNMENT"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("PRIVATE"),
+          ]),
+        ]
+      ),
     ])
   },
   function () {

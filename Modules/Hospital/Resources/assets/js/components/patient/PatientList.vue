@@ -18,16 +18,39 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-3">
-                                <select name="" id="" class="form-control">
-                                    <option value="">Filter Value</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                        <!--// filter-->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <div style="display: flex;" class="mb-2">
+                                    <h4 class="mr-3">
+                                        <i class="fa fa-filter mr-1"></i> Filter
+                                    </h4>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><button>Hospital Type: GOVERNMENT <i class="fa fa-times" @click.prevent="removeFilter"></i></button></li>
+                                        <li><button>Hospital Type: GOVERNMENT <i class="fa fa-times" @click.prevent="removeFilter"></i></button></li>
+                                        <li><a href="#" style="color: rgb(90, 115, 142);">Clear Filter</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="btn-group" role="group">
+                                    <button id="filter-hospital-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Hospital Type
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filter-hospital-type"
+                                         x-placement="bottom-start"
+                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                        <a class="dropdown-item" href="#">GOVERNMENT</a>
+                                        <a class="dropdown-item" href="#" >PRIVATE</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr>

@@ -35,6 +35,7 @@
                             <tr v-else v-for="(disease, index) in diseases" :key="index">
                                 <td>
                                     <a class="mr-2" href="#" @click.prevent="$refs.createDisease.openDialog(disease)">{{ disease.title }}</a>
+                                    <br>
                                     <small class="">Created on {{ disease.created_at }}</small>
                                 </td>
                                 <td class="text-right">

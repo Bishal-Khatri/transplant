@@ -15452,6 +15452,9 @@ __webpack_require__.r(__webpack_exports__);
   savePatient: function savePatient(formData) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/hospital/web-api/patient/create', formData);
   },
+  updatePatient: function updatePatient(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/hospital/web-api/patient/update', formData);
+  },
   deletePatient: function deletePatient(patient_id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/hospital/web-api/patient/delete/' + patient_id);
   }
@@ -16804,6 +16807,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -16815,6 +16844,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"](),
+      isLastStep: false,
       // form data
       name: '',
       gender: '',
@@ -16869,11 +16899,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   components: {
     FormWizard: vue_form_wizard__WEBPACK_IMPORTED_MODULE_4__["FormWizard"],
-    TabContent: vue_form_wizard__WEBPACK_IMPORTED_MODULE_4__["TabContent"]
+    TabContent: vue_form_wizard__WEBPACK_IMPORTED_MODULE_4__["TabContent"],
+    WizardButton: vue_form_wizard__WEBPACK_IMPORTED_MODULE_4__["WizardButton"]
   },
   computed: {},
   mounted: function mounted() {
     this.getProvince();
+    this.initForm();
   },
   watch: {
     current_province: function current_province(value) {
@@ -16890,44 +16922,85 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
-    changeTab: function changeTab(prevIndex, nextIndex) {
-      // this.refs.update-patient.nextTab()
-      if (prevIndex === 0) {// create new patient
-      }
-
-      console.log({
-        prevIndex: prevIndex
-      });
-      console.log({
-        nextIndex: nextIndex
-      });
+    initForm: function initForm() {
+      this.name = this.patient.name;
+      this.gender = this.patient.gender;
+      this.date_of_birth = this.patient.date_of_birth;
+      this.marital_status = this.patient.marital_status;
+      this.occupation = this.patient.occupation_id;
+      this.religion = this.patient.religion_id;
+      this.education_level = this.patient.education_level_id;
+      this.ethnic_group = this.patient.ethnic_group_id;
+      this.nationality = this.patient.nationality;
+      this.citizenship_number = this.patient.citizenship_number;
+      this.passport_number = this.patient.passport_number;
+      this.father_name = this.patient.father_name;
+      this.mother_name = this.patient.mother_name;
     },
-    getProvince: function getProvince() {
+    submitForm: function submitForm(page_name) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var formData, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getProvince();
+                formData = new FormData();
+                formData.append('patient_id', _this.patient.id);
 
-              case 2:
+                if (page_name === 'personal_information') {
+                  formData.append('page', page_name);
+                  _this.patient_image ? formData.append("patient_image", _this.patient_image, _this.patient_image.name) : '';
+                  _this.name ? formData.append("name", _this.name) : '';
+                  _this.gender ? formData.append("gender", _this.gender) : '';
+                  formData.append("date_of_birth", $("#date_of_birth").val());
+                  _this.marital_status ? formData.append("marital_status", _this.marital_status) : '';
+                  _this.occupation ? formData.append("occupation", _this.occupation) : '';
+                  _this.religion ? formData.append("religion", _this.religion) : '';
+                  _this.education_level ? formData.append("education_level", _this.education_level) : '';
+                  _this.ethnic_group ? formData.append("ethnic_group", _this.ethnic_group) : '';
+                  _this.nationality ? formData.append("nationality", _this.nationality) : ''; // this.citizenship_number ? formData.append("citizenship_number", this.citizenship_number) : '';
+
+                  _this.passport_number ? formData.append("passport_number", _this.passport_number) : '';
+                  _this.father_name ? formData.append("father_name", _this.father_name) : '';
+                  _this.mother_name ? formData.append("mother_name", _this.mother_name) : '';
+                }
+
+                _context.prev = 3;
+                _context.next = 6;
+                return _services_PatientService__WEBPACK_IMPORTED_MODULE_2__["default"].updatePatient(formData);
+
+              case 6:
                 response = _context.sent;
-                _this.provinces = response.data.data.provinces;
 
-              case 4:
+                if (response.data.error === false) {
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
+
+                  _this.$refs.updatePatient.nextTab();
+                }
+
+                _context.next = 14;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](3);
+
+                _this.errors.record(_context.t0.response.data);
+
+                _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(_context.t0.response);
+
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[3, 10]]);
       }))();
     },
-    // For Permanent Address
-    getPermanentDistrict: function getPermanentDistrict(province_id) {
+    handelImage: function handelImage() {},
+    getProvince: function getProvince() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
@@ -16937,11 +17010,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getDistrict(province_id);
+                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getProvince();
 
               case 2:
                 response = _context2.sent;
-                _this2.permanent_districts = response.data.data.districts;
+                _this2.provinces = response.data.data.provinces;
 
               case 4:
               case "end":
@@ -16951,7 +17024,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    getPermanentMunicipality: function getPermanentMunicipality(district_id) {
+    // For Permanent Address
+    getPermanentDistrict: function getPermanentDistrict(province_id) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -16961,11 +17035,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getMunicipality(district_id);
+                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getDistrict(province_id);
 
               case 2:
                 response = _context3.sent;
-                _this3.permanent_municipalities = response.data.data.municipalities;
+                _this3.permanent_districts = response.data.data.districts;
 
               case 4:
               case "end":
@@ -16975,7 +17049,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    getCurrentDistrict: function getCurrentDistrict(province_id) {
+    getPermanentMunicipality: function getPermanentMunicipality(district_id) {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
@@ -16985,11 +17059,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getDistrict(province_id);
+                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getMunicipality(district_id);
 
               case 2:
                 response = _context4.sent;
-                _this4.current_districts = response.data.data.districts;
+                _this4.permanent_municipalities = response.data.data.municipalities;
 
               case 4:
               case "end":
@@ -16999,7 +17073,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    getCurrentMunicipality: function getCurrentMunicipality(district_id) {
+    getCurrentDistrict: function getCurrentDistrict(province_id) {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
@@ -17009,11 +17083,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getMunicipality(district_id);
+                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getDistrict(province_id);
 
               case 2:
                 response = _context5.sent;
-                _this5.current_municipalities = response.data.data.municipalities;
+                _this5.current_districts = response.data.data.districts;
 
               case 4:
               case "end":
@@ -17021,6 +17095,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee5);
+      }))();
+    },
+    getCurrentMunicipality: function getCurrentMunicipality(district_id) {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_3__["default"].getMunicipality(district_id);
+
+              case 2:
+                response = _context6.sent;
+                _this6.current_municipalities = response.data.data.municipalities;
+
+              case 4:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
       }))();
     }
   }
@@ -37145,18 +37243,56 @@ var render = function () {
               _c(
                 "form-wizard",
                 {
-                  ref: "update-patient",
+                  ref: "updatePatient",
                   attrs: {
-                    nextButtonText: "Next",
-                    backButtonText: "Back",
-                    finishButtonText: "Submit",
                     stepSize: "xs",
                     color: "#34495E",
                     shape: "square",
                     title: "",
                     subtitle: "",
                   },
-                  on: { "on-change": _vm.changeTab },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "footer",
+                      fn: function (props) {
+                        return [
+                          _c("div", { staticClass: "wizard-footer-left" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-accent",
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.$refs.updatePatient.prevTab()
+                                  },
+                                },
+                              },
+                              [_vm._v("Back")]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "wizard-footer-right" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-accent",
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.submitForm(
+                                      "personal_information"
+                                    )
+                                  },
+                                },
+                              },
+                              [_vm._v("Save & Proceed")]
+                            ),
+                          ]),
+                        ]
+                      },
+                    },
+                  ]),
                 },
                 [
                   _c(
@@ -37216,6 +37352,16 @@ var render = function () {
                                         },
                                       },
                                     }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("name")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -37228,10 +37374,109 @@ var render = function () {
                                       "col-form-label col-md-3 col-sm-3 label-align",
                                   },
                                   [
-                                    _vm._v("Image "),
+                                    _vm._v(
+                                      "\n                                                Citizenship Number "
+                                    ),
                                     _c("span", { staticClass: "required" }, [
                                       _vm._v("*"),
                                     ]),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-md-9 col-sm-9" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.citizenship_number,
+                                          expression: "citizenship_number",
+                                        },
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        required: "required",
+                                        disabled: "",
+                                      },
+                                      domProps: {
+                                        value: _vm.citizenship_number,
+                                      },
+                                      on: {
+                                        input: function ($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.citizenship_number =
+                                            $event.target.value
+                                        },
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group row" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass:
+                                      "col-form-label col-md-3 col-sm-3 label-align",
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                Passport Number\n                                            "
+                                    ),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-md-9 col-sm-9" },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.passport_number,
+                                          expression: "passport_number",
+                                        },
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        required: "required",
+                                      },
+                                      domProps: { value: _vm.passport_number },
+                                      on: {
+                                        input: function ($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.passport_number =
+                                            $event.target.value
+                                        },
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "form-group row" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass:
+                                      "col-form-label col-md-3 col-sm-3 label-align",
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                Image\n                                            "
+                                    ),
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -37244,6 +37489,15 @@ var render = function () {
                                       attrs: {
                                         type: "file",
                                         required: "required",
+                                      },
+                                      on: {
+                                        change: function ($event) {
+                                          $event.preventDefault()
+                                          return _vm.handelImage.apply(
+                                            null,
+                                            arguments
+                                          )
+                                        },
                                       },
                                     }),
                                   ]
@@ -37315,19 +37569,19 @@ var render = function () {
                                         _vm._v(" "),
                                         _c(
                                           "option",
-                                          { attrs: { value: "married" } },
+                                          { attrs: { value: "male" } },
                                           [_vm._v("Male")]
                                         ),
                                         _vm._v(" "),
                                         _c(
                                           "option",
-                                          { attrs: { value: "married" } },
+                                          { attrs: { value: "female" } },
                                           [_vm._v("Female")]
                                         ),
                                         _vm._v(" "),
                                         _c(
                                           "option",
-                                          { attrs: { value: "married" } },
+                                          { attrs: { value: "other" } },
                                           [_vm._v("Other")]
                                         ),
                                       ]
@@ -37342,10 +37596,11 @@ var render = function () {
                                   {
                                     staticClass:
                                       "col-form-label col-md-3 col-sm-3 label-align",
-                                    attrs: { for: "last-name" },
                                   },
                                   [
-                                    _vm._v("Date Of Birth "),
+                                    _vm._v(
+                                      "\n                                                Date Of Birth "
+                                    ),
                                     _c("span", { staticClass: "required" }, [
                                       _vm._v("*"),
                                     ]),
@@ -37357,30 +37612,28 @@ var render = function () {
                                   { staticClass: "col-md-9 col-sm-9" },
                                   [
                                     _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.date_of_birth,
-                                          expression: "date_of_birth",
-                                        },
-                                      ],
-                                      staticClass: "date-picker form-control",
+                                      staticClass: "form-control",
                                       attrs: {
+                                        "data-inputmask":
+                                          "'mask': '99/99/9999'",
+                                        id: "date_of_birth",
                                         required: "required",
                                         type: "text",
                                       },
                                       domProps: { value: _vm.date_of_birth },
-                                      on: {
-                                        input: function ($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.date_of_birth =
-                                            $event.target.value
-                                        },
-                                      },
                                     }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "fa fa-calendar form-control-feedback right",
+                                      attrs: { "aria-hidden": "true" },
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      { staticClass: "text-sm text-info" },
+                                      [_vm._v("(dd/mm/y)")]
+                                    ),
                                   ]
                                 ),
                               ]),
@@ -37419,7 +37672,7 @@ var render = function () {
                                           },
                                         ],
                                         staticClass: "form-control",
-                                        attrs: { name: "", id: "" },
+                                        attrs: { name: "" },
                                         on: {
                                           change: function ($event) {
                                             var $$selectedVal =
@@ -37483,7 +37736,9 @@ var render = function () {
                                   ]
                                 ),
                               ]),
-                              _vm._v(" "),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
                               _c("div", { staticClass: "form-group row" }, [
                                 _c(
                                   "label",
@@ -37493,11 +37748,8 @@ var render = function () {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                Occupation "
+                                      "\n                                                Occupation\n                                            "
                                     ),
-                                    _c("span", { staticClass: "required" }, [
-                                      _vm._v("*"),
-                                    ]),
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -37584,11 +37836,8 @@ var render = function () {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                Religion "
+                                      "\n                                                Religion\n                                            "
                                     ),
-                                    _c("span", { staticClass: "required" }, [
-                                      _vm._v("*"),
-                                    ]),
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -37665,9 +37914,7 @@ var render = function () {
                                   ]
                                 ),
                               ]),
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-6" }, [
+                              _vm._v(" "),
                               _c("div", { staticClass: "form-group row" }, [
                                 _c(
                                   "label",
@@ -37677,11 +37924,8 @@ var render = function () {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                Education Level "
+                                      "\n                                                Education Level\n                                            "
                                     ),
-                                    _c("span", { staticClass: "required" }, [
-                                      _vm._v("*"),
-                                    ]),
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -37770,11 +38014,8 @@ var render = function () {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                Ethnic Group "
+                                      "\n                                                Ethnic Group\n                                            "
                                     ),
-                                    _c("span", { staticClass: "required" }, [
-                                      _vm._v("*"),
-                                    ]),
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -37858,13 +38099,11 @@ var render = function () {
                                   {
                                     staticClass:
                                       "col-form-label col-md-3 col-sm-3 label-align",
-                                    attrs: { for: "last-name" },
                                   },
                                   [
-                                    _vm._v("Nationality "),
-                                    _c("span", { staticClass: "required" }, [
-                                      _vm._v("*"),
-                                    ]),
+                                    _vm._v(
+                                      "\n                                                Nationality\n                                            "
+                                    ),
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -37906,110 +38145,11 @@ var render = function () {
                                   {
                                     staticClass:
                                       "col-form-label col-md-3 col-sm-3 label-align",
-                                    attrs: { for: "last-name" },
                                   },
                                   [
-                                    _vm._v("Citizenship Number "),
-                                    _c("span", { staticClass: "required" }, [
-                                      _vm._v("*"),
-                                    ]),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "col-md-9 col-sm-9" },
-                                  [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.citizenship_number,
-                                          expression: "citizenship_number",
-                                        },
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        required: "required",
-                                      },
-                                      domProps: {
-                                        value: _vm.citizenship_number,
-                                      },
-                                      on: {
-                                        input: function ($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.citizenship_number =
-                                            $event.target.value
-                                        },
-                                      },
-                                    }),
-                                  ]
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group row" }, [
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass:
-                                      "col-form-label col-md-3 col-sm-3 label-align",
-                                    attrs: { for: "last-name" },
-                                  },
-                                  [
-                                    _vm._v("Passport Number "),
-                                    _c("span", { staticClass: "required" }, [
-                                      _vm._v("*"),
-                                    ]),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "col-md-9 col-sm-9" },
-                                  [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.passport_number,
-                                          expression: "passport_number",
-                                        },
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        required: "required",
-                                      },
-                                      domProps: { value: _vm.passport_number },
-                                      on: {
-                                        input: function ($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.passport_number =
-                                            $event.target.value
-                                        },
-                                      },
-                                    }),
-                                  ]
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "form-group row" }, [
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass:
-                                      "col-form-label col-md-3 col-sm-3 label-align",
-                                    attrs: { for: "last-name" },
-                                  },
-                                  [
-                                    _vm._v("Father's Name "),
+                                    _vm._v(
+                                      "\n                                                Father's Name "
+                                    ),
                                     _c("span", { staticClass: "required" }, [
                                       _vm._v("*"),
                                     ]),
@@ -38054,10 +38194,11 @@ var render = function () {
                                   {
                                     staticClass:
                                       "col-form-label col-md-3 col-sm-3 label-align",
-                                    attrs: { for: "last-name" },
                                   },
                                   [
-                                    _vm._v("Mother's Name "),
+                                    _vm._v(
+                                      "\n                                                Mother's Name "
+                                    ),
                                     _c("span", { staticClass: "required" }, [
                                       _vm._v("*"),
                                     ]),
@@ -39649,11 +39790,41 @@ var render = function () {
                                 "label",
                                 {
                                   staticClass:
+                                    "control-label col-md-3 col-sm-3 col-xs-3",
+                                },
+                                [_vm._v("Date Mask")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-md-9 col-sm-9 col-xs-9" },
+                                [
+                                  _c("input", {
+                                    staticClass: "form-control",
+                                    attrs: { type: "text" },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("span", {
+                                    staticClass:
+                                      "fa fa-user form-control-feedback right",
+                                    attrs: { "aria-hidden": "true" },
+                                  }),
+                                ]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group row" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass:
                                     "col-form-label col-md-3 col-sm-3 label-align",
                                   attrs: { for: "last-name" },
                                 },
                                 [
-                                  _vm._v("Date Of Birth "),
+                                  _vm._v(
+                                    "\n                                                Date Of Birth "
+                                  ),
                                   _c("span", { staticClass: "required" }, [
                                     _vm._v("*"),
                                   ]),

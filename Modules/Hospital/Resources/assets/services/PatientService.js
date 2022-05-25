@@ -10,6 +10,10 @@ export default {
         return Api().post('/hospital/web-api/patient/create', formData);
     },
 
+    updatePatient(formData){
+        return Api().post('/hospital/web-api/patient/update', formData);
+    },
+
     deletePatient(patient_id){
         return Api().delete('/hospital/web-api/patient/delete/'+patient_id);
     },

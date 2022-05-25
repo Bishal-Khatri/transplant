@@ -35,6 +35,7 @@
                             <tr v-else v-for="(EthnicGroup, index) in ethnicGroups" :key="index">
                                 <td>
                                     <a class="mr-2" href="#" @click.prevent="$refs.createEthnicGroup.openDialog(EthnicGroup)">{{ EthnicGroup.title }}</a>
+                                    <br>
                                     <small class="">Created on {{ EthnicGroup.created_at }}</small>
                                 </td>
                                 <td class="text-right">

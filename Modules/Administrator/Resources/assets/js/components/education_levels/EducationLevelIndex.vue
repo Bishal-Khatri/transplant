@@ -35,6 +35,7 @@
                             <tr v-else v-for="(educationLevel, index) in educationLevels" :key="index">
                                 <td>
                                     <a class="mr-2" href="#" @click.prevent="$refs.createEducationLevel.openDialog(educationLevel)">{{ educationLevel.title }}</a>
+                                    <br>
                                     <small class="">Created on {{ educationLevel.created_at }}</small>
                                 </td>
                                 <td class="text-right">

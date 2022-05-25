@@ -35,6 +35,7 @@
                             <tr v-else v-for="(occupation, index) in occupations" :key="index">
                                 <td>
                                     <a class="mr-2" href="#" @click.prevent="$refs.createOccupation.openDialog(occupation)">{{ occupation.title }}</a>
+                                    <br>
                                     <small class="">Created on {{ occupation.created_at }}</small>
                                 </td>
                                 <td class="text-right">

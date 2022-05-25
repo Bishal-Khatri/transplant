@@ -18056,6 +18056,70 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18180,6 +18244,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     showDeleteModal: function showDeleteModal(item_id) {
       this.delete_id = item_id;
       $("#delete-hospital-dialog").modal('show');
+    },
+    removeFilter: function removeFilter() {
+      alert();
     }
   }
 });
@@ -18195,10 +18262,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _services_DataService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../services/DataService */ "./Resources/assets/services/DataService.js");
-/* harmony import */ var _resources_js_error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../resources/js/error */ "../../resources/js/error.js");
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app */ "./Resources/assets/js/app.js");
-/* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
+/* harmony import */ var _resources_js_error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../../resources/js/error */ "../../resources/js/error.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../app */ "./Resources/assets/js/app.js");
+/* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
 //
 //
 //
@@ -18352,7 +18418,132 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18360,14 +18551,16 @@ __webpack_require__.r(__webpack_exports__);
   name: "HospitalView",
   props: ["hospital_json"],
   components: {
-    ImagePreview: _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_3__["default"]
+    ImagePreview: _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
+      errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"](),
       hospital: '',
       reject_submitting: false,
       approve_submitting: false,
       // approve
+      name: '',
       email: '',
       password: '',
       confirm_password: '',
@@ -18387,7 +18580,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     reject: function reject() {
       $("#reject-dialog").modal('show');
-    }
+    },
+    approveHospital: function approveHospital() {},
+    rejectHospital: function rejectHospital() {}
   }
 });
 
@@ -19974,7 +20169,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.img-preview[data-v-724c166d]{\n    width: 10rem;\n    height: 10rem;\n    object-fit: cover;\n}\n", ""]);
+exports.push([module.i, "\n.img-preview[data-v-724c166d]{\n    width: 3rem;\n    height: 3rem;\n    object-fit: cover;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -41144,115 +41339,7 @@ var render = function () {
                 }),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.filter_by,
-                        expression: "filter_by",
-                      },
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: function ($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function (o) {
-                            return o.selected
-                          })
-                          .map(function (o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.filter_by = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                    },
-                  },
-                  [
-                    _c("option", { attrs: { value: "" } }, [
-                      _vm._v("Filter By"),
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "HospitalTypes" } }, [
-                      _vm._v("Hospital Type"),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "HospitalVerificationStatus" } },
-                      [_vm._v("Verification Status")]
-                    ),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "TransplantTypes" } }, [
-                      _vm._v("Transplant Type"),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "HospitalApproveStatus" } },
-                      [_vm._v("Approve Status")]
-                    ),
-                  ]
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.filter_by_option,
-                        expression: "filter_by_option",
-                      },
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: [
-                        function ($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function (o) {
-                              return o.selected
-                            })
-                            .map(function (o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.filter_by_option = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        },
-                        function ($event) {
-                          return _vm.getHospitals()
-                        },
-                      ],
-                    },
-                  },
-                  [
-                    _c("option", { attrs: { value: "", selected: "" } }, [
-                      _vm._v("Filter By Options"),
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.filter_by_options, function (option, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: option.value } },
-                        [_vm._v(_vm._s(option.text))]
-                      )
-                    }),
-                  ],
-                  2
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "col-md-9" }, [
                 _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
                   _c("li", [
                     _c(
@@ -41267,7 +41354,7 @@ var render = function () {
                           },
                         },
                       },
-                      [_vm._v("Create New")]
+                      [_vm._v("Create New Hospital")]
                     ),
                   ]),
                 ]),
@@ -41278,11 +41365,44 @@ var render = function () {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "x_content" }, [
+            _c("div", { staticClass: "row mb-3" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _c(
+                  "div",
+                  { staticClass: "mb-2", staticStyle: { display: "flex" } },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("button", [
+                      _vm._v("Hospital Type: GOVERNMENT "),
+                      _c("i", {
+                        staticClass: "fa fa-times",
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.removeFilter.apply(null, arguments)
+                          },
+                        },
+                      }),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4),
+              ]),
+            ]),
+            _vm._v(" "),
             _c(
               "table",
               { staticClass: "table table-striped jambo_table bulk_action" },
               [
-                _vm._m(0),
+                _vm._m(5),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -41300,18 +41420,14 @@ var render = function () {
                                 "a",
                                 {
                                   staticClass: "mr-2",
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function ($event) {
-                                      $event.preventDefault()
-                                      return _vm.$refs.createhospital.openDialog(
-                                        hospital
-                                      )
-                                    },
+                                  attrs: {
+                                    href: "#",
+                                    href: _vm.route + "/" + hospital.id,
                                   },
                                 },
                                 [_vm._v(_vm._s(hospital.hospital_name))]
                               ),
+                              _c("br"),
                               _vm._v(" "),
                               _c("small", {}, [
                                 _vm._v(
@@ -41321,7 +41437,9 @@ var render = function () {
                             ]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(_vm._s(hospital.transplant_type)),
+                              _vm._v(
+                                _vm._s(hospital.transplant_type.toUpperCase())
+                              ),
                             ]),
                             _vm._v(" "),
                             _c("td", [
@@ -41336,76 +41454,136 @@ var render = function () {
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(
-                                _vm._s(hospital.approved_by) +
+                                "\n                                " +
+                                  _vm._s(
+                                    hospital.approve_status.toUpperCase()
+                                  ) +
+                                  " "
+                              ),
+                              _c("br"),
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(hospital.approved_by) +
                                   "  " +
                                   _vm._s(
                                     hospital.approved_date
                                       ? "On " + hospital.approved_date
                                       : ""
-                                  )
+                                  ) +
+                                  "\n                            "
                               ),
                             ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(hospital.approve_status))]),
+                            _c("td", [
+                              hospital.status === 1
+                                ? _c("span", { staticClass: "text-accent" }, [
+                                    _vm._v("ENABLED"),
+                                  ])
+                                : _c(
+                                    "span",
+                                    { staticClass: "text-secondary" },
+                                    [_vm._v("DISABLED")]
+                                  ),
+                            ]),
                             _vm._v(" "),
                             _c("td", [
                               _vm._v(_vm._s(hospital.licenses_number)),
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-right" }, [
-                              _c("div", { staticClass: "btn-group" }, [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "btn btn-sm btn-primary mr-2",
-                                    attrs: {
-                                      href: _vm.route + "/" + hospital.id,
-                                    },
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fa fa-eye" }),
-                                    _vm._v(
-                                      "View\n                                    "
-                                    ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "btn btn-sm btn-danger mr-2",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function ($event) {
-                                        $event.preventDefault()
-                                        return _vm.disableHospital(hospital)
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "btn-group",
+                                  attrs: { role: "group" },
+                                },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-secondary dropdown-toggle",
+                                      attrs: {
+                                        id: "btnGroupDrop1",
+                                        type: "button",
+                                        "data-toggle": "dropdown",
+                                        "aria-haspopup": "true",
+                                        "aria-expanded": "false",
                                       },
                                     },
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fa fa-ban" }),
-                                    _vm._v(
-                                      "Disable\n                                    "
-                                    ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "btn btn-danger btn-sm deleteModal",
-                                    attrs: { href: "#", type: "button" },
-                                    on: {
-                                      click: function ($event) {
-                                        $event.preventDefault()
-                                        return _vm.showDeleteModal(hospital.id)
+                                    [
+                                      _vm._v(
+                                        "\n                                        Options\n                                    "
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "dropdown-menu",
+                                      staticStyle: {
+                                        position: "absolute",
+                                        "will-change": "transform",
+                                        top: "0px",
+                                        left: "0px",
+                                        transform:
+                                          "translate3d(0px, 38px, 0px)",
+                                      },
+                                      attrs: {
+                                        "aria-labelledby": "btnGroupDrop1",
+                                        "x-placement": "bottom-start",
                                       },
                                     },
-                                  },
-                                  [_vm._v("Delete")]
-                                ),
-                              ]),
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-item",
+                                          attrs: {
+                                            href: _vm.route + "/" + hospital.id,
+                                          },
+                                        },
+                                        [_vm._v("View / Edit")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-item",
+                                          attrs: { href: "#" },
+                                          on: {
+                                            click: function ($event) {
+                                              $event.preventDefault()
+                                              return _vm.disableHospital(
+                                                hospital
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Disable")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-item",
+                                          attrs: { href: "#" },
+                                          on: {
+                                            click: function ($event) {
+                                              $event.preventDefault()
+                                              return _vm.showDeleteModal(
+                                                hospital.id
+                                              )
+                                            },
+                                          },
+                                        },
+                                        [_vm._v("Delete")]
+                                      ),
+                                    ]
+                                  ),
+                                ]
+                              ),
                             ]),
                           ])
                         }),
@@ -41448,9 +41626,9 @@ var render = function () {
           { staticClass: "modal-dialog modal-sm modal-dialog-centered" },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(6),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(7),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
                 _c(
@@ -41494,6 +41672,235 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", { staticClass: "mr-3" }, [
+      _c("i", { staticClass: "fa fa-filter mr-1" }),
+      _vm._v(" Filter Options\n                               "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            id: "filter-hospital-type",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+          },
+        },
+        [
+          _vm._v(
+            "\n                                   Hospital Type\n                               "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: {
+            position: "absolute",
+            "will-change": "transform",
+            top: "0px",
+            left: "0px",
+            transform: "translate3d(0px, 38px, 0px)",
+          },
+          attrs: {
+            "aria-labelledby": "filter-hospital-type",
+            "x-placement": "bottom-start",
+          },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("GOVERNMENT"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("PRIVATE"),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            id: "filter-approval-status",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+          },
+        },
+        [
+          _vm._v(
+            "\n                                  Approval Status\n                               "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: {
+            position: "absolute",
+            "will-change": "transform",
+            top: "0px",
+            left: "0px",
+            transform: "translate3d(0px, 38px, 0px)",
+          },
+          attrs: {
+            "aria-labelledby": "filter-approval-status",
+            "x-placement": "bottom-start",
+          },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("UNAPPROVED"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("APPROVED"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("REJECTED"),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            id: "filter-verification-status",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+          },
+        },
+        [
+          _vm._v(
+            "\n                                   Approval Status\n                               "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: {
+            position: "absolute",
+            "will-change": "transform",
+            top: "0px",
+            left: "0px",
+            transform: "translate3d(0px, 38px, 0px)",
+          },
+          attrs: {
+            "aria-labelledby": "filter-verification-status",
+            "x-placement": "bottom-start",
+          },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("NONE"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("DOCUMENT_VERIFIED"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("PHYSICAL_VERIFIED"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("VERIFIED"),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            id: "filter-transplant",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+          },
+        },
+        [
+          _vm._v(
+            "\n                                   Transplant Type\n                               "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: {
+            position: "absolute",
+            "will-change": "transform",
+            top: "0px",
+            left: "0px",
+            transform: "translate3d(0px, 38px, 0px)",
+          },
+          attrs: {
+            "aria-labelledby": "filter-transplant",
+            "x-placement": "bottom-start",
+          },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("KIDNEY"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("LIVER"),
+          ]),
+        ]
+      ),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -41571,14 +41978,10 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("span", { staticClass: "section" }, [_vm._v("Hospital Details")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row p-4" }, [
-        _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "hospital_name" } }, [
-              _vm._v("Hospital Name"),
-            ]),
+            _c("label", [_vm._v("Hospital Name")]),
             _vm._v(" "),
             _c("input", {
               staticClass: "form-control",
@@ -41586,9 +41989,87 @@ var render = function () {
               domProps: { value: _vm.hospital.hospital_name },
             }),
           ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Hospital Type")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.hospital.hospital_type },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("transplant_type")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.hospital.transplant_type },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("approved_date")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.hospital.approved_date },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("approved_by")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.hospital.approved_by },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("reject_message")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.hospital.reject_message },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("approve_status")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.hospital.approve_status },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("verification_status")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.hospital.verification_status },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("active_license_id")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.hospital.active_license_id },
+            }),
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "province" } }, [_vm._v("Province")]),
             _vm._v(" "),
@@ -41597,26 +42078,30 @@ var render = function () {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.hospital.province.title,
-                  expression: "hospital.province.title",
+                  value: _vm.hospital.province.title || "Not-Available",
+                  expression: "hospital.province.title || 'Not-Available'",
                 },
               ],
               staticClass: "form-control",
               attrs: { type: "text", id: "province", disabled: "" },
-              domProps: { value: _vm.hospital.province.title },
+              domProps: {
+                value: _vm.hospital.province.title || "Not-Available",
+              },
               on: {
                 input: function ($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.hospital.province, "title", $event.target.value)
+                  _vm.$set(
+                    _vm.hospital.province,
+                    "title || 'Not-Available'",
+                    $event.target.value
+                  )
                 },
               },
             }),
           ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "district" } }, [_vm._v("District")]),
             _vm._v(" "),
@@ -41625,26 +42110,30 @@ var render = function () {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.hospital.district.title,
-                  expression: "hospital.district.title",
+                  value: _vm.hospital.district.title || "Not-Available",
+                  expression: "hospital.district.title || 'Not-Available'",
                 },
               ],
               staticClass: "form-control",
               attrs: { type: "text", id: "district", disabled: "" },
-              domProps: { value: _vm.hospital.district.title },
+              domProps: {
+                value: _vm.hospital.district.title || "Not-Available",
+              },
               on: {
                 input: function ($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.hospital.district, "title", $event.target.value)
+                  _vm.$set(
+                    _vm.hospital.district,
+                    "title || 'Not-Available'",
+                    $event.target.value
+                  )
                 },
               },
             }),
           ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "municipality" } }, [
               _vm._v("Municipality"),
@@ -41655,13 +42144,15 @@ var render = function () {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.hospital.municipality.title,
-                  expression: "hospital.municipality.title",
+                  value: _vm.hospital.municipality.title || "Not-Available",
+                  expression: "hospital.municipality.title || 'Not-Available'",
                 },
               ],
               staticClass: "form-control",
               attrs: { type: "text", id: "municipality", disabled: "" },
-              domProps: { value: _vm.hospital.municipality.title },
+              domProps: {
+                value: _vm.hospital.municipality.title || "Not-Available",
+              },
               on: {
                 input: function ($event) {
                   if ($event.target.composing) {
@@ -41669,16 +42160,14 @@ var render = function () {
                   }
                   _vm.$set(
                     _vm.hospital.municipality,
-                    "title",
+                    "title || 'Not-Available'",
                     $event.target.value
                   )
                 },
               },
             }),
           ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "palika" } }, [_vm._v("Palika")]),
             _vm._v(" "),
@@ -41707,197 +42196,339 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _c("span", { staticClass: "section" }, [_vm._v("Required Files")]),
-      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6 d-flex justify-content-end" }, [
-          _c("div", { staticClass: "form-group d-flex flex-column" }, [
-            _c("label", { attrs: { for: "application_letter" } }, [
-              _vm._v("Application Letter"),
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("table", { staticClass: "table table-striped jambo_table" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [_vm._v("Application Letter")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.$refs.imagePreview.openDialog(
+                            "/storage/" + _vm.hospital.application_letter
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(_vm.hospital.application_letter))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    staticClass: "img-preview",
+                    attrs: {
+                      src: "/storage/" + _vm.hospital.application_letter,
+                      alt: "",
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.$refs.imagePreview.openDialog(
+                          "/storage/" + _vm.hospital.application_letter
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Human Resource")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.$refs.imagePreview.openDialog(
+                            "/storage/" + _vm.hospital.human_resource
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(_vm.hospital.human_resource))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    staticClass: "img-preview",
+                    attrs: {
+                      src: "/storage/" + _vm.hospital.human_resource,
+                      alt: "",
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.$refs.imagePreview.openDialog(
+                          "/storage/" + _vm.hospital.human_resource
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Tools & Equipment list")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.$refs.imagePreview.openDialog(
+                            "/storage/" + _vm.hospital.tools_list
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(_vm.hospital.tools_list))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    staticClass: "img-preview",
+                    attrs: {
+                      src: "/storage/" + _vm.hospital.tools_list,
+                      alt: "",
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.$refs.imagePreview.openDialog(
+                          "/storage/" + _vm.hospital.tools_list
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Administrative Document")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.$refs.imagePreview.openDialog(
+                            "/storage/" + _vm.hospital.administrative_document
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(_vm.hospital.administrative_document))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    staticClass: "img-preview",
+                    attrs: {
+                      src: "/storage/" + _vm.hospital.administrative_document,
+                      alt: "",
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.$refs.imagePreview.openDialog(
+                          "/storage/" + _vm.hospital.administrative_document
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Sanchalan Swikriti")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.$refs.imagePreview.openDialog(
+                            "/storage/" + _vm.hospital.sanchalan_swikriti
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(_vm.hospital.sanchalan_swikriti))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    staticClass: "img-preview",
+                    attrs: {
+                      src: "/storage/" + _vm.hospital.sanchalan_swikriti,
+                      alt: "",
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.$refs.imagePreview.openDialog(
+                          "/storage/" + _vm.hospital.sanchalan_swikriti
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Renewal Letter")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.$refs.imagePreview.openDialog(
+                            "/storage/" + _vm.hospital.renewal_letter
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(_vm.hospital.renewal_letter))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    staticClass: "img-preview",
+                    attrs: {
+                      src: "/storage/" + _vm.hospital.renewal_letter,
+                      alt: "",
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.$refs.imagePreview.openDialog(
+                          "/storage/" + _vm.hospital.renewal_letter
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("PAN")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.$refs.imagePreview.openDialog(
+                            "/storage/" + _vm.hospital.pan
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(_vm.hospital.pan))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    staticClass: "img-preview",
+                    attrs: { src: "/storage/" + _vm.hospital.pan, alt: "" },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.$refs.imagePreview.openDialog(
+                          "/storage/" + _vm.hospital.pan
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", [_vm._v("Tax Clearance")]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.$refs.imagePreview.openDialog(
+                            "/storage/" + _vm.hospital.tax_clearance
+                          )
+                        },
+                      },
+                    },
+                    [_vm._v(_vm._s(_vm.hospital.tax_clearance))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("img", {
+                    staticClass: "img-preview",
+                    attrs: {
+                      src: "/storage/" + _vm.hospital.tax_clearance,
+                      alt: "",
+                    },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.$refs.imagePreview.openDialog(
+                          "/storage/" + _vm.hospital.tax_clearance
+                        )
+                      },
+                    },
+                  }),
+                ]),
+              ]),
             ]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img-preview",
-              attrs: {
-                src: "/storage/" + _vm.hospital.application_letter,
-                alt: "",
-              },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$refs.imagePreview.openDialog(
-                    "/storage/" + _vm.hospital.application_letter
-                  )
-                },
-              },
-            }),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group d-flex flex-column" }, [
-            _c("label", { attrs: { for: "human_resource" } }, [
-              _vm._v("Human Resource"),
-            ]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img-preview",
-              attrs: {
-                src: "/storage/" + _vm.hospital.human_resource,
-                alt: "",
-              },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$refs.imagePreview.openDialog(
-                    "/storage/" + _vm.hospital.human_resource
-                  )
-                },
-              },
-            }),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6 d-flex justify-content-end" }, [
-          _c("div", { staticClass: "form-group d-flex flex-column" }, [
-            _c("label", { attrs: { for: "tools_equipment" } }, [
-              _vm._v("Tools & Equipment list"),
-            ]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img-preview",
-              attrs: { src: "/storage/" + _vm.hospital.tools_list, alt: "" },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$refs.imagePreview.openDialog(
-                    "/storage/" + _vm.hospital.tools_list
-                  )
-                },
-              },
-            }),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group d-flex flex-column" }, [
-            _c("label", { attrs: { for: "administrative_document" } }, [
-              _vm._v("Administrative Document"),
-            ]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img-preview",
-              attrs: {
-                src: "/storage/" + _vm.hospital.administrative_document,
-                alt: "",
-              },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$refs.imagePreview.openDialog(
-                    "/storage/" + _vm.hospital.administrative_document
-                  )
-                },
-              },
-            }),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6 d-flex justify-content-end" }, [
-          _c("div", { staticClass: "form-group d-flex flex-column" }, [
-            _c("label", { attrs: { for: "sanchalan_swikriti" } }, [
-              _vm._v("Sanchalan Swikriti"),
-            ]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img-preview",
-              attrs: {
-                src: "/storage/" + _vm.hospital.sanchalan_swikriti,
-                alt: "",
-              },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$refs.imagePreview.openDialog(
-                    "/storage/" + _vm.hospital.sanchalan_swikriti
-                  )
-                },
-              },
-            }),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group d-flex flex-column" }, [
-            _c("label", { attrs: { for: "renewal_letter" } }, [
-              _vm._v("Renewal Letter"),
-            ]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img-preview",
-              attrs: {
-                src: "/storage/" + _vm.hospital.renewal_letter,
-                alt: "",
-              },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$refs.imagePreview.openDialog(
-                    "/storage/" + _vm.hospital.renewal_letter
-                  )
-                },
-              },
-            }),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6 d-flex justify-content-end" }, [
-          _c("div", { staticClass: "form-group d-flex flex-column" }, [
-            _c("label", { attrs: { for: "pan" } }, [_vm._v("PAN")]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img-preview",
-              attrs: { src: "/storage/" + _vm.hospital.pan, alt: "" },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$refs.imagePreview.openDialog(
-                    "/storage/" + _vm.hospital.pan
-                  )
-                },
-              },
-            }),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group d-flex flex-column" }, [
-            _c("label", { attrs: { for: "tax_clearance" } }, [
-              _vm._v("Tax Clearance"),
-            ]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img-preview",
-              attrs: { src: "/storage/" + _vm.hospital.tax_clearance, alt: "" },
-              on: {
-                click: function ($event) {
-                  $event.preventDefault()
-                  return _vm.$refs.imagePreview.openDialog(
-                    "/storage/" + _vm.hospital.tax_clearance
-                  )
-                },
-              },
-            }),
           ]),
         ]),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6 d-flex justify-content-end" }, [
+        _c("div", { staticClass: "col-md-12 text-right" }, [
           _c(
             "button",
             {
-              staticClass: "btn btn-success",
+              staticClass: "btn btn-accent btn-sm",
               on: {
                 click: function ($event) {
                   $event.preventDefault()
@@ -41907,13 +42538,11 @@ var render = function () {
             },
             [_vm._v("Approve")]
           ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(" "),
           _c(
             "button",
             {
-              staticClass: "btn btn-danger",
+              staticClass: "btn btn-danger btn-sm",
               on: {
                 click: function ($event) {
                   $event.preventDefault()
@@ -41926,12 +42555,10 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _c("image-preview", { ref: "imagePreview" }),
-      _vm._v(" "),
       _c(
         "div",
         {
-          staticClass: "modal fade",
+          staticClass: "modal",
           attrs: {
             id: "reject-dialog",
             tabindex: "-1",
@@ -41942,15 +42569,17 @@ var render = function () {
         [
           _c(
             "div",
-            { staticClass: "modal-dialog modal-sm modal-dialog-centered" },
+            { staticClass: "modal-dialog modal-md modal-dialog-centered" },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(0),
+                _vm._m(1),
                 _vm._v(" "),
-                _c("div", { staticClass: "modal-body m-3" }, [
+                _c("div", { staticClass: "modal-body ml-2 mr-2 mb-0" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "reject_reason" } }, [
-                      _vm._v("Reason"),
+                      _vm._v("Reason for rejection"),
                     ]),
                     _vm._v(" "),
                     _c("textarea", {
@@ -42001,8 +42630,14 @@ var render = function () {
                         {
                           staticClass: "btn btn-danger btn-sm",
                           attrs: { type: "submit" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.rejectHospital.apply(null, arguments)
+                            },
+                          },
                         },
-                        [_vm._v("Confirm")]
+                        [_vm._v("Reject")]
                       ),
                 ]),
               ]),
@@ -42014,7 +42649,7 @@ var render = function () {
       _c(
         "div",
         {
-          staticClass: "modal fade",
+          staticClass: "modal",
           attrs: {
             id: "approve-dialog",
             tabindex: "-1",
@@ -42025,104 +42660,158 @@ var render = function () {
         [
           _c(
             "div",
-            { staticClass: "modal-dialog modal-sm modal-dialog-centered" },
+            { staticClass: "modal-dialog modal-md modal-dialog-centered" },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
+                _vm._m(3),
                 _vm._v(" "),
-                _c("div", { staticClass: "modal-body m-3" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+                _c("div", { staticClass: "modal-body ml-2 mr-2 mb-0" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _vm._m(5),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.email,
-                          expression: "email",
+                    _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.name,
+                            expression: "name",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "" },
+                        domProps: { value: _vm.name },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.name = $event.target.value
+                          },
                         },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "email",
-                        placeholder: "Email",
-                      },
-                      domProps: { value: _vm.email },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.email = $event.target.value
-                        },
-                      },
-                    }),
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "form-text text-danger",
+                        domProps: { innerHTML: _vm._s(_vm.errors.get("name")) },
+                      }),
+                    ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "password" } }, [
-                      _vm._v("Password"),
-                    ]),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _vm._m(6),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.password,
-                          expression: "password",
+                    _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.email,
+                            expression: "email",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "" },
+                        domProps: { value: _vm.email },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.email = $event.target.value
+                          },
                         },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "password",
-                        id: "password",
-                        placeholder: "Password",
-                      },
-                      domProps: { value: _vm.password },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.password = $event.target.value
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "form-text text-danger",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.errors.get("email")),
                         },
-                      },
-                    }),
+                      }),
+                    ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "confirm_password" } }, [
-                      _vm._v("Confirm Password"),
-                    ]),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _vm._m(7),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.confirm_password,
-                          expression: "confirm_password",
+                    _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.password,
+                            expression: "password",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "password",
+                          id: "password",
+                          placeholder: "",
                         },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "password",
-                        id: "confirm_password",
-                        placeholder: "Confirm Password",
-                      },
-                      domProps: { value: _vm.confirm_password },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.confirm_password = $event.target.value
+                        domProps: { value: _vm.password },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.password = $event.target.value
+                          },
                         },
-                      },
-                    }),
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "form-text text-danger",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.errors.get("password")),
+                        },
+                      }),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.confirm_password,
+                            expression: "confirm_password",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "password",
+                          id: "confirm_password",
+                          placeholder: "",
+                        },
+                        domProps: { value: _vm.confirm_password },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.confirm_password = $event.target.value
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        staticClass: "form-text text-danger",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.errors.get("password")),
+                        },
+                      }),
+                    ]),
                   ]),
                 ]),
                 _vm._v(" "),
@@ -42140,7 +42829,7 @@ var render = function () {
                     ? _c(
                         "button",
                         {
-                          staticClass: "btn btn-success btn-sm",
+                          staticClass: "btn btn-accent btn-sm",
                           attrs: { type: "button" },
                         },
                         [_c("i", { staticClass: "fa fa-spinner fa-spin" })]
@@ -42148,10 +42837,16 @@ var render = function () {
                     : _c(
                         "button",
                         {
-                          staticClass: "btn btn-success btn-sm",
+                          staticClass: "btn btn-accent btn-sm",
                           attrs: { type: "submit" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.approveHospital.apply(null, arguments)
+                            },
+                          },
                         },
-                        [_vm._v("Confirm")]
+                        [_vm._v("Approve")]
                       ),
                 ]),
               ]),
@@ -42159,6 +42854,8 @@ var render = function () {
           ),
         ]
       ),
+      _vm._v(" "),
+      _c("image-preview", { ref: "imagePreview" }),
     ],
     1
   )
@@ -42168,9 +42865,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("File Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("File Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("File")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h4", { staticClass: "modal-title", attrs: { id: "myModalLabel" } }, [
-        _vm._v("Reject"),
+        _vm._v("Reject Hospital"),
       ]),
       _vm._v(" "),
       _c(
@@ -42187,10 +42898,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("strong", [_vm._v("Attention !")]),
+      _vm._v(" Are you sure you want to "),
+      _c("code", [_vm._v("Reject")]),
+      _vm._v(
+        " this hospital?\n                        Enter rejection reason and click "
+      ),
+      _c("code", [_vm._v("Reject")]),
+      _vm._v(" button.\n                    "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title", attrs: { id: "myModalLabel" } }, [
-        _vm._v("Approve"),
-      ]),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Approve Hospital")]),
       _vm._v(" "),
       _c(
         "button",
@@ -42201,6 +42925,81 @@ var staticRenderFns = [
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       ),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("strong", [_vm._v("Attention !")]),
+      _vm._v(" Are you sure you want to "),
+      _c("code", [_vm._v("Approve")]),
+      _vm._v(
+        " this hospital?\n                        Enter new login credentials for portal accessibility and click "
+      ),
+      _c("code", [_vm._v("Approve")]),
+      _vm._v(" button.\n                    "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align text-left" },
+      [
+        _vm._v(
+          "\n                            Full Name\n                            "
+        ),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align text-left" },
+      [
+        _vm._v(
+          "\n                            Email Address\n                            "
+        ),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align text-left" },
+      [
+        _vm._v(
+          "\n                            Password\n                            "
+        ),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align text-left" },
+      [
+        _vm._v(
+          "\n                            Confirm Password\n                            "
+        ),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      ]
+    )
   },
 ]
 render._withStripped = true

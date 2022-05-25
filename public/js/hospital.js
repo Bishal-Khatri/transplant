@@ -16833,6 +16833,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -16978,6 +16989,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
 
                   _this.$refs.updatePatient.nextTab();
+
+                  _this.errors.clear();
                 }
 
                 _context.next = 14;
@@ -36988,6 +37001,8 @@ var render = function () {
                                       attrs: {
                                         src: "/images/placeholder-dark.jpg",
                                         alt: "",
+                                        width: "60",
+                                        height: "40",
                                       },
                                     }),
                               ]),
@@ -37462,6 +37477,16 @@ var render = function () {
                                         },
                                       },
                                     }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("passport_number")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -37586,6 +37611,16 @@ var render = function () {
                                         ),
                                       ]
                                     ),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("gender")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -37632,8 +37667,18 @@ var render = function () {
                                     _c(
                                       "span",
                                       { staticClass: "text-sm text-info" },
-                                      [_vm._v("(dd/mm/y)")]
+                                      [_vm._v("Date format: dd/mm/yyyy")]
                                     ),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("date_of_birth")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -37733,6 +37778,16 @@ var render = function () {
                                         ),
                                       ]
                                     ),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("marital_status")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -37823,6 +37878,16 @@ var render = function () {
                                       ],
                                       2
                                     ),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("occupation")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -37911,6 +37976,16 @@ var render = function () {
                                       ],
                                       2
                                     ),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("religion")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -38001,6 +38076,16 @@ var render = function () {
                                       ],
                                       2
                                     ),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("education_level")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -38089,6 +38174,16 @@ var render = function () {
                                       ],
                                       2
                                     ),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("ethnic_group")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -38133,6 +38228,16 @@ var render = function () {
                                           }
                                           _vm.nationality = $event.target.value
                                         },
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("nationality")
+                                        ),
                                       },
                                     }),
                                   ]
@@ -38184,6 +38289,16 @@ var render = function () {
                                         },
                                       },
                                     }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("father_name")
+                                        ),
+                                      },
+                                    }),
                                   ]
                                 ),
                               ]),
@@ -38231,6 +38346,16 @@ var render = function () {
                                           }
                                           _vm.mother_name = $event.target.value
                                         },
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", {
+                                      staticClass:
+                                        "form-text small text-danger",
+                                      domProps: {
+                                        innerHTML: _vm._s(
+                                          _vm.errors.get("mother_name")
+                                        ),
                                       },
                                     }),
                                   ]

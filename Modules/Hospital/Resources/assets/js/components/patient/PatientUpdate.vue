@@ -39,6 +39,7 @@
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input type="text" v-model="passport_number" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('passport_number')"></span>
                                                 </div>
                                             </div>
 
@@ -62,6 +63,7 @@
                                                         <option value="female">Female</option>
                                                         <option value="other">Other</option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('gender')"></span>
                                                 </div>
                                             </div>
 
@@ -72,7 +74,8 @@
                                                 <div class="col-md-9 col-sm-9">
                                                     <input data-inputmask="'mask': '99/99/9999'" id="date_of_birth" :value="date_of_birth" class="form-control" required="required" type="text">
                                                     <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
-                                                    <span class="text-sm text-info">(dd/mm/y)</span>
+                                                    <span class="text-sm text-info">Date format: dd/mm/yyyy</span>
+                                                    <span class="form-text small text-danger" v-html="errors.get('date_of_birth')"></span>
                                                 </div>
                                             </div>
 
@@ -89,6 +92,7 @@
                                                         <option value="divorced">Divorced</option>
                                                         <option value="separated">Separated</option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('marital_status')"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -109,6 +113,7 @@
                                                             {{ occupation.title }}
                                                         </option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('occupation')"></span>
                                                 </div>
                                             </div>
 
@@ -125,6 +130,7 @@
                                                             {{ religion.title }}
                                                         </option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('religion')"></span>
                                                 </div>
                                             </div>
 
@@ -141,6 +147,7 @@
                                                             {{ education_level.title }}
                                                         </option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('education_level')"></span>
                                                 </div>
                                             </div>
 
@@ -157,6 +164,7 @@
                                                             {{ ethnic_group.title }}
                                                         </option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('ethnic_group')"></span>
                                                 </div>
                                             </div>
 
@@ -166,6 +174,7 @@
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input type="text" v-model="nationality" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('nationality')"></span>
                                                 </div>
                                             </div>
 
@@ -175,6 +184,7 @@
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input type="text" v-model="father_name" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('father_name')"></span>
                                                 </div>
                                             </div>
 
@@ -184,6 +194,7 @@
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input type="text" v-model="mother_name" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('mother_name')"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -1034,6 +1045,7 @@
                     if(response.data.error === false){
                         Errors.Notification(response);
                         this.$refs.updatePatient.nextTab();
+                        this.errors.clear();
                     }
                 }catch (error) {
                     this.errors.record(error.response.data);

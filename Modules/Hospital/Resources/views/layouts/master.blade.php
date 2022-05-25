@@ -33,7 +33,8 @@
         <!-- /footer content -->
     </div>
 </div>
-<script src="{{ mix('js/hospital.js') }}"></script>
 @include('layouts.gentelella.script')
+<script src="{{ asset('asset/gentelella/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+<script src="{{ mix('js/hospital.js') }}"></script>
 </body>
 </html>

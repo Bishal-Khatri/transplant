@@ -4,15 +4,12 @@
             <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                     <div class="x_content">
-                        <form-wizard ref="update-patient"
-                            nextButtonText="Next"
-                                     backButtonText="Back"
-                                     finishButtonText="Submit"
+                        <form-wizard ref="updatePatient"
                                      stepSize="xs"
                                      color="#34495E"
                                      shape="square"
-                                     title="" subtitle=""
-                                     @on-change="changeTab">
+                                     title="" subtitle="">
+
                             <tab-content title="Personal Information">
                                 <form class="form-horizontal form-label-left">
                                     <span class="section">Personal Information</span>
@@ -23,14 +20,35 @@
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input type="text" v-model="name" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('name')"></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Image <span class="required">*</span>
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Citizenship Number <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="file" required="required" class="form-control">
+                                                    <input type="text" v-model="citizenship_number" required="required" class="form-control" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Passport Number
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" v-model="passport_number" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('passport_number')"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Image
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="file" required="required" class="form-control" @change.prevent="handelImage">
                                                 </div>
                                             </div>
 
@@ -41,18 +59,23 @@
                                                 <div class="col-md-9 col-sm-9">
                                                     <select name="" v-model="gender" class="form-control">
                                                         <option value="">Select Gender</option>
-                                                        <option value="married">Male</option>
-                                                        <option value="married">Female</option>
-                                                        <option value="married">Other</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                        <option value="other">Other</option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('gender')"></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date Of Birth <span class="required">*</span>
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Date Of Birth <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input v-model="date_of_birth" class="date-picker form-control" required="required" type="text">
+                                                    <input data-inputmask="'mask': '99/99/9999'" id="date_of_birth" :value="date_of_birth" class="form-control" required="required" type="text">
+                                                    <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                                                    <span class="text-sm text-info">Date format: dd/mm/yyyy</span>
+                                                    <span class="form-text small text-danger" v-html="errors.get('date_of_birth')"></span>
                                                 </div>
                                             </div>
 
@@ -61,7 +84,7 @@
                                                     Marital Status <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <select name="" v-model="marital_status" id="" class="form-control">
+                                                    <select name="" v-model="marital_status" class="form-control">
                                                         <option value="">Select Marital Status</option>
                                                         <option value="married">Married</option>
                                                         <option value="unmarried">UnMarried</option>
@@ -69,12 +92,16 @@
                                                         <option value="divorced">Divorced</option>
                                                         <option value="separated">Separated</option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('marital_status')"></span>
                                                 </div>
                                             </div>
+                                        </div>
 
+
+                                        <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                    Occupation <span class="required">*</span>
+                                                    Occupation
                                                 </label>
 
                                                 <div class="col-md-9 col-sm-9">
@@ -86,12 +113,13 @@
                                                             {{ occupation.title }}
                                                         </option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('occupation')"></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                    Religion <span class="required">*</span>
+                                                    Religion
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <select name="occupation" class="form-control" v-model="religion">
@@ -102,15 +130,13 @@
                                                             {{ religion.title }}
                                                         </option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('religion')"></span>
                                                 </div>
                                             </div>
-                                        </div>
 
-
-                                        <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                    Education Level <span class="required">*</span>
+                                                    Education Level
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <select name="occupation" class="form-control" v-model="education_level">
@@ -121,12 +147,13 @@
                                                             {{ education_level.title }}
                                                         </option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('education_level')"></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                    Ethnic Group <span class="required">*</span>
+                                                    Ethnic Group
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <select name="occupation" class="form-control" v-model="ethnic_group">
@@ -137,52 +164,44 @@
                                                             {{ ethnic_group.title }}
                                                         </option>
                                                     </select>
+                                                    <span class="form-text small text-danger" v-html="errors.get('ethnic_group')"></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nationality <span class="required">*</span>
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Nationality
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input type="text" v-model="nationality" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('nationality')"></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Citizenship Number <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="citizenship_number" required="required" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Passport Number <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="passport_number" required="required" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Father's Name <span class="required">*</span>
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Father's Name <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input type="text" v-model="father_name" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('father_name')"></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Mother's Name <span class="required">*</span>
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Mother's Name <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input type="text" v-model="mother_name" required="required" class="form-control">
+                                                    <span class="form-text small text-danger" v-html="errors.get('mother_name')"></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </tab-content>
+
                             <tab-content title="Contact Information">
                                 <form class="form-horizontal form-label-left">
 
@@ -236,12 +255,13 @@
                                     </div>
                                 </form>
                             </tab-content>
+
                             <tab-content title="Address">
                                 <form class="form-horizontal form-label-left">
                                     <span class="section">Address</span>
                                     <span class="section">Permanent Address</span>
                                     <div class="row">
-    
+
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Province <span class="required">*</span>
@@ -296,7 +316,7 @@
                                                     <input type="text" v-model="permanent_tole" required="required" class="form-control">
                                                 </div>
                                             </div>
-                                        </div>  
+                                        </div>
                                     </div>
                                     <span class="section">Current Address</span>
                                     <div class="row">
@@ -358,6 +378,7 @@
                                     </div>
                                 </form>
                             </tab-content>
+
                             <tab-content title="Diagnosis / Treatment Information">
                                 <form class="form-horizontal form-label-left">
                                     <span class="section">Diagnosis / Treatment Information</span>
@@ -441,6 +462,7 @@
                                     </div>
                                 </form>
                             </tab-content>
+
                             <tab-content title="Preview">
                                 <form class="form-horizontal form-label-left">
                                     <span class="section">Preview</span>
@@ -476,9 +498,17 @@
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date Of Birth <span class="required">*</span>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Date Mask</label>
+                                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                                    <input type="text" class="form-control" >
+                                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                                    Date Of Birth <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     <input v-model="date_of_birth" class="date-picker form-control" required="required" type="text">
@@ -661,7 +691,7 @@
                                     <span class="section">Address</span>
                                     <span class="section">Permanent Address</span>
                                     <div class="row">
-    
+
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Province <span class="required">*</span>
@@ -716,7 +746,7 @@
                                                     <input type="text" v-model="permanent_tole" required="required" class="form-control">
                                                 </div>
                                             </div>
-                                        </div>  
+                                        </div>
                                     </div>
                                     <span class="section">Current Address</span>
                                     <div class="row">
@@ -855,13 +885,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
 
                                 </form>
                             </tab-content>
+
+                            <template slot="footer" slot-scope="props">
+                                <div class="wizard-footer-left">
+                                    <button class="btn btn-accent" @click.prevent="$refs.updatePatient.prevTab()">Back</button>
+                                </div>
+                                <div class="wizard-footer-right">
+                                    <button class="btn btn-accent" @click.prevent="submitForm('personal_information')">Save & Proceed</button>
+                                </div>
+                            </template>
                         </form-wizard>
-
-
                     </div>
                 </div>
             </div>
@@ -873,7 +910,7 @@
     import {Errors} from "../../../../../../../resources/js/error";
     import PatientService from "../../../services/PatientService";
     import PublicService from "../../../../../../ContentManagement/Resources/assets/services/PublicService";
-    import {FormWizard, TabContent} from 'vue-form-wizard'
+    import {FormWizard, TabContent, WizardButton} from 'vue-form-wizard'
     import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 
     export default {
@@ -883,7 +920,7 @@
         data(){
             return{
                 errors: new Errors(),
-
+                isLastStep: false,
                 // form data
                 name: '',
                 gender: '',
@@ -941,12 +978,14 @@
         },
         components: {
             FormWizard,
-            TabContent
+            TabContent,
+            WizardButton,
         },
         computed: {
         },
         mounted() {
             this.getProvince();
+            this.initForm();
         },
         watch:{
             current_province(value){
@@ -961,17 +1000,61 @@
             permanent_district(value){
                 this.getPermanentMunicipality(value);
             },
-            
-
         },
         methods: {
-            changeTab(prevIndex,nextIndex){
-                // this.refs.update-patient.nextTab()
-                if(prevIndex === 0){
-                    // create new patient
+            initForm(){
+                this.name = this.patient.name;
+                this.gender = this.patient.gender;
+                this.date_of_birth = this.patient.date_of_birth;
+                this.marital_status = this.patient.marital_status;
+                this.occupation = this.patient.occupation_id;
+                this.religion = this.patient.religion_id;
+                this.education_level = this.patient.education_level_id;
+                this.ethnic_group = this.patient.ethnic_group_id;
+                this.nationality = this.patient.nationality;
+                this.citizenship_number = this.patient.citizenship_number;
+                this.passport_number = this.patient.passport_number;
+                this.father_name = this.patient.father_name;
+                this.mother_name = this.patient.mother_name;
+            },
+
+            async submitForm(page_name){
+                let formData = new FormData();
+                formData.append('patient_id', this.patient.id);
+                if(page_name === 'personal_information'){
+                    formData.append('page', page_name);
+
+                    this.patient_image ? formData.append("patient_image", this.patient_image, this.patient_image.name) : '';
+                    this.name ? formData.append("name", this.name) : '';
+                    this.gender ? formData.append("gender", this.gender) : '';
+                    formData.append("date_of_birth", $("#date_of_birth").val());
+                    this.marital_status ? formData.append("marital_status", this.marital_status) : '';
+                    this.occupation ? formData.append("occupation", this.occupation) : '';
+                    this.religion ? formData.append("religion", this.religion) : '';
+                    this.education_level ? formData.append("education_level", this.education_level) : '';
+                    this.ethnic_group ? formData.append("ethnic_group", this.ethnic_group) : '';
+                    this.nationality ? formData.append("nationality", this.nationality) : '';
+                    // this.citizenship_number ? formData.append("citizenship_number", this.citizenship_number) : '';
+                    this.passport_number ? formData.append("passport_number", this.passport_number) : '';
+                    this.father_name ? formData.append("father_name", this.father_name) : '';
+                    this.mother_name ? formData.append("mother_name", this.mother_name) : '';
                 }
-                console.log({prevIndex})
-                console.log({nextIndex})
+
+                try {
+                    const response = await PatientService.updatePatient(formData);
+                    if(response.data.error === false){
+                        Errors.Notification(response);
+                        this.$refs.updatePatient.nextTab();
+                        this.errors.clear();
+                    }
+                }catch (error) {
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
+                }
+            },
+
+            handelImage(){
+
             },
             async getProvince(){
                 const  response = await PublicService.getProvince();

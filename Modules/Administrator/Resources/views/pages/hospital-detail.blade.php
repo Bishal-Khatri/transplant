@@ -5,13 +5,11 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Hospital Listing</h3>
+                    <h3>Hospital's Details</h3>
                 </div>
             </div>
-
             <div class="clearfix"></div>
-
-            <hospital-index route="{{route('admin.hospital.index')}}"/>
+            <hospital-details  hospital_json="{{ $hospital }}"/>
         </div>
     </div>
 @endsection

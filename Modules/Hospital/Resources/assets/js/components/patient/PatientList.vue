@@ -46,7 +46,7 @@
                                     <a v-if="patient.image" href="#" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
                                         <img :src="'/storage/'+patient.image" alt="" class="rounded" width="60">
                                     </a>
-                                    <img v-else src="/images/placeholder-dark.jpg" alt="">
+                                    <img v-else src="/images/placeholder-dark.jpg" alt="" width="60" height="40">
                                 </td>
                                 <td>
                                     <a class="mr-2" :href="'/hospital/patient/update/'+patient.id">{{ patient.name }}</a> <br>

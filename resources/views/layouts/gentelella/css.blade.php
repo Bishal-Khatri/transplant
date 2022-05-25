@@ -56,5 +56,8 @@
     .required{
         color: red;
     }
+    .right_col{
+        min-height: 90vh;
+    }
 </style>
 @yield('css')

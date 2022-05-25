@@ -5,6 +5,7 @@
     <title>Organ Transplant</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Site Description Here">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('contentmanagement::theme.Stack._partials.css')
 </head>
 <body class=" ">

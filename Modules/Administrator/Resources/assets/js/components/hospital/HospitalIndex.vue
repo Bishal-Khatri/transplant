@@ -12,30 +12,89 @@
                                        @keydown.enter="setSearch"
                                        @keypress="setSearch">
                             </div>
-                            <div class="col-md-3">
-                                <select class="form-control" v-model="filter_by">
-                                    <option value="">Filter By</option>
-                                    <option value="HospitalTypes">Hospital Type</option>
-                                    <option value="HospitalVerificationStatus">Verification Status</option>
-                                    <option value="TransplantTypes">Transplant Type</option>
-                                    <option value="HospitalApproveStatus">Approve Status</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="form-control" v-model="filter_by_option" @change="getHospitals()">
-                                    <option value="" selected>Filter By Options</option>
-                                    <option v-for="(option, index) in filter_by_options" :key="index" :value="option.value">{{ option.text }}</option>
-                                </select>
-                            </div>       
-                            <div class="col-md-3">
+                            <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createhospital.openDialog()">Create New</a></li>
+                                    <li><a style="color: #5A738E;" href="#" @click.prevent="$refs.createhospital.openDialog()">Create New Hospital</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                       <div class="row mb-3">
+                           <div class="col-md-12">
+                               <div style="display: flex;" class="mb-2">
+                                   <h4 class="mr-3">
+                                       <i class="fa fa-filter mr-1"></i> Filter Options
+                                   </h4>
+                                   <button>Hospital Type: GOVERNMENT <i class="fa fa-times" @click.prevent="removeFilter"></i></button>
+                               </div>
+
+                               <div class="btn-group" role="group">
+                                   <button id="filter-hospital-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       Hospital Type
+                                   </button>
+                                   <div class="dropdown-menu" aria-labelledby="filter-hospital-type"
+                                        x-placement="bottom-start"
+                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                       <a class="dropdown-item" href="#">GOVERNMENT</a>
+                                       <a class="dropdown-item" href="#" >PRIVATE</a>
+                                   </div>
+                               </div>
+
+                               <div class="btn-group" role="group">
+                                   <button id="filter-approval-status" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Approval Status
+                                   </button>
+                                   <div class="dropdown-menu" aria-labelledby="filter-approval-status"
+                                        x-placement="bottom-start"
+                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                       <a class="dropdown-item" href="#">UNAPPROVED</a>
+                                       <a class="dropdown-item" href="#" >APPROVED</a>
+                                       <a class="dropdown-item" href="#" >REJECTED</a>
+                                   </div>
+                               </div>
+
+                               <div class="btn-group" role="group">
+                                   <button id="filter-verification-status" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       Approval Status
+                                   </button>
+                                   <div class="dropdown-menu" aria-labelledby="filter-verification-status"
+                                        x-placement="bottom-start"
+                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                       <a class="dropdown-item" href="#">NONE</a>
+                                       <a class="dropdown-item" href="#" >DOCUMENT_VERIFIED</a>
+                                       <a class="dropdown-item" href="#" >PHYSICAL_VERIFIED</a>
+                                       <a class="dropdown-item" href="#" >VERIFIED</a>
+                                   </div>
+                               </div>
+
+                               <div class="btn-group" role="group">
+                                   <button id="filter-transplant" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       Transplant Type
+                                   </button>
+                                   <div class="dropdown-menu" aria-labelledby="filter-transplant"
+                                        x-placement="bottom-start"
+                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                       <a class="dropdown-item" href="#">KIDNEY</a>
+                                       <a class="dropdown-item" href="#" >LIVER</a>
+                                   </div>
+                               </div>
+                               <!--<select class="form-control" v-model="filter_by">-->
+                                   <!--<option value="">Filter By</option>-->
+                                   <!--<option value="HospitalTypes">Hospital Type</option>-->
+                                   <!--<option value="HospitalVerificationStatus">Verification Status</option>-->
+                                   <!--<option value="TransplantTypes">Transplant Type</option>-->
+                                   <!--<option value="HospitalApproveStatus">Approve Status</option>-->
+                               <!--</select>-->
+                           </div>
+                           <!--<div class="col-md-3">-->
+                               <!--<select class="form-control" v-model="filter_by_option" @change="getHospitals()">-->
+                                   <!--<option value="" selected>Filter By Options</option>-->
+                                   <!--<option v-for="(option, index) in filter_by_options" :key="index" :value="option.value">{{ option.text }}</option>-->
+                               <!--</select>-->
+                           <!--</div>-->
+                       </div>
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr>
@@ -54,25 +113,30 @@
                             </tr>
                             <tr v-else v-for="(hospital, index) in hospitals" :key="index">
                                 <td>
-                                    <a class="mr-2" href="#" @click.prevent="$refs.createhospital.openDialog(hospital)">{{ hospital.hospital_name }}</a>
+                                    <a class="mr-2" href="#" :href="`${route}/${hospital.id}`">{{ hospital.hospital_name }}</a><br>
                                     <small class="">Created on {{ hospital.created_at }}</small>
                                 </td>
-                                <td>{{ hospital.transplant_type }}</td>
+                                <td>{{ hospital.transplant_type.toUpperCase() }}</td>
                                 <td>{{ hospitalTypesEnum[hospital.hospital_type-1] }}</td>
-                                <td>{{ hospital.approved_by}}  {{ hospital.approved_date?"On "+hospital.approved_date:"" }}</td>
-                                <td>{{ hospital.approve_status }}</td>
+                                <td>
+                                    {{ hospital.approve_status.toUpperCase() }} <br>
+                                    {{ hospital.approved_by}}  {{ hospital.approved_date?"On "+hospital.approved_date:"" }}
+                                </td>
+                                <td>
+                                    <span class="text-accent" v-if="hospital.status === 1">ENABLED</span>
+                                    <span class="text-secondary" v-else>DISABLED</span>
+                                </td>
                                 <td>{{ hospital.licenses_number }}</td>
                                 <td class="text-right">
-                                    <div class="btn-group">
-                                        <!-- view -->
-                                        <a class="btn btn-sm btn-primary mr-2" href="#" @click.prevent="$refs.createhospital.openDialog(hospital)">
-                                            <i class="fa fa-eye"></i>View
-                                        </a>
-                                        <!-- disable -->
-                                        <a class="btn btn-sm btn-danger mr-2" href="#" @click.prevent="disableHospital(hospital)">
-                                            <i class="fa fa-ban"></i>Disable
-                                        </a>
-                                        <a href="#" @click.prevent="showDeleteModal(hospital.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Options
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                            <a class="dropdown-item" :href="`${route}/${hospital.id}`">View / Edit</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="disableHospital(hospital)">Disable</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="showDeleteModal(hospital.id)">Delete</a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -118,6 +182,7 @@
         name: "hospitalIndex",
         components: {
         },
+        props: ['route'],
         data(){
             return{
                 hospitalTypesEnum: ['Government', 'Private'],
@@ -223,7 +288,12 @@
                 this.delete_id = item_id;
                 $("#delete-hospital-dialog").modal('show');
             },
-        }
+
+            removeFilter(){
+                alert()
+            }
+        },
+
     }
 </script>
 

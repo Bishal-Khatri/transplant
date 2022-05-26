@@ -18023,54 +18023,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {},
   methods: {
     openDialog: function openDialog(section_id) {
-      if (section_id !== "") {
-        this.section_id = section_id;
-        $("#delete-section-dialog").modal("show");
-      } // alert( this.section_id)
-
-    },
-    deleteSection: function deleteSection() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.submitting = true;
-                _context.prev = 1;
-                _context.next = 4;
-                return _services_PageService__WEBPACK_IMPORTED_MODULE_2__["default"].deleteSection(_this.section_id);
+                _this.section_id = section_id;
+                $("#delete-section-dialog").modal("show");
 
-              case 4:
-                response = _context.sent;
-
-                if (response.data.error === false) {
-                  _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
-                }
-
-                $("#delete-section-dialog").modal("hide");
-                _context.next = 13;
-                break;
-
-              case 9:
-                _context.prev = 9;
-                _context.t0 = _context["catch"](1);
-                _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(_context.t0.response);
-                $("#delete-section-dialog").modal("hide");
-
-              case 13:
-                _app__WEBPACK_IMPORTED_MODULE_3__["EventBus"].$emit('sectionUpdated');
-                _this.submitting = false;
-                _this.section_id = '';
-
-              case 16:
+              case 2:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 9]]);
+        }, _callee);
+      }))();
+    },
+    deleteSection: function deleteSection() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.submitting = true;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return _services_PageService__WEBPACK_IMPORTED_MODULE_2__["default"].deleteSection(_this2.section_id);
+
+              case 4:
+                response = _context2.sent;
+
+                if (response.data.error === false) {
+                  _this2.section_id = '';
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
+                }
+
+                $("#delete-section-dialog").modal("hide");
+                _context2.next = 13;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](1);
+                _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(_context2.t0.response);
+                $("#delete-section-dialog").modal("hide");
+
+              case 13:
+                _app__WEBPACK_IMPORTED_MODULE_3__["EventBus"].$emit('sectionUpdated');
+                _this2.submitting = false;
+
+              case 15:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[1, 9]]);
       }))();
     }
   }
@@ -18212,6 +18224,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18227,6 +18248,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_3__["Errors"](),
       submitting: false,
       title: '',
+      body: '',
       gallery_id: '',
       visibility: 1,
       section_order: 0
@@ -18264,10 +18286,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.title = _this2.section.title;
                 _this2.visibility = _this2.section.visibility;
                 _this2.section_order = _this2.section.order;
+                _this2.body = _this2.section.text;
                 json_data = JSON.parse(_this2.section.json_data);
-                _this2.gallery_id = json_data.gallery_id;
+                json_data ? _this2.gallery_id = json_data.gallery_id : '';
 
-              case 5:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -18292,6 +18315,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formData = {
                   section_id: _this3.section.id,
                   title: _this3.title,
+                  text: _this3.body,
                   visibility: _this3.visibility,
                   order: _this3.section_order,
                   json_data: json_data
@@ -18912,13 +18936,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Slider",
-  props: ['page', 'section', 'sliders'],
+  props: ['page', 'section', 'galleries'],
   components: {
     DeleteSection: _DeleteSection__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -18927,6 +18960,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"](),
       submitting: false,
       title: '',
+      text: '',
       slider_id: '',
       visibility: 1,
       section_order: 0
@@ -18944,9 +18978,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this.setData();
 
             case 2:
-              _this.init();
-
-            case 3:
             case "end":
               return _context.stop();
           }
@@ -18965,12 +18996,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _this2.title = _this2.section.title;
+                _this2.text = _this2.section.text;
                 _this2.visibility = _this2.section.visibility;
                 _this2.section_order = _this2.section.order;
                 json_data = JSON.parse(_this2.section.json_data);
-                _this2.slider_id = json_data.slider_id;
+                json_data ? _this2.slider_id = json_data.slider_id : '';
 
-              case 5:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -18978,60 +19010,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    init: function init() {
+    updateSection: function updateSection() {
+      var _this3 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var json_data, formData, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    updateSection: function updateSection() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        var json_data, formData, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
                 _this3.submitting = true;
-                _context4.prev = 1;
+                _context3.prev = 1;
                 json_data = JSON.stringify({
                   slider_id: _this3.slider_id
                 });
                 formData = {
                   section_id: _this3.section.id,
                   title: _this3.title,
+                  text: _this3.text,
                   visibility: _this3.visibility,
                   order: _this3.section_order,
                   json_data: json_data
                 };
-                _context4.next = 6;
+                _context3.next = 6;
                 return _services_PageService__WEBPACK_IMPORTED_MODULE_4__["default"].updateSection(formData);
 
               case 6:
-                response = _context4.sent;
+                response = _context3.sent;
 
                 if (response.data.error === false) {
                   _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
                 }
 
-                _context4.next = 14;
+                _context3.next = 14;
                 break;
 
               case 10:
-                _context4.prev = 10;
-                _context4.t0 = _context4["catch"](1);
+                _context3.prev = 10;
+                _context3.t0 = _context3["catch"](1);
 
-                _this3.errors.record(_context4.t0.response.data);
+                _this3.errors.record(_context3.t0.response.data);
 
-                _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(_context4.t0.response);
+                _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(_context3.t0.response);
 
               case 14:
                 _app__WEBPACK_IMPORTED_MODULE_3__["EventBus"].$emit('sectionUpdated');
@@ -19039,10 +19059,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 16:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4, null, [[1, 10]]);
+        }, _callee3, null, [[1, 10]]);
       }))();
     }
   }
@@ -39830,7 +39850,7 @@ var render = function () {
                           attrs: {
                             page: _vm.page,
                             section: section,
-                            sliders: _vm.sliders,
+                            galleries: _vm.galleries,
                           },
                         })
                       : _vm._e(),
@@ -41631,6 +41651,51 @@ var render = function () {
                 { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
                 [
                   _vm._v(
+                    "\n                        Section Body\n                    "
+                  ),
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6 col-sm-6 " }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.body,
+                      expression: "body",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    cols: "30",
+                    rows: "5",
+                    placeholder: "Short Description",
+                  },
+                  domProps: { value: _vm.body },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.body = $event.target.value
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("span", {
+                  staticClass: "form-text small text-danger",
+                  domProps: { innerHTML: _vm._s(_vm.errors.get("body")) },
+                }),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "item form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+                [
+                  _vm._v(
                     "\n                        Gallery\n                    "
                   ),
                 ]
@@ -42619,6 +42684,51 @@ var render = function () {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-6 col-sm-6 " }, [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.text,
+                      expression: "text",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    cols: "30",
+                    rows: "5",
+                    placeholder: "Short Description",
+                  },
+                  domProps: { value: _vm.text },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.text = $event.target.value
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("span", {
+                  staticClass: "form-text small text-danger",
+                  domProps: { innerHTML: _vm._s(_vm.errors.get("text")) },
+                }),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "item form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+                [
+                  _vm._v(
+                    "\n                        Gallery\n                    "
+                  ),
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6 col-sm-6 " }, [
                 _c(
                   "select",
                   {
@@ -42649,12 +42759,12 @@ var render = function () {
                   },
                   [
                     _c("option", { attrs: { selected: "" } }, [
-                      _vm._v("Choose Slider"),
+                      _vm._v("Choose Gallery"),
                     ]),
                     _vm._v(" "),
-                    _vm._l(_vm.sliders, function (slider) {
-                      return _c("option", { domProps: { value: slider.id } }, [
-                        _vm._v(_vm._s(slider.title)),
+                    _vm._l(_vm.galleries, function (gallery) {
+                      return _c("option", { domProps: { value: gallery.id } }, [
+                        _vm._v(_vm._s(gallery.title)),
                       ])
                     }),
                   ],

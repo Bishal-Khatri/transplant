@@ -2,6 +2,7 @@
 
 namespace Modules\ContentManagement\Http\Controllers\admin;
 
+use App\Traits\FileStore;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Modules\ContentManagement\Entities\GalleryImage;
 
 class StorageController extends Controller
 {
-    use SetResponse;
+    use SetResponse, FileStore;
 
     public function index()
     {
@@ -80,10 +81,17 @@ class StorageController extends Controller
         ]);
 
         try {
-            $path = $request->file('image')->store('gallery_images', 'public');
+//            $path = $request->file('image')->store('gallery_images', 'public');
+            $resolution = [
+                'original'=> true,
+                'large' => [1000,800],
+            ];
+            $main_image = $this->saveImage($request->image, 'gallery_images', $resolution);
+
             $galleryImage = new GalleryImage();
             $galleryImage->gallery_id = $request->gallery_id;
-            $galleryImage->image_original = $path;
+            $galleryImage->image_original = $main_image['original'];
+            $galleryImage->image_large = $main_image['large'];
             $galleryImage->save();
 
             $responseData = $this->prepareResponse(false, 'Success <br> Gallery created successfully.', [], []);

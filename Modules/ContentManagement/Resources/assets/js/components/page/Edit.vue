@@ -158,7 +158,7 @@
                     <!--<image-field v-if="section.section_name === 'image'" :page="page" :section="section"></image-field>-->
 
                     <!--WIDGET-->
-                    <slider v-if="section.section_name === 'slider'" :page="page" :section="section" :sliders="sliders"></slider>
+                    <slider v-if="section.section_name === 'slider'" :page="page" :section="section" :galleries="galleries"></slider>
 
                     <gallery v-if="section.section_name === 'gallery'" :page="page" :section="section" :galleries="galleries"></gallery>
 

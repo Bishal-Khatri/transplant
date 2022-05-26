@@ -48,7 +48,7 @@
                                                     Image
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="file" required="required" class="form-control" @change.prevent="handelImage">
+                                                    <input type="file" required="required" class="form-control" id="image" @change.prevent="handelImage">
                                                 </div>
                                             </div>
 
@@ -72,7 +72,7 @@
                                                     Date Of Birth <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input data-inputmask="'mask': '99/99/9999'" id="date_of_birth" :value="date_of_birth" class="form-control" required="required" type="text">
+                                                    <input data-inputmask="'mask': '99/99/9999'" id="date_of_birth" v-model="date_of_birth" class="form-control" required="required" type="text">
                                                     <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                                                     <span class="text-sm text-info">Date format: dd/mm/yyyy</span>
                                                     <span class="form-text small text-danger" v-html="errors.get('date_of_birth')"></span>
@@ -464,430 +464,7 @@
                             </tab-content>
 
                             <tab-content title="Preview">
-                                <form class="form-horizontal form-label-left">
-                                    <span class="section">Preview</span>
-                                    <span class="section">Personal Information</span>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Full Name <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="name" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Image <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="file" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                                                    Gender <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select name="" v-model="gender" class="form-control" readonly>
-                                                        <option value="">Select Gender</option>
-                                                        <option value="married">Male</option>
-                                                        <option value="married">Female</option>
-                                                        <option value="married">Other</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Date Mask</label>
-                                                <div class="col-md-9 col-sm-9 col-xs-9">
-                                                    <input type="text" class="form-control" readonly >
-                                                    <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                                                    Date Of Birth <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input v-model="date_of_birth" class="date-picker form-control" required="required" type="text" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                                                    Marital Status <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select name="" v-model="marital_status" id="" class="form-control" readonly>
-                                                        <option value="">Select Marital Status</option>
-                                                        <option value="married">Married</option>
-                                                        <option value="unmarried">UnMarried</option>
-                                                        <option value="widowed">Widowed</option>
-                                                        <option value="divorced">Divorced</option>
-                                                        <option value="separated">Separated</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                    Occupation <span class="required">*</span>
-                                                </label>
-
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select name="occupation" class="form-control" v-model="occupation" readonly>
-                                                        <option value="">Select Occupation</option>
-                                                        <option v-for="(occupation, index) in occupations"
-                                                                :key="index"
-                                                                :value="occupation.id">
-                                                            {{ occupation.title }}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                    Religion <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select name="occupation" class="form-control" v-model="religion" readonly>
-                                                        <option value="">Select Religion</option>
-                                                        <option v-for="(religion, index) in religions"
-                                                                :key="index"
-                                                                :value="religion.id">
-                                                            {{ religion.title }}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                    Education Level <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select name="occupation" class="form-control" v-model="education_level" readonly>
-                                                        <option value="">Select Education Level</option >
-                                                        <option v-for="(education_level, index) in education_levels"
-                                                                :key="index"
-                                                                :value="education_level.id">
-                                                            {{ education_level.title }}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                    Ethnic Group <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select name="occupation" class="form-control" v-model="ethnic_group" readonly>
-                                                        <option value="">Select Ethnic Group</option>
-                                                        <option v-for="(ethnic_group, index) in ethnic_groups"
-                                                                :key="index"
-                                                                :value="ethnic_group.id">
-                                                            {{ ethnic_group.title }}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nationality <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="nationality" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Citizenship Number <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="citizenship_number" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Passport Number <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="passport_number" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Father's Name <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="father_name" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Mother's Name <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="mother_name" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="section">Contact Information</span>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Relative Name <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="relative_name" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Relation with Relative <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="relation_with_relative" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Number 1 <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="contact_number_1" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Number 2 <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="contact_number_2" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Email Address <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="email_address" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="section">Address</span>
-                                    <span class="section">Permanent Address</span>
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Province <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <!-- <input type="text" v-model="permanent_province" required="required" class="form-control"> -->
-                                                    <select v-model="permanent_province" required="required" class="form-control" readonly>
-                                                        <option value="">Select Province</option>
-                                                        <option v-for="province in provinces" :value="province.id" :key="province.id">{{ province.title }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select v-model="permanent_district" required="required" class="form-control" readonly>
-                                                        <option value="">Select District</option>
-                                                        <option v-for="district in permanent_districts" :value="district.id" :key="district.id">{{ district.title }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Municipality <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select v-model="permanent_municipality" required="required" class="form-control" readonly>
-                                                        <option value="">Select Municipality</option>
-                                                        <option v-for="municipality in permanent_municipalities" :value="municipality.id" :key="municipality.id">{{ municipality.title }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Ward <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="permanent_ward" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Tole <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="permanent_tole" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="section">Current Address</span>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Province <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select v-model="current_province" required="required" class="form-control" readonly>
-                                                        <option value="">Select Province</option>
-                                                        <option v-for="province in provinces" :value="province.id" :key="province.id">{{ province.title }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <!-- <input type="text" v-model="current_district" required="required" class="form-control"> -->
-                                                    <select v-model="current_district" required="required" class="form-control" readonly>
-                                                        <option value="">Select District</option>
-                                                        <option v-for="district in current_districts" :value="district.id" :key="district.id">{{ district.title }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Municipality <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select v-model="current_municipality" required="required" class="form-control" readonly>
-                                                        <option value="">Select Municipality</option>
-                                                        <option v-for="municipality in current_municipalities" :value="municipality.id" :key="municipality.id">{{ municipality.title }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Ward <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="current_ward" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Tole <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="current_tole" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="section">Diagnosis / Treatment Information</span>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Number <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="letter_number" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Date <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="date" v-model="letter_date" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">OPD Number / Year <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="opd_number" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Hospital Bipanna Number <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="hospital_bipanna_number" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Disease <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="disease" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Max Facilitatory Amount <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="max_facilitatory_amount" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Referred By (Palika Name) <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <input type="text" v-model="referred_by" required="required" class="form-control" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Transplant Type <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-9 col-sm-9">
-                                                    <select class="form-control" v-model="transplant_type" required="required" readonly>
-                                                        <option value="">Select Transplant Type</option>
-                                                        <option value="kidney">Kidney</option>
-                                                        <option value="liver">Liver</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </form>
+                                <patient-preview :patient="patient"/>
                             </tab-content>
 
                             <template slot="footer" slot-scope="props">
@@ -923,6 +500,7 @@
                 isLastStep: false,
                 // form data
                 name: '',
+                image:'',
                 gender: '',
                 date_of_birth: '',
                 marital_status: '',
@@ -1056,7 +634,8 @@
                     this.patient_image ? formData.append("patient_image", this.patient_image, this.patient_image.name) : '';
                     this.name ? formData.append("name", this.name) : '';
                     this.gender ? formData.append("gender", this.gender) : '';
-                    formData.append("date_of_birth", $("#date_of_birth").val());
+                    this.image? formData.append("image", this.image) : '';
+                    this.date_of_birth?formData.append("date_of_birth", this.date_of_birth):"";
                     this.marital_status ? formData.append("marital_status", this.marital_status) : '';
                     this.occupation ? formData.append("occupation", this.occupation) : '';
                     this.religion ? formData.append("religion", this.religion) : '';
@@ -1116,7 +695,7 @@
             },
 
             handelImage(){
-
+                this.image= $("#image")[0].files[0];
             },
             async getProvince(){
                 const  response = await PublicService.getProvince();

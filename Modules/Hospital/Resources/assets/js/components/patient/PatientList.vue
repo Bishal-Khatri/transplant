@@ -78,7 +78,8 @@
                                 <td>{{ patient.citizenship_number }}</td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-secondary btn-sm" :href="'/hospital/patient/update/'+patient.id" type="button">Details</a>
+                                        <a href="#" class="btn btn-success btn-sm" :href="'/hospital/patient/view/'+patient.id" type="button">View</a>
+                                        <a href="#" class="btn btn-secondary btn-sm" :href="'/hospital/patient/update/'+patient.id" type="button">Edit</a>
                                         <a href="#" @click.prevent="showDeleteModal(patient.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
                                     </div>
                                 </td>

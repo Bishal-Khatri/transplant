@@ -22,7 +22,18 @@ class PatientController extends Controller
         if (isset($request->filter) AND !blank($request->filter)){
             $query->where('name', 'LIKE', "%" . $request->filter . "%");
         }
-        $patients = $query->paginate(10);
+        $patients = $query->with([
+            'current_province',
+            'current_district',
+            'current_municipality',
+            'permanent_province',
+            'permanent_district',
+            'permanent_municipality',
+            'education_level',
+            'occupation',
+            'religion',
+            'ethnic_group',
+        ])->paginate(10);
 
         $returnData = $this->prepareResponse(false, 'success', compact('patients'), []);
         return response()->json($returnData);
@@ -92,6 +103,7 @@ class PatientController extends Controller
         $request->validate([
             'name' => 'required',
             'gender' => 'required',
+            'image'=>'mimes:png,jpeg,svg,jpg',
             'marital_status' => 'required',
             'father_name' => 'required',
             'mother_name' => 'required',
@@ -100,7 +112,11 @@ class PatientController extends Controller
         try{
             $patient->name = $request->name;
 //            $patient->citizenship_number = $request->citizenship_number;
-            $patient->image = '';
+            //save image file
+            if ($request->hasFile('image')){
+                $path = $request->file('image')->store('patient_images', 'public');
+                $patient->image  = $path;
+            }
             $patient->gender = $request->gender;
             $patient->date_of_birth = $request->date_of_birth;
             $patient->marital_status = $request->marital_status;
@@ -251,11 +267,37 @@ class PatientController extends Controller
 
     public function edit($patient_id)
     {
-        $patient = Patient::findOrFail($patient_id);
+        $patient = Patient::with([
+            'current_province',
+            'current_district',
+            'current_municipality',
+            'permanent_province',
+            'permanent_district',
+            'permanent_municipality',
+            'education_level',
+            'occupation',
+            'religion',
+            'ethnic_group',
+        ])->findOrFail($patient_id);
         $religions = Religion::all();
         $ethnic_groups = EthnicGroup::all();
         $education_levels = EducationLevel::all();
         $occupations = Occupation::all();
         return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations'));
+    }
+    public function view($patient_id){
+        $patient = Patient::with([
+            'current_province',
+            'current_district',
+            'current_municipality',
+            'permanent_province',
+            'permanent_district',
+            'permanent_municipality',
+            'education_level',
+            'occupation',
+            'religion',
+            'ethnic_group',
+        ])->findOrFail($patient_id);
+        return view('hospital::patient.view', compact('patient'));
     }
 }

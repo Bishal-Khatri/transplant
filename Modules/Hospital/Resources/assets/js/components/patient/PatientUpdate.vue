@@ -895,7 +895,7 @@
                                     <button class="btn btn-accent" @click.prevent="$refs.updatePatient.prevTab()">Back</button>
                                 </div>
                                 <div class="wizard-footer-right">
-                                    <button class="btn btn-accent" @click.prevent="submitForm('personal_information')">Save & Proceed</button>
+                                    <button class="btn btn-accent" @click.prevent="submitForm(submitFormName)">Save & Proceed</button>
                                 </div>
                             </template>
                         </form-wizard>
@@ -1019,6 +1019,33 @@
                 this.passport_number = this.patient.passport_number;
                 this.father_name = this.patient.father_name;
                 this.mother_name = this.patient.mother_name;
+
+                this.relative_name = this.patient.relative_name;
+                this.relation_with_relative = this.patient.relation_with_relative;
+                this.contact_number_1 = this.patient.contact_number_1;
+                this.contact_number_2 = this.patient.contact_number_2;
+                this.email_address = this.patient.email_address;
+
+                this.permanent_province = this.patient.permanent_province_id;
+                this.permanent_district = this.patient.permanent_district_id;
+                this.permanent_municipality = this.patient.permanent_municipality_id;
+                this.permanent_ward = this.patient.permanent_ward;
+                this.permanent_tole = this.patient.permanent_tole;
+
+                this.current_province = this.patient.current_province_id;
+                this.current_district = this.patient.current_district_id;
+                this.current_municipality = this.patient.current_municipality_id;
+                this.current_ward = this.patient.current_ward;
+                this.current_tole = this.patient.current_tole;
+
+                this.letter_number = this.patient.letter_number;
+                this.letter_date = this.patient.letter_date;
+                this.opd_number = this.patient.opd_number;
+                this.hospital_bipanna_number = this.patient.hospital_bipanna_number;
+                this.disease = this.patient.disease;
+                this.max_facilitatory_amount = this.patient.max_facilitatory_amount;
+                this.referred_by = this.patient.referred_by;
+                this.transplant_type = this.patient.transplant_type;
             },
 
             async submitForm(page_name){
@@ -1026,7 +1053,6 @@
                 formData.append('patient_id', this.patient.id);
                 if(page_name === 'personal_information'){
                     formData.append('page', page_name);
-
                     this.patient_image ? formData.append("patient_image", this.patient_image, this.patient_image.name) : '';
                     this.name ? formData.append("name", this.name) : '';
                     this.gender ? formData.append("gender", this.gender) : '';
@@ -1053,21 +1079,21 @@
                     this.submitFormName="address_information";
                 }else if(page_name === 'address_information'){
                     formData.append('page', page_name);
-                    this.permanent_province ? formData.append("permanent_province", this.permanent_province) : '';
-                    this.permanent_district ? formData.append("permanent_district", this.permanent_district) : '';
-                    this.permanent_municipality ? formData.append("permanent_municipality", this.permanent_municipality) : '';
+                    this.permanent_province ? formData.append("permanent_province_id", this.permanent_province) : '';
+                    this.permanent_district ? formData.append("permanent_district_id", this.permanent_district) : '';
+                    this.permanent_municipality ? formData.append("permanent_municipality_id", this.permanent_municipality) : '';
                     this.permanent_ward ? formData.append("permanent_ward", this.permanent_ward) : '';
                     this.permanent_tole ? formData.append("permanent_tole", this.permanent_tole) : '';
-                    this.current_province ? formData.append("current_province", this.current_province) : '';
-                    this.current_district ? formData.append("current_district", this.current_district) : '';
-                    this.current_municipality ? formData.append("current_municipality", this.current_municipality) : '';
+                    this.current_province ? formData.append("current_province_id", this.current_province) : '';
+                    this.current_district ? formData.append("current_district_id", this.current_district) : '';
+                    this.current_municipality ? formData.append("current_municipality_id", this.current_municipality) : '';
                     this.current_ward ? formData.append("current_ward", this.current_ward) : '';
                     this.current_tole ? formData.append("current_tole", this.current_tole) : '';
                     this.submitFormName="diagnosis_information";
                 }else if(page_name === 'diagnosis_information'){
                     formData.append('page', page_name);
                     this.letter_number ? formData.append("letter_number", this.letter_number) : '';
-                    this.letter_date ? formData.append("letter_date", $("#letter_date").val()) : '';
+                    this.letter_date ? formData.append("letter_date",this.letter_date) : '';
                     this.opd_number ? formData.append("opd_number", this.opd_number) : '';
                     this.hospital_bipanna_number ? formData.append("hospital_bipanna_number", this.hospital_bipanna_number) : '';
                     this.disease ? formData.append("disease", this.disease) : '';

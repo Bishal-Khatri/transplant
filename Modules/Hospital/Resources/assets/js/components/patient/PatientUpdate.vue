@@ -936,6 +936,9 @@
                 father_name: '',
                 mother_name: '',
 
+                // submit
+                submitFormName: 'personal_information',
+
                 // address Actions
                 provinces: [],
                 // permanent
@@ -1038,8 +1041,41 @@
                     this.passport_number ? formData.append("passport_number", this.passport_number) : '';
                     this.father_name ? formData.append("father_name", this.father_name) : '';
                     this.mother_name ? formData.append("mother_name", this.mother_name) : '';
-                }
+                    this.submitFormName="contact_information";
 
+                }else if(page_name === 'contact_information'){
+                    formData.append('page', page_name);
+                    this.relative_name ? formData.append("relative_name", this.relative_name) : '';
+                    this.relation_with_relative ? formData.append("relation_with_relative", this.relation_with_relative) : '';
+                    this.contact_number_1 ? formData.append("contact_number_1", this.contact_number_1) : '';
+                    this.contact_number_2 ? formData.append("contact_number_2", this.contact_number_2) : '';
+                    this.email_address ? formData.append("email_address", this.email_address) : '';
+                    this.submitFormName="address_information";
+                }else if(page_name === 'address_information'){
+                    formData.append('page', page_name);
+                    this.permanent_province ? formData.append("permanent_province", this.permanent_province) : '';
+                    this.permanent_district ? formData.append("permanent_district", this.permanent_district) : '';
+                    this.permanent_municipality ? formData.append("permanent_municipality", this.permanent_municipality) : '';
+                    this.permanent_ward ? formData.append("permanent_ward", this.permanent_ward) : '';
+                    this.permanent_tole ? formData.append("permanent_tole", this.permanent_tole) : '';
+                    this.current_province ? formData.append("current_province", this.current_province) : '';
+                    this.current_district ? formData.append("current_district", this.current_district) : '';
+                    this.current_municipality ? formData.append("current_municipality", this.current_municipality) : '';
+                    this.current_ward ? formData.append("current_ward", this.current_ward) : '';
+                    this.current_tole ? formData.append("current_tole", this.current_tole) : '';
+                    this.submitFormName="diagnosis_information";
+                }else if(page_name === 'diagnosis_information'){
+                    formData.append('page', page_name);
+                    this.letter_number ? formData.append("letter_number", this.letter_number) : '';
+                    this.letter_date ? formData.append("letter_date", $("#letter_date").val()) : '';
+                    this.opd_number ? formData.append("opd_number", this.opd_number) : '';
+                    this.hospital_bipanna_number ? formData.append("hospital_bipanna_number", this.hospital_bipanna_number) : '';
+                    this.disease ? formData.append("disease", this.disease) : '';
+                    this.max_facilitatory_amount ? formData.append("max_facilitatory_amount", this.max_facilitatory_amount) : '';
+                    this.referred_by ? formData.append("referred_by", this.referred_by) : '';
+                    this.transplant_type ? formData.append("transplant_type", this.transplant_type) : '';
+                    this.submitFormName="preview";
+                }
                 try {
                     const response = await PatientService.updatePatient(formData);
                     if(response.data.error === false){

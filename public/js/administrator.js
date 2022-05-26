@@ -18656,6 +18656,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -42102,9 +42109,7 @@ var render = function () {
         _c("div", { staticClass: "col-md-8" }, [
           _c("section", { staticClass: "x_panel" }, [
             _c("div", { staticClass: "x_title row" }, [
-              _c("h2", { staticClass: "col-md-3 pl-1" }, [
-                _vm._v("Hospital Name"),
-              ]),
+              _c("h2", { staticClass: "col-md-3" }, [_vm._v("Hospital Name")]),
               _vm._v(" "),
               _c("h2", { staticClass: "text-accent col-md-9" }, [
                 _vm._v(_vm._s(_vm.hospital.hospital_name)),
@@ -42114,7 +42119,7 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "panel-body" }, [
-              _c("div", { staticClass: "project_detail" }, [
+              _c("div", { staticClass: "project_detail ml-1" }, [
                 _c("p", { staticClass: "title" }, [_vm._v("General Details")]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
@@ -42759,59 +42764,63 @@ var render = function () {
             _vm._m(7),
             _vm._v(" "),
             _c("div", { staticClass: "panel-body" }, [
-              _c("ul", { staticClass: "list-unstyled project_files" }, [
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.application_letter
-                          )
+              _c("div", { staticClass: "row ml-1" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("ul", { staticClass: "list-unstyled project_files" }, [
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.$refs.imagePreview.openDialog(
+                                "/storage/" + _vm.hospital.application_letter
+                              )
+                            },
+                          },
                         },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-certificate" }),
-                      _vm._v(
-                        " < license number >\n                                "
+                        [
+                          _c("i", { staticClass: "fa fa-certificate" }),
+                          _vm._v(
+                            " < license number >\n                                        "
+                          ),
+                          _c("i", {
+                            class: _vm.hospital.application_letter
+                              ? "fa fa-check"
+                              : "fa fa-times text-danger",
+                          }),
+                        ]
                       ),
-                      _c("i", {
-                        class: _vm.hospital.application_letter
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.human_resource
-                          )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.$refs.imagePreview.openDialog(
+                                "/storage/" + _vm.hospital.human_resource
+                              )
+                            },
+                          },
                         },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-certificate" }),
-                      _vm._v(
-                        " < license number >\n                                "
+                        [
+                          _c("i", { staticClass: "fa fa-certificate" }),
+                          _vm._v(
+                            " < license number >\n                                        "
+                          ),
+                          _c("small", { staticClass: "text-danger" }, [
+                            _vm._v("Expired"),
+                          ]),
+                        ]
                       ),
-                      _c("small", { staticClass: "text-danger" }, [
-                        _vm._v("Expired"),
-                      ]),
-                    ]
-                  ),
+                    ]),
+                  ]),
                 ]),
               ]),
             ]),
@@ -43277,31 +43286,37 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "panel-body" }, [
-        _c("ul", { staticClass: "list-unstyled project_files" }, [
-          _c("li", [
-            _c("strong", [_vm._v("User's Name:")]),
-            _vm._v(" Bishal Khatri\n                        "),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("strong", [_vm._v("Email Address:")]),
-            _vm._v(" bishal.khatri343@gmail.com\n                        "),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("strong", [_vm._v("Password:")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "" } }, [_vm._v("Change Password")]),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("strong", [_vm._v("Created At:")]),
-            _vm._v(" Apr 23 2022\n                        "),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("strong", [_vm._v("Updated At:")]),
-            _vm._v(" Apr 23 2022\n                        "),
+        _c("div", { staticClass: "row ml-1" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("ul", { staticClass: "list-unstyled project_files" }, [
+              _c("li", [
+                _c("strong", [_vm._v("User's Name:")]),
+                _vm._v(" Bishal Khatri\n                                "),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("strong", [_vm._v("Email Address:")]),
+                _vm._v(
+                  " bishal.khatri343@gmail.com\n                                "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("strong", [_vm._v("Password:")]),
+                _vm._v(" "),
+                _c("a", { attrs: { href: "" } }, [_vm._v("Change Password")]),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("strong", [_vm._v("Created At:")]),
+                _vm._v(" Apr 23 2022\n                                "),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("strong", [_vm._v("Updated At:")]),
+                _vm._v(" Apr 23 2022\n                                "),
+              ]),
+            ]),
           ]),
         ]),
       ]),

@@ -16893,6 +16893,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       passport_number: '',
       father_name: '',
       mother_name: '',
+      // submit
+      submitFormName: 'personal_information',
       // address Actions
       provinces: [],
       // permanent
@@ -16999,6 +17001,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.passport_number ? formData.append("passport_number", _this.passport_number) : '';
                   _this.father_name ? formData.append("father_name", _this.father_name) : '';
                   _this.mother_name ? formData.append("mother_name", _this.mother_name) : '';
+                  _this.submitFormName = "contact_information";
+                } else if (page_name === 'contact_information') {
+                  formData.append('page', page_name);
+                  _this.relative_name ? formData.append("relative_name", _this.relative_name) : '';
+                  _this.relation_with_relative ? formData.append("relation_with_relative", _this.relation_with_relative) : '';
+                  _this.contact_number_1 ? formData.append("contact_number_1", _this.contact_number_1) : '';
+                  _this.contact_number_2 ? formData.append("contact_number_2", _this.contact_number_2) : '';
+                  _this.email_address ? formData.append("email_address", _this.email_address) : '';
+                  _this.submitFormName = "address_information";
+                } else if (page_name === 'address_information') {
+                  formData.append('page', page_name);
+                  _this.permanent_province ? formData.append("permanent_province", _this.permanent_province) : '';
+                  _this.permanent_district ? formData.append("permanent_district", _this.permanent_district) : '';
+                  _this.permanent_municipality ? formData.append("permanent_municipality", _this.permanent_municipality) : '';
+                  _this.permanent_ward ? formData.append("permanent_ward", _this.permanent_ward) : '';
+                  _this.permanent_tole ? formData.append("permanent_tole", _this.permanent_tole) : '';
+                  _this.current_province ? formData.append("current_province", _this.current_province) : '';
+                  _this.current_district ? formData.append("current_district", _this.current_district) : '';
+                  _this.current_municipality ? formData.append("current_municipality", _this.current_municipality) : '';
+                  _this.current_ward ? formData.append("current_ward", _this.current_ward) : '';
+                  _this.current_tole ? formData.append("current_tole", _this.current_tole) : '';
+                  _this.submitFormName = "diagnosis_information";
+                } else if (page_name === 'diagnosis_information') {
+                  formData.append('page', page_name);
+                  _this.letter_number ? formData.append("letter_number", _this.letter_number) : '';
+                  _this.letter_date ? formData.append("letter_date", $("#letter_date").val()) : '';
+                  _this.opd_number ? formData.append("opd_number", _this.opd_number) : '';
+                  _this.hospital_bipanna_number ? formData.append("hospital_bipanna_number", _this.hospital_bipanna_number) : '';
+                  _this.disease ? formData.append("disease", _this.disease) : '';
+                  _this.max_facilitatory_amount ? formData.append("max_facilitatory_amount", _this.max_facilitatory_amount) : '';
+                  _this.referred_by ? formData.append("referred_by", _this.referred_by) : '';
+                  _this.transplant_type ? formData.append("transplant_type", _this.transplant_type) : '';
+                  _this.submitFormName = "preview";
                 }
 
                 _context.prev = 3;
@@ -39929,7 +39964,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.name },
                                   on: {
                                     input: function ($event) {
@@ -39961,7 +40000,11 @@ var render = function () {
                               _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                                 _c("input", {
                                   staticClass: "form-control",
-                                  attrs: { type: "file", required: "required" },
+                                  attrs: {
+                                    type: "file",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                 }),
                               ]),
                             ]),
@@ -39997,7 +40040,7 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { name: "" },
+                                    attrs: { name: "", readonly: "" },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -40064,7 +40107,7 @@ var render = function () {
                                 [
                                   _c("input", {
                                     staticClass: "form-control",
-                                    attrs: { type: "text" },
+                                    attrs: { type: "text", readonly: "" },
                                   }),
                                   _vm._v(" "),
                                   _c("span", {
@@ -40105,7 +40148,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "date-picker form-control",
-                                  attrs: { required: "required", type: "text" },
+                                  attrs: {
+                                    required: "required",
+                                    type: "text",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.date_of_birth },
                                   on: {
                                     input: function ($event) {
@@ -40150,7 +40197,7 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { name: "", id: "" },
+                                    attrs: { name: "", id: "", readonly: "" },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -40244,7 +40291,7 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { name: "occupation" },
+                                    attrs: { name: "occupation", readonly: "" },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -40328,7 +40375,7 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { name: "occupation" },
+                                    attrs: { name: "occupation", readonly: "" },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -40414,7 +40461,7 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { name: "occupation" },
+                                    attrs: { name: "occupation", readonly: "" },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -40501,7 +40548,7 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { name: "occupation" },
+                                    attrs: { name: "occupation", readonly: "" },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -40585,7 +40632,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.nationality },
                                   on: {
                                     input: function ($event) {
@@ -40626,7 +40677,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.citizenship_number },
                                   on: {
                                     input: function ($event) {
@@ -40668,7 +40723,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.passport_number },
                                   on: {
                                     input: function ($event) {
@@ -40709,7 +40768,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.father_name },
                                   on: {
                                     input: function ($event) {
@@ -40750,7 +40813,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.mother_name },
                                   on: {
                                     input: function ($event) {
@@ -40798,7 +40865,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.relative_name },
                                   on: {
                                     input: function ($event) {
@@ -40840,7 +40911,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: {
                                     value: _vm.relation_with_relative,
                                   },
@@ -40885,7 +40960,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.contact_number_1 },
                                   on: {
                                     input: function ($event) {
@@ -40927,7 +41006,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.contact_number_2 },
                                   on: {
                                     input: function ($event) {
@@ -40969,7 +41052,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.email_address },
                                   on: {
                                     input: function ($event) {
@@ -41023,7 +41110,10 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { required: "required" },
+                                    attrs: {
+                                      required: "required",
+                                      readonly: "",
+                                    },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -41099,7 +41189,10 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { required: "required" },
+                                    attrs: {
+                                      required: "required",
+                                      readonly: "",
+                                    },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -41178,7 +41271,10 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { required: "required" },
+                                    attrs: {
+                                      required: "required",
+                                      readonly: "",
+                                    },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -41257,7 +41353,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.permanent_ward },
                                   on: {
                                     input: function ($event) {
@@ -41299,7 +41399,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.permanent_tole },
                                   on: {
                                     input: function ($event) {
@@ -41349,7 +41453,10 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { required: "required" },
+                                    attrs: {
+                                      required: "required",
+                                      readonly: "",
+                                    },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -41425,7 +41532,10 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { required: "required" },
+                                    attrs: {
+                                      required: "required",
+                                      readonly: "",
+                                    },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -41504,7 +41614,10 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { required: "required" },
+                                    attrs: {
+                                      required: "required",
+                                      readonly: "",
+                                    },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =
@@ -41583,7 +41696,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.current_ward },
                                   on: {
                                     input: function ($event) {
@@ -41625,7 +41742,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.current_tole },
                                   on: {
                                     input: function ($event) {
@@ -41673,7 +41794,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.letter_number },
                                   on: {
                                     input: function ($event) {
@@ -41715,7 +41840,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "date", required: "required" },
+                                  attrs: {
+                                    type: "date",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.letter_date },
                                   on: {
                                     input: function ($event) {
@@ -41757,7 +41886,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.opd_number },
                                   on: {
                                     input: function ($event) {
@@ -41799,7 +41932,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: {
                                     value: _vm.hospital_bipanna_number,
                                   },
@@ -41844,7 +41981,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.disease },
                                   on: {
                                     input: function ($event) {
@@ -41886,7 +42027,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: {
                                     value: _vm.max_facilitatory_amount,
                                   },
@@ -41931,7 +42076,11 @@ var render = function () {
                                     },
                                   ],
                                   staticClass: "form-control",
-                                  attrs: { type: "text", required: "required" },
+                                  attrs: {
+                                    type: "text",
+                                    required: "required",
+                                    readonly: "",
+                                  },
                                   domProps: { value: _vm.referred_by },
                                   on: {
                                     input: function ($event) {
@@ -41975,7 +42124,10 @@ var render = function () {
                                       },
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { required: "required" },
+                                    attrs: {
+                                      required: "required",
+                                      readonly: "",
+                                    },
                                     on: {
                                       change: function ($event) {
                                         var $$selectedVal =

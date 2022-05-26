@@ -294,53 +294,43 @@
                 this.delete_quantity_id = '';
                 $("#deleteModal").modal("hide");
             },
-            async deleteQuantity(){
-                this.delete_submitting = true;
-                const response = await InventoryService.deleteQuantity(this.delete_quantity_id);
-                if (response.data.error === false) {
-                    Errors.Notification(response);
-                    this.getItemDetails();
-                    this.hideDelete();
-                    EventBus.$emit('quantityDeleted');
-                }
-                this.delete_submitting = false;
-            },
-            async uploadAdditionalImages(event){
-                this.uploading_image = true;
-                const files = event.target.files;
-                if (files.length){
-                    for (let i=0; i < files.length; i++){
-                        await this.uploadFile(files[i]);
-                    }
-                    this.getItemDetails();
-                }
-                this.uploading_image = false;
-            },
 
-            async uploadFile(file){
-                const fd = new FormData();
-                if (file) {
-                    fd.append("file", file, file.name);
-                }
-                fd.append("item_id", this.itemId);
-                try {
-                    const response = await InventoryService.uploadAdditionalImage(fd);
-                    if (response.data.error === false) {
-                    }
-                    Errors.Notification(response);
-                }catch (error) {
-                    this.errors.record(error.response.data);
-                    Errors.Notification(error.response);
-                }
-            },
-
-            async deleteAdditionalImage(image_id){
-                const response = await InventoryService.deleteAdditionalImage(image_id);
-                if (response.data.error === false) {
-                    Errors.Notification(response);
-                    this.getItemDetails();
-                }
-            }
+            // async uploadAdditionalImages(event){
+            //     this.uploading_image = true;
+            //     const files = event.target.files;
+            //     if (files.length){
+            //         for (let i=0; i < files.length; i++){
+            //             await this.uploadFile(files[i]);
+            //         }
+            //         this.getItemDetails();
+            //     }
+            //     this.uploading_image = false;
+            // },
+            //
+            // async uploadFile(file){
+            //     const fd = new FormData();
+            //     if (file) {
+            //         fd.append("file", file, file.name);
+            //     }
+            //     fd.append("item_id", this.itemId);
+            //     try {
+            //         const response = await InventoryService.uploadAdditionalImage(fd);
+            //         if (response.data.error === false) {
+            //         }
+            //         Errors.Notification(response);
+            //     }catch (error) {
+            //         this.errors.record(error.response.data);
+            //         Errors.Notification(error.response);
+            //     }
+            // },
+            //
+            // async deleteAdditionalImage(image_id){
+            //     const response = await InventoryService.deleteAdditionalImage(image_id);
+            //     if (response.data.error === false) {
+            //         Errors.Notification(response);
+            //         this.getItemDetails();
+            //     }
+            // }
         },
     }
 </script>

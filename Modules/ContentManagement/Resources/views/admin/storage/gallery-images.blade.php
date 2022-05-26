@@ -11,7 +11,7 @@
 
             <div class="clearfix"></div>
 
-            <gallery-index></gallery-index>
+            <gallery-images :gallery_id="{{ $galleryId }}"></gallery-images>
         </div>
     </div>
 @endsection

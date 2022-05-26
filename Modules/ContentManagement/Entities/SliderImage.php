@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SliderImage extends Model
 {
     use HasFactory;
-
+// REMOVE THIS FILE
     protected $fillable = [];
 
     protected static function newFactory()

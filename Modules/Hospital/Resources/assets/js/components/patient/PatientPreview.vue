@@ -7,7 +7,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Full Name <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text"  required="required" class="form-control"  :value="patient.name" disabled>
+                                                    <input type="text"  required="required" class="form-control"  :value="`${patient.name ? patient.name:''}`" disabled>
                                                 </div>
                                             </div>
 
@@ -16,7 +16,7 @@
                                                     Citizenship Number <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" required="required" class="form-control"   :value="patient.citizenship_number"  disabled>
+                                                    <input type="text" required="required" class="form-control"   :value="`${patient.citizenship_number ? patient.citizenship_number:''}`"  disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -24,7 +24,7 @@
                                                     Passport Number
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.passport_number" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.passport_number ? patient.passport_number:''}`" required="required" class="form-control" disabled>
                                                    
                                                 </div>
                                             </div>
@@ -34,7 +34,7 @@
                                                     Image
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                   <img :src="`/storage/${patient.image}`" width="100" height="100" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
+                                                   <img :src="`/storage/${patient.image ? patient.image:''}`" width="100" height="100" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
                                                 </div>
                                             </div>
 
@@ -44,7 +44,7 @@
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
                                                     
-                                                    <input  :value="patient.gender" class="form-control" disabled/>
+                                                    <input  :value="`${patient.gender ? patient.gender:''}`" class="form-control" disabled/>
                                                 </div>
                                             </div>
 
@@ -53,7 +53,7 @@
                                                     Date Of Birth <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input :value="date_of_birth" class="form-control" disabled required="required" type="text">
+                                                    <input :value="`${patient.date_of_birth ? patient.date_of_birth:''}`" class="form-control" disabled required="required" type="text">
                                                     <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                                                     <span class="text-sm text-info">Date format: dd/mm/yyyy</span>
                                                    
@@ -65,7 +65,7 @@
                                                     Marital Status <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input  :value="patient.marital_status" class="form-control" disabled/>
+                                                    <input  :value="`${patient.marital_status ? patient.marital_status:''}`" class="form-control" disabled/>
                                         
                                                    
                                                 </div>
@@ -80,7 +80,7 @@
                                                 </label>
 
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input name="occupation" class="form-control" disabled :value="patient.occupation.title" >
+                                                    <input name="occupation" class="form-control" disabled :value="`${patient.occupation ? patient.occupation.title:''}`" >
                                                     
                                                 </div>
                                             </div>
@@ -90,7 +90,7 @@
                                                     Religion
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input name="occupation" class="form-control" disabled :value="patient.religion.title"/>
+                                                    <input name="occupation" class="form-control" disabled :value="`${patient.religion ? patient.religion.title:''}`"/>
                                                         
                                                    
                                                 </div>
@@ -101,7 +101,7 @@
                                                     Education Level
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input name="occupation" class="form-control" disabled :value="patient.education_level.title"/>
+                                                    <input name="occupation" class="form-control" disabled :value="`${patient.education_level ? patient.education_level.title:''}`"/>
                                                 </div>
                                             </div>
 
@@ -110,7 +110,7 @@
                                                     Ethnic Group
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input name="occupation" class="form-control" disabled :value="patient.ethnic_group.title"/>
+                                                    <input name="occupation" class="form-control" disabled :value="`${patient.ethnic_group ? patient.ethnic_group.title:''}`"/>
                                                       
                                                 </div>
                                             </div>
@@ -120,7 +120,7 @@
                                                     Nationality
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.nationality" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.nationality ? patient.nationality:''}`" required="required" class="form-control" disabled>
                                                    
                                                 </div>
                                             </div>
@@ -130,7 +130,7 @@
                                                     Father's Name <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.father_name" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.father_name ? patient.father_name:''}`" required="required" class="form-control" disabled>
                                                    
                                                 </div>
                                             </div>
@@ -140,21 +140,21 @@
                                                     Mother's Name <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.mother_name" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.mother_name ? patient.mother_name:''}`" required="required" class="form-control" disabled>
                                                    
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
-                                    <span class="section">Contact Information</span>
+                                     <span class="section">Contact Information</span>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Relative Name <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.relative_name" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.relative_name ? patient.relative_name:''}`" required="required" class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,7 +163,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Relation with Relative <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.relation_with_relative" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.relation_with_relative ? patient.relation_with_relative:''}`" required="required" class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Number 1 <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.contact_number_1" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.contact_number_1 ? patient.contact_number_1:''}`" required="required" class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -181,7 +181,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Number 2 <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.contact_number_2" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.contact_number_2 ? patient.contact_number_2:''}`" required="required" class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,7 +190,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Email Address <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.email_address" required="required" class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.email_address ? patient.email_address:''}`" required="required" class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,8 +204,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Province <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <!-- <input type="text" :value="patient.permanent_province" required="required"  class="form-control" disabled> -->
-                                                    <input :value="patient.permanent_province.title" required="required"  class="form-control" disabled/>
+                                                    <input :value="`${patient.permanent_province ? patient.permanent_province.title:''}`" required="required"  class="form-control" disabled/>
                                                     
                                                 </div>
                                             </div>
@@ -215,7 +214,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input :value="patient.permanent_district.title" required="required"  class="form-control" disabled >
+                                                    <input :value="`${patient.permanent_district ? patient.permanent_district.title:''}`" required="required"  class="form-control" disabled >
                                                        
                                                 </div>
                                             </div>
@@ -225,7 +224,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Municipality <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input :value="patient.permanent_municipality.title" required="required"  class="form-control" disabled>
+                                                    <input :value="`${patient.permanent_municipality ? patient.permanent_municipality.title:''}`" required="required"  class="form-control" disabled>
                                                        
                                                 </div>
                                             </div>
@@ -235,7 +234,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Ward <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.permanent_ward" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.permanent_ward ? patient.permanent_ward:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -244,19 +243,19 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Tole <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.permanent_tole" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.permanent_tole ? patient.permanent_tole:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <span class="section">Current Address</span>
+                                    </div> -->
+                                     <span class="section">Current Address</span>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Province <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input :value="patient.current_province.title" required="required"  class="form-control" disabled>
+                                                    <input :value="`${patient.current_province ? patient.current_province.title:''}`" required="required"  class="form-control" disabled>
                                                         
                                                 </div>
                                             </div>
@@ -266,8 +265,8 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <!-- <input type="text" :value="patient.current_district" required="required"  class="form-control" disabled> -->
-                                                    <input :value="patient.current_district.title" required="required"  class="form-control" disabled >
+                                                    
+                                                    <input :value="`${patient.current_district ? patient.current_district.title:''}`" required="required"  class="form-control" disabled >
                                                        
                                                 </div>
                                             </div>
@@ -277,7 +276,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Municipality <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input :value="patient.current_municipality.title" required="required"  class="form-control" disabled>
+                                                    <input :value="`${patient.current_municipality ? patient.current_municipality.title:''}`" required="required"  class="form-control" disabled>
                                                         
                                                 </div>
                                             </div>
@@ -287,7 +286,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Ward <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.current_ward" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.current_ward ? patient.current_ward:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -296,7 +295,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Tole <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.current_tole" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.current_tole ? patient.current_tole:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -308,7 +307,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Number <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.letter_number" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.letter_number ? patient.letter_number:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +316,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Date <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="date" :value="patient.letter_date" required="required"  class="form-control" disabled>
+                                                    <input type="date" :value="`${patient.letter_date ? patient.letter_date:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -326,7 +325,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">OPD Number / Year <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.opd_number" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.opd_number ? patient.opd_number:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -335,7 +334,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Hospital Bipanna Number <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.hospital_bipanna_number" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.hospital_bipanna_number ? patient.hospital_bipanna_number:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -344,7 +343,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Disease <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.disease" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.disease ? patient.disease:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -353,7 +352,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Max Facilitatory Amount <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.max_facilitatory_amount" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.max_facilitatory_amount ? patient.max_facilitatory_amount:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -362,7 +361,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Referred By (Palika Name) <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input type="text" :value="patient.referred_by" required="required"  class="form-control" disabled>
+                                                    <input type="text" :value="`${patient.referred_by ? patient.referred_by:''}`" required="required"  class="form-control" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -371,12 +370,12 @@
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Transplant Type <span class="required">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9">
-                                                    <input  class="form-control" disabled :value="patient.transplant_type" required="required" >
+                                                    <input  class="form-control" disabled :value="`${patient.transplant_type ? patient.transplant_type:''}`" required="required" >
                                                         
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 <image-preview ref="imagePreview"/>
                     </div>
 </template>

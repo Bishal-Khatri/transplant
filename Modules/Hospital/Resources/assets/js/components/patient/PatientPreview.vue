@@ -1,0 +1,395 @@
+<template>
+    <div class="form-horizontal form-label-left">
+                                    <span class="section">Personal Information</span>
+                                   <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Full Name <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text"  required="required" class="form-control"  :value="patient.name" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Citizenship Number <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" required="required" class="form-control"   :value="patient.citizenship_number"  disabled>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Passport Number
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.passport_number" required="required" class="form-control" disabled>
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Image
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                   <img :src="`/storage/${patient.image}`" width="100" height="100" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                                    Gender <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    
+                                                    <input  :value="patient.gender" class="form-control" disabled/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Date Of Birth <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input :value="date_of_birth" class="form-control" disabled required="required" type="text">
+                                                    <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                                                    <span class="text-sm text-info">Date format: dd/mm/yyyy</span>
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                                    Marital Status <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input  :value="patient.marital_status" class="form-control" disabled/>
+                                        
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Occupation
+                                                </label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input name="occupation" class="form-control" disabled :value="patient.occupation.title" >
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Religion
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input name="occupation" class="form-control" disabled :value="patient.religion.title"/>
+                                                        
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Education Level
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input name="occupation" class="form-control" disabled :value="patient.education_level.title"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Ethnic Group
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input name="occupation" class="form-control" disabled :value="patient.ethnic_group.title"/>
+                                                      
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Nationality
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.nationality" required="required" class="form-control" disabled>
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Father's Name <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.father_name" required="required" class="form-control" disabled>
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                                    Mother's Name <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.mother_name" required="required" class="form-control" disabled>
+                                                   
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <span class="section">Contact Information</span>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Relative Name <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.relative_name" required="required" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Relation with Relative <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.relation_with_relative" required="required" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Number 1 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.contact_number_1" required="required" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Number 2 <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.contact_number_2" required="required" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Email Address <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.email_address" required="required" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="section">Address</span>
+                                    <span class="section">Permanent Address</span>
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Province <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <!-- <input type="text" :value="patient.permanent_province" required="required"  class="form-control" disabled> -->
+                                                    <input :value="patient.permanent_province.title" required="required"  class="form-control" disabled/>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input :value="patient.permanent_district.title" required="required"  class="form-control" disabled >
+                                                       
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Municipality <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input :value="patient.permanent_municipality.title" required="required"  class="form-control" disabled>
+                                                       
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Ward <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.permanent_ward" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Tole <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.permanent_tole" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="section">Current Address</span>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Province <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input :value="patient.current_province.title" required="required"  class="form-control" disabled>
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <!-- <input type="text" :value="patient.current_district" required="required"  class="form-control" disabled> -->
+                                                    <input :value="patient.current_district.title" required="required"  class="form-control" disabled >
+                                                       
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Municipality <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input :value="patient.current_municipality.title" required="required"  class="form-control" disabled>
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Ward <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.current_ward" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Tole <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.current_tole" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="section">Diagnosis / Treatment Information</span>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Number <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.letter_number" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Date <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="date" :value="patient.letter_date" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">OPD Number / Year <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.opd_number" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Hospital Bipanna Number <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.hospital_bipanna_number" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Disease <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.disease" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Max Facilitatory Amount <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.max_facilitatory_amount" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Referred By (Palika Name) <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input type="text" :value="patient.referred_by" required="required"  class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align">Transplant Type <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9 col-sm-9">
+                                                    <input  class="form-control" disabled :value="patient.transplant_type" required="required" >
+                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <image-preview ref="imagePreview"/>
+                    </div>
+</template>
+<script>
+import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
+export default {
+    name: "PatientPreview",
+    props: ['patient'],
+    mounted(){
+        console.log(this.patient);
+    },
+    components: {
+        ImagePreview
+    }
+}
+</script>

@@ -9,6 +9,7 @@ Route::group(['prefix' => 'hospital', 'middleware' => ['auth', 'hospital'], 'as'
 
     Route::group(['prefix' => 'patient','middleware' => 'license'], function (){
         Route::get('/', [PatientController::class, 'index'])->name('patients');
+        Route::get('/view/{id}', [PatientController::class, 'view'])->name('patient.view');
         Route::get('/update/{patient_id}', [PatientController::class, 'edit'])->name('patient.edit');
     });
 

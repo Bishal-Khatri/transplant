@@ -33,12 +33,18 @@ class ContentManagementServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
         view()->composer('*', function ($view) {
+            $first_theme = Theme::first();
+            if(!$first_theme){
+                $active_theme = new Theme();
+                $active_theme->name = 'Default';
+                $active_theme->is_active = 1;
+                $active_theme->save();
+            }
             $active_theme = Theme::where('is_active', 1)->first();
-
             if (!$active_theme OR blank($active_theme)){
+                // dd($active_theme);
                 return abort(404, 'Theme not activated');
             }
-
             $nav_menu_id = $active_theme->nav_menu_id;
             $nav_menu = MenuPage::where('menu_id',$nav_menu_id)->where('parent_id', 0)->with('children', 'children.children')->orderBy('order')->get();
 

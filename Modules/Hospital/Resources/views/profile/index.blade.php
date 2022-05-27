@@ -11,7 +11,7 @@
 
             <div class="clearfix"></div>
 
-            <hospital-profile/>
+            <hospital-profile hospital_json="{{ $hospital }}" licenses_json="{{ $licenses }}"/>
         </div>
     </div>
 @endsection

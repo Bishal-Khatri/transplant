@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Administrator\Entities\Province;
 use Modules\Administrator\Entities\District;
 use Modules\Administrator\Entities\Municipality;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+
 class Hospital extends Model
 {
-    use HasFactory;
+    use HasFactory,LogsActivity;
 
     protected $fillable = [];
 
@@ -42,5 +45,10 @@ class Hospital extends Model
     }
     public function municipality(){
         return $this->belongsTo(Municipality::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logAll();
     }
 }

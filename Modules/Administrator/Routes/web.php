@@ -19,6 +19,7 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
 
     // hospital waiting list
     Route::get('/hospital-list', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'listHospitals'])->name('admin.hospital.list');
+    Route::get('/hospital-create', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'createHospital'])->name('admin.hospital.create');
 
     Route::group(['prefix' => 'web-api'],function() {
 

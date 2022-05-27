@@ -4,14 +4,12 @@
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
-                <div class="title_left">
-                    <h3>Hospital Listing</h3>
+                <div class="title_left w-100 d-flex justify-content-center">
+                    <h3>Create New Hospital</h3>
                 </div>
             </div>
-
             <div class="clearfix"></div>
-
-            <hospital-index route="{{route('admin.hospital.index')}}" create_route="{{ route('admin.hospital.create') }}"/>
+            <hospital-create />
         </div>
     </div>
 @endsection

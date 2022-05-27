@@ -12,10 +12,11 @@ use Modules\Hospital\Entities\License;
 use Modules\Restaurant\Entities\Restaurant;
 use Modules\Restaurant\Entities\RestaurantMenu;
 use Spatie\Permission\Traits\HasRoles;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,LogsActivity;
 
     protected $fillable = [
         'name',
@@ -42,5 +43,9 @@ class User extends Authenticatable
     public function hospital()
     {
         return $this->belongsTo(Hospital::class, 'hospital_id');
+    }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logAll();
     }
 }

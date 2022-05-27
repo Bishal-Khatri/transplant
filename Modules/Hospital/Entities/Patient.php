@@ -11,10 +11,11 @@ use Modules\Administrator\Entities\Religion;
 use Modules\Administrator\Entities\Province;
 use Modules\Administrator\Entities\District;
 use Modules\Administrator\Entities\Municipality;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory,LogsActivity;
 
     protected $fillable = [];
 
@@ -70,5 +71,9 @@ class Patient extends Model
     // permanent municipality
     public function permanent_municipality(){
         return $this->belongsTo(Municipality::class);
+    }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logAll();
     }
 }

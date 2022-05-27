@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enum\UserType;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
@@ -23,7 +24,17 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::ADMIN_HOME);
+                switch (Auth::user()->user_type){
+                    case UserType::HOSPITAL :
+                        return redirect(RouteServiceProvider::HOSPITAL_HOME);
+                        break;
+                    case UserType::ADMINISTRATOR :
+                        return redirect(RouteServiceProvider::ADMIN_HOME);
+                        break;
+                    default:
+                        return redirect('/');
+
+                }
             }
         }
 

@@ -23,7 +23,7 @@ class Hospital extends Model
 
     public function getCreatedAtAttribute($value)
     {
-        return date('M d Y', strtotime($value));
+        return date('d M Y', strtotime($value));
     }
 
     public function license()

@@ -14,14 +14,19 @@ class License extends Model
 
     protected $fillable = [];
 
-    protected static function newFactory()
-    {
-        return \Modules\Hospital\Database\factories\LicenseFactory::new();
-    }
-
     public function getCreatedAtAttribute($value)
     {
-        return date('M d Y', strtotime($value));
+        return date('d M Y', strtotime($value));
+    }
+
+    public function getIssueDateAttribute($value)
+    {
+        return date('d M Y', strtotime($value));
+    }
+
+    public function getExpiryDateAttribute($value)
+    {
+        return date('d M Y', strtotime($value));
     }
 
     public function licenseable()

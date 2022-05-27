@@ -325,7 +325,7 @@
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title ml-2">Approve Hospital</h4>
+                        <h2 class="modal-title ml-2">Approve Hospital</h2>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>

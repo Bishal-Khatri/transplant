@@ -18,15 +18,31 @@ class Patient extends Model
     use HasFactory,LogsActivity;
 
     protected $fillable = [];
+    protected static $logAttributes = [
+        'name',
+        'citizenship_number',
+        'passport_number',
+        'date_of_birth',
+        'marital_status',
+        'nationality',
+        'contact_number_1',
+        'contact_number_2',
+        'email_address',
+        'opd_number',
+        'hospital_bipanna_number',
+        'disease',
+        'referred_by',
+        'transplant_type',
+    ];
 
-    protected static function newFactory()
+    public function getActivitylogOptions(): LogOptions
     {
-        return \Modules\Hospital\Database\factories\PatientFactory::new();
+        return LogOptions::defaults()->logAll();
     }
 
     public function getCreatedAtAttribute($value)
     {
-        return date('M d Y', strtotime($value));
+        return date('d M Y', strtotime($value));
     }
     // occupation
     public function occupation()
@@ -72,8 +88,5 @@ class Patient extends Model
     public function permanent_municipality(){
         return $this->belongsTo(Municipality::class);
     }
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()->logAll();
-    }
+
 }

@@ -30,12 +30,12 @@
                 <ul class="nav side-menu">
                     <li>
                         <a href="{{ route('hospital.patients') }}">
-                            <i class="fa fa-folder-o"></i> Patients
+                            <i class="fa fa-users"></i> Patients
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('hospital.profile') }}">
-                            <i class="fa fa-folder-open"></i> Profile
+                            <i class="fa fa-hospital-o"></i> Profile
                         </a>
                     </li>
                 </ul>

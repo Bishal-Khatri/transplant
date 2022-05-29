@@ -43144,13 +43144,23 @@ var render = function () {
                             ]),
                             _vm._v(" "),
                             _c("td", [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(
-                                    hospital.approve_status.toUpperCase()
-                                  ) +
-                                  " "
+                              _c(
+                                "span",
+                                {
+                                  class:
+                                    hospital.approve_status === "unapproved"
+                                      ? "text-secondary"
+                                      : "text-accent",
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      hospital.approve_status.toUpperCase()
+                                    )
+                                  ),
+                                ]
                               ),
+                              _vm._v(" "),
                               _c("br"),
                               _vm._v(
                                 "\n                                " +

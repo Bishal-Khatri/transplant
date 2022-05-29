@@ -119,7 +119,7 @@
                                 <td>{{ hospital.transplant_type.toUpperCase() }}</td>
                                 <td>{{ hospitalTypesEnum[hospital.hospital_type-1] }}</td>
                                 <td>
-                                    {{ hospital.approve_status.toUpperCase() }} <br>
+                                    <span :class="hospital.approve_status === 'unapproved' ? 'text-secondary' : 'text-accent'">{{ hospital.approve_status.toUpperCase() }}</span> <br>
                                     {{ hospital.approved_by}}  {{ hospital.approved_date?"On "+hospital.approved_date:"" }}
                                 </td>
                                 <td>

@@ -35,9 +35,11 @@ class CreateHospitalsTable extends Migration
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->text('reject_message')->nullable();
             $table->string('approve_status')->default('unapproved');
-            $table->integer('verification_status')->default(0);
+//            $table->integer('verification_status')->default(0);
+            $table->integer('document_verification_status')->default(0);
+            $table->integer('physical_verification_status')->default(0);
+            $table->boolean('status')->default(1)->comment('accibility status');
             $table->unsignedBigInteger('active_license_id')->nullable();
-            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

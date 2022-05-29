@@ -24,26 +24,15 @@
                         <!--// filter-->
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <div style="display: flex;" class="mb-2">
-                                    <h4 class="mr-3">
-                                        <i class="fa fa-filter mr-1"></i> Filter
-                                    </h4>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><button>Hospital Type: GOVERNMENT <i class="fa fa-times" @click.prevent="removeFilter"></i></button></li>
-                                        <li><button>Hospital Type: GOVERNMENT <i class="fa fa-times" @click.prevent="removeFilter"></i></button></li>
-                                        <li><a href="#" style="color: rgb(90, 115, 142);">Clear Filter</a></li>
-                                    </ul>
-                                </div>
-
                                 <div class="btn-group" role="group">
                                     <button id="filter-hospital-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Hospital Type
+                                        <i class="fa fa-filter mr-1"></i> Transplant Type
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="filter-hospital-type"
                                          x-placement="bottom-start"
                                          style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                        <a class="dropdown-item" href="#">GOVERNMENT</a>
-                                        <a class="dropdown-item" href="#" >PRIVATE</a>
+                                        <a class="dropdown-item" href="#">KIDNEY</a>
+                                        <a class="dropdown-item" href="#" >LIVER</a>
                                     </div>
                                 </div>
 
@@ -57,12 +46,16 @@
                                 <th>Patient's Photo</th>
                                 <th>Patient's Name</th>
                                 <th>Citizenship Number</th>
+                                <th>Gender</th>
+                                <th>Date Of Birth</th>
+                                <th>Nationality</th>
+                                <th>Transplant Type</th>
                                 <th style="width: 180px" class="text-right">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-if="!patients.length">
-                                <td colspan="4">No items to display.</td>
+                                <td colspan="8">No items to display.</td>
                             </tr>
                             <tr v-else v-for="(patient, index) in patients" :key="index">
                                 <td style="width: 150px;">
@@ -72,14 +65,18 @@
                                     <img v-else src="/images/placeholder-dark.jpg" alt="" width="60" height="40">
                                 </td>
                                 <td>
-                                    <a class="mr-2" :href="'/hospital/patient/update/'+patient.id">{{ patient.name }}</a> <br>
+                                    <a class="mr-2" :href="'/hospital/patient/update/'+patient.id">{{ patient.name || 'Not-Available' }}</a> <br>
                                     <small class="">Created on {{ patient.created_at }}</small>
                                 </td>
-                                <td>{{ patient.citizenship_number }}</td>
+                                <td>{{ patient.citizenship_number || 'Not-Available' }}</td>
+                                <td>{{ patient.gender ? patient.gender.toUpperCase() : 'Not-Available' }}</td>
+                                <td>{{ patient.date_of_birth || 'Not-Available' }}</td>
+                                <td>{{ patient.nationality || 'Not-Available' }}</td>
+                                <td>{{ patient.transplant_type ? patient.transplant_type.toUpperCase() : 'Not-Available' }}</td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <a href="#" class="btn btn-success btn-sm" :href="'/hospital/patient/view/'+patient.id" type="button">View</a>
-                                        <a href="#" class="btn btn-secondary btn-sm" :href="'/hospital/patient/update/'+patient.id" type="button">Edit</a>
+                                        <a href="#" class="btn btn-accent btn-sm" :href="'/hospital/patient/view/'+patient.id" type="button">View</a>
+                                        <a href="#" class="btn btn-accent btn-sm" :href="'/hospital/patient/update/'+patient.id" type="button">Edit</a>
                                         <a href="#" @click.prevent="showDeleteModal(patient.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
                                     </div>
                                 </td>
@@ -96,11 +93,11 @@
         <patient-create ref="createPatient"/>
         <image-preview ref="imagePreview"/>
 
-        <div class="modal fade" id="delete-patient-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal" id="delete-patient-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Delete Patient</h4>
+                        <h2 class="modal-title" id="myModalLabel">Delete Patient</h2>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>

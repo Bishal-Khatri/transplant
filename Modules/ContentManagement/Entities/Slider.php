@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Slider extends Model
 {
+    // REMOVE THIS FILE
     use HasFactory;
 
     protected $fillable = [];

@@ -24,17 +24,27 @@
 </script>
 <script>
     toastr.options = {
+        "closeButton": true,
         "debug": false,
         "newestOnTop": false,
-        "positionClass": "toast-bottom-right",
-        "closeButton": true,
-        "progressBar": true
+        "progressBar": false,
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": 10000,
+        "extendedTimeOut": 10000,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "positionClass": "toast-bottom-full-width",
     };
     @if(Session::has('success'))
-    toastr.success("{!! session('success') !!}");
+    toastr.info("{!! session('success') !!}");
     @endif
     @if(Session::has('error'))
-    toastr.error("{!! session('error') !!}");
+    toastr.info("{!! session('error') !!}");
     @endif
     @if(Session::has('info'))
     toastr.info("{!! session('info') !!}");

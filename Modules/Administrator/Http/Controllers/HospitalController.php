@@ -43,6 +43,9 @@ class HospitalController extends Controller
         ])->find($id));
         return view('administrator::pages.hospital-detail',compact('hospital'));
     }
+    public function createHospital(){
+        return view('administrator::pages.hospital-create');
+    }
     // // delete hospital
     // public function delete($id)
     // {

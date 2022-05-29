@@ -15025,15 +15025,25 @@ var Errors = /*#__PURE__*/function () {
       }
 
       toastr.options = {
+        "closeButton": true,
         "debug": false,
         "newestOnTop": false,
-        "positionClass": "toast-bottom-right",
-        "closeButton": true,
-        "progressBar": true
+        "progressBar": false,
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": 10000,
+        "extendedTimeOut": 10000,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "positionClass": "toast-bottom-full-width"
       };
 
       if (type === 'success') {
-        toastr.success(message);
+        toastr.info(message);
       }
 
       if (type === 'error') {
@@ -15072,6 +15082,68 @@ var Errors = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "../ContentManagement/Resources/assets/services/Api.js":
+/*!*************************************************************!*\
+  !*** ../ContentManagement/Resources/assets/services/Api.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.create();
+});
+
+/***/ }),
+
+/***/ "../ContentManagement/Resources/assets/services/HospitalFrontendService.js":
+/*!*********************************************************************************!*\
+  !*** ../ContentManagement/Resources/assets/services/HospitalFrontendService.js ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "../ContentManagement/Resources/assets/services/Api.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  registerHospital: function registerHospital(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/register-hospital', formData);
+  }
+});
+
+/***/ }),
+
+/***/ "../ContentManagement/Resources/assets/services/PublicService.js":
+/*!***********************************************************************!*\
+  !*** ../ContentManagement/Resources/assets/services/PublicService.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "../ContentManagement/Resources/assets/services/Api.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getProvince: function getProvince() {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/web-api/public/province');
+  },
+  getDistrict: function getDistrict(province_id) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/web-api/public/district' + '?province_id=' + province_id);
+  },
+  getMunicipality: function getMunicipality(district_id) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/web-api/public/municipality' + '?district_id=' + district_id);
+  }
+});
+
+/***/ }),
+
 /***/ "./Resources/assets/js/app.js":
 /*!************************************!*\
   !*** ./Resources/assets/js/app.js ***!
@@ -15088,6 +15160,7 @@ __webpack_require__.r(__webpack_exports__);
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('hospital-index', __webpack_require__(/*! ./components/hospital/HospitalIndex.vue */ "./Resources/assets/js/components/hospital/HospitalIndex.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('hospital-details', __webpack_require__(/*! ./components/hospital/HospitalView.vue */ "./Resources/assets/js/components/hospital/HospitalView.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('hospital-create', __webpack_require__(/*! ./components/hospital/CreateHospital.vue */ "./Resources/assets/js/components/hospital/CreateHospital.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('religion-index', __webpack_require__(/*! ./components/religion/ReligionIndex.vue */ "./Resources/assets/js/components/religion/ReligionIndex.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('ethnic-groups-index', __webpack_require__(/*! ./components/ethnic_groups/EthnicGroupsIndex.vue */ "./Resources/assets/js/components/ethnic_groups/EthnicGroupsIndex.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('disease-index', __webpack_require__(/*! ./components/disease/DiseaseIndex.vue */ "./Resources/assets/js/components/disease/DiseaseIndex.vue")["default"]);
@@ -15651,6 +15724,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EthnicGroupsIndex_vue_vue_type_template_id_99d9e386_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EthnicGroupsIndex_vue_vue_type_template_id_99d9e386_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/hospital/CreateHospital.vue":
+/*!********************************************************************!*\
+  !*** ./Resources/assets/js/components/hospital/CreateHospital.vue ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CreateHospital_vue_vue_type_template_id_5b7b5cc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateHospital.vue?vue&type=template&id=5b7b5cc4&scoped=true& */ "./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=template&id=5b7b5cc4&scoped=true&");
+/* harmony import */ var _CreateHospital_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateHospital.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _CreateHospital_vue_vue_type_style_index_0_id_5b7b5cc4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css& */ "./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _CreateHospital_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CreateHospital_vue_vue_type_template_id_5b7b5cc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CreateHospital_vue_vue_type_template_id_5b7b5cc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5b7b5cc4",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "Resources/assets/js/components/hospital/CreateHospital.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./CreateHospital.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_style_index_0_id_5b7b5cc4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--5-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--5-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_style_index_0_id_5b7b5cc4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_style_index_0_id_5b7b5cc4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_style_index_0_id_5b7b5cc4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_style_index_0_id_5b7b5cc4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=template&id=5b7b5cc4&scoped=true&":
+/*!***************************************************************************************************************!*\
+  !*** ./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=template&id=5b7b5cc4&scoped=true& ***!
+  \***************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_template_id_5b7b5cc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./CreateHospital.vue?vue&type=template&id=5b7b5cc4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=template&id=5b7b5cc4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_template_id_5b7b5cc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHospital_vue_vue_type_template_id_5b7b5cc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -17928,6 +18088,462 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../ContentManagement/Resources/assets/services/PublicService */ "../ContentManagement/Resources/assets/services/PublicService.js");
+/* harmony import */ var _resources_js_error__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../resources//js/error */ "../../resources/js/error.js");
+/* harmony import */ var _ContentManagement_Resources_assets_services_HospitalFrontendService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../ContentManagement/Resources/assets/services/HospitalFrontendService */ "../ContentManagement/Resources/assets/services/HospitalFrontendService.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "CreateHospital",
+  props: {},
+  components: {},
+  data: function data() {
+    return {
+      errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"](),
+      submitting: false,
+      district_disable: true,
+      municipality_disable: true,
+      display_success_message: false,
+      // form data
+      hospital_name: "",
+      province: "",
+      district: "",
+      municipality: "",
+      palika: "",
+      hospital_type: '',
+      transplant_type: '',
+      application_letter: '',
+      human_resource: '',
+      tools_list: '',
+      administrative_document: '',
+      sanchalan_swikriti: '',
+      renewal_letter: '',
+      pan: '',
+      tax_clearance: '',
+      agree: false,
+      provinces: {},
+      districts: {},
+      municipalities: {},
+      palikas: {}
+    };
+  },
+  mounted: function mounted() {
+    this.getProvince();
+  },
+  methods: {
+    getProvince: function getProvince() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_1__["default"].getProvince();
+
+              case 2:
+                response = _context.sent;
+                _this.provinces = response.data.data.provinces;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getDistrict: function getDistrict() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_1__["default"].getDistrict(_this2.province);
+
+              case 2:
+                response = _context2.sent;
+                _this2.districts = response.data.data.districts;
+                _this2.district_disable = false;
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    getMunicipality: function getMunicipality() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_1__["default"].getMunicipality(_this3.district);
+
+              case 2:
+                response = _context3.sent;
+                _this3.municipalities = response.data.data.municipalities;
+                _this3.municipality_disable = false;
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    handelImage: function handelImage(event, modal) {
+      if (modal === 'application_letter') {
+        this.application_letter = event.target.files[0];
+      }
+
+      if (modal === 'human_resource') {
+        this.human_resource = event.target.files[0];
+      }
+
+      if (modal === 'tools_list') {
+        this.tools_list = event.target.files[0];
+      }
+
+      if (modal === 'administrative_document') {
+        this.administrative_document = event.target.files[0];
+      }
+
+      if (modal === 'sanchalan_swikriti') {
+        this.sanchalan_swikriti = event.target.files[0];
+      }
+
+      if (modal === 'renewal_letter') {
+        this.renewal_letter = event.target.files[0];
+      }
+
+      if (modal === 'pan') {
+        this.pan = event.target.files[0];
+      }
+
+      if (modal === 'tax_clearance') {
+        this.tax_clearance = event.target.files[0];
+      }
+    },
+    submit: function submit() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this4.submitting = true;
+                _context4.prev = 1;
+                formData = new FormData();
+                formData.append("hospital_name", _this4.hospital_name);
+                _this4.province ? formData.append("province", _this4.province) : '';
+                _this4.district ? formData.append("district", _this4.district) : '';
+                _this4.municipality ? formData.append("municipality", _this4.municipality) : '';
+                _this4.palika ? formData.append("palika", _this4.palika) : '';
+                formData.append("hospital_type", _this4.hospital_type);
+                formData.append("transplant_type", _this4.transplant_type);
+                _this4.application_letter ? formData.append("application_letter", _this4.application_letter) : '';
+                _this4.human_resource ? formData.append("human_resource", _this4.human_resource) : '';
+                _this4.tools_list ? formData.append("tools_list", _this4.tools_list) : '';
+                _this4.administrative_document ? formData.append("administrative_document", _this4.administrative_document) : '';
+                _this4.sanchalan_swikriti ? formData.append("sanchalan_swikriti", _this4.sanchalan_swikriti) : '';
+                _this4.renewal_letter ? formData.append("renewal_letter", _this4.renewal_letter) : '';
+                _this4.pan ? formData.append("pan", _this4.pan) : '';
+                _this4.tax_clearance ? formData.append("tax_clearance", _this4.tax_clearance) : '';
+                _this4.agree ? formData.append("agree", _this4.agree) : '';
+
+                if (_this4.application_letter) {
+                  formData.append("application_letter", _this4.application_letter, _this4.application_letter.name);
+                }
+
+                if (_this4.human_resource) {
+                  formData.append("human_resource", _this4.human_resource, _this4.human_resource.name);
+                }
+
+                if (_this4.tools_list) {
+                  formData.append("tools_list", _this4.tools_list, _this4.tools_list.name);
+                }
+
+                if (_this4.administrative_document) {
+                  formData.append("administrative_document", _this4.administrative_document, _this4.administrative_document.name);
+                }
+
+                if (_this4.sanchalan_swikriti) {
+                  formData.append("sanchalan_swikriti", _this4.sanchalan_swikriti, _this4.sanchalan_swikriti.name);
+                }
+
+                if (_this4.renewal_letter) {
+                  formData.append("renewal_letter", _this4.renewal_letter, _this4.renewal_letter.name);
+                }
+
+                if (_this4.pan) {
+                  formData.append("pan", _this4.pan, _this4.pan.name);
+                }
+
+                if (_this4.tax_clearance) {
+                  formData.append("tax_clearance", _this4.tax_clearance, _this4.tax_clearance.name);
+                }
+
+                _context4.next = 29;
+                return _ContentManagement_Resources_assets_services_HospitalFrontendService__WEBPACK_IMPORTED_MODULE_3__["default"].registerHospital(formData);
+
+              case 29:
+                response = _context4.sent;
+
+                if (response.data.error === false) {
+                  _this4.display_success_message = true;
+
+                  _this4.clearForm();
+                }
+
+                _context4.next = 36;
+                break;
+
+              case 33:
+                _context4.prev = 33;
+                _context4.t0 = _context4["catch"](1);
+
+                _this4.errors.record(_context4.t0.response.data);
+
+              case 36:
+                _this4.submitting = false;
+
+              case 37:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[1, 33]]);
+      }))();
+    },
+    clearForm: function clearForm() {
+      this.hospital_name = '';
+      this.errors.clear();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/HospitalIndex.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/hospital/HospitalIndex.vue?vue&type=script&lang=js& ***!
@@ -18129,7 +18745,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "hospitalIndex",
   components: {},
-  props: ['route'],
+  props: ['route', 'create_route'],
   data: function data() {
     return {
       hospitalTypesEnum: ['Government', 'Private'],
@@ -18268,6 +18884,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resources_js_error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../../resources/js/error */ "../../resources/js/error.js");
 /* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../app */ "./Resources/assets/js/app.js");
 /* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20268,6 +20891,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.file-wrapper[data-v-5b7b5cc4]{\n    border: 1px solid #ECECEC;\n    border-radius: 6px;\n    padding: 21px;\n    margin: 2px;\n}\n.cs-loader[data-v-5b7b5cc4] {\n    display: flex;\n    border: 2px solid #f3f3f3 !important;; /* Light grey */\n    border-top: 2px solid #3498db !important;; /* Blue */\n    border-radius: 50% !important;;\n    width: 25px !important;;\n    height: 25px !important;;\n    animation: spin-data-v-5b7b5cc4 2s linear infinite !important;\n    position: relative;\n    left: 50%;\n}\n@keyframes spin-data-v-5b7b5cc4 {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\n\n", ""]);
+
+// exports
+
 
 /***/ }),
 
@@ -38748,6 +39390,36 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--5-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--5-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=style&index=0&id=5b7b5cc4&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/HospitalView.vue?vue&type=style&index=0&id=724c166d&scoped=true&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/hospital/HospitalView.vue?vue&type=style&index=0&id=724c166d&scoped=true&lang=css& ***!
@@ -41381,6 +42053,911 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=template&id=5b7b5cc4&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/hospital/CreateHospital.vue?vue&type=template&id=5b7b5cc4&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "mt-0 pt-0" }, [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-lg-8 col-md-8 bg-white p-4 rounded" }, [
+          _vm.display_success_message
+            ? _c("div", { staticClass: "boxed boxed--border" }, [
+                _c("h5", [_vm._v("Success")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                        Your form has been submitted successfully. Please check your email form approval message.\n                    "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        _vm.display_success_message = false
+                      },
+                    },
+                  },
+                  [
+                    _c("span", { staticClass: "btn__text" }, [
+                      _vm._v("Show Form"),
+                    ]),
+                  ]
+                ),
+              ])
+            : _c(
+                "div",
+                { staticClass: "boxed bg--secondary boxed--lg boxed--border" },
+                [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "row",
+                      on: {
+                        submit: function ($event) {
+                          $event.preventDefault()
+                          return _vm.submit.apply(null, arguments)
+                        },
+                      },
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("label", [_vm._v("Hospital Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.hospital_name,
+                              expression: "hospital_name",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            name: "name",
+                            placeholder: "Type Name Here",
+                          },
+                          domProps: { value: _vm.hospital_name },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.hospital_name = $event.target.value
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("hospital_name")),
+                          },
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("label", [_vm._v("Hospital Type")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-select" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.hospital_type,
+                                  expression: "hospital_type",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: function ($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function (o) {
+                                      return o.selected
+                                    })
+                                    .map(function (o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.hospital_type = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select Hospital Type"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "1" } }, [
+                                _vm._v("Government"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "2" } }, [
+                                _vm._v("Private"),
+                              ]),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.errors.get("hospital_type")
+                              ),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("label", [_vm._v("Transplant Type")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-select" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.transplant_type,
+                                  expression: "transplant_type",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: function ($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function (o) {
+                                      return o.selected
+                                    })
+                                    .map(function (o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.transplant_type = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select Transplant Type"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "kidney" } }, [
+                                _vm._v("KIDNEY"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "liver" } }, [
+                                _vm._v("LIVER"),
+                              ]),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("label", [_vm._v("Province")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-select" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.province,
+                                  expression: "province",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              on: {
+                                change: [
+                                  function ($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call(
+                                        $event.target.options,
+                                        function (o) {
+                                          return o.selected
+                                        }
+                                      )
+                                      .map(function (o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.province = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.getDistrict.apply(
+                                      null,
+                                      arguments
+                                    )
+                                  },
+                                ],
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select Province"),
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.provinces, function (province) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: province.id,
+                                    domProps: { value: province.id },
+                                  },
+                                  [_vm._v(_vm._s(province.title))]
+                                )
+                              }),
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.errors.get("province")),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("label", [_vm._v("District")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-select" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.district,
+                                  expression: "district",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: { disabled: _vm.district_disable },
+                              on: {
+                                change: [
+                                  function ($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call(
+                                        $event.target.options,
+                                        function (o) {
+                                          return o.selected
+                                        }
+                                      )
+                                      .map(function (o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.district = $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  },
+                                  function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.getMunicipality.apply(
+                                      null,
+                                      arguments
+                                    )
+                                  },
+                                ],
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select District"),
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.districts, function (district) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: district.id,
+                                    domProps: { value: district.id },
+                                  },
+                                  [_vm._v(_vm._s(district.title))]
+                                )
+                              }),
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.errors.get("district")),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("label", [_vm._v("Municipality")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-select" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.municipality,
+                                  expression: "municipality",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: { disabled: _vm.municipality_disable },
+                              on: {
+                                change: function ($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function (o) {
+                                      return o.selected
+                                    })
+                                    .map(function (o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.municipality = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                },
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select Municipality"),
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(
+                                _vm.municipalities,
+                                function (municipality) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: municipality.id,
+                                      domProps: { value: municipality.id },
+                                    },
+                                    [_vm._v(_vm._s(municipality.title))]
+                                  )
+                                }
+                              ),
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.errors.get("municipality")),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("label", [_vm._v("Palika")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.palika,
+                              expression: "palika",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            name: "palika",
+                            placeholder: "Palika Name",
+                          },
+                          domProps: { value: _vm.palika },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.palika = $event.target.value
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("palika")),
+                          },
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(3),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "file", name: "application_letter" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage(
+                                  $event,
+                                  "application_letter"
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.errors.get("application_letter")
+                              ),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(4),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "file", name: "human_resource" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage($event, "human_resource")
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.errors.get("human_resource")
+                              ),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(5),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "file", name: "tools_list" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage($event, "tools_list")
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.errors.get("tools_list")),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "file",
+                              name: "administrative_document",
+                            },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage(
+                                  $event,
+                                  "administrative_document"
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.errors.get("administrative_document")
+                              ),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(7),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "file", name: "sanchalan_swikriti" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage(
+                                  $event,
+                                  "sanchalan_swikriti"
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.errors.get("sanchalan_swikriti")
+                              ),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(8),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "file", name: "renewal_letter" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage($event, "renewal_letter")
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.errors.get("renewal_letter")
+                              ),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(9),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "file", name: "pan" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage($event, "pan")
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.errors.get("pan")),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(10),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: { type: "file", name: "tax_clearance" },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage($event, "tax_clearance")
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.errors.get("tax_clearance")
+                              ),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 d-flex justify-content-center",
+                        },
+                        [
+                          _c("div", { staticClass: "input-checkbox" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.agree,
+                                  expression: "agree",
+                                },
+                              ],
+                              attrs: { type: "checkbox", name: "agree" },
+                              domProps: {
+                                checked: Array.isArray(_vm.agree)
+                                  ? _vm._i(_vm.agree, null) > -1
+                                  : _vm.agree,
+                              },
+                              on: {
+                                change: function ($event) {
+                                  var $$a = _vm.agree,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 && (_vm.agree = $$a.concat([$$v]))
+                                    } else {
+                                      $$i > -1 &&
+                                        (_vm.agree = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.agree = $$c
+                                  }
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("label"),
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(11),
+                          _vm._v(" "),
+                          _c("p", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.errors.get("agree")),
+                            },
+                          }),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-12 d-flex justify-content-center mt-4",
+                        },
+                        [
+                          _vm.submitting
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success text-center",
+                                  attrs: { type: "submit" },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Submitting Form ...\n                            "
+                                  ),
+                                ]
+                              )
+                            : _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success",
+                                  attrs: { type: "submit" },
+                                },
+                                [_vm._v("Submit Form")]
+                              ),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]
+              ),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h5", [_vm._v("Hospital Details")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 mt-3" }, [
+      _c("hr"),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Address")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 mt-3" }, [
+      _c("hr"),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Document Files")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Application Letter "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Human Resource "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Tools List "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Administrative Document "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Sanchalan Swrikity "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Renewal Letter "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("PAN "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("TAX Clearance "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _vm._v("I have read and agree to the "),
+      _c("a", { attrs: { href: "#" } }, [_vm._v("terms and conditions")]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/hospital/HospitalIndex.vue?vue&type=template&id=077794ba&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/hospital/HospitalIndex.vue?vue&type=template&id=077794ba&scoped=true& ***!
@@ -41466,13 +43043,7 @@ var render = function () {
                       "a",
                       {
                         staticStyle: { color: "#5A738E" },
-                        attrs: { href: "#" },
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.$refs.createhospital.openDialog()
-                          },
-                        },
+                        attrs: { href: _vm.create_route },
                       },
                       [_vm._v("Create New Hospital")]
                     ),
@@ -42102,9 +43673,7 @@ var render = function () {
         _c("div", { staticClass: "col-md-8" }, [
           _c("section", { staticClass: "x_panel" }, [
             _c("div", { staticClass: "x_title row" }, [
-              _c("h2", { staticClass: "col-md-3 pl-1" }, [
-                _vm._v("Hospital Name"),
-              ]),
+              _c("h2", { staticClass: "col-md-3" }, [_vm._v("Hospital Name")]),
               _vm._v(" "),
               _c("h2", { staticClass: "text-accent col-md-9" }, [
                 _vm._v(_vm._s(_vm.hospital.hospital_name)),
@@ -42114,7 +43683,7 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "panel-body" }, [
-              _c("div", { staticClass: "project_detail" }, [
+              _c("div", { staticClass: "project_detail ml-1" }, [
                 _c("p", { staticClass: "title" }, [_vm._v("General Details")]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
@@ -42759,59 +44328,63 @@ var render = function () {
             _vm._m(7),
             _vm._v(" "),
             _c("div", { staticClass: "panel-body" }, [
-              _c("ul", { staticClass: "list-unstyled project_files" }, [
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.application_letter
-                          )
+              _c("div", { staticClass: "row ml-1" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("ul", { staticClass: "list-unstyled project_files" }, [
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.$refs.imagePreview.openDialog(
+                                "/storage/" + _vm.hospital.application_letter
+                              )
+                            },
+                          },
                         },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-certificate" }),
-                      _vm._v(
-                        " < license number >\n                                "
+                        [
+                          _c("i", { staticClass: "fa fa-certificate" }),
+                          _vm._v(
+                            " < license number >\n                                        "
+                          ),
+                          _c("i", {
+                            class: _vm.hospital.application_letter
+                              ? "fa fa-check"
+                              : "fa fa-times text-danger",
+                          }),
+                        ]
                       ),
-                      _c("i", {
-                        class: _vm.hospital.application_letter
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.human_resource
-                          )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.$refs.imagePreview.openDialog(
+                                "/storage/" + _vm.hospital.human_resource
+                              )
+                            },
+                          },
                         },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-certificate" }),
-                      _vm._v(
-                        " < license number >\n                                "
+                        [
+                          _c("i", { staticClass: "fa fa-certificate" }),
+                          _vm._v(
+                            " < license number >\n                                        "
+                          ),
+                          _c("small", { staticClass: "text-danger" }, [
+                            _vm._v("Expired"),
+                          ]),
+                        ]
                       ),
-                      _c("small", { staticClass: "text-danger" }, [
-                        _vm._v("Expired"),
-                      ]),
-                    ]
-                  ),
+                    ]),
+                  ]),
                 ]),
               ]),
             ]),
@@ -43277,31 +44850,37 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "panel-body" }, [
-        _c("ul", { staticClass: "list-unstyled project_files" }, [
-          _c("li", [
-            _c("strong", [_vm._v("User's Name:")]),
-            _vm._v(" Bishal Khatri\n                        "),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("strong", [_vm._v("Email Address:")]),
-            _vm._v(" bishal.khatri343@gmail.com\n                        "),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("strong", [_vm._v("Password:")]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "" } }, [_vm._v("Change Password")]),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("strong", [_vm._v("Created At:")]),
-            _vm._v(" Apr 23 2022\n                        "),
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("strong", [_vm._v("Updated At:")]),
-            _vm._v(" Apr 23 2022\n                        "),
+        _c("div", { staticClass: "row ml-1" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("ul", { staticClass: "list-unstyled project_files" }, [
+              _c("li", [
+                _c("strong", [_vm._v("User's Name:")]),
+                _vm._v(" Bishal Khatri\n                                "),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("strong", [_vm._v("Email Address:")]),
+                _vm._v(
+                  " bishal.khatri343@gmail.com\n                                "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("strong", [_vm._v("Password:")]),
+                _vm._v(" "),
+                _c("a", { attrs: { href: "" } }, [_vm._v("Change Password")]),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("strong", [_vm._v("Created At:")]),
+                _vm._v(" Apr 23 2022\n                                "),
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("strong", [_vm._v("Updated At:")]),
+                _vm._v(" Apr 23 2022\n                                "),
+              ]),
+            ]),
           ]),
         ]),
       ]),
@@ -43370,7 +44949,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title ml-2" }, [
+      _c("h2", { staticClass: "modal-title ml-2" }, [
         _vm._v("Approve Hospital"),
       ]),
       _vm._v(" "),

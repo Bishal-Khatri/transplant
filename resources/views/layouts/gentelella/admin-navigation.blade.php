@@ -45,7 +45,7 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.hospital.list') }}">
-                            <i class="fa fa-hospital-o"></i> Hospital List
+                            <i class="fa fa-hospital-o"></i> Hospitals
                         </a>
                     </li>
                 </ul>

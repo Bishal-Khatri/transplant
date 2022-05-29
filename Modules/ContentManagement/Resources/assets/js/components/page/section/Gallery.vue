@@ -36,6 +36,15 @@
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">
+                            Section Body
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <textarea class="form-control" v-model="body" cols="30" rows="5" placeholder="Short Description"></textarea>
+                            <span class="form-text small text-danger" v-html="errors.get('body')"></span>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">
                             Gallery
                         </label>
                         <div class="col-md-6 col-sm-6 ">
@@ -75,6 +84,7 @@
                 submitting: false,
 
                 title: '',
+                body: '',
                 gallery_id: '',
                 visibility: 1,
                 section_order: 0,
@@ -88,10 +98,13 @@
                 this.title = this.section.title;
                 this.visibility = this.section.visibility;
                 this.section_order = this.section.order;
+                this.body = this.section.text;
 
                 let json_data = JSON.parse(this.section.json_data);
-                this.gallery_id = json_data.gallery_id;
+                json_data ? this.gallery_id = json_data.gallery_id : '';
             },
+
+
 
             async updateSection(){
                 this.submitting = true;
@@ -103,6 +116,7 @@
                     const formData = {
                         section_id: this.section.id,
                         title: this.title,
+                        text: this.body,
                         visibility: this.visibility,
                         order: this.section_order,
                         json_data: json_data,

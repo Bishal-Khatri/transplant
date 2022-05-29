@@ -50,8 +50,10 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
     });
 
     Route::group(['prefix' => 'storage', 'as'=> 'cms.storage.'], function () {
+        Route::get('/', [StorageController::class, 'index'])->name('index');
         Route::get('/gallery', [StorageController::class, 'gallery_index'])->name('gallery.index');
-        Route::get('/slider', [StorageController::class, 'slider_index'])->name('slider.index');
+        Route::get('/gallery/{gallery_id}', [StorageController::class, 'galleryImages'])->name('gallery.images');
+//        Route::get('/slider', [StorageController::class, 'slider_index'])->name('slider.index');
     });
 
 
@@ -61,6 +63,15 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
         Route::delete('/page/deleteSection/{section_id}', [PageController::class, 'deleteSection']);
         Route::post('/page/addSection', [PageController::class, 'addSection']);
         Route::post('/page/updateSection', [PageController::class, 'updateSection']);
+
+        Route::group(['prefix' => 'gallery', 'as'=> 'gallery.'], function () {
+            Route::get('/list', [StorageController::class, 'getGalleries']);
+            Route::post('/create', [StorageController::class, 'createGallery']);
+            Route::get('/getImages/{gallery_id}', [StorageController::class, 'getGalleryImages']);
+            Route::post('/addImageToGallery', [StorageController::class, 'addImageToGallery']);
+            Route::delete('/removeImageFromGallery/{gallery_image_id}', [StorageController::class, 'removeImageFromGallery']);
+            Route::delete('/removeGallery/{gallery_id}', [StorageController::class, 'removeGallery']);
+        });
     });
 });
 

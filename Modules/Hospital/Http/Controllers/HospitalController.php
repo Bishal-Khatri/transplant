@@ -10,6 +10,7 @@ use Modules\ContentManagement\Entities\Patient;
 use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Enum\HospitalApproveStatus;
 use Modules\Hospital\Enum\HospitalVerificationStatus;
+use Modules\Hospital\Entities\License;
 
 class HospitalController extends Controller
 {
@@ -17,7 +18,14 @@ class HospitalController extends Controller
 
     public function profile()
     {
-        return view('hospital::profile.index');
+        $hospital_id = auth()->user()->hospital_id;
+        $hospital = json_encode(Hospital::with([
+            'province',
+            'district',
+            'municipality',
+        ])->find($hospital_id));
+        $licenses= License::where('licenseable_id',$hospital_id)->get();
+        return view('hospital::profile.index',compact('hospital','licenses'));
     }
 
     public function index()

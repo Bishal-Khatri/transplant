@@ -4,12 +4,12 @@
             <div class="col-md-8">
                 <section class="x_panel">
                     <div class="x_title row">
-                        <h2 class="col-md-3 pl-1">Hospital Name</h2>
+                        <h2 class="col-md-3">Hospital Name</h2>
                         <h2 class="text-accent col-md-9">{{ hospital.hospital_name }}</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
-                        <div class="project_detail">
+                        <div class="project_detail ml-1">
                             <p class="title">General Details</p>
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
@@ -220,23 +220,27 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
-                        <ul class="list-unstyled project_files">
-                            <li>
-                                <strong>User's Name:</strong> Bishal Khatri
-                            </li>
-                            <li>
-                                <strong>Email Address:</strong> bishal.khatri343@gmail.com
-                            </li>
-                            <li>
-                                <strong>Password:</strong> <a href="">Change Password</a>
-                            </li>
-                            <li>
-                                <strong>Created At:</strong> Apr 23 2022
-                            </li>
-                            <li>
-                                <strong>Updated At:</strong> Apr 23 2022
-                            </li>
-                        </ul>
+                        <div class="row ml-1">
+                            <div class="col-md-12">
+                                <ul class="list-unstyled project_files">
+                                    <li>
+                                        <strong>User's Name:</strong> Bishal Khatri
+                                    </li>
+                                    <li>
+                                        <strong>Email Address:</strong> bishal.khatri343@gmail.com
+                                    </li>
+                                    <li>
+                                        <strong>Password:</strong> <a href="">Change Password</a>
+                                    </li>
+                                    <li>
+                                        <strong>Created At:</strong> Apr 23 2022
+                                    </li>
+                                    <li>
+                                        <strong>Updated At:</strong> Apr 23 2022
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
                 </section>
@@ -246,7 +250,6 @@
                     <div class="x_title">
                         <div class="col-md-3">
                             <h2 class="text-accent">License</h2>
-
                         </div>
                         <div class="col-md-9">
                             <!--disable old license is create-->
@@ -257,21 +260,25 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
-                        <ul class="list-unstyled project_files">
-                            <li>
-                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
-                                    <!-- Show license details: issue_date, expiry_date, license_number, issued_by on click-->
-                                    <i class="fa fa-certificate"></i> < license number >
-                                    <i :class="hospital.application_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href=""  @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
-                                    <i class="fa fa-certificate"></i> < license number >
-                                    <small class="text-danger">Expired</small>
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="row ml-1">
+                            <div class="col-md-12">
+                                <ul class="list-unstyled project_files">
+                                    <li>
+                                        <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
+                                            <!-- Show license details: issue_date, expiry_date, license_number, issued_by on click-->
+                                            <i class="fa fa-certificate"></i> < license number >
+                                            <i :class="hospital.application_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href=""  @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
+                                            <i class="fa fa-certificate"></i> < license number >
+                                            <small class="text-danger">Expired</small>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
                 </section>
@@ -318,7 +325,7 @@
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title ml-2">Approve Hospital</h4>
+                        <h2 class="modal-title ml-2">Approve Hospital</h2>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>

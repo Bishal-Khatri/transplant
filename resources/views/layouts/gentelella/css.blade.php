@@ -59,5 +59,9 @@
     .right_col{
         min-height: 90vh;
     }
+
+    .toast{
+        opacity: 1 !important;
+    }
 </style>
 @yield('css')

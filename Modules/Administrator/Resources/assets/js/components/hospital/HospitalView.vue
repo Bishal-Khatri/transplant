@@ -80,6 +80,9 @@
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
                                     Accessibility
+                                    <i type="button" class="fa fa-info-circle text-info"
+                                       data-toggle="tooltip" data-placement="top"
+                                       title="Access user can login to the portal if enabled."></i>
                                 </label>
                                 <div class="col-md-9 col-sm-9">
                                     <div class="btn-group" role="group">
@@ -100,22 +103,39 @@
 
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
-                                    Verification status
+                                    Document Verification
                                 </label>
                                 <div class="col-md-9 col-sm-9">
                                     <div class="btn-group" role="group">
                                         <button id="verification" type="button" class="btn btn-accent btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span v-if="hospital.verification_status === 0">NONE</span>
-                                            <span v-if="hospital.verification_status === 1">DOCUMENT VERIFIED</span>
-                                            <span v-if="hospital.verification_status === 2">PHYSICALLY VERIFIED</span>
-                                            <span v-if="hospital.verification_status === 3">VERIFIED</span>
+                                            <span v-if="hospital.document_verification === 1">VERIFIED</span>
+                                            <span v-else>UNVERIFIED</span>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="verification"
                                              x-placement="bottom-start"
                                              style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('verification_status', 'DOCUMENT_VERIFIED')">Document Verified</a>
-                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('verification_status', 'PHYSICAL_VERIFIED')">Physically Verified</a>
-                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('verification_status', 'VERIFIED')">Verified</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('document_verification', 0)">UNVERIFIED</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('document_verification', 1)">VERIFIED</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                    Physical Verification
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <div class="btn-group" role="group">
+                                        <button id="physical_verification" type="button" class="btn btn-accent btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span v-if="hospital.physical_verification === 1">VERIFIED</span>
+                                            <span v-else>UNVERIFIED</span>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="verification"
+                                             x-placement="bottom-start"
+                                             style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('physical_verification', 0)">UNVERIFIED</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="changeStatus('physical_verification', 1)">VERIFIED</a>
                                         </div>
                                     </div>
                                 </div>
@@ -254,7 +274,7 @@
                         <div class="col-md-9">
                             <!--disable old license is create-->
                             <ul class="nav navbar-right panel_toolbox">
-                                <li><a style="color: #5A738E;" href="#">Create New License</a></li>
+                                <li><a style="color: #5A738E;" href="#">Renew License</a></li>
                             </ul>
                         </div>
                         <div class="clearfix"></div>
@@ -334,51 +354,33 @@
                             <strong>Attention !</strong> Are you sure you want to <code>Approve</code> this hospital?
                             Enter new login credentials for portal accessibility and click <code>Approve</code> button.
                         </p>
-                        <!-- login info -->
-                        <h2>Login Credentials</h2>
-                        <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
-                                Full Name
-                                <span class="required">*</span>
-                            </label>
-                            <div class="col-md-9 col-sm-9">
-                                <input type="text" class="form-control" placeholder="" v-model="name">
-                                <span class="form-text text-danger" v-html="errors.get('name')"></span>
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
-                                Email Address
-                                <span class="required">*</span>
-                            </label>
-                            <div class="col-md-9 col-sm-9">
-                                <input type="text" class="form-control" placeholder="" v-model="email">
-                                <span class="form-text text-danger" v-html="errors.get('email')"></span>
-                            </div>
-                        </div>
+                        <create-user></create-user>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <button v-if="approve_submitting" type="button" class="btn btn-accent btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button v-else type="submit" class="btn btn-accent btn-sm" @click.prevent="approveHospital">Approve</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
-                                Password
-                                <span class="required">*</span>
-                            </label>
-                            <div class="col-md-9 col-sm-9">
-                                <input type="password" class="form-control" id="password" v-model="password" placeholder="" />
-                                <span class="form-text text-danger" v-html="errors.get('password')"></span>
-                            </div>
-                        </div>
+        <div class="modal" id="create-user-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title ml-2">Create User</h2>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body ml-2 mr-2 mb-0">
+                        <p>
+                            <strong>Attention !</strong> Are you sure you want to <code>Approve</code> this hospital?
+                            Enter new login credentials for portal accessibility and click <code>Approve</code> button.
+                        </p>
 
-                        <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
-                                Confirm Password
-                                <span class="required">*</span>
-                            </label>
-                            <div class="col-md-9 col-sm-9">
-                                <input type="password" class="form-control" id="confirm_password" v-model="confirm_password" placeholder="" />
-                                <span class="form-text text-danger" v-html="errors.get('password')"></span>
-                            </div>
-                        </div>
+                        <create-user></create-user>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
@@ -397,12 +399,14 @@
     import {Errors} from "../../../../../../../resources/js/error";
     import {EventBus} from "../../app";
     import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
+    import CreateUser from "./CreateUser";
 
     export default {
         name: "HospitalView",
         props: ["hospital_json"],
         components: {
-            ImagePreview
+            ImagePreview,
+            CreateUser
         },
         data(){
             return{
@@ -411,11 +415,6 @@
                 hospital: {},
                 reject_submitting:false,
                 approve_submitting:false,
-                // approve
-                name:'',
-                email:'',
-                password:'',
-                confirm_password:'',
                 // reject
                 reject_reason:'',
             }

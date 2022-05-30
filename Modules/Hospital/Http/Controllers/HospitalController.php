@@ -11,7 +11,7 @@ use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Enum\HospitalApproveStatus;
 use Modules\Hospital\Enum\HospitalVerificationStatus;
 use Modules\Hospital\Entities\License;
-
+use Auth;
 class HospitalController extends Controller
 {
     use SetResponse;
@@ -113,6 +113,77 @@ class HospitalController extends Controller
 
         //save data
         $returnData = $this->prepareResponse(false, 'success', [], []);
+        return response()->json($returnData);
+    }
+    public function update(Request $request){
+        $request->validate([
+            'hospital_name' => 'string|max:255',
+            'province_id' => 'exists:provinces,id',
+            'district_id' => 'exists:districts,id',
+            'municipality_id' => 'exists:municipalities,id',
+            'palika' => 'string|max:255',
+            'transplant_type' => 'string',
+            'hospital_type' => 'string',
+            'application_letter' => 'mimes:png,jpeg,svg,jpg,pdf',
+            'human_resource' => 'mimes:png,jpeg,svg,jpg,pdf',
+            'tools_list' => 'mimes:png,jpeg,svg,jpg,pdf',
+            'administrative_document' => 'mimes:png,jpeg,svg,jpg,pdf',
+            'sanchalan_swikriti' => 'mimes:png,jpeg,svg,jpg,pdf',
+            'renewal_letter' => 'mimes:png,jpeg,svg,jpg,pdf',
+            'pan' => 'mimes:png,jpeg,svg,jpg,pdf',
+            'tax_clearance' => 'mimes:png,jpeg,svg,jpg,pdf',
+        ]);
+        $hospital = Hospital::find(Auth::user()->hospital_id);
+        $request->hospital_name && $hospital->hospital_name = $request->hospital_name;
+        $request->province_id && $hospital->province_id = $request->province_id;
+        $request->district_id && $hospital->district_id = $request->district_id;
+        $request->municipality_id && $hospital->municipality_id = $request->municipality_id;
+        $request->palika && $hospital->palika_name = $request->palika;
+        $request->transplant_type && $hospital->transplant_type = $request->transplant_type;
+        $request->hospital_type && $hospital->hospital_type = $request->hospital_type;
+
+        if ($request->hasFile('application_letter')){
+            $application_letter_path = $request->file('application_letter')->store('hospital_files', 'public');
+            $hospital->application_letter = $application_letter_path;
+        }
+        if ($request->hasFile('human_resource')){
+            $human_resource_path = $request->file('human_resource')->store('hospital_files', 'public');
+            $hospital->human_resource = $human_resource_path;
+        }
+        if ($request->hasFile('tools_list')){
+            $tools_list_path = $request->file('tools_list')->store('hospital_files', 'public');
+            $hospital->tools_list = $tools_list_path;
+        }
+        if ($request->hasFile('administrative_document')){
+            $administrative_document_path = $request->file('administrative_document')->store('hospital_files', 'public');
+            $hospital->administrative_document = $administrative_document_path;
+        }
+        if ($request->hasFile('sanchalan_swikriti')){
+            $sanchalan_swikriti_path = $request->file('sanchalan_swikriti')->store('hospital_files', 'public');
+            $hospital->sanchalan_swikriti = $sanchalan_swikriti_path;
+        }
+        if ($request->hasFile('renewal_letter')){
+            $renewal_letter_path = $request->file('renewal_letter')->store('hospital_files', 'public');
+            $hospital->renewal_letter = $renewal_letter_path;
+        }
+        if ($request->hasFile('pan')){
+            $pan_path = $request->file('pan')->store('hospital_files', 'public');
+            $hospital->pan = $pan_path;
+        }
+        if ($request->hasFile('tax_clearance')){
+            $tax_clearance_path = $request->file('tax_clearance')->store('hospital_files', 'public');
+            $hospital->tax_clearance = $tax_clearance_path;
+        }
+
+        $hospital->save();
+        $hospital_id = auth()->user()->hospital_id;
+        $hospital = Hospital::with([
+            'province',
+            'district',
+            'municipality',
+        ])->find($hospital_id);
+        //save data
+        $returnData = $this->prepareResponse(false, 'success', [$hospital], []);
         return response()->json($returnData);
     }
 

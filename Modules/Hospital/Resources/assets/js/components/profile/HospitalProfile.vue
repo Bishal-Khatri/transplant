@@ -37,7 +37,7 @@
                                         <div class="col-md-3">
                                             <ul class="nav navbar-right panel_toolbox">
                                                 <li v-if="!editable"><a style="color: #5A738E;" href="#" @click.prevent="editable = true">Edit Profile</a></li>
-                                                <li v-else><a style="color: #5A738E;" href="#" @click.prevent="editable = false">Save Profile</a></li>
+                                                <li v-else><a style="color: #5A738E;" href="#" @click.prevent="editable = false;saveProfile()">Save Profile</a></li>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
@@ -53,8 +53,15 @@
                                                             <span class="required">*</span>
                                                         </label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input class="form-control"  v-if="hospital.hospital_type === 1"  value="GOVERNMENT" :readonly="!editable"/>
+                                                            <!-- if editable select else input field with condition below -->
+                                                            <select v-if="editable" v-model="hospital_type" class="form-control" :style="`${editable?'display:block;':'display:none;'}`">
+                                                                <option value="">Select Hospital Type</option>
+                                                                <option value="1">GOVERNMENT</option>
+                                                                <option value="2">PRIVATE</option>
+                                                            </select>
+                                                            <input v-else-if="!editable && hospital_type === 1" type="text" class="form-control"  value="GOVERNMENT" :readonly="!editable"  placeholder="Hospital Type">
                                                             <input v-else  value="PRIVATE" class="form-control" readonly/>
+
                                                         </div>
                                                     </div>
 
@@ -64,7 +71,13 @@
                                                             <span class="required">*</span>
                                                         </label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input class="form-control" :value="hospital.transplant_type ? hospital.transplant_type.toUpperCase() : ''" :readonly="!editable"/>
+                                                            <!-- if editable select else input field with condition below -->
+                                                            <select v-if="editable" v-model="transplant_type" class="form-control" :style="`${editable?'display:block;':'display:none;'}`">
+                                                                <option value="">Select Transplant Type</option>
+                                                                <option value="kidney">Kidney</option>
+                                                                <option value="liver">Liver</option>
+                                                            </select>
+                                                            <input v-else type="text" class="form-control"  :value="transplant_type ? transplant_type.toUpperCase() : ''" :readonly="!editable"  placeholder="Transplant Type">
                                                         </div>
                                                     </div>
                                                     <hr>
@@ -76,7 +89,12 @@
                                                             <span class="required">*</span>
                                                         </label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input class="form-control" :value="hospital.province ? hospital.province.title : 'Not-Availabl'" :readonly="!editable"/>
+                                                            <!-- if editable select else input field with condition below -->
+                                                            <select v-if="editable" @change.prevent="getDistrict()" v-model="province_id" class="form-control" :style="`${editable?'display:block;':'display:none;'}`">
+                                                                <option value="">Select Province</option>
+                                                                <option v-for="province in provinces" :value="province.id" :key="province.id">{{ province.title }}</option>
+                                                            </select>
+                                                            <input v-else class="form-control" :value="province ? province.title : 'Not-Available'" :readonly="!editable"/>
                                                         </div>
                                                     </div>
 
@@ -86,7 +104,12 @@
                                                             <span class="required">*</span>
                                                         </label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input class="form-control" :value="hospital.district ? hospital.district.title : 'Not-Available'" :readonly="!editable"/>
+                                                            <!-- if editable select else input field with condition below -->
+                                                            <select v-if="editable" @change.prevent="getMunicipality()"  :disabled='district_disable' v-model="district_id" class="form-control" :style="`${editable?'display:block;':'display:none;'}`" >
+                                                                <option value="">Select District</option>
+                                                                <option v-for="district in districts" :value="district.id" :key="district.id">{{ district.title }}</option>
+                                                            </select>
+                                                            <input v-else class="form-control" :value="district ? district.title : 'Not-Available'" :readonly="!editable"/>
                                                         </div>
                                                     </div>
 
@@ -96,7 +119,12 @@
                                                             <span class="required">*</span>
                                                         </label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input class="form-control" :value="hospital.municipality ? hospital.municipality.title : 'Not-Available'" :readonly="!editable"/>
+                                                            <!-- if editable select else input field with condition below -->
+                                                            <select v-if="editable" :disabled='municipality_disable'  v-model="municipality_id" class="form-control" :style="`${editable?'display:block;':'display:none;'}`">
+                                                                <option value="">Select Municipality</option>
+                                                                <option v-for="municipality in municipalities" :value="municipality.id" :key="municipality.id">{{ municipality.title }}</option>
+                                                            </select>
+                                                            <input v-else class="form-control" :value="municipality ? municipality.title : 'Not-Available'" :readonly="!editable"/>
                                                         </div>
                                                     </div>
 
@@ -106,7 +134,7 @@
                                                             <span class="required">*</span>
                                                         </label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input class="form-control" :value="hospital.palika_name || 'Not-Available'" :readonly="!editable"/>
+                                                            <input class="form-control" :value="palika || 'Not-Available'" :readonly="!editable"/>
                                                         </div>
                                                     </div>
                                                     <p></p>
@@ -166,68 +194,99 @@
                                                 <ul class="list-unstyled project_files">
                                                     <hr>
                                                     <li>
-                                                        <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
-                                                            <i class="fa fa-file"></i> Application Letter
-                                                            <i :class="hospital.application_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                                        </a>
-                                                        <a v-if="editable" href="#" style="color: #5A738E;" class="float-right">Change</a>
-
+                                                        <span v-if="editable">Application Letter</span>
+                                                        <div class="d-flex">
+                                                            <input type="file" v-if="editable" class="form-control" id="file" name="file" @change="handelImage($event, 'application_letter')" >
+                                                            <a v-else href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
+                                                                <i class="fa fa-file"></i> Application Letter
+                                                                <i :class="hospital.application_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                                            </a>
+                                                            <a v-if="editable" href="#"  class="float-right btn btn-success">Change</a>
+                                                        </div>
+                                                    </li>
+                                                    <hr>
+                                                    <li >
+                                                        <span v-if="editable">Human Resource</span>
+                                                        <div class="d-flex">
+                                                            <input type="file" v-if="editable" class="form-control" id="file" name="file" @change="handelImage($event, 'human_resource')">
+                                                            <a v-else href=""  @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
+                                                                <i class="fa fa-file"></i> Human Resource
+                                                                <i :class="hospital.human_resource ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                                            </a>
+                                                            <a v-if="editable" href="#"  class="float-right btn btn-success">Change</a>
+                                                        </div>
                                                     </li>
                                                     <hr>
                                                     <li>
-                                                        <a href=""  @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
-                                                            <i class="fa fa-file"></i> Human Resource
-                                                            <i :class="hospital.human_resource ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                                        </a>
-                                                        <a v-if="editable" href="#" style="color: #5A738E;" class="float-right">Change</a>
+                                                        <span v-if="editable"> Tools & Equipment list</span>
+                                                        <div class="d-flex">
+                                                            <input type="file" v-if="editable" class="form-control" id="file" name="file" @change="handelImage($event, 'tools_list')">
+                                                            <a v-else href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tools_list}`)">
+                                                                <i class="fa fa-file"></i> Tools & Equipment list
+                                                                <i :class="hospital.tools_list ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                                            </a>
+                                                            <a v-if="editable" href="#"  class="float-right btn btn-success">Change</a>
+                                                        </div>
+                                                    </li>
+                                                    <hr>
+                                                    <li >
+                                                        <span v-if="editable">Administrative Document</span>
+                                                        <div class="d-flex">
+                                                            <input type="file" v-if="editable" class="form-control" id="file" name="file" @change="handelImage($event, 'administrative_document')">
+                                                            <a v-else href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.administrative_document}`)">
+                                                                <i class="fa fa-file"></i> Administrative Document
+                                                                <i class="ml-2 mr-2" :class="hospital.administrative_document ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                                            </a>
+                                                            <a v-if="editable" href="#"  class="float-right btn btn-success">Change</a>
+                                                        </div>
+                                                    </li>
+                                                    <hr>
+                                                    <li >
+                                                        <span v-if="editable">Sanchalan Swikriti</span>
+                                                        <div class="d-flex">
+                                                            <input type="file" v-if="editable" class="form-control" id="file" name="file" @change="handelImage($event, 'sanchalan_swikriti')">
+                                                            <a v-else href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.sanchalan_swikriti}`)">
+                                                                <i class="fa fa-file"></i> Sanchalan Swikriti
+                                                                <i :class="hospital.sanchalan_swikriti ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                                            </a>
+                                                            <a v-if="editable" href="#"  class="float-right btn btn-success">Change</a>
+                                                        </div>
                                                     </li>
                                                     <hr>
                                                     <li>
-                                                        <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tools_list}`)">
-                                                            <i class="fa fa-file"></i> Tools & Equipment list
-                                                            <i :class="hospital.tools_list ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                                        </a>
-                                                        <a v-if="editable" href="#" style="color: #5A738E;" class="float-right">Change</a>
+                                                        <span v-if="editable">Renewal Letter</span>
+                                                        <div  class="d-flex">
+                                                            <input type="file" v-if="editable" class="form-control" id="file" name="file" @change="handelImage($event, 'renewal_letter')">
+                                                            <a v-else href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.renewal_letter}`)">
+                                                                <i class="fa fa-file"></i> Renewal Letter
+                                                                <i :class="hospital.renewal_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                                            </a>
+                                                            <a v-if="editable" href="#"  class="float-right btn btn-success">Change</a>
+                                                        </div>
                                                     </li>
                                                     <hr>
                                                     <li>
-                                                        <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.administrative_document}`)">
-                                                            <i class="fa fa-file"></i> Administrative Document
-                                                            <i class="ml-2 mr-2" :class="hospital.administrative_document ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                                        </a>
-                                                        <a v-if="editable" href="#" style="color: #5A738E;" class="float-right">Change</a>
+                                                        <span v-if="editable">PAN</span>
+                                                        <div class="d-flex">
+                                                            <input type="file" v-if="editable" class="form-control" id="file" name="file" @change="handelImage($event, 'pan')">
+                                                            <a v-else href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.pan}`)">
+                                                                <i class="fa fa-file"></i> PAN
+                                                                <i :class="hospital.pan ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                                            </a>
+                                                            <a v-if="editable" href="#"  class="float-right btn btn-success">Change</a>
+                                                        </div>
                                                     </li>
                                                     <hr>
                                                     <li>
-                                                        <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.sanchalan_swikriti}`)">
-                                                            <i class="fa fa-file"></i> Sanchalan Swikriti
-                                                            <i :class="hospital.sanchalan_swikriti ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                                        </a>
-                                                        <a v-if="editable" href="#" style="color: #5A738E;" class="float-right">Change</a>
-                                                    </li>
-                                                    <hr>
-                                                    <li>
-                                                        <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.renewal_letter}`)">
-                                                            <i class="fa fa-file"></i> Renewal Letter
-                                                            <i :class="hospital.renewal_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                                        </a>
-                                                        <a v-if="editable" href="#" style="color: #5A738E;" class="float-right">Change</a>
-                                                    </li>
-                                                    <hr>
-                                                    <li>
-                                                        <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.pan}`)">
-                                                            <i class="fa fa-file"></i> PAN
-                                                            <i :class="hospital.pan ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                                        </a>
-                                                        <a v-if="editable" href="#" style="color: #5A738E;" class="float-right">Change</a>
-                                                    </li>
-                                                    <hr>
-                                                    <li>
-                                                        <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tax_clearance}`)">
-                                                            <i class="fa fa-file"></i> Tax Clearance
-                                                            <i :class="hospital.tax_clearance ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                                        </a>
-                                                        <a v-if="editable" href="#" style="color: #5A738E;" class="float-right">Change</a>
+                                                        <span v-if="editable">Tax Clearance</span>
+                                                        <div  class="d-flex">
+                                                            <input type="file" v-if="editable" class="form-control" id="file" name="file" @change="handelImage($event, 'tax_clearance')">
+                                                            <a v-else href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tax_clearance}`)">
+                                                                <i class="fa fa-file"></i> Tax Clearance
+                                                                <i :class="hospital.tax_clearance ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                                            </a>
+                                                            <a v-if="editable" href="#"  class="float-right btn btn-success">Change</a>
+                                                        </div>
                                                     </li>
                                                     <hr>
                                                 </ul>
@@ -470,7 +529,8 @@
     import {Errors} from "../../../../../../../resources/js/error";
     import {EventBus} from "../../app";
     import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
-
+    import PublicService from "../../../../../../ContentManagement/Resources/assets/services/PublicService";
+    import HospitalService from '../../../services/HospitalService';
     export default {
         name: "HospitalProfile",
         props: ["hospital_json","licenses_json"],
@@ -494,16 +554,64 @@
                 // reject
                 reject_reason:'',
                 licenses:{},
+                // hospital form
+                district_disable:true,
+                municipality_disable:true,
+                province:'',
+                district:'',
+                municipality:'',
+                province_id: '',
+                district_id: '',
+                municipality_id: '',
+                palika:'',
+                hospital_type: '',
+                transplant_type: '',
+                application_letter: '',
+                human_resource: '',
+                tools_list: '',
+                administrative_document: '',
+                sanchalan_swikriti: '',
+                renewal_letter: '',
+                pan: '',
+                tax_clearance: '',
+
+                // arrays
+                provinces:{},
+                districts: {},
+                municipalities:{},
             }
         },
         watch:{
+            hospital(hospital){
+                this.province_id=hospital.province_id;
+                this.district_id=hospital.district_id;
+                this.municipality_id=hospital.municipality_id;
+                this.palika=hospital.palika_name;
+                this.hospital_type= hospital.hospital_type;
+                this.transplant_type= hospital.transplant_type;
+            },
 
         },
         computed: {
         },
         mounted() {
             this.hospital = JSON.parse(this.hospital_json);
+            console.log(this.hospital);
             this.licenses = JSON.parse(this.licenses_json);
+            this.province_id=this.hospital.province_id;
+            this.district_id=this.hospital.district_id;
+            this.municipality_id=this.hospital.municipality_id;
+            this.hospital_type= this.hospital.hospital_type;
+            this.transplant_type= this.hospital.transplant_type;
+            this.province=this.hospital.province;
+            this.district=this.hospital.district;
+            this.municipality=this.hospital.municipality;
+            this.palika=this.hospital.palika_name;
+
+            this.getProvince();
+            this.getDistrict();
+            this.getMunicipality();
+
         },
         methods: {
             approve(){
@@ -512,13 +620,88 @@
             reject(){
                 $("#reject-dialog").modal('show');
             },
+            async saveProfile(){
+                let formData = new FormData();
+                formData.append('province_id', this.province_id);
+                formData.append('district_id', this.district_id);
+                formData.append('municipality_id', this.municipality_id);
+                formData.append('palika_name', this.palika);
+                formData.append('hospital_type', this.hospital_type);
+                formData.append('transplant_type', this.transplant_type);
+                this.application_letter !=''?formData.append('application_letter', this.application_letter):'';
+                this.human_resource !=''?formData.append('human_resource', this.human_resource):'';
+                this.tools_list !=''?formData.append('tools_list', this.tools_list):'';
+                this.administrative_document !=''?formData.append('administrative_document', this.administrative_document):'';
+                this.sanchalan_swikriti !=''?formData.append('sanchalan_swikriti', this.sanchalan_swikriti):'';
+                this.renewal_letter !=''?formData.append('renewal_letter', this.renewal_letter):'';
+                this.pan !=''?formData.append('pan', this.pan):'';
+                this.tax_clearance !=''?formData.append('tax_clearance', this.tax_clearance):'';
 
+
+                let response = await HospitalService.updateProfile(formData);
+                if(response.data.error === false){
+                    Errors.Notification(response);
+                        this.errors.clear();
+                }
+                this.hospital=response.data.data[0];
+                
+            },
             approveHospital(){
             },
 
             rejectHospital(){
-            }
+            },
+            async getProvince(){
+                const  response = await PublicService.getProvince();
+                this.provinces = response.data.data.provinces;
+            },
 
+            async getDistrict(){
+                const response = await PublicService.getDistrict(this.province_id);
+                this.districts=response.data.data.districts;
+                this.district_disable = false;
+            },
+
+            async getMunicipality(){
+                const response = await PublicService.getMunicipality(this.district_id);
+                this.municipalities=response.data.data.municipalities;
+                this.municipality_disable = false;
+            },
+            handelImage(event, modal){
+                if (modal === 'application_letter'){
+                    this.application_letter = event.target.files[0];
+                }
+                if (modal === 'human_resource'){
+                    this.human_resource = event.target.files[0];
+                }
+                if (modal === 'tools_list'){
+                    this.tools_list = event.target.files[0];
+                }
+                if (modal === 'administrative_document'){
+                    this.administrative_document = event.target.files[0];
+                }
+                if (modal === 'sanchalan_swikriti'){
+                    this.sanchalan_swikriti = event.target.files[0];
+                }
+                if (modal === 'renewal_letter'){
+                    this.renewal_letter = event.target.files[0];
+                }
+                if (modal === 'pan'){
+                    this.pan = event.target.files[0];
+                }
+                if (modal === 'tax_clearance'){
+                    this.tax_clearance = event.target.files[0];
+                }
+
+            },
+            toBase64(file){
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+            },
         }
     }
 </script>

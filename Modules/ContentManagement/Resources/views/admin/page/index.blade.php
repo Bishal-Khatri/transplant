@@ -17,7 +17,7 @@
                         <div class="x_title">
                             <h2>Listing</h2>
                             <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="" style="color: #5A738E;" href="{{ route('cms.page.create') }}">Create New Page</a></li>
+                                <li><a class="" class="text-accent" href="{{ route('cms.page.create') }}">Create New Page</a></li>
                             </ul>
                             <div class="clearfix"></div>
                         </div>

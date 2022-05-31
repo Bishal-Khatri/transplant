@@ -36,8 +36,8 @@
                                         <h2 class="text-accent col-md-6">{{ hospital.hospital_name }}</h2>
                                         <div class="col-md-3">
                                             <ul class="nav navbar-right panel_toolbox">
-                                                <li v-if="!editable"><a style="color: #5A738E;" href="#" @click.prevent="editable = true">Edit Profile</a></li>
-                                                <li v-else><a style="color: #5A738E;" href="#" @click.prevent="editable = false;saveProfile()">Save Profile</a></li>
+                                                <li v-if="!editable"><a class="text-accent" href="#" @click.prevent="editable = true">Edit Profile</a></li>
+                                                <li v-else><a class="text-accent" href="#" @click.prevent="editable = false;saveProfile()">Save Profile</a></li>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
@@ -304,8 +304,8 @@
                                         <div class="col-md-9">
                                             <!--disable old license is create-->
                                             <ul class="nav navbar-right panel_toolbox">
-                                                <!--<li><a style="color: #5A738E;" href="#">Request New License</a></li>-->
-                                                <li><a style="color: #5A738E;" href="#">Renew License</a></li>
+                                                <!--<li><a class="text-accent" href="#">Request New License</a></li>-->
+                                                <li><a class="text-accent" href="#">Renew License</a></li>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
@@ -434,7 +434,7 @@
                                         <div class="col-md-9">
                                             <!--disable old license is create-->
                                             <ul class="nav navbar-right panel_toolbox">
-                                                <li><a style="color: #5A738E;" href="#">Change User</a></li>
+                                                <li><a class="text-accent" href="#">Change User</a></li>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
@@ -644,7 +644,7 @@
                         this.errors.clear();
                 }
                 this.hospital=response.data.data[0];
-                
+
             },
             approveHospital(){
             },

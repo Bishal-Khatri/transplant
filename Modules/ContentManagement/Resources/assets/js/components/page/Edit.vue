@@ -64,8 +64,8 @@
                         <h2>Page Details</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li class="mr-3">
-                                <a class="" style="color: #5A738E;" v-if="submitting" href="">Saving <i class="fa fa-spinner fa-spin"></i></a>
-                                <a class="" style="color: #5A738E;" v-else @click.prevent="updatePage" href="">Save Section</a>
+                                <a class="" class="text-accent" v-if="submitting" href="">Saving <i class="fa fa-spinner fa-spin"></i></a>
+                                <a class="" class="text-accent" v-else @click.prevent="updatePage" href="">Save Section</a>
                             </li>
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             <li class="dropdown">

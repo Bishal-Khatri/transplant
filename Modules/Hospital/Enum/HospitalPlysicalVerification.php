@@ -1,7 +1,7 @@
 <?php
 namespace Modules\Hospital\Enum;
 
-interface HospitalDocumentVerificationStatus
+interface HospitalPlysicalVerification
 {
     const UNVERIFIED = 0;
     const VERIFIED = 1;

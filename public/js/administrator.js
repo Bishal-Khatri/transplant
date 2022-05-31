@@ -15144,6 +15144,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../Hospital/Resources/assets/services/Api.js":
+/*!****************************************************!*\
+  !*** ../Hospital/Resources/assets/services/Api.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.create();
+});
+
+/***/ }),
+
+/***/ "../Hospital/Resources/assets/services/HospitalService.js":
+/*!****************************************************************!*\
+  !*** ../Hospital/Resources/assets/services/HospitalService.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "../Hospital/Resources/assets/services/Api.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  updateProfile: function updateProfile(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/hospital/web-api/hospital-update', formData);
+  },
+  changeHospitalStatus: function changeHospitalStatus(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/web-api/hospital-update-status', formData);
+  }
+});
+
+/***/ }),
+
 /***/ "./Resources/assets/js/app.js":
 /*!************************************!*\
   !*** ./Resources/assets/js/app.js ***!
@@ -19028,10 +19068,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _resources_js_error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../../resources/js/error */ "../../resources/js/error.js");
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../app */ "./Resources/assets/js/app.js");
-/* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
-/* harmony import */ var _CreateUser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CreateUser */ "./Resources/assets/js/components/hospital/CreateUser.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _resources_js_error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../resources/js/error */ "../../resources/js/error.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app */ "./Resources/assets/js/app.js");
+/* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
+/* harmony import */ var _CreateUser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateUser */ "./Resources/assets/js/components/hospital/CreateUser.vue");
+/* harmony import */ var _Hospital_Resources_assets_services_HospitalService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../Hospital/Resources/assets/services/HospitalService */ "../Hospital/Resources/assets/services/HospitalService.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -19429,6 +19478,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -19437,17 +19519,19 @@ __webpack_require__.r(__webpack_exports__);
   name: "HospitalView",
   props: ["hospital_json"],
   components: {
-    ImagePreview: _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_2__["default"],
-    CreateUser: _CreateUser__WEBPACK_IMPORTED_MODULE_3__["default"]
+    ImagePreview: _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_3__["default"],
+    CreateUser: _CreateUser__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
-      errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"](),
+      errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"](),
       hospital: {},
       reject_submitting: false,
       approve_submitting: false,
       // reject
-      reject_reason: ''
+      reject_reason: '',
+      status_type: '',
+      status: ''
     };
   },
   watch: {},
@@ -19462,6 +19546,56 @@ __webpack_require__.r(__webpack_exports__);
     },
     reject: function reject() {
       $("#reject-dialog").modal('show');
+    },
+    changeStatus: function changeStatus(status_type, status) {
+      this.status_type = status_type;
+      this.status = status;
+      $("#change-status-dialog").modal('show');
+    },
+    changeHospitalStatus: function changeHospitalStatus() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.submitting = true;
+                _context.prev = 1;
+                formData = {
+                  'hospital_id': _this.hospital.id,
+                  'status_type': _this.status_type,
+                  'status': _this.status
+                };
+                _context.next = 5;
+                return _Hospital_Resources_assets_services_HospitalService__WEBPACK_IMPORTED_MODULE_5__["default"].changeHospitalStatus(formData);
+
+              case 5:
+                response = _context.sent;
+
+                if (response.data.error === false) {
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
+                  _this.status_type = _this.status = '';
+                  $("#change-status-dialog").modal('hide');
+                }
+
+                _context.next = 12;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](1);
+
+                _this.errors.record(_context.t0.response.data);
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 9]]);
+      }))();
     },
     approveHospital: function approveHospital() {},
     rejectHospital: function rejectHospital() {}
@@ -40464,7 +40598,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
+                          staticClass: "text-accent",
                           attrs: { href: "#" },
                           on: {
                             click: function ($event) {
@@ -40953,7 +41087,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
+                          staticClass: "text-accent",
                           attrs: { href: "#" },
                           on: {
                             click: function ($event) {
@@ -41472,7 +41606,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
+                          staticClass: "text-accent",
                           attrs: { href: "#" },
                           on: {
                             click: function ($event) {
@@ -41947,7 +42081,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
+                          staticClass: "text-accent",
                           attrs: { href: "#" },
                           on: {
                             click: function ($event) {
@@ -43406,7 +43540,7 @@ var render = function () {
                     _c(
                       "a",
                       {
-                        staticStyle: { color: "#5A738E" },
+                        staticClass: "text-accent",
                         attrs: { href: _vm.create_route },
                       },
                       [_vm._v("Create New Hospital")]
@@ -44217,7 +44351,7 @@ var render = function () {
                                 on: {
                                   click: function ($event) {
                                     $event.preventDefault()
-                                    return _vm.changeStatus("status", 1)
+                                    return _vm.changeStatus("accessibility ", 1)
                                   },
                                 },
                               },
@@ -44232,7 +44366,7 @@ var render = function () {
                                 on: {
                                   click: function ($event) {
                                     $event.preventDefault()
-                                    return _vm.changeStatus("status", 0)
+                                    return _vm.changeStatus("accessibility ", 0)
                                   },
                                 },
                               },
@@ -44526,6 +44660,8 @@ var render = function () {
               _c("h5", [_vm._v("Files & Docuemnts")]),
               _vm._v(" "),
               _c("ul", { staticClass: "list-unstyled project_files" }, [
+                _c("hr"),
+                _vm._v(" "),
                 _c("li", [
                   _c(
                     "a",
@@ -44553,6 +44689,8 @@ var render = function () {
                     ]
                   ),
                 ]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("li", [
                   _c(
@@ -44582,6 +44720,8 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
                 _c("li", [
                   _c(
                     "a",
@@ -44609,6 +44749,8 @@ var render = function () {
                     ]
                   ),
                 ]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("li", [
                   _c(
@@ -44638,6 +44780,8 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
                 _c("li", [
                   _c(
                     "a",
@@ -44665,6 +44809,8 @@ var render = function () {
                     ]
                   ),
                 ]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("li", [
                   _c(
@@ -44694,6 +44840,8 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
                 _c("li", [
                   _c(
                     "a",
@@ -44719,6 +44867,8 @@ var render = function () {
                     ]
                   ),
                 ]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("li", [
                   _c(
@@ -45080,6 +45230,81 @@ var render = function () {
         ]
       ),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal",
+          attrs: {
+            id: "change-status-dialog",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-hidden": "true",
+          },
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog modal-md modal-dialog-centered" },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(15),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body ml-2 mr-2 mb-0" }, [
+                  _c("p", [
+                    _c("strong", [_vm._v("Attention !")]),
+                    _vm._v(" Are you sure you want to "),
+                    _c("code", [_vm._v(_vm._s(_vm.status_type.toUpperCase()))]),
+                    _vm._v(
+                      " status of this hospital?\n                        Click "
+                    ),
+                    _c("code", [_vm._v("Change")]),
+                    _vm._v(" button.\n                    "),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button", "data-dismiss": "modal" },
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _vm.approve_submitting
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-accent btn-sm",
+                          attrs: { type: "button" },
+                        },
+                        [_c("i", { staticClass: "fa fa-spinner fa-spin" })]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-accent btn-sm",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.changeHospitalStatus.apply(
+                                null,
+                                arguments
+                              )
+                            },
+                          },
+                        },
+                        [_vm._v("Change")]
+                      ),
+                ]),
+              ]),
+            ]
+          ),
+        ]
+      ),
+      _vm._v(" "),
       _c("image-preview", { ref: "imagePreview" }),
     ],
     1
@@ -45212,11 +45437,9 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-md-9" }, [
           _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
             _c("li", [
-              _c(
-                "a",
-                { staticStyle: { color: "#5A738E" }, attrs: { href: "#" } },
-                [_vm._v("Change User")]
-              ),
+              _c("a", { staticClass: "text-accent", attrs: { href: "#" } }, [
+                _vm._v("Change User"),
+              ]),
             ]),
           ]),
         ]),
@@ -45273,11 +45496,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-md-9" }, [
         _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
           _c("li", [
-            _c(
-              "a",
-              { staticStyle: { color: "#5A738E" }, attrs: { href: "#" } },
-              [_vm._v("Renew License")]
-            ),
+            _c("a", { staticClass: "text-accent", attrs: { href: "#" } }, [
+              _vm._v("Renew License"),
+            ]),
           ]),
         ]),
       ]),
@@ -45383,6 +45604,23 @@ var staticRenderFns = [
       ),
       _c("code", [_vm._v("Approve")]),
       _vm._v(" button.\n                    "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h2", { staticClass: "modal-title ml-2" }, [_vm._v("Create User")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" },
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
     ])
   },
 ]
@@ -46492,7 +46730,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
+                          staticClass: "text-accent",
                           attrs: { href: "#" },
                           on: {
                             click: function ($event) {
@@ -46961,7 +47199,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
+                          staticClass: "text-accent",
                           attrs: { href: "#" },
                           on: {
                             click: function ($event) {
@@ -47467,7 +47705,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
+                          staticClass: "text-accent",
                           attrs: { href: "#" },
                           on: {
                             click: function ($event) {

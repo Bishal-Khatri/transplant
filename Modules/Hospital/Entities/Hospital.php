@@ -26,6 +26,11 @@ class Hospital extends Model
         return date('d M Y', strtotime($value));
     }
 
+    public function getApprovedDateAttribute($value)
+    {
+        return date('d M Y', strtotime($value));
+    }
+
     public function license()
     {
         return $this->morphMany(License::class, 'licenseable');

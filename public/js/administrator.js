@@ -15144,46 +15144,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../Hospital/Resources/assets/services/Api.js":
-/*!****************************************************!*\
-  !*** ../Hospital/Resources/assets/services/Api.js ***!
-  \****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.create();
-});
-
-/***/ }),
-
-/***/ "../Hospital/Resources/assets/services/HospitalService.js":
-/*!****************************************************************!*\
-  !*** ../Hospital/Resources/assets/services/HospitalService.js ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "../Hospital/Resources/assets/services/Api.js");
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  updateProfile: function updateProfile(formData) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/hospital/web-api/hospital-update', formData);
-  },
-  changeHospitalStatus: function changeHospitalStatus(formData) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/web-api/hospital-update-status', formData);
-  }
-});
-
-/***/ }),
-
 /***/ "./Resources/assets/js/app.js":
 /*!************************************!*\
   !*** ./Resources/assets/js/app.js ***!
@@ -16564,6 +16524,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./Resources/assets/services/AdministratorService.js":
+/*!***********************************************************!*\
+  !*** ./Resources/assets/services/AdministratorService.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "./Resources/assets/services/Api.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  changeHospitalStatus: function changeHospitalStatus(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/web-api/hospital-update-status', formData);
+  },
+  approveHospital: function approveHospital(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/web-api/hospital-approve', formData);
+  },
+  rejectHospital: function rejectHospital(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/web-api/hospital-reject', formData);
+  }
+});
+
+/***/ }),
+
 /***/ "./Resources/assets/services/Api.js":
 /*!******************************************!*\
   !*** ./Resources/assets/services/Api.js ***!
@@ -16613,7 +16598,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteEthnicGroup: function deleteEthnicGroup(id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/web-api/ethnic-groups/delete/' + id);
   },
-  // For Diseases 
+  // For Diseases
   getDiseases: function getDiseases(page, filter) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/diseases?page=' + page + '&filter=' + filter);
   },
@@ -16623,7 +16608,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteDisease: function deleteDisease(id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/web-api/diseases/delete/' + id);
   },
-  // For Education Levels 
+  // For Education Levels
   getEducationLevels: function getEducationLevels(page, filter) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/education-levels?page=' + page + '&filter=' + filter);
   },
@@ -16633,7 +16618,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteEducationLevel: function deleteEducationLevel(id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/web-api/education-levels/delete/' + id);
   },
-  // For Occupations 
+  // For Occupations
   getOccupations: function getOccupations(page, filter) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/occupations?page=' + page + '&filter=' + filter);
   },
@@ -16643,7 +16628,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteOccupation: function deleteOccupation(id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/web-api/occupations/delete/' + id);
   },
-  // For Province 
+  // For Province
   getProvince: function getProvince(page, filter) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/province?page=' + page + '&filter=' + filter);
   },
@@ -16653,7 +16638,7 @@ __webpack_require__.r(__webpack_exports__);
   deleteProvince: function deleteProvince(id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/web-api/province/delete/' + id);
   },
-  // For District 
+  // For District
   getDistrict: function getDistrict(page, filter) {
     var province_id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     var params = "";
@@ -19074,19 +19059,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app */ "./Resources/assets/js/app.js");
 /* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
 /* harmony import */ var _CreateUser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateUser */ "./Resources/assets/js/components/hospital/CreateUser.vue");
-/* harmony import */ var _Hospital_Resources_assets_services_HospitalService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../Hospital/Resources/assets/services/HospitalService */ "../Hospital/Resources/assets/services/HospitalService.js");
+/* harmony import */ var _services_AdministratorService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/AdministratorService */ "./Resources/assets/services/AdministratorService.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -19526,6 +19505,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"](),
       hospital: {},
+      submitting_status: false,
       reject_submitting: false,
       approve_submitting: false,
       // reject
@@ -19547,12 +19527,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     reject: function reject() {
       $("#reject-dialog").modal('show');
     },
-    changeStatus: function changeStatus(status_type, status) {
-      this.status_type = status_type;
-      this.status = status;
-      $("#change-status-dialog").modal('show');
-    },
-    changeHospitalStatus: function changeHospitalStatus() {
+    approveHospital: function approveHospital() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -19561,23 +19536,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.submitting = true;
+                _this.approve_submitting = true;
                 _context.prev = 1;
                 formData = {
-                  'hospital_id': _this.hospital.id,
-                  'status_type': _this.status_type,
-                  'status': _this.status
+                  'hospital_id': _this.hospital.id
                 };
                 _context.next = 5;
-                return _Hospital_Resources_assets_services_HospitalService__WEBPACK_IMPORTED_MODULE_5__["default"].changeHospitalStatus(formData);
+                return _services_AdministratorService__WEBPACK_IMPORTED_MODULE_5__["default"].approveHospital(formData);
 
               case 5:
                 response = _context.sent;
 
                 if (response.data.error === false) {
                   _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
-                  _this.status_type = _this.status = '';
-                  $("#change-status-dialog").modal('hide');
+                  $("#approve-dialog").modal('hide');
                 }
 
                 _context.next = 12;
@@ -19590,6 +19562,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.errors.record(_context.t0.response.data);
 
               case 12:
+                _this.approve_submitting = false;
+
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -19597,8 +19572,105 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[1, 9]]);
       }))();
     },
-    approveHospital: function approveHospital() {},
-    rejectHospital: function rejectHospital() {}
+    rejectHospital: function rejectHospital() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.reject_submitting = true;
+                _context2.prev = 1;
+                formData = {
+                  'hospital_id': _this2.hospital.id,
+                  'reject_message': _this2.reject_reason
+                };
+                _context2.next = 5;
+                return _services_AdministratorService__WEBPACK_IMPORTED_MODULE_5__["default"].rejectHospital(formData);
+
+              case 5:
+                response = _context2.sent;
+
+                if (response.data.error === false) {
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
+                  $("#reject-dialog").modal('hide');
+                }
+
+                _context2.next = 12;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](1);
+
+                _this2.errors.record(_context2.t0.response.data);
+
+              case 12:
+                _this2.reject_submitting = false;
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[1, 9]]);
+      }))();
+    },
+    changeStatus: function changeStatus(status_type, status) {
+      this.status_type = status_type;
+      this.status = status;
+      $("#change-status-dialog").modal('show');
+    },
+    changeHospitalStatus: function changeHospitalStatus() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var formData, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.submitting_status = true;
+                _context3.prev = 1;
+                formData = {
+                  'hospital_id': _this3.hospital.id,
+                  'status_type': _this3.status_type,
+                  'status': _this3.status
+                };
+                _context3.next = 5;
+                return _services_AdministratorService__WEBPACK_IMPORTED_MODULE_5__["default"].changeHospitalStatus(formData);
+
+              case 5:
+                response = _context3.sent;
+
+                if (response.data.error === false) {
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
+                  _this3.status_type = _this3.status = '';
+                  $("#change-status-dialog").modal('hide');
+                }
+
+                _context3.next = 12;
+                break;
+
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3["catch"](1);
+
+                _this3.errors.record(_context3.t0.response.data);
+
+              case 12:
+                _this3.submitting_status = false;
+
+              case 13:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[1, 9]]);
+      }))();
+    }
   }
 });
 
@@ -44194,6 +44266,8 @@ var render = function () {
               _c("div", { staticClass: "project_detail ml-1" }, [
                 _c("p", { staticClass: "title" }, [_vm._v("General Details")]),
                 _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
                   _vm._m(0),
                   _vm._v(" "),
@@ -44226,9 +44300,11 @@ var render = function () {
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("hr"),
+                _c("br"),
                 _vm._v(" "),
                 _c("p", { staticClass: "title" }, [_vm._v("Address")]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
                   _vm._m(2),
@@ -44292,11 +44368,243 @@ var render = function () {
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("p"),
+                _c("br"),
+                _vm._v(" "),
+                _c("p", { staticClass: "title" }, [
+                  _vm._v("Files & Documents"),
+                ]),
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
+                _c("ul", { staticClass: "list-unstyled project_files" }, [
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.imagePreview.openDialog(
+                              "/storage/" + _vm.hospital.application_letter
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file" }),
+                        _vm._v(
+                          " Application Letter\n                                    "
+                        ),
+                        _c("i", {
+                          class: _vm.hospital.application_letter
+                            ? "fa fa-check"
+                            : "fa fa-times text-danger",
+                        }),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.imagePreview.openDialog(
+                              "/storage/" + _vm.hospital.human_resource
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file" }),
+                        _vm._v(
+                          " Human Resource\n                                    "
+                        ),
+                        _c("i", {
+                          class: _vm.hospital.human_resource
+                            ? "fa fa-check"
+                            : "fa fa-times text-danger",
+                        }),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.imagePreview.openDialog(
+                              "/storage/" + _vm.hospital.tools_list
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file" }),
+                        _vm._v(
+                          " Tools & Equipment list\n                                    "
+                        ),
+                        _c("i", {
+                          class: _vm.hospital.tools_list
+                            ? "fa fa-check"
+                            : "fa fa-times text-danger",
+                        }),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.imagePreview.openDialog(
+                              "/storage/" + _vm.hospital.administrative_document
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file" }),
+                        _vm._v(
+                          " Administrative Document\n                                    "
+                        ),
+                        _c("i", {
+                          class: _vm.hospital.administrative_document
+                            ? "fa fa-check"
+                            : "fa fa-times text-danger",
+                        }),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.imagePreview.openDialog(
+                              "/storage/" + _vm.hospital.sanchalan_swikriti
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file" }),
+                        _vm._v(
+                          " Sanchalan Swikriti\n                                    "
+                        ),
+                        _c("i", {
+                          class: _vm.hospital.sanchalan_swikriti
+                            ? "fa fa-check"
+                            : "fa fa-times text-danger",
+                        }),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.imagePreview.openDialog(
+                              "/storage/" + _vm.hospital.renewal_letter
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file" }),
+                        _vm._v(
+                          " Renewal Letter\n                                    "
+                        ),
+                        _c("i", {
+                          class: _vm.hospital.renewal_letter
+                            ? "fa fa-check"
+                            : "fa fa-times text-danger",
+                        }),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.imagePreview.openDialog(
+                              "/storage/" + _vm.hospital.pan
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file" }),
+                        _vm._v(" PAN\n                                    "),
+                        _c("i", {
+                          class: _vm.hospital.pan
+                            ? "fa fa-check"
+                            : "fa fa-times text-danger",
+                        }),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.imagePreview.openDialog(
+                              "/storage/" + _vm.hospital.tax_clearance
+                            )
+                          },
+                        },
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-file" }),
+                        _vm._v(
+                          " Tax Clearance\n                                    "
+                        ),
+                        _c("i", {
+                          class: _vm.hospital.tax_clearance
+                            ? "fa fa-check"
+                            : "fa fa-times text-danger",
+                        }),
+                      ]
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
                 _c("p", { staticClass: "title" }, [_vm._v("Status")]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
                   _vm._m(6),
@@ -44600,6 +44908,8 @@ var render = function () {
                       ),
                     ]),
                     _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
                     _vm.hospital.approve_status === "rejected"
                       ? _c("span", [
                           _c("label", { attrs: { for: "" } }, [
@@ -44609,12 +44919,8 @@ var render = function () {
                           _c(
                             "textarea",
                             {
-                              attrs: {
-                                name: "",
-                                id: "",
-                                cols: "30",
-                                rows: "10",
-                              },
+                              staticClass: "form-control",
+                              attrs: { name: "", id: "", readonly: "" },
                             },
                             [_vm._v(_vm._s(_vm.hospital.reject_message))]
                           ),
@@ -44652,250 +44958,6 @@ var render = function () {
                         : _c("span", [_vm._v("Not-Available")]),
                     ]),
                   ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c("h5", [_vm._v("Files & Docuemnts")]),
-              _vm._v(" "),
-              _c("ul", { staticClass: "list-unstyled project_files" }, [
-                _c("hr"),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.application_letter
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-file" }),
-                      _vm._v(
-                        " Application Letter\n                                "
-                      ),
-                      _c("i", {
-                        class: _vm.hospital.application_letter
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.human_resource
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-file" }),
-                      _vm._v(
-                        " Human Resource\n                                "
-                      ),
-                      _c("i", {
-                        class: _vm.hospital.human_resource
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.tools_list
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-file" }),
-                      _vm._v(
-                        " Tools & Equipment list\n                                "
-                      ),
-                      _c("i", {
-                        class: _vm.hospital.tools_list
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.administrative_document
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-file" }),
-                      _vm._v(
-                        " Administrative Document\n                                "
-                      ),
-                      _c("i", {
-                        class: _vm.hospital.administrative_document
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.sanchalan_swikriti
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-file" }),
-                      _vm._v(
-                        " Sanchalan Swikriti\n                                "
-                      ),
-                      _c("i", {
-                        class: _vm.hospital.sanchalan_swikriti
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.renewal_letter
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-file" }),
-                      _vm._v(
-                        " Renewal Letter\n                                "
-                      ),
-                      _c("i", {
-                        class: _vm.hospital.renewal_letter
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.pan
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-file" }),
-                      _vm._v(" PAN\n                                "),
-                      _c("i", {
-                        class: _vm.hospital.pan
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("li", [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function ($event) {
-                          $event.preventDefault()
-                          return _vm.$refs.imagePreview.openDialog(
-                            "/storage/" + _vm.hospital.tax_clearance
-                          )
-                        },
-                      },
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-file" }),
-                      _vm._v(
-                        " Tax Clearance\n                                "
-                      ),
-                      _c("i", {
-                        class: _vm.hospital.tax_clearance
-                          ? "fa fa-check"
-                          : "fa fa-times text-danger",
-                      }),
-                    ]
-                  ),
                 ]),
               ]),
             ]),
@@ -45272,7 +45334,7 @@ var render = function () {
                     [_vm._v("Close")]
                   ),
                   _vm._v(" "),
-                  _vm.approve_submitting
+                  _vm.submitting_status
                     ? _c(
                         "button",
                         {

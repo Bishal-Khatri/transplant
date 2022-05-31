@@ -11,6 +11,7 @@
                     <div class="panel-body">
                         <div class="project_detail ml-1">
                             <p class="title">General Details</p>
+                            <hr>
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
                                     Hospital Type
@@ -31,9 +32,9 @@
                                     <input class="form-control" :value="hospital.transplant_type ? hospital.transplant_type.toUpperCase() : ''" readonly/>
                                 </div>
                             </div>
-                            <hr>
+                            <br>
                             <p class="title">Address</p>
-
+                            <hr>
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
                                     Province
@@ -73,10 +74,64 @@
                                     <input class="form-control" :value="hospital.palika_name || 'Not-Available'" readonly/>
                                 </div>
                             </div>
-                            <p></p>
-                            <hr>
-                            <p class="title">Status</p>
 
+                            <br>
+                            <p class="title">Files & Documents</p>
+                            <hr>
+                            <ul class="list-unstyled project_files">
+                                <li>
+                                    <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
+                                        <i class="fa fa-file"></i> Application Letter
+                                        <i :class="hospital.application_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href=""  @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
+                                        <i class="fa fa-file"></i> Human Resource
+                                        <i :class="hospital.human_resource ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tools_list}`)">
+                                        <i class="fa fa-file"></i> Tools & Equipment list
+                                        <i :class="hospital.tools_list ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.administrative_document}`)">
+                                        <i class="fa fa-file"></i> Administrative Document
+                                        <i :class="hospital.administrative_document ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.sanchalan_swikriti}`)">
+                                        <i class="fa fa-file"></i> Sanchalan Swikriti
+                                        <i :class="hospital.sanchalan_swikriti ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.renewal_letter}`)">
+                                        <i class="fa fa-file"></i> Renewal Letter
+                                        <i :class="hospital.renewal_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.pan}`)">
+                                        <i class="fa fa-file"></i> PAN
+                                        <i :class="hospital.pan ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tax_clearance}`)">
+                                        <i class="fa fa-file"></i> Tax Clearance
+                                        <i :class="hospital.tax_clearance ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <br>
+                            <p class="title">Status</p>
+                            <hr>
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
                                     Accessibility
@@ -147,9 +202,10 @@
                                 </label>
                                 <div class="col-md-9 col-sm-9">
                                     <span class="btn btn-sm btn-accent">{{ hospital.approve_status ? hospital.approve_status.toUpperCase() : '' }}</span>
+                                    <br>
                                     <span v-if="hospital.approve_status === 'rejected'">
                                         <label for="">Reject Message</label>
-                                        <textarea name="" id="" cols="30" rows="10">{{ hospital.reject_message }}</textarea>
+                                        <textarea name="" id=""  class="form-control" readonly>{{ hospital.reject_message }}</textarea>
                                     </span>
                                 </div>
                             </div>
@@ -165,69 +221,7 @@
                                     </p>
                                 </div>
                             </div>
-
                         </div>
-
-                        <br>
-                        <h5>Files & Docuemnts</h5>
-                        <ul class="list-unstyled project_files">
-                            <hr>
-                            <li>
-                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.application_letter}`)">
-                                    <i class="fa fa-file"></i> Application Letter
-                                    <i :class="hospital.application_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                            <hr>
-                            <li>
-                                <a href=""  @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.human_resource}`)">
-                                    <i class="fa fa-file"></i> Human Resource
-                                    <i :class="hospital.human_resource ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                            <hr>
-                            <li>
-                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tools_list}`)">
-                                    <i class="fa fa-file"></i> Tools & Equipment list
-                                    <i :class="hospital.tools_list ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                            <hr>
-                            <li>
-                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.administrative_document}`)">
-                                    <i class="fa fa-file"></i> Administrative Document
-                                    <i :class="hospital.administrative_document ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                            <hr>
-                            <li>
-                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.sanchalan_swikriti}`)">
-                                    <i class="fa fa-file"></i> Sanchalan Swikriti
-                                    <i :class="hospital.sanchalan_swikriti ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                            <hr>
-                            <li>
-                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.renewal_letter}`)">
-                                    <i class="fa fa-file"></i> Renewal Letter
-                                    <i :class="hospital.renewal_letter ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                            <hr>
-                            <li>
-                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.pan}`)">
-                                    <i class="fa fa-file"></i> PAN
-                                    <i :class="hospital.pan ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                            <hr>
-                            <li>
-                                <a href="" @click.prevent="$refs.imagePreview.openDialog(`/storage/${hospital.tax_clearance}`)">
-                                    <i class="fa fa-file"></i> Tax Clearance
-                                    <i :class="hospital.tax_clearance ? 'fa fa-check' : 'fa fa-times text-danger'"></i>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
 
                 </section>
@@ -416,7 +410,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                        <button v-if="approve_submitting" type="button" class="btn btn-accent btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button v-if="submitting_status" type="button" class="btn btn-accent btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
                         <button v-else type="submit" class="btn btn-accent btn-sm" @click.prevent="changeHospitalStatus">Change</button>
                     </div>
                 </div>
@@ -432,7 +426,7 @@
     import {EventBus} from "../../app";
     import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
     import CreateUser from "./CreateUser";
-    import HospitalService from "../../../../../../Hospital/Resources/assets/services/HospitalService";
+    import AdministratorService from "../../../services/AdministratorService";
 
     export default {
         name: "HospitalView",
@@ -446,6 +440,7 @@
                 errors: new Errors(),
 
                 hospital: {},
+                submitting_status:false,
                 reject_submitting:false,
                 approve_submitting:false,
                 // reject
@@ -472,6 +467,43 @@
                 $("#reject-dialog").modal('show');
             },
 
+            async approveHospital(){
+                this.approve_submitting = true;
+                try {
+                    const formData = {
+                        'hospital_id': this.hospital.id
+                    };
+
+                    const response = await AdministratorService.approveHospital(formData);
+                    if (response.data.error === false) {
+                        Errors.Notification(response);
+                        $("#approve-dialog").modal('hide');
+                    }
+                } catch (error) {
+                    this.errors.record(error.response.data);
+                }
+                this.approve_submitting = false;
+            },
+
+            async rejectHospital(){
+                this.reject_submitting = true;
+                try {
+                    const formData = {
+                        'hospital_id': this.hospital.id,
+                        'reject_message': this.reject_reason,
+                    };
+
+                    const response = await AdministratorService.rejectHospital(formData);
+                    if (response.data.error === false) {
+                        Errors.Notification(response);
+                        $("#reject-dialog").modal('hide');
+                    }
+                } catch (error) {
+                    this.errors.record(error.response.data);
+                }
+                this.reject_submitting = false;
+            },
+
             changeStatus(status_type, status){
                 this.status_type = status_type;
                 this.status = status;
@@ -479,7 +511,7 @@
             },
 
             async changeHospitalStatus(){
-                this.submitting = true;
+                this.submitting_status = true;
                 try {
                     const formData = {
                         'hospital_id': this.hospital.id,
@@ -487,7 +519,7 @@
                         'status': this.status,
                     };
 
-                    const response = await HospitalService.changeHospitalStatus(formData);
+                    const response = await AdministratorService.changeHospitalStatus(formData);
                     if (response.data.error === false) {
                         Errors.Notification(response);
                         this.status_type = this.status = '';
@@ -496,13 +528,8 @@
                 } catch (error) {
                     this.errors.record(error.response.data);
                 }
+                this.submitting_status = false;
             },
-
-            approveHospital(){
-            },
-
-            rejectHospital(){
-            }
 
         }
     }

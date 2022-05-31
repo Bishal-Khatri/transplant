@@ -78,13 +78,16 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
         // End Palika
 
         // Hospital
-        Route::get('/hospitals', [HospitalController::class, 'hospitals']);
+        Route::get('/hospitals', [HospitalController::class, 'hospitals'])->name('admin.hospital.index');
         Route::post('/hospitals/create', [HospitalController::class, 'store']);
         Route::delete('/hospitals/delete/{id}', [HospitalController::class, 'delete']);
 
         Route::get('/hospitals/{id}', [HospitalController::class, 'hospitalList']);
 
         Route::post('/hospital-update-status', [HospitalController::class, 'changeHospitalStatus']);
+
+        Route::post('/hospital-approve', [HospitalController::class, 'approveHospital']);
+        Route::post('/hospital-reject', [HospitalController::class, 'rejectHospital']);
         // End Hospital
     });
 });

@@ -1,5 +1,38 @@
 <template>
     <div class="row">
+        <div class="modal" id="changes-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="myModalLabel">Changes</h2>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-3">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <h5>Old Data</h5>
+                                <div v-for="(data, index) in current_notification.old" :key="index"  class="row"  >
+                                    <span class="col-4">{{ index }}</span>
+                                    <span>{{ data }}</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5>New Data</h5>
+                                <div v-for="(noti, index) in current_notification.attributes" :key="index">
+                                    <span>@{{ index }}</span>
+                                    <span>@{{ noti }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12 col-sm-12">
             <div class="x_panel">
                 <div class="x_title">
@@ -345,7 +378,6 @@
                                     </div>
                                 </section>
                             </div>
-
                             <div class="tab-pane fade" id="v-pills-messages1" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                 <section class="x_panel">
                                     <div class="x_title row">
@@ -364,53 +396,23 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="messages">
-                                                    <li v-for="n in 2">
-                                                        <i class="fa fa-edit text-accent float-left" style="font-size: 30px;"></i>
+                                                    <!-- notifications -->
+                                                    <li v-for="(notification,index) in notifications" :key="index">
+                                                        <i v-if="notification.event=='updated'" class="fa fa-edit text-accent float-left" style="font-size: 30px;"></i>
+                                                        <i v-else-if="notification.event=='created'" class="fa fa-plus text-success float-left" style="font-size: 30px;"></i>
+                                                        <i v-else class="fa fa-trash text-danger float-left" style="font-size: 30px;"></i>
                                                         <div class="message_date">
-                                                            <h2 class="date text-info">24 May</h2>
-                                                            <p class="month">6 hours ago</p>
+                                                            <h2 class="date text-info"></h2>
+                                                            <p class="month">{{ notification.created_at_diff_for_human }}</p>
                                                         </div>
                                                         <div class="message_wrapper">
                                                             <h4 class="heading">Hospital User</h4>
-                                                            <blockquote class="message">A Patient data has been updated by Hospital user
-                                                                <a href="">3 minutes ago</a>.</blockquote>
+                                                            <blockquote class="message">
+                                                                A {{ notification.subject_name }} data has been {{ notification.event }} by Hospital user
+                                                                <a href="">{{ notification.created_at_diff_for_human }}</a>.</blockquote>
                                                             <br />
                                                             <p class="url">
-                                                                <a href="#">View Changes </a>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-
-                                                    <li v-for="n in 2">
-                                                        <i class="fa fa-trash text-danger float-left" style="font-size: 30px;"></i>
-                                                        <div class="message_date">
-                                                            <h2 class="date text-info">24 May</h2>
-                                                            <p class="month">6 hours ago</p>
-                                                        </div>
-                                                        <div class="message_wrapper">
-                                                            <h4 class="heading">Hospital User</h4>
-                                                            <blockquote class="message">A Patient data has been deleted by Hospital user
-                                                                <a href="">3 minutes ago</a>.</blockquote>
-                                                            <br />
-                                                            <p class="url">
-                                                                <a href="#">View Changes </a>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-
-                                                    <li v-for="n in 2">
-                                                        <i class="fa fa-plus text-success float-left" style="font-size: 30px;"></i>
-                                                        <div class="message_date">
-                                                            <h2 class="date text-info">24 May</h2>
-                                                            <p class="month">6 hours ago</p>
-                                                        </div>
-                                                        <div class="message_wrapper">
-                                                            <h4 class="heading">Hospital User</h4>
-                                                            <blockquote class="message">A Patient data has been created by Hospital user
-                                                                <a href="">3 minutes ago</a>.</blockquote>
-                                                            <br />
-                                                            <p class="url">
-                                                                <a href="#">View Changes </a>
+                                                                <a href="#" @click.prevent="changeDialog(notification)">View Changes </a>
                                                             </p>
                                                         </div>
                                                     </li>
@@ -418,8 +420,8 @@
                                             </div>
 
                                             <div class="col-md-12 text-center">
-                                                <a v-if="load_more" href="#"><i class="fa fa-spinner fa-spin"></i></a>
-                                                <a v-else href="#" @click.prevent="load_more = true">Load More</a>
+                                                <a v-if="is_load_more" href="#"><i class="fa fa-spinner fa-spin"></i></a>
+                                                <a v-else href="#" @click.prevent="load_more()">Load More</a>
                                             </div>
                                         </div>
                                     </div>
@@ -531,6 +533,7 @@
     import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
     import PublicService from "../../../../../../ContentManagement/Resources/assets/services/PublicService";
     import HospitalService from '../../../services/HospitalService';
+    import DataService from "../../../services/DataService";
     export default {
         name: "HospitalProfile",
         props: ["hospital_json","licenses_json"],
@@ -540,7 +543,7 @@
         data(){
             return{
                 errors: new Errors(),
-                load_more: false,
+                is_load_more: false,
                 tab: 'Hospital Details',
                 editable: false,
                 hospital: {},
@@ -579,6 +582,11 @@
                 provinces:{},
                 districts: {},
                 municipalities:{},
+
+                // notification
+                notifications:{},
+                notification_current_page:0,
+                current_notification:{}
             }
         },
         watch:{
@@ -611,9 +619,16 @@
             this.getProvince();
             this.getDistrict();
             this.getMunicipality();
-
+            this.getNotifications();
         },
         methods: {
+            setNotifications:_.debounce(function(){
+                this.getNotifications();
+            }, 800),
+            load_more(){
+                this.is_load_more = true;
+                this.getNotifications(this.notification_current_page+1);
+            },
             approve(){
                 $("#approve-dialog").modal('show');
             },
@@ -667,6 +682,21 @@
                 this.municipalities=response.data.data.municipalities;
                 this.municipality_disable = false;
             },
+            async getNotifications(page=1){
+                let response = await DataService.getNotifications(page);
+                if(this.is_load_more){
+                    this.is_load_more = false;
+                    if([...response.data.data[0].data].length!=0){
+
+                        this.notifications = this.notifications.concat(response.data.data[0]);
+                    }
+                }else{
+                    if(response.data.error === false){
+                        this.notifications = response.data.data[0].data;
+                    }
+                }
+                this.notification_current_page=response.data.data[0].current_page;
+            },
             handelImage(event, modal){
                 if (modal === 'application_letter'){
                     this.application_letter = event.target.files[0];
@@ -702,6 +732,12 @@
                     reader.onerror = error => reject(error);
                 });
             },
+            changeDialog(notification){
+                // changes-dialog
+                console.log(notification);
+                $("#changes-dialog").modal('show');
+                this.current_notification = notification.properties;
+            }
         }
     }
 </script>

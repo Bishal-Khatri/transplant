@@ -11,6 +11,7 @@ use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Enum\HospitalApproveStatus;
 use Modules\Hospital\Enum\HospitalVerificationStatus;
 use Modules\Hospital\Entities\License;
+use Spatie\Activitylog\Models\Activity;
 use Auth;
 class HospitalController extends Controller
 {
@@ -184,6 +185,18 @@ class HospitalController extends Controller
         ])->find($hospital_id);
         //save data
         $returnData = $this->prepareResponse(false, 'success', [$hospital], []);
+        return response()->json($returnData);
+    }
+    public function notificationList(Request $request){
+        $items = Activity::where(["causer_id" =>auth()->user()->id])->paginate(10);
+        $notifications=$items->setCollection(
+            $items->getCollection()->transform(function ($value) {
+                $subj=explode('\\',$value->subject_type);
+                $value->subject_name = $subj[count($subj)-1];
+                $value->created_at_diff_for_human = $value->created_at->diffForHumans();
+                return $value;
+            }));
+        $returnData = $this->prepareResponse(false, 'success', [$notifications], []);
         return response()->json($returnData);
     }
 

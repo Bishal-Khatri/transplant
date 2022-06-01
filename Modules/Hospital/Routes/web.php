@@ -17,6 +17,7 @@ Route::group(['prefix' => 'hospital', 'middleware' => ['auth', 'hospital'], 'as'
 
     Route::group(['prefix' => 'web-api'], function (){
         // update hospital profile
+        Route::get('notification/list',[HospitalController::class, 'notificationList'])->name('notification.list');
         Route::post('/hospital-update', [HospitalController::class, 'update'])->name('hospital.update');
         Route::group(['prefix' => 'patient'], function (){
             Route::get('/list', [PatientController::class, 'getPatientList']);

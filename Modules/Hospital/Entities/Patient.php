@@ -44,6 +44,12 @@ class Patient extends Model
     {
         return date('d M Y', strtotime($value));
     }
+
+    public function hospital()
+    {
+        return $this->belongsTo(Hospital::class);
+    }
+
     // occupation
     public function occupation()
     {

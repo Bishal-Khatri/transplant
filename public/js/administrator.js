@@ -43784,7 +43784,7 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                        Options\n                                    "
+                                        "\n                                        Actions\n                                    "
                                       ),
                                     ]
                                   ),

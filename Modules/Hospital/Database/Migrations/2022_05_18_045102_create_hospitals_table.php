@@ -19,7 +19,7 @@ class CreateHospitalsTable extends Migration
             $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('municipality_id');
-            $table->string('palika_name');
+            $table->string('palika_name')->nullable();
             $table->string('transplant_type')->default('none');
             $table->integer('hospital_type')->default(0);
             $table->string('application_letter')->nullable();

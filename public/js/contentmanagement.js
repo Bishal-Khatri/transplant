@@ -15025,15 +15025,25 @@ var Errors = /*#__PURE__*/function () {
       }
 
       toastr.options = {
+        "closeButton": true,
         "debug": false,
         "newestOnTop": false,
-        "positionClass": "toast-bottom-right",
-        "closeButton": true,
-        "progressBar": true
+        "progressBar": false,
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": 10000,
+        "extendedTimeOut": 10000,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "positionClass": "toast-bottom-full-width"
       };
 
       if (type === 'success') {
-        toastr.success(message);
+        toastr.info(message);
       }
 
       if (type === 'error') {
@@ -19289,13 +19299,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RegisterHospital",
   props: {},
-  components: {},
   data: function data() {
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"](),
@@ -19303,6 +19332,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       district_disable: true,
       municipality_disable: true,
       display_success_message: false,
+      success_message: "Your form has been submitted successfully. Please check your email form approval message.",
       // form data
       hospital_name: "",
       province: "",
@@ -19323,11 +19353,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       provinces: {},
       districts: {},
       municipalities: {},
-      palikas: {}
+      palikas: {},
+      full_name: '',
+      email: ''
     };
   },
   mounted: function mounted() {
     this.getProvince();
+  },
+  watch: {
+    hospital_name: function hospital_name(new_hospital_name, old_hospital_name) {
+      this.full_name = new_hospital_name;
+    }
   },
   methods: {
     getProvince: function getProvince() {
@@ -19498,36 +19535,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   formData.append("tax_clearance", _this4.tax_clearance, _this4.tax_clearance.name);
                 }
 
-                _context4.next = 29;
+                _this4.full_name ? formData.append("full_name", _this4.full_name) : '';
+                _this4.email ? formData.append("email", _this4.email) : '';
+                _context4.next = 31;
                 return _services_HospitalFrontendService__WEBPACK_IMPORTED_MODULE_3__["default"].registerHospital(formData);
 
-              case 29:
+              case 31:
                 response = _context4.sent;
 
                 if (response.data.error === false) {
                   _this4.display_success_message = true;
+                  _this4.success_message = response.data.message;
 
                   _this4.clearForm();
                 }
 
-                _context4.next = 36;
+                _context4.next = 38;
                 break;
 
-              case 33:
-                _context4.prev = 33;
+              case 35:
+                _context4.prev = 35;
                 _context4.t0 = _context4["catch"](1);
 
                 _this4.errors.record(_context4.t0.response.data);
 
-              case 36:
+              case 38:
                 _this4.submitting = false;
 
-              case 37:
+              case 39:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[1, 33]]);
+        }, _callee4, null, [[1, 35]]);
       }))();
     },
     clearForm: function clearForm() {
@@ -39564,8 +39604,8 @@ var render = function () {
                     ? _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
-                          attrs: { href: "" },
+                          staticClass: "text-accent",
+                          attrs: { class: "text-accent", href: "" },
                         },
                         [
                           _vm._v("Saving "),
@@ -39575,8 +39615,8 @@ var render = function () {
                     : _c(
                         "a",
                         {
-                          staticStyle: { color: "#5A738E" },
-                          attrs: { href: "" },
+                          staticClass: "text-accent",
+                          attrs: { class: "text-accent", href: "" },
                           on: {
                             click: function ($event) {
                               $event.preventDefault()
@@ -40070,8 +40110,7 @@ var render = function () {
                 : _c(
                     "a",
                     {
-                      staticClass: "btn btn-link",
-                      staticStyle: { color: "#5A738E" },
+                      staticClass: "btn btn-link text-accent",
                       attrs: { href: "" },
                       on: {
                         click: function ($event) {
@@ -40640,7 +40679,6 @@ var render = function () {
                     "a",
                     {
                       staticClass: "btn btn-link text-accent",
-                      staticStyle: { color: "#5A738E" },
                       attrs: { href: "" },
                       on: {
                         click: function ($event) {
@@ -41524,8 +41562,7 @@ var render = function () {
                 : _c(
                     "a",
                     {
-                      staticClass: "btn btn-link",
-                      staticStyle: { color: "#5A738E" },
+                      staticClass: "btn btn-link text-accent",
                       attrs: { href: "#" },
                       on: {
                         click: function ($event) {
@@ -41846,8 +41883,7 @@ var render = function () {
                 : _c(
                     "a",
                     {
-                      staticClass: "btn btn-link",
-                      staticStyle: { color: "#5A738E" },
+                      staticClass: "btn btn-link text-accent",
                       attrs: { href: "" },
                       on: {
                         click: function ($event) {
@@ -42278,8 +42314,7 @@ var render = function () {
                 : _c(
                     "a",
                     {
-                      staticClass: "btn btn-link",
-                      staticStyle: { color: "#5A738E" },
+                      staticClass: "btn btn-link text-accent",
                       attrs: { href: "" },
                       on: {
                         click: function ($event) {
@@ -42551,8 +42586,7 @@ var render = function () {
                 : _c(
                     "a",
                     {
-                      staticClass: "btn btn-link",
-                      staticStyle: { color: "#5A738E" },
+                      staticClass: "btn btn-link text-accent",
                       attrs: { href: "" },
                       on: {
                         click: function ($event) {
@@ -42824,11 +42858,9 @@ var render = function () {
             ? _c("div", { staticClass: "boxed boxed--border" }, [
                 _c("h5", [_vm._v("Success")]),
                 _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    "\n                        Your form has been submitted successfully. Please check your email form approval message.\n                    "
-                  ),
-                ]),
+                _c("p", {
+                  domProps: { innerHTML: _vm._s(_vm.success_message) },
+                }),
                 _vm._v(" "),
                 _c(
                   "a",
@@ -43468,6 +43500,78 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
+                      _vm._m(12),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("label", [_vm._v("Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.full_name,
+                              expression: "full_name",
+                            },
+                          ],
+                          attrs: {
+                            type: "text",
+                            placeholder: "Type Full Name Here",
+                          },
+                          domProps: { value: _vm.full_name },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.full_name = $event.target.value
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("full_name")),
+                          },
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("label", [_vm._v("Email Address")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.email,
+                              expression: "email",
+                            },
+                          ],
+                          attrs: {
+                            type: "email",
+                            placeholder: "example@example.com",
+                          },
+                          domProps: { value: _vm.email },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.email = $event.target.value
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "small text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("email")),
+                          },
+                        }),
+                      ]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "col-md-12" }, [
                         _c("div", { staticClass: "input-checkbox" }, [
                           _c("input", {
@@ -43511,7 +43615,7 @@ var render = function () {
                           _c("label"),
                         ]),
                         _vm._v(" "),
-                        _vm._m(12),
+                        _vm._m(13),
                         _vm._v(" "),
                         _c("p", {
                           staticClass: "small text-danger",
@@ -43551,6 +43655,8 @@ var render = function () {
         ]),
       ]),
     ]),
+    _vm._v(" "),
+    _vm._m(14),
   ])
 }
 var staticRenderFns = [
@@ -43719,9 +43825,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 mt-3" }, [
+      _c("hr"),
+      _vm._v(" "),
+      _c("h5", [_vm._v("Login credentials")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("span", [
       _vm._v("I have read and agree to the "),
       _c("a", { attrs: { href: "#" } }, [_vm._v("terms and conditions")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }),
     ])
   },
 ]

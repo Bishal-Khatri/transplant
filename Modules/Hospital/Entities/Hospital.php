@@ -2,6 +2,7 @@
 
 namespace Modules\Hospital\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Administrator\Entities\Province;
@@ -31,9 +32,24 @@ class Hospital extends Model
         return date('d M Y', strtotime($value));
     }
 
+    public function approvedByUser()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function license()
     {
-        return $this->morphMany(License::class, 'licenseable');
+        return $this->belongsTo(License::class, 'active_license_id');
+    }
+
+    public function licenseMorph()
+    {
+        return $this->morphOne(License::class, 'licenseable');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'hospital_id');
     }
 
     public function getLicense()

@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <hospital-details  hospital_json="{{ $hospital }}"/>
+            <hospital-details  hospital_id="{{ $hospital_id }}"/>
         </div>
     </div>
 @endsection

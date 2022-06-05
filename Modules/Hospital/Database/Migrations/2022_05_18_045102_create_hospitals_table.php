@@ -40,6 +40,7 @@ class CreateHospitalsTable extends Migration
             $table->boolean('physical_verification')->default(0);
             $table->boolean('status')->default(1)->comment('accibility status');
             $table->unsignedBigInteger('active_license_id')->nullable();
+
             $table->timestamps();
         });
     }

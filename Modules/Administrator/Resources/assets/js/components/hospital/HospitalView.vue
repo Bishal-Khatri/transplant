@@ -208,7 +208,7 @@
                                         <span class="btn btn-sm btn-accent"><i class="mr-1 fa fa-times"></i>Rejected</span>
                                         <br>
                                         <label for="">Reject Message</label>
-                                        <textarea name=""  class="form-control" readonly>{{ hospital.reject_message }}</textarea>
+                                        <textarea name=""  class="form-control" style="border-color: red;" readonly>{{ hospital.reject_message }}</textarea>
                                     </template>
                                     <template v-else>
                                         <span class="btn btn-sm btn-accent"><i class="mr-1 fa fa-times"></i>Not-Approved</span>

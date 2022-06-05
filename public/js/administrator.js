@@ -44968,6 +44968,7 @@ var render = function () {
                               "textarea",
                               {
                                 staticClass: "form-control",
+                                staticStyle: { "border-color": "red" },
                                 attrs: { name: "", readonly: "" },
                               },
                               [_vm._v(_vm._s(_vm.hospital.reject_message))]

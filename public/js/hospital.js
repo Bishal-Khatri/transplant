@@ -17972,6 +17972,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -42530,50 +42555,74 @@ var render = function () {
                           ]),
                           _vm._v(" "),
                           _c("h2", { staticClass: "text-accent col-md-6" }, [
-                            _vm._v(_vm._s(_vm.hospital.hospital_name)),
+                            _vm._v(
+                              _vm._s(_vm.hospital.hospital_name) +
+                                "\n                                        "
+                            ),
+                            _vm.hospital.approve_status === "approved"
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-success btn-sm rounded-0 ml-3",
+                                    attrs: { readonly: "" },
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "mr-1 fa fa-check",
+                                    }),
+                                    _vm._v("Approved"),
+                                  ]
+                                )
+                              : _vm._e(),
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-3" }, [
-                            _c(
-                              "ul",
-                              { staticClass: "nav navbar-right panel_toolbox" },
-                              [
-                                !_vm.editable
-                                  ? _c("li", [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "text-accent",
-                                          attrs: { href: "#" },
-                                          on: {
-                                            click: function ($event) {
-                                              $event.preventDefault()
-                                              _vm.editable = true
+                            _vm.hospital.approve_status !== "approved"
+                              ? _c(
+                                  "ul",
+                                  {
+                                    staticClass:
+                                      "nav navbar-right panel_toolbox",
+                                  },
+                                  [
+                                    !_vm.editable
+                                      ? _c("li", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "text-accent",
+                                              attrs: { href: "#" },
+                                              on: {
+                                                click: function ($event) {
+                                                  $event.preventDefault()
+                                                  _vm.editable = true
+                                                },
+                                              },
                                             },
-                                          },
-                                        },
-                                        [_vm._v("Edit Profile")]
-                                      ),
-                                    ])
-                                  : _c("li", [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "text-accent",
-                                          attrs: { href: "#" },
-                                          on: {
-                                            click: function ($event) {
-                                              $event.preventDefault()
-                                              _vm.editable = false
-                                              _vm.saveProfile()
+                                            [_vm._v("Edit Profile")]
+                                          ),
+                                        ])
+                                      : _c("li", [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "text-accent",
+                                              attrs: { href: "#" },
+                                              on: {
+                                                click: function ($event) {
+                                                  $event.preventDefault()
+                                                  _vm.editable = false
+                                                  _vm.saveProfile()
+                                                },
+                                              },
                                             },
-                                          },
-                                        },
-                                        [_vm._v("Save Profile")]
-                                      ),
-                                    ]),
-                              ]
-                            ),
+                                            [_vm._v("Save Profile")]
+                                          ),
+                                        ]),
+                                  ]
+                                )
+                              : _vm._e(),
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "clearfix" }),
@@ -43151,7 +43200,7 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                                        Verification status\n                                                    "
+                                        "\n                                                        Document Verification\n                                                    "
                                       ),
                                     ]
                                   ),
@@ -43167,49 +43216,106 @@ var render = function () {
                                           attrs: { role: "group" },
                                         },
                                         [
-                                          _vm.hospital.verification_status === 0
+                                          _vm.hospital.document_verification ===
+                                          1
                                             ? _c(
                                                 "span",
                                                 {
                                                   staticClass:
                                                     "btn btn-sm btn-accent",
                                                 },
-                                                [_vm._v("NONE")]
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "mr-1 fa fa-check",
+                                                  }),
+                                                  _vm._v("Verified"),
+                                                ]
                                               )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.hospital.verification_status === 1
-                                            ? _c(
+                                            : _c(
                                                 "span",
                                                 {
                                                   staticClass:
                                                     "btn btn-sm btn-accent",
                                                 },
-                                                [_vm._v("DOCUMENT VERIFIED")]
-                                              )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.hospital.verification_status === 2
-                                            ? _c(
-                                                "span",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-sm btn-accent",
-                                                },
-                                                [_vm._v("PHYSICALLY VERIFIED")]
-                                              )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.hospital.verification_status === 3
-                                            ? _c(
-                                                "span",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-sm btn-accent",
-                                                },
-                                                [_vm._v("VERIFIED")]
-                                              )
-                                            : _vm._e(),
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "mr-1 fa fa-times",
+                                                  }),
+                                                  _vm._v("Not-Verified"),
+                                                ]
+                                              ),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "form-group row" }, [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass:
+                                        "col-form-label col-md-3 col-sm-3 label-align text-left",
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                                        Physical Verification\n                                                    "
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-md-9 col-sm-9" },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "btn-group",
+                                          attrs: { role: "group" },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "btn-group",
+                                              attrs: { role: "group" },
+                                            },
+                                            [
+                                              _vm.hospital
+                                                .physical_verification === 1
+                                                ? _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-sm btn-accent",
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "mr-1 fa fa-check",
+                                                      }),
+                                                      _vm._v("Verified"),
+                                                    ]
+                                                  )
+                                                : _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-sm btn-accent",
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "mr-1 fa fa-times",
+                                                      }),
+                                                      _vm._v("Not-Verified"),
+                                                    ]
+                                                  ),
+                                            ]
+                                          ),
                                         ]
                                       ),
                                     ]
@@ -43234,22 +43340,45 @@ var render = function () {
                                     "div",
                                     { staticClass: "col-md-9 col-sm-9" },
                                     [
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass: "btn btn-sm btn-accent",
-                                        },
-                                        [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.hospital.approve_status
-                                                ? _vm.hospital.approve_status.toUpperCase()
-                                                : ""
-                                            )
-                                          ),
-                                        ]
-                                      ),
-                                    ]
+                                      _vm.hospital.approve_status === "approved"
+                                        ? [_vm._m(8)]
+                                        : _vm.hospital.approve_status ===
+                                          "rejected"
+                                        ? [
+                                            _vm._m(9),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v("Reject Message")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "textarea",
+                                              {
+                                                staticClass: "form-control",
+                                                staticStyle: {
+                                                  "border-color": "red",
+                                                },
+                                                attrs: {
+                                                  name: "",
+                                                  readonly: "",
+                                                },
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.hospital.reject_message
+                                                  )
+                                                ),
+                                              ]
+                                            ),
+                                          ]
+                                        : [_vm._m(10)],
+                                    ],
+                                    2
                                   ),
                                 ]),
                                 _vm._v(" "),
@@ -43298,577 +43427,591 @@ var render = function () {
                               _vm._v(" "),
                               _c("h5", [_vm._v("Files & Documents")]),
                               _vm._v(" "),
-                              _c(
-                                "ul",
-                                { staticClass: "list-unstyled project_files" },
-                                [
-                                  _c("hr"),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _vm.editable
-                                      ? _c("span", [
-                                          _vm._v("Application Letter"),
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "d-flex" }, [
-                                      _vm.editable
-                                        ? _c("input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "file",
-                                              id: "file",
-                                              name: "file",
-                                            },
-                                            on: {
-                                              change: function ($event) {
-                                                return _vm.handelImage(
-                                                  $event,
-                                                  "application_letter"
-                                                )
-                                              },
-                                            },
-                                          })
-                                        : _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      _vm.hospital
-                                                        .application_letter
-                                                  )
-                                                },
-                                              },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-file",
-                                              }),
-                                              _vm._v(
-                                                " Application Letter\n                                                            "
-                                              ),
-                                              _c("i", {
-                                                class: _vm.hospital
-                                                  .application_letter
-                                                  ? "fa fa-check"
-                                                  : "fa fa-times text-danger",
-                                              }),
-                                            ]
-                                          ),
+                              _vm.hospital.document_verified !== 1
+                                ? _c(
+                                    "ul",
+                                    {
+                                      staticClass:
+                                        "list-unstyled project_files",
+                                    },
+                                    [
+                                      _c("hr"),
                                       _vm._v(" "),
-                                      _vm.editable
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "float-right btn btn-success",
-                                              attrs: { href: "#" },
-                                            },
-                                            [_vm._v("Change")]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("hr"),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _vm.editable
-                                      ? _c("span", [_vm._v("Human Resource")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "d-flex" }, [
-                                      _vm.editable
-                                        ? _c("input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "file",
-                                              id: "file",
-                                              name: "file",
-                                            },
-                                            on: {
-                                              change: function ($event) {
-                                                return _vm.handelImage(
-                                                  $event,
-                                                  "human_resource"
-                                                )
-                                              },
-                                            },
-                                          })
-                                        : _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      _vm.hospital
-                                                        .human_resource
-                                                  )
+                                      _c("li", [
+                                        _vm.editable
+                                          ? _c("span", [
+                                              _vm._v("Application Letter"),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm.editable
+                                            ? _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "file",
+                                                  id: "file",
+                                                  name: "file",
                                                 },
-                                              },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-file",
-                                              }),
-                                              _vm._v(
-                                                " Human Resource\n                                                            "
-                                              ),
-                                              _c("i", {
-                                                class: _vm.hospital
-                                                  .human_resource
-                                                  ? "fa fa-check"
-                                                  : "fa fa-times text-danger",
-                                              }),
-                                            ]
-                                          ),
-                                      _vm._v(" "),
-                                      _vm.editable
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "float-right btn btn-success",
-                                              attrs: { href: "#" },
-                                            },
-                                            [_vm._v("Change")]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("hr"),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _vm.editable
-                                      ? _c("span", [
-                                          _vm._v(" Tools & Equipment list"),
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "d-flex" }, [
-                                      _vm.editable
-                                        ? _c("input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "file",
-                                              id: "file",
-                                              name: "file",
-                                            },
-                                            on: {
-                                              change: function ($event) {
-                                                return _vm.handelImage(
-                                                  $event,
-                                                  "tools_list"
-                                                )
-                                              },
-                                            },
-                                          })
-                                        : _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      _vm.hospital.tools_list
-                                                  )
+                                                on: {
+                                                  change: function ($event) {
+                                                    return _vm.handelImage(
+                                                      $event,
+                                                      "application_letter"
+                                                    )
+                                                  },
                                                 },
-                                              },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-file",
-                                              }),
-                                              _vm._v(
-                                                " Tools & Equipment list\n                                                            "
-                                              ),
-                                              _c("i", {
-                                                class: _vm.hospital.tools_list
-                                                  ? "fa fa-check"
-                                                  : "fa fa-times text-danger",
-                                              }),
-                                            ]
-                                          ),
-                                      _vm._v(" "),
-                                      _vm.editable
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "float-right btn btn-success",
-                                              attrs: { href: "#" },
-                                            },
-                                            [_vm._v("Change")]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("hr"),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _vm.editable
-                                      ? _c("span", [
-                                          _vm._v("Administrative Document"),
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "d-flex" }, [
-                                      _vm.editable
-                                        ? _c("input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "file",
-                                              id: "file",
-                                              name: "file",
-                                            },
-                                            on: {
-                                              change: function ($event) {
-                                                return _vm.handelImage(
-                                                  $event,
-                                                  "administrative_document"
-                                                )
-                                              },
-                                            },
-                                          })
-                                        : _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      _vm.hospital
-                                                        .administrative_document
-                                                  )
+                                              })
+                                            : _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "" },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.$refs.imagePreview.openDialog(
+                                                        "/storage/" +
+                                                          _vm.hospital
+                                                            .application_letter
+                                                      )
+                                                    },
+                                                  },
                                                 },
-                                              },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-file",
-                                              }),
-                                              _vm._v(
-                                                " Administrative Document\n                                                            "
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fa fa-file",
+                                                  }),
+                                                  _vm._v(
+                                                    " Application Letter\n                                                            "
+                                                  ),
+                                                  _c("i", {
+                                                    class: _vm.hospital
+                                                      .application_letter
+                                                      ? "fa fa-check"
+                                                      : "fa fa-times text-danger",
+                                                  }),
+                                                ]
                                               ),
-                                              _c("i", {
-                                                staticClass: "ml-2 mr-2",
-                                                class: _vm.hospital
-                                                  .administrative_document
-                                                  ? "fa fa-check"
-                                                  : "fa fa-times text-danger",
-                                              }),
-                                            ]
-                                          ),
-                                      _vm._v(" "),
-                                      _vm.editable
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "float-right btn btn-success",
-                                              attrs: { href: "#" },
-                                            },
-                                            [_vm._v("Change")]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("hr"),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _vm.editable
-                                      ? _c("span", [
-                                          _vm._v("Sanchalan Swikriti"),
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "d-flex" }, [
-                                      _vm.editable
-                                        ? _c("input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "file",
-                                              id: "file",
-                                              name: "file",
-                                            },
-                                            on: {
-                                              change: function ($event) {
-                                                return _vm.handelImage(
-                                                  $event,
-                                                  "sanchalan_swikriti"
-                                                )
-                                              },
-                                            },
-                                          })
-                                        : _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      _vm.hospital
-                                                        .sanchalan_swikriti
-                                                  )
+                                          _vm._v(" "),
+                                          _vm.editable
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "float-right btn btn-success",
+                                                  attrs: { href: "#" },
                                                 },
-                                              },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-file",
-                                              }),
-                                              _vm._v(
-                                                " Sanchalan Swikriti\n                                                            "
-                                              ),
-                                              _c("i", {
-                                                class: _vm.hospital
-                                                  .sanchalan_swikriti
-                                                  ? "fa fa-check"
-                                                  : "fa fa-times text-danger",
-                                              }),
-                                            ]
-                                          ),
+                                                [_vm._v("Change")]
+                                              )
+                                            : _vm._e(),
+                                        ]),
+                                      ]),
                                       _vm._v(" "),
-                                      _vm.editable
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "float-right btn btn-success",
-                                              attrs: { href: "#" },
-                                            },
-                                            [_vm._v("Change")]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("hr"),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _vm.editable
-                                      ? _c("span", [_vm._v("Renewal Letter")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "d-flex" }, [
-                                      _vm.editable
-                                        ? _c("input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "file",
-                                              id: "file",
-                                              name: "file",
-                                            },
-                                            on: {
-                                              change: function ($event) {
-                                                return _vm.handelImage(
-                                                  $event,
-                                                  "renewal_letter"
-                                                )
-                                              },
-                                            },
-                                          })
-                                        : _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      _vm.hospital
-                                                        .renewal_letter
-                                                  )
+                                      _c("hr"),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.editable
+                                          ? _c("span", [
+                                              _vm._v("Human Resource"),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm.editable
+                                            ? _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "file",
+                                                  id: "file",
+                                                  name: "file",
                                                 },
-                                              },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-file",
-                                              }),
-                                              _vm._v(
-                                                " Renewal Letter\n                                                            "
-                                              ),
-                                              _c("i", {
-                                                class: _vm.hospital
-                                                  .renewal_letter
-                                                  ? "fa fa-check"
-                                                  : "fa fa-times text-danger",
-                                              }),
-                                            ]
-                                          ),
-                                      _vm._v(" "),
-                                      _vm.editable
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "float-right btn btn-success",
-                                              attrs: { href: "#" },
-                                            },
-                                            [_vm._v("Change")]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("hr"),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _vm.editable
-                                      ? _c("span", [_vm._v("PAN")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "d-flex" }, [
-                                      _vm.editable
-                                        ? _c("input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "file",
-                                              id: "file",
-                                              name: "file",
-                                            },
-                                            on: {
-                                              change: function ($event) {
-                                                return _vm.handelImage(
-                                                  $event,
-                                                  "pan"
-                                                )
-                                              },
-                                            },
-                                          })
-                                        : _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      _vm.hospital.pan
-                                                  )
+                                                on: {
+                                                  change: function ($event) {
+                                                    return _vm.handelImage(
+                                                      $event,
+                                                      "human_resource"
+                                                    )
+                                                  },
                                                 },
-                                              },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-file",
-                                              }),
-                                              _vm._v(
-                                                " PAN\n                                                            "
-                                              ),
-                                              _c("i", {
-                                                class: _vm.hospital.pan
-                                                  ? "fa fa-check"
-                                                  : "fa fa-times text-danger",
-                                              }),
-                                            ]
-                                          ),
-                                      _vm._v(" "),
-                                      _vm.editable
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "float-right btn btn-success",
-                                              attrs: { href: "#" },
-                                            },
-                                            [_vm._v("Change")]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("hr"),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _vm.editable
-                                      ? _c("span", [_vm._v("Tax Clearance")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "d-flex" }, [
-                                      _vm.editable
-                                        ? _c("input", {
-                                            staticClass: "form-control",
-                                            attrs: {
-                                              type: "file",
-                                              id: "file",
-                                              name: "file",
-                                            },
-                                            on: {
-                                              change: function ($event) {
-                                                return _vm.handelImage(
-                                                  $event,
-                                                  "tax_clearance"
-                                                )
-                                              },
-                                            },
-                                          })
-                                        : _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      _vm.hospital.tax_clearance
-                                                  )
+                                              })
+                                            : _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "" },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.$refs.imagePreview.openDialog(
+                                                        "/storage/" +
+                                                          _vm.hospital
+                                                            .human_resource
+                                                      )
+                                                    },
+                                                  },
                                                 },
-                                              },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-file",
-                                              }),
-                                              _vm._v(
-                                                " Tax Clearance\n                                                            "
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fa fa-file",
+                                                  }),
+                                                  _vm._v(
+                                                    " Human Resource\n                                                            "
+                                                  ),
+                                                  _c("i", {
+                                                    class: _vm.hospital
+                                                      .human_resource
+                                                      ? "fa fa-check"
+                                                      : "fa fa-times text-danger",
+                                                  }),
+                                                ]
                                               ),
-                                              _c("i", {
-                                                class: _vm.hospital
-                                                  .tax_clearance
-                                                  ? "fa fa-check"
-                                                  : "fa fa-times text-danger",
-                                              }),
-                                            ]
-                                          ),
+                                          _vm._v(" "),
+                                          _vm.editable
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "float-right btn btn-success",
+                                                  attrs: { href: "#" },
+                                                },
+                                                [_vm._v("Change")]
+                                              )
+                                            : _vm._e(),
+                                        ]),
+                                      ]),
                                       _vm._v(" "),
-                                      _vm.editable
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "float-right btn btn-success",
-                                              attrs: { href: "#" },
-                                            },
-                                            [_vm._v("Change")]
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("hr"),
-                                ]
-                              ),
+                                      _c("hr"),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.editable
+                                          ? _c("span", [
+                                              _vm._v(" Tools & Equipment list"),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm.editable
+                                            ? _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "file",
+                                                  id: "file",
+                                                  name: "file",
+                                                },
+                                                on: {
+                                                  change: function ($event) {
+                                                    return _vm.handelImage(
+                                                      $event,
+                                                      "tools_list"
+                                                    )
+                                                  },
+                                                },
+                                              })
+                                            : _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "" },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.$refs.imagePreview.openDialog(
+                                                        "/storage/" +
+                                                          _vm.hospital
+                                                            .tools_list
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fa fa-file",
+                                                  }),
+                                                  _vm._v(
+                                                    " Tools & Equipment list\n                                                            "
+                                                  ),
+                                                  _c("i", {
+                                                    class: _vm.hospital
+                                                      .tools_list
+                                                      ? "fa fa-check"
+                                                      : "fa fa-times text-danger",
+                                                  }),
+                                                ]
+                                              ),
+                                          _vm._v(" "),
+                                          _vm.editable
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "float-right btn btn-success",
+                                                  attrs: { href: "#" },
+                                                },
+                                                [_vm._v("Change")]
+                                              )
+                                            : _vm._e(),
+                                        ]),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("hr"),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.editable
+                                          ? _c("span", [
+                                              _vm._v("Administrative Document"),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm.editable
+                                            ? _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "file",
+                                                  id: "file",
+                                                  name: "file",
+                                                },
+                                                on: {
+                                                  change: function ($event) {
+                                                    return _vm.handelImage(
+                                                      $event,
+                                                      "administrative_document"
+                                                    )
+                                                  },
+                                                },
+                                              })
+                                            : _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "" },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.$refs.imagePreview.openDialog(
+                                                        "/storage/" +
+                                                          _vm.hospital
+                                                            .administrative_document
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fa fa-file",
+                                                  }),
+                                                  _vm._v(
+                                                    " Administrative Document\n                                                            "
+                                                  ),
+                                                  _c("i", {
+                                                    staticClass: "ml-2 mr-2",
+                                                    class: _vm.hospital
+                                                      .administrative_document
+                                                      ? "fa fa-check"
+                                                      : "fa fa-times text-danger",
+                                                  }),
+                                                ]
+                                              ),
+                                          _vm._v(" "),
+                                          _vm.editable
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "float-right btn btn-success",
+                                                  attrs: { href: "#" },
+                                                },
+                                                [_vm._v("Change")]
+                                              )
+                                            : _vm._e(),
+                                        ]),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("hr"),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.editable
+                                          ? _c("span", [
+                                              _vm._v("Sanchalan Swikriti"),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm.editable
+                                            ? _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "file",
+                                                  id: "file",
+                                                  name: "file",
+                                                },
+                                                on: {
+                                                  change: function ($event) {
+                                                    return _vm.handelImage(
+                                                      $event,
+                                                      "sanchalan_swikriti"
+                                                    )
+                                                  },
+                                                },
+                                              })
+                                            : _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "" },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.$refs.imagePreview.openDialog(
+                                                        "/storage/" +
+                                                          _vm.hospital
+                                                            .sanchalan_swikriti
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fa fa-file",
+                                                  }),
+                                                  _vm._v(
+                                                    " Sanchalan Swikriti\n                                                            "
+                                                  ),
+                                                  _c("i", {
+                                                    class: _vm.hospital
+                                                      .sanchalan_swikriti
+                                                      ? "fa fa-check"
+                                                      : "fa fa-times text-danger",
+                                                  }),
+                                                ]
+                                              ),
+                                          _vm._v(" "),
+                                          _vm.editable
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "float-right btn btn-success",
+                                                  attrs: { href: "#" },
+                                                },
+                                                [_vm._v("Change")]
+                                              )
+                                            : _vm._e(),
+                                        ]),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("hr"),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.editable
+                                          ? _c("span", [
+                                              _vm._v("Renewal Letter"),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm.editable
+                                            ? _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "file",
+                                                  id: "file",
+                                                  name: "file",
+                                                },
+                                                on: {
+                                                  change: function ($event) {
+                                                    return _vm.handelImage(
+                                                      $event,
+                                                      "renewal_letter"
+                                                    )
+                                                  },
+                                                },
+                                              })
+                                            : _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "" },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.$refs.imagePreview.openDialog(
+                                                        "/storage/" +
+                                                          _vm.hospital
+                                                            .renewal_letter
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fa fa-file",
+                                                  }),
+                                                  _vm._v(
+                                                    " Renewal Letter\n                                                            "
+                                                  ),
+                                                  _c("i", {
+                                                    class: _vm.hospital
+                                                      .renewal_letter
+                                                      ? "fa fa-check"
+                                                      : "fa fa-times text-danger",
+                                                  }),
+                                                ]
+                                              ),
+                                          _vm._v(" "),
+                                          _vm.editable
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "float-right btn btn-success",
+                                                  attrs: { href: "#" },
+                                                },
+                                                [_vm._v("Change")]
+                                              )
+                                            : _vm._e(),
+                                        ]),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("hr"),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.editable
+                                          ? _c("span", [_vm._v("PAN")])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm.editable
+                                            ? _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "file",
+                                                  id: "file",
+                                                  name: "file",
+                                                },
+                                                on: {
+                                                  change: function ($event) {
+                                                    return _vm.handelImage(
+                                                      $event,
+                                                      "pan"
+                                                    )
+                                                  },
+                                                },
+                                              })
+                                            : _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "" },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.$refs.imagePreview.openDialog(
+                                                        "/storage/" +
+                                                          _vm.hospital.pan
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fa fa-file",
+                                                  }),
+                                                  _vm._v(
+                                                    " PAN\n                                                            "
+                                                  ),
+                                                  _c("i", {
+                                                    class: _vm.hospital.pan
+                                                      ? "fa fa-check"
+                                                      : "fa fa-times text-danger",
+                                                  }),
+                                                ]
+                                              ),
+                                          _vm._v(" "),
+                                          _vm.editable
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "float-right btn btn-success",
+                                                  attrs: { href: "#" },
+                                                },
+                                                [_vm._v("Change")]
+                                              )
+                                            : _vm._e(),
+                                        ]),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("hr"),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.editable
+                                          ? _c("span", [
+                                              _vm._v("Tax Clearance"),
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "d-flex" }, [
+                                          _vm.editable
+                                            ? _c("input", {
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "file",
+                                                  id: "file",
+                                                  name: "file",
+                                                },
+                                                on: {
+                                                  change: function ($event) {
+                                                    return _vm.handelImage(
+                                                      $event,
+                                                      "tax_clearance"
+                                                    )
+                                                  },
+                                                },
+                                              })
+                                            : _c(
+                                                "a",
+                                                {
+                                                  attrs: { href: "" },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.$refs.imagePreview.openDialog(
+                                                        "/storage/" +
+                                                          _vm.hospital
+                                                            .tax_clearance
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fa fa-file",
+                                                  }),
+                                                  _vm._v(
+                                                    " Tax Clearance\n                                                            "
+                                                  ),
+                                                  _c("i", {
+                                                    class: _vm.hospital
+                                                      .tax_clearance
+                                                      ? "fa fa-check"
+                                                      : "fa fa-times text-danger",
+                                                  }),
+                                                ]
+                                              ),
+                                          _vm._v(" "),
+                                          _vm.editable
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "float-right btn btn-success",
+                                                  attrs: { href: "#" },
+                                                },
+                                                [_vm._v("Change")]
+                                              )
+                                            : _vm._e(),
+                                        ]),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("hr"),
+                                    ]
+                                  )
+                                : _vm._e(),
                             ]),
                           ]),
                         ]),
@@ -43888,7 +44031,7 @@ var render = function () {
                     },
                     [
                       _c("section", { staticClass: "x_panel" }, [
-                        _vm._m(8),
+                        _vm._m(11),
                         _vm._v(" "),
                         _c("div", { staticClass: "x_content" }, [
                           _c("div", { staticClass: "row" }, [
@@ -43900,7 +44043,7 @@ var render = function () {
                                     "table table-striped jambo_table bulk_action",
                                 },
                                 [
-                                  _vm._m(9),
+                                  _vm._m(12),
                                   _vm._v(" "),
                                   _c(
                                     "tbody",
@@ -43930,7 +44073,7 @@ var render = function () {
                                             _vm._v(_vm._s(license.expiry_date)),
                                           ]),
                                           _vm._v(" "),
-                                          _vm._m(10, true),
+                                          _vm._m(13, true),
                                         ])
                                       }
                                     ),
@@ -43957,7 +44100,7 @@ var render = function () {
                     },
                     [
                       _c("section", { staticClass: "x_panel" }, [
-                        _vm._m(11),
+                        _vm._m(14),
                         _vm._v(" "),
                         _c("div", { staticClass: "x_content" }, [
                           _c("div", { staticClass: "row" }, [
@@ -44113,17 +44256,17 @@ var render = function () {
                       },
                     },
                     [
-                      _vm._m(12),
+                      _vm._m(15),
                       _vm._v(" "),
                       _c("section", { staticClass: "x_panel" }, [
-                        _vm._m(13),
+                        _vm._m(16),
                         _vm._v(" "),
                         _c("div", { staticClass: "panel-body" }, [
                           _c("div", { staticClass: "row" }, [
                             _c("div", { staticClass: "col-md-6" }, [
                               _c("form", { attrs: { action: "" } }, [
                                 _c("div", { staticClass: "form-group row" }, [
-                                  _vm._m(14),
+                                  _vm._m(17),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44150,7 +44293,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "form-group row" }, [
-                                  _vm._m(15),
+                                  _vm._m(18),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44177,7 +44320,7 @@ var render = function () {
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "form-group row" }, [
-                                  _vm._m(16),
+                                  _vm._m(19),
                                   _vm._v(" "),
                                   _c(
                                     "div",
@@ -44347,6 +44490,33 @@ var staticRenderFns = [
         _c("span", { staticClass: "required" }, [_vm._v("*")]),
       ]
     )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "btn btn-sm btn-accent" }, [
+      _c("i", { staticClass: "mr-1 fa fa-check" }),
+      _vm._v("Approved"),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "btn btn-sm btn-accent" }, [
+      _c("i", { staticClass: "mr-1 fa fa-times" }),
+      _vm._v("Rejected"),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "btn btn-sm btn-accent" }, [
+      _c("i", { staticClass: "mr-1 fa fa-times" }),
+      _vm._v("Not-Approved"),
+    ])
   },
   function () {
     var _vm = this

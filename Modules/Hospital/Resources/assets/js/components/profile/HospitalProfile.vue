@@ -66,9 +66,11 @@
                                 <section class="x_panel">
                                     <div class="x_title row">
                                         <h2 class="col-md-3">Hospital Name</h2>
-                                        <h2 class="text-accent col-md-6">{{ hospital.hospital_name }}</h2>
+                                        <h2 class="text-accent col-md-6">{{ hospital.hospital_name }}
+                                            <button v-if="hospital.approve_status === 'approved'" readonly="" class="btn btn-success btn-sm rounded-0 ml-3"><i class="mr-1 fa fa-check"></i>Approved</button>
+                                        </h2>
                                         <div class="col-md-3">
-                                            <ul class="nav navbar-right panel_toolbox">
+                                            <ul class="nav navbar-right panel_toolbox" v-if="hospital.approve_status !== 'approved'">
                                                 <li v-if="!editable"><a class="text-accent" href="#" @click.prevent="editable = true">Edit Profile</a></li>
                                                 <li v-else><a class="text-accent" href="#" @click.prevent="editable = false;saveProfile()">Save Profile</a></li>
                                             </ul>
@@ -188,14 +190,26 @@
 
                                                     <div class="form-group row">
                                                         <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
-                                                            Verification status
+                                                            Document Verification
                                                         </label>
                                                         <div class="col-md-9 col-sm-9">
                                                             <div class="btn-group" role="group">
-                                                                <span class="btn btn-sm btn-accent" v-if="hospital.verification_status === 0">NONE</span>
-                                                                <span class="btn btn-sm btn-accent" v-if="hospital.verification_status === 1">DOCUMENT VERIFIED</span>
-                                                                <span class="btn btn-sm btn-accent" v-if="hospital.verification_status === 2">PHYSICALLY VERIFIED</span>
-                                                                <span class="btn btn-sm btn-accent" v-if="hospital.verification_status === 3">VERIFIED</span>
+                                                                <span class="btn btn-sm btn-accent" v-if="hospital.document_verification === 1"><i class="mr-1 fa fa-check"></i>Verified</span>
+                                                                <span class="btn btn-sm btn-accent" v-else><i class="mr-1 fa fa-times"></i>Not-Verified</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                                            Physical Verification
+                                                        </label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <div class="btn-group" role="group">
+                                                                <div class="btn-group" role="group">
+                                                                    <span class="btn btn-sm btn-accent" v-if="hospital.physical_verification === 1"><i class="mr-1 fa fa-check"></i>Verified</span>
+                                                                    <span class="btn btn-sm btn-accent" v-else><i class="mr-1 fa fa-times"></i>Not-Verified</span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -205,7 +219,18 @@
                                                             Approval status
                                                         </label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <span class="btn btn-sm btn-accent">{{ hospital.approve_status ? hospital.approve_status.toUpperCase() : '' }}</span>
+                                                            <template v-if="hospital.approve_status === 'approved'">
+                                                                <span class="btn btn-sm btn-accent"><i class="mr-1 fa fa-check"></i>Approved</span>
+                                                            </template>
+                                                            <template v-else-if="hospital.approve_status === 'rejected'">
+                                                                <span class="btn btn-sm btn-accent"><i class="mr-1 fa fa-times"></i>Rejected</span>
+                                                                <br>
+                                                                <label for="">Reject Message</label>
+                                                                <textarea name=""  class="form-control" style="border-color: red;" readonly>{{ hospital.reject_message }}</textarea>
+                                                            </template>
+                                                            <template v-else>
+                                                                <span class="btn btn-sm btn-accent"><i class="mr-1 fa fa-times"></i>Not-Approved</span>
+                                                            </template>
                                                         </div>
                                                     </div>
 
@@ -224,7 +249,7 @@
                                                 </div>
                                                 <br>
                                                 <h5>Files & Documents</h5>
-                                                <ul class="list-unstyled project_files">
+                                                <ul class="list-unstyled project_files" v-if="hospital.document_verified !== 1">
                                                     <hr>
                                                     <li>
                                                         <span v-if="editable">Application Letter</span>

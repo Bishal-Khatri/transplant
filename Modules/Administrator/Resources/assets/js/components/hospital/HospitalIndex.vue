@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" :href="create_route">Create New Hospital</a></li>
+                                    <li><a class="text-accent" :href="create_route">Create New Hospital</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -113,29 +113,30 @@
                             </tr>
                             <tr v-else v-for="(hospital, index) in hospitals" :key="index">
                                 <td>
-                                    <a class="mr-2" href="#" :href="`${route}/${hospital.id}`">{{ hospital.hospital_name }}</a><br>
+                                    <a class="mr-2" href="#" :href="'/admin/hospital-display/'+hospital.id">{{ hospital.hospital_name }}</a><br>
                                     <small class="">Created on {{ hospital.created_at }}</small>
                                 </td>
                                 <td>{{ hospital.transplant_type.toUpperCase() }}</td>
                                 <td>{{ hospitalTypesEnum[hospital.hospital_type-1] }}</td>
                                 <td>
-                                    {{ hospital.approve_status.toUpperCase() }} <br>
+                                    <span :class="hospital.approve_status === 'unapproved' ? 'text-secondary' : 'text-accent'">{{ hospital.approve_status.toUpperCase() }}</span> <br>
                                     {{ hospital.approved_by}}  {{ hospital.approved_date?"On "+hospital.approved_date:"" }}
                                 </td>
                                 <td>
                                     <span class="text-accent" v-if="hospital.status === 1">ENABLED</span>
-                                    <span class="text-secondary" v-else>DISABLED</span>
+                                    <span class="text-danger" v-else>DISABLED</span>
                                 </td>
                                 <td>{{ hospital.licenses_number }}</td>
                                 <td class="text-right">
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Options
+                                            Actions
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                            <a class="dropdown-item" :href="`${route}/${hospital.id}`">View / Edit</a>
-                                            <a class="dropdown-item" href="#" @click.prevent="disableHospital(hospital)">Disable</a>
-                                            <a class="dropdown-item" href="#" @click.prevent="showDeleteModal(hospital.id)">Delete</a>
+                                            <a class="dropdown-item" :href="'/admin/hospital-display/'+hospital.id">View / Edit</a>
+                                            <a class="dropdown-item text-danger" href="#" @click.prevent="clicked_hospital = hospital; $refs.hospitalStatus.changeStatus('accessibility ', 0)" v-if="hospital.status === 1">Disable Login</a>
+                                            <a class="dropdown-item" href="#" @click.prevent="clicked_hospital = hospital; $refs.hospitalStatus.changeStatus('accessibility ', 1)" v-else>Enable Login</a>
+                                            <a class="dropdown-item text-danger" href="#" @click.prevent="showDeleteModal(hospital.id)">Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -170,6 +171,8 @@
                 </div>
             </div>
         </div>
+
+        <change-hospital-status ref="hospitalStatus" :hospital="clicked_hospital"/>
     </div>
 </template>
 
@@ -177,10 +180,12 @@
     import DataService from "../../../services/DataService";
     import {Errors} from "../../../../../../../resources/js/error";
     import {EventBus} from "../../app";
+    import ChangeHospitalStatus from "./ChangeHospitalStatus";
 
     export default {
         name: "hospitalIndex",
         components: {
+            ChangeHospitalStatus
         },
         props: ['route','create_route'],
         data(){
@@ -196,6 +201,8 @@
 
                 hospitals: {},
                 hospitals_pg: {},
+
+                clicked_hospital: "",
             }
         },
         watch:{
@@ -272,6 +279,9 @@
             EventBus.$on('hospitalCreated', () => {
                 this.getHospitals();
             });
+            EventBus.$on('hospitalStatusChanged', () => {
+                this.getHospitals();
+            });
         },
         methods: {
             setSearch:_.debounce(function(){
@@ -285,6 +295,11 @@
             },
 
             showDeleteModal(item_id) {
+                this.delete_id = item_id;
+                $("#delete-hospital-dialog").modal('show');
+            },
+
+            changeStatus(status) {
                 this.delete_id = item_id;
                 $("#delete-hospital-dialog").modal('show');
             },

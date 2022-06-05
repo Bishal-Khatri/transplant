@@ -10,28 +10,12 @@
     @include('layouts.gentelella.css')
 
 </head>
-<body>
-
-<!-- Wrapper-->
+<body class="login">
 <div class="wrapper">
-
-<!-- Header-->
-@include('layouts._partials.nav')
-<!-- End header-->
-
-<!-- Navigation-->
-@include('layouts._partials.sidebar')
-<!-- End navigation-->
-    <!-- Main content-->
     <section class="content">
-        <div class="container-fluid">
-            @yield('content')
-        </div>
+        @yield('content')
     </section>
-    <!-- End main content-->
-
 </div>
-<!-- End wrapper-->
 
 @include('layouts.gentelella.script')
 </body>

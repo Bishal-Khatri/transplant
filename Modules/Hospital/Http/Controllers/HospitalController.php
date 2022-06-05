@@ -2,19 +2,24 @@
 
 namespace Modules\Hospital\Http\Controllers;
 
+use App\Enum\UserType;
+use App\Models\User;
 use App\Traits\SetResponse;
+use App\Traits\UserTrait;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\ContentManagement\Entities\Patient;
 use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Enum\HospitalApproveStatus;
-use Modules\Hospital\Enum\HospitalVerificationStatus;
+use Modules\Hospital\Enum\HospitalDocumentVerification;
+use Modules\Hospital\Enum\HospitalPlysicalVerification;
 use Modules\Hospital\Entities\License;
+use Spatie\Activitylog\Models\Activity;
 use Auth;
 class HospitalController extends Controller
 {
-    use SetResponse;
+    use SetResponse, UserTrait;
 
     public function profile()
     {
@@ -45,18 +50,20 @@ class HospitalController extends Controller
             'province' => 'required|exists:provinces,id',
             'district' => 'required|exists:districts,id',
             'municipality' => 'required|exists:municipalities,id',
-            'palika' => 'required:string|max:255',
+            'palika' => 'nullable|max:255',
             'transplant_type' => 'required',
             'hospital_type' => 'required',
-            'application_letter' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'human_resource' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'tools_list' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'administrative_document' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'sanchalan_swikriti' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'renewal_letter' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'pan' => 'required|mimes:png,jpeg,svg,jpg,pdf',
-            'tax_clearance' => 'required|mimes:png,jpeg,svg,jpg,pdf',
+            'application_letter' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'human_resource' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'tools_list' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'administrative_document' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'sanchalan_swikriti' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'renewal_letter' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'pan' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'tax_clearance' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
             'agree'=>'required',
+            'full_name'=>'required',
+            'email'=>'required|email',
         ], [
             'agree.required' => 'You must agree to the terms and conditions.'
         ]);
@@ -106,13 +113,23 @@ class HospitalController extends Controller
 
 
         $hospital->approve_status = HospitalApproveStatus::UNAPPROVED;
-        $hospital->verification_status = HospitalVerificationStatus::NONE;
+        $hospital->document_verification = HospitalDocumentVerification::UNVERIFIED;
+        $hospital->physical_verification = HospitalPlysicalVerification::UNVERIFIED;
         $hospital->status = 0;
 
         $hospital->save();
 
+        // setup login
+        $user = new User();
+        $user->name = $request->full_name;
+        $user->email = $request->email;
+        $user->password = $this->defaultPasswordHashed();
+        $user->user_type = UserType::HOSPITAL;
+        $user->hospital_id = $hospital->id;
+        $user->save();
+
         //save data
-        $returnData = $this->prepareResponse(false, 'success', [], []);
+        $returnData = $this->prepareResponse(false, "Your form has been submitted successfully. Please check your email <strong>$user->email</strong> for approval message.", [], []);
         return response()->json($returnData);
     }
     public function update(Request $request){
@@ -184,6 +201,18 @@ class HospitalController extends Controller
         ])->find($hospital_id);
         //save data
         $returnData = $this->prepareResponse(false, 'success', [$hospital], []);
+        return response()->json($returnData);
+    }
+    public function notificationList(Request $request){
+        $items = Activity::where(["causer_id" =>auth()->user()->id])->paginate(10);
+        $notifications=$items->setCollection(
+            $items->getCollection()->transform(function ($value) {
+                $subj=explode('\\',$value->subject_type);
+                $value->subject_name = $subj[count($subj)-1];
+                $value->created_at_diff_for_human = $value->created_at->diffForHumans();
+                return $value;
+            }));
+        $returnData = $this->prepareResponse(false, 'success', [$notifications], []);
         return response()->json($returnData);
     }
 

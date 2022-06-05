@@ -10,7 +10,7 @@
                             </div>
                             <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a style="color: #5A738E;" :href="'/hospital/patient/update/'+patient.id">Edit Profile</a></li>
+                                    <li><a class="text-accent" :href="'/hospital/patient/update/'+patient.id">Edit Profile</a></li>
                                 </ul>
                             </div>
                         </div>

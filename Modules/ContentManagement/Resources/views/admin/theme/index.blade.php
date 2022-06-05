@@ -16,7 +16,7 @@
                         <div class="x_title">
                             <h2>Available Themes</h2>
                             <ul class="nav navbar-right panel_toolbox">
-                                <li><a href="{{ route('cms.theme.scan') }}" style="color: #5A738E;" type="submit">Scan</a></li>
+                                <li><a href="{{ route('cms.theme.scan') }}" class="text-accent" type="submit">Scan</a></li>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
@@ -53,7 +53,7 @@
                             <div class="x_title">
                                 <h2>General</h2>
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><button class="btn btn-link" style="color: #5A738E;" type="submit">Save</button></li>
+                                    <li><button class="btn btn-link" class="text-accent" type="submit">Save</button></li>
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>

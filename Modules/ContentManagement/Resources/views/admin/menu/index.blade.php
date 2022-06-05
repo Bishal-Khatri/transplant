@@ -143,7 +143,7 @@
                         <div class="x_title">
                             <h2>Select Menu</h2>
                             <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="" style="color: #5A738E;" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Create New Menu</a></li>
+                                <li><a class="" class="text-accent" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Create New Menu</a></li>
                             </ul>
                             <div class="clearfix"></div>
                         </div>

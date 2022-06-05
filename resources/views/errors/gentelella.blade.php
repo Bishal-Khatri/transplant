@@ -30,7 +30,8 @@
 
         <div class="right_col" role="main" >
             <div class="wrapper">
-                @yield('code') |
+                @yield('code') | @yield('short_message')
+                <br>
                 @yield('message')
                 <br><br>
                 <a href="{{ url()->previous() }}" class="btn btn-sm btn-accent">Go Back</a>

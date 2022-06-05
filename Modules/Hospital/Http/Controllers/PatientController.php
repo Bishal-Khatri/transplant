@@ -18,7 +18,10 @@ class PatientController extends Controller
 
     public function getPatientList(Request $request)
     {
+        $hospital = auth()->user()->hospital;
+
         $query = Patient::query();
+        $query->where('hospital_id', $hospital->id);
         if (isset($request->filter) AND !blank($request->filter)){
             $query->where('name', 'LIKE', "%" . $request->filter . "%");
         }
@@ -41,7 +44,6 @@ class PatientController extends Controller
 
     public function savePatient(Request $request)
     {
-
         $request->validate([
             'patient_image' => 'required',
             'patient_name' => 'required',
@@ -49,6 +51,7 @@ class PatientController extends Controller
         ]);
 
         $this->checkPatient($request);
+        $hospital = auth()->user()->hospital;
 
         $patient = new Patient();
 
@@ -58,6 +61,7 @@ class PatientController extends Controller
         }
         $patient->name = $request->patient_name;
         $patient->citizenship_number = $request->citizenship_number;
+        $patient->hospital_id = $hospital->id;
 
         $patient->save();
 

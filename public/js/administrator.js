@@ -18960,6 +18960,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -43714,7 +43716,7 @@ var render = function () {
                                   {
                                     class:
                                       hospital.approve_status === "unapproved"
-                                        ? "text-secondary"
+                                        ? "text-danger"
                                         : "text-accent",
                                   },
                                   [
@@ -43727,26 +43729,35 @@ var render = function () {
                                 ),
                                 _vm._v(" "),
                                 _c("br"),
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(hospital.approved_by) +
-                                    "  " +
-                                    _vm._s(
-                                      hospital.approved_date
-                                        ? "On " + hospital.approved_date
-                                        : ""
-                                    ) +
-                                    "\n                            "
-                                ),
+                                _vm._v(" "),
+                                hospital.approve_status === "approved"
+                                  ? _c("small", [
+                                      _vm._v(
+                                        "\n                                   Approved By: " +
+                                          _vm._s(
+                                            hospital.approved_by_user
+                                              ? hospital.approved_by_user.name
+                                              : "Not-Available"
+                                          ) +
+                                          " " +
+                                          _vm._s(
+                                            hospital.approved_date
+                                              ? "On " + hospital.approved_date
+                                              : ""
+                                          ) +
+                                          "\n                               "
+                                      ),
+                                    ])
+                                  : _vm._e(),
                               ]),
                               _vm._v(" "),
                               _c("td", [
                                 hospital.status === 1
                                   ? _c("span", { staticClass: "text-accent" }, [
-                                      _vm._v("ENABLED"),
+                                      _vm._v("Enabled"),
                                     ])
                                   : _c("span", { staticClass: "text-danger" }, [
-                                      _vm._v("DISABLED"),
+                                      _vm._v("Disabled"),
                                     ]),
                               ]),
                               _vm._v(" "),

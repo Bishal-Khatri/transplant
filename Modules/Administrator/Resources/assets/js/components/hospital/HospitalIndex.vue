@@ -119,12 +119,14 @@
                                 <td>{{ hospital.transplant_type.toUpperCase() }}</td>
                                 <td>{{ hospitalTypesEnum[hospital.hospital_type-1] }}</td>
                                 <td>
-                                    <span :class="hospital.approve_status === 'unapproved' ? 'text-secondary' : 'text-accent'">{{ hospital.approve_status.toUpperCase() }}</span> <br>
-                                    {{ hospital.approved_by}}  {{ hospital.approved_date?"On "+hospital.approved_date:"" }}
+                                    <span :class="hospital.approve_status === 'unapproved' ? 'text-danger' : 'text-accent'">{{ hospital.approve_status.toUpperCase() }}</span> <br>
+                                   <small v-if="hospital.approve_status === 'approved'">
+                                       Approved By: {{ hospital.approved_by_user ? hospital.approved_by_user.name : 'Not-Available' }} {{ hospital.approved_date?"On "+hospital.approved_date:"" }}
+                                   </small>
                                 </td>
                                 <td>
-                                    <span class="text-accent" v-if="hospital.status === 1">ENABLED</span>
-                                    <span class="text-danger" v-else>DISABLED</span>
+                                    <span class="text-accent" v-if="hospital.status === 1">Enabled</span>
+                                    <span class="text-danger" v-else>Disabled</span>
                                 </td>
                                 <td>{{ hospital.licenses_number }}</td>
                                 <td class="text-right">

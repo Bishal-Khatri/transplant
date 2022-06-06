@@ -14,6 +14,8 @@
 <script src="{{ asset('asset/vendor/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('asset/vendor/summernote/dist/summernote-bs4.js') }}"></script>
 <script src="{{ asset('asset/vendor/nestable/jquery.nestable.js') }}"></script>
+
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 <script>
 
     $.ajaxSetup({

@@ -1,6 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-12 col-sm-12  ">
+            <file-manager ></file-manager>
             <div class="x_panel">
                 <div class="x_title">
                     <ul class="nav navbar-right panel_toolbox">

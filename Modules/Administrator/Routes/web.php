@@ -4,6 +4,8 @@ use Modules\Administrator\Http\Controllers\AddressController;
 use Modules\Administrator\Http\Controllers\AdministratorController;
 use Modules\Administrator\Http\Controllers\DataController;
 use Modules\Administrator\Http\Controllers\HospitalController;
+use Modules\Administrator\Http\Controllers\PatientController;
+
 Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() {
     Route::get('/', [AdministratorController::class, 'index'])->name('admin.index');
 
@@ -21,6 +23,15 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
     Route::get('/hospital-list', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'listHospitals'])->name('admin.hospital.list');
     Route::get('/hospital-create', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'createHospital'])->name('admin.hospital.create');
 
+    // admin.patient.list
+     // Patient
+     Route::group(['prefix' => 'patient'], function (){
+        Route::get('/', [PatientController::class, 'index'])->name('admin.patients');
+        Route::get('/view/{id}', [PatientController::class, 'view'])->name('admin.patient.view');
+        Route::get('/update/{patient_id}', [PatientController::class, 'edit'])->name('admin.patient.edit');
+    });
+    // End Patient
+    
     Route::group(['prefix' => 'web-api'],function() {
 
         // RELIGIONS
@@ -84,5 +95,13 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
 
         Route::get('/hospitals/{id}', [HospitalController::class, 'hospitals_view']);
         // End Hospital
+
+        Route::group(['prefix' => 'patient'], function (){
+            Route::get('/list', [PatientController::class, 'getPatientList']);
+            Route::post('/create', [PatientController::class, 'savePatient']);
+            Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);
+            Route::post('/update', [PatientController::class, 'updatePatient']);
+        });
+       
     });
 });

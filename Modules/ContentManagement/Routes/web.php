@@ -53,7 +53,6 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
         Route::get('/', [StorageController::class, 'index'])->name('index');
         Route::get('/gallery', [StorageController::class, 'gallery_index'])->name('gallery.index');
         Route::get('/gallery/{gallery_id}', [StorageController::class, 'galleryImages'])->name('gallery.images');
-//        Route::get('/slider', [StorageController::class, 'slider_index'])->name('slider.index');
     });
 
 

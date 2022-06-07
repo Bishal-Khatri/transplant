@@ -70,7 +70,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route('cms.storage.gallery.index') }}">
+                        <a href="{{ route('cms.storage.index') }}">
                             <i class="fa fa-dropbox"></i> Storage
                         </a>
                     </li>

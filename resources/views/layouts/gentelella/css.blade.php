@@ -11,7 +11,8 @@
 {{--from dione--}}
 <link rel="stylesheet" href="{{ asset('asset/vendor/summernote/dist/summernote-bs4.css') }}"/>
 <link rel="stylesheet" href="{{ asset('asset/vendor/toastr/toastr.min.css') }}"/>
-
+<link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <style>
     .rounded{
         border-radius: 0.25rem !important;

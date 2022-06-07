@@ -60,10 +60,10 @@
 </template>
 
 <script>
-    import {EventBus} from "../../app";
-    import StorageService from "../../../services/StorageService";
+    import {EventBus} from "../../../app";
+    import StorageService from "../../../../services/StorageService";
     import CreateGallery from "./CreateGallery";
-    import {Errors} from "../../../../../../../resources/js/error";
+    import {Errors} from "../../../../../../../../resources/js/error";
 
     export default {
         name: "GalleryIndex",

@@ -54,6 +54,7 @@ class HospitalController extends Controller
     public function hospitals(Request $request)
     {
         $query = Hospital::query();
+        $query->with('approvedByUser');
         if ($request->has('filter_by') AND !blank($request->filter_by)) {
             if($request->filter_by=="HospitalTypes"){
                     $query->where('hospital_type',$request->filter_by_option);

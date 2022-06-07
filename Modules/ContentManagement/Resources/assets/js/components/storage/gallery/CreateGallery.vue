@@ -27,9 +27,9 @@
 </template>
 
 <script>
-    import {EventBus} from '../../app';
-    import {Errors} from "../../../../../../../resources/js/error";
-    import StorageService from "../../../services/StorageService";
+    import {EventBus} from '../../../app';
+    import {Errors} from "../../../../../../../../resources/js/error";
+    import StorageService from "../../../../services/StorageService";
 
     export default {
         name: "CreateGallery",

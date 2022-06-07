@@ -19,7 +19,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            Add content to the page ...
+                            <storage-index></storage-index>
                         </div>
                     </div>
                 </div>

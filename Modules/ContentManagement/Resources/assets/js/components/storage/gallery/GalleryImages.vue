@@ -8,6 +8,7 @@
                             <h2>Images on {{ gallery.title }}</h2>
                         </div>
                         <div class="col-md-6 col-lg-6">
+                            <button @click.prevent="$refs.selectFile.openDialog()">Choose</button>
                             <div class="d-flex float-right">
                                 <i class="fa fa-upload mt-2 font-bold"></i>
                                 <input type="file" class="form-control-sm" id="additional-image" style="width:210px" @change.prevent="uploadMultipleImages" accept="image/png, image/jpeg" multiple>
@@ -64,20 +65,28 @@
             </div>
         </div>
         <image-preview ref="imagePreview"/>
+        <select-file ref="selectFile" @filesSelected="getSelectedFiles"/>
     </div>
 </template>
 
 <script>
-    import {EventBus} from "../../app";
-    import StorageService from "../../../services/StorageService";
-    import {Errors} from "../../../../../../../resources/js/error";
-    import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
+    import {EventBus} from "../../../app";
+    import StorageService from "../../../../services/StorageService";
+    import {Errors} from "../../../../../../../../resources/js/error";
+    import ImagePreview from "../../../../../../../../resources/js/components/ImagePreview";
+    import SelectFile from "../SelectFile";
 
     export default {
         name: "GalleryImages",
         props:['gallery_id'],
         components: {
-            ImagePreview
+            ImagePreview,
+            SelectFile
+        },
+        computed:{
+            // selectedFiles(){
+            //     this.$refs.selectFile.selectedFiles
+            // }
         },
         data(){
             return{
@@ -97,6 +106,9 @@
             });
         },
         methods: {
+            getSelectedFiles(files) {
+                console.log(files)
+            },
             async getImages() {
                 const response = await StorageService.getGalleryImages(this.gallery_id);
                 this.gallery = response.data.data.gallery;

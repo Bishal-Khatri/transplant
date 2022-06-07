@@ -1,7 +1,6 @@
 <template>
     <div class="row">
         <div class="col-md-12 col-sm-12  ">
-            <file-manager ></file-manager>
             <div class="x_panel">
                 <div class="x_title">
                     <ul class="nav navbar-right panel_toolbox">
@@ -61,10 +60,10 @@
 </template>
 
 <script>
-    import {EventBus} from "../../app";
-    import StorageService from "../../../services/StorageService";
+    import {EventBus} from "../../../app";
+    import StorageService from "../../../../services/StorageService";
     import CreateGallery from "./CreateGallery";
-    import {Errors} from "../../../../../../../resources/js/error";
+    import {Errors} from "../../../../../../../../resources/js/error";
 
     export default {
         name: "GalleryIndex",

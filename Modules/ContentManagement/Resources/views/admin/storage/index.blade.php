@@ -19,7 +19,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-
+                            <storage-index></storage-index>
                         </div>
                     </div>
                 </div>

@@ -74,7 +74,6 @@
                             <i class="fa fa-dropbox"></i> Storage
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>

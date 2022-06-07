@@ -17,6 +17,11 @@ class Hospital
      */
     public function handle(Request $request, Closure $next)
     {
+        // check if user has changed password
+        if (auth()->user()->password_change_at == null){
+            return redirect(route('change-password'));
+        }
+
         if (auth()->user()->user_type != UserType::HOSPITAL){
             abort(403);
         }

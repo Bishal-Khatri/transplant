@@ -22,6 +22,7 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
     // hospital waiting list
     Route::get('/hospital-list', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'listHospitals'])->name('admin.hospital.list');
     Route::get('/hospital-create', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'createHospital'])->name('admin.hospital.create');
+    Route::get('/hospital-display/{id}', [\Modules\Administrator\Http\Controllers\HospitalController::class, 'displayHospital'])->name('admin.hospital.display');
 
     // admin.patient.list
      // Patient
@@ -33,6 +34,8 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
     // End Patient
     
     Route::group(['prefix' => 'web-api'],function() {
+
+        Route::get('/hospitals-details/{id}', [HospitalController::class, 'getHospitalDetails']);
 
         // RELIGIONS
         Route::get('/religions', [DataController::class, 'religions']);
@@ -93,7 +96,10 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
         Route::post('/hospitals/create', [HospitalController::class, 'store']);
         Route::delete('/hospitals/delete/{id}', [HospitalController::class, 'delete']);
 
-        Route::get('/hospitals/{id}', [HospitalController::class, 'hospitals_view']);
+        Route::post('/hospital-update-status', [HospitalController::class, 'changeHospitalStatus']);
+
+        Route::post('/hospital-approve', [HospitalController::class, 'approveHospital']);
+        Route::post('/hospital-reject', [HospitalController::class, 'rejectHospital']);
         // End Hospital
 
         Route::group(['prefix' => 'patient'], function (){

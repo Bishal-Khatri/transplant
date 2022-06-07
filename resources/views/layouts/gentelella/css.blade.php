@@ -63,5 +63,20 @@
     .toast{
         opacity: 1 !important;
     }
+
+    .text-accent{
+        color: #172D44 !important;
+    }
+
+    .text-accent-1{
+        color: #5A738E !important;
+    }
+
+    .bg-accent{
+        background-color: #172D44 !important;
+    }
+    .bg-accent-1{
+        background-color: #2A3F54 !important;
+    }
 </style>
 @yield('css')

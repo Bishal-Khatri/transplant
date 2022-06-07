@@ -18,9 +18,7 @@
                 <div class="col-lg-8 col-md-8">
                     <div class="boxed boxed--border" v-if="display_success_message">
                         <h5>Success</h5>
-                        <p>
-                            Your form has been submitted successfully. Please check your email form approval message.
-                        </p>
+                        <p v-html="success_message"></p>
                         <a class="btn btn--primary" href="#" @click.prevent="display_success_message = false;">
                             <span class="btn__text">Show Form</span>
                         </a>
@@ -169,6 +167,22 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-12 mt-3">
+                                <hr>
+                                <h5>Login credentials</h5>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Name</label>
+                                <input type="text" placeholder="Type Full Name Here" v-model="full_name"/>
+                                <span class="small text-danger" v-html="errors.get('full_name')"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="example@example.com" v-model="email"/>
+                                <span class="small text-danger" v-html="errors.get('email')"></span>
+                            </div>
 
                             <div class="col-md-12">
                                 <div class="input-checkbox">
@@ -194,6 +208,12 @@
             <!--end of row-->
         </div>
         <!--end of container-->
+
+        <div class="row">
+            <div class="col-md-12">
+
+            </div>
+        </div>
     </section>
 </template>
 
@@ -201,11 +221,10 @@
     import PublicService from "../../services/PublicService";
     import {Errors} from "../../../../../../resources/js/error";
     import HospitalFrontendService from "../../services/HospitalFrontendService";
+
     export default {
         name:"RegisterHospital",
         props: {
-        },
-        components: {
         },
         data:()=>({
             errors: new Errors(),
@@ -213,6 +232,7 @@
             district_disable: true,
             municipality_disable: true,
             display_success_message: false,
+            success_message: "Your form has been submitted successfully. Please check your email form approval message.",
 
             // form data
             hospital_name: "",
@@ -237,9 +257,17 @@
             districts: {},
             municipalities:{},
             palikas:{},
+
+            full_name: '',
+            email: ''
         }),
         mounted(){
             this.getProvince();
+        },
+        watch: {
+            hospital_name(new_hospital_name, old_hospital_name) {
+                this.full_name = new_hospital_name;
+            }
         },
         methods: {
             async getProvince(){
@@ -334,9 +362,13 @@
                         formData.append("tax_clearance", this.tax_clearance, this.tax_clearance.name);
                     }
 
+                    this.full_name ? formData.append("full_name", this.full_name) : '';
+                    this.email ? formData.append("email", this.email) : '';
+
                     const response = await HospitalFrontendService.registerHospital(formData);
                     if (response.data.error === false) {
                         this.display_success_message = true;
+                        this.success_message = response.data.message;
                         this.clearForm();
                     }
                 } catch (error) {

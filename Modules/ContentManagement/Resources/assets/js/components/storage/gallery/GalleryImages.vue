@@ -7,12 +7,19 @@
                         <div class="col-md-6 col-lg-6">
                             <h2>Images on {{ gallery.title }}</h2>
                         </div>
-                        <div class="col-md-6 col-lg-6">
-                            <button @click.prevent="$refs.selectFile.openDialog()">Choose</button>
-                            <div class="d-flex float-right">
-                                <i class="fa fa-upload mt-2 font-bold"></i>
-                                <input type="file" class="form-control-sm" id="additional-image" style="width:210px" @change.prevent="uploadMultipleImages" accept="image/png, image/jpeg" multiple>
+                        <div class="col-md-6 col-lg-6 text-right">
+                            <div class="btn-group" role="group">
+                                <button id="filter-verification-status" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-upload mr-1"></i> Upload
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="filter-verification-status"
+                                     x-placement="bottom-start"
+                                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                    <a class="dropdown-item" @click.prevent="$refs.file.click()">Choose File</a>
+                                    <a class="dropdown-item" @click.prevent="$refs.selectFile.openDialog()">From Storage</a>
+                                </div>
                             </div>
+                            <input type="file" ref="file" class="form-control-sm" id="additional-image" style="display: none; width:210px" @change.prevent="uploadMultipleImages" accept="image/png, image/jpeg" multiple>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -65,7 +72,7 @@
             </div>
         </div>
         <image-preview ref="imagePreview"/>
-        <select-file ref="selectFile" @filesSelected="getSelectedFiles"/>
+        <select-file ref="selectFile" @filesSelected="uploadSelectedFiles" config="3"/>
     </div>
 </template>
 
@@ -84,9 +91,6 @@
             SelectFile
         },
         computed:{
-            // selectedFiles(){
-            //     this.$refs.selectFile.selectedFiles
-            // }
         },
         data(){
             return{
@@ -106,9 +110,6 @@
             });
         },
         methods: {
-            getSelectedFiles(files) {
-                console.log(files)
-            },
             async getImages() {
                 const response = await StorageService.getGalleryImages(this.gallery_id);
                 this.gallery = response.data.data.gallery;
@@ -127,12 +128,26 @@
                 this.uploading_image = false;
             },
 
-            async uploadFile(file){
+            async uploadSelectedFiles(files) {
+                this.uploading_image = true;
+                if (files.length){
+                    for (let i=0; i < files.length; i++){
+                        await this.uploadFile(files[i], 'link');
+                    }
+                    this.getImages();
+                }
+                this.uploading_image = false;
+            },
+
+            async uploadFile(file, fileType='formData'){
                 const fd = new FormData();
-                if (file) {
+                if (fileType === 'link'){
+                    fd.append("image", file);
+                } else{
                     fd.append("image", file, file.name);
                 }
                 fd.append("gallery_id", this.gallery_id);
+                fd.append("file_type", fileType);
                 try {
                     const response = await StorageService.addImageToGallery(fd);
                     if (response.data.error === false) {

@@ -50,7 +50,7 @@
                     </li>
                     <li>
                     <a href="{{ route('admin.patients') }}">
-                            <i class="fa fa-patient-o"></i> Patients
+                        <i class="fa fa-users"></i> Patient Waiting List
                         </a>
                     </li>
                 </ul>

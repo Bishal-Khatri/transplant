@@ -4,7 +4,7 @@
 @endphp
 <section class="cover height-80 imagebg switchable siwtchable--switch" data-overlay="8">
     <div class="background-image-holder">
-        <img alt="background" src="{{ asset('themes/stack/images/banner.jpg') }}" />
+        <img alt="background" src="{{ asset($background['image_url'] ) }}" />
     </div>
     <div class="container pos-vertical-center">
         <div class="row justify-content-around">
@@ -30,7 +30,7 @@
                         <img alt="image" src="{{ asset($background['image_url']) }}" />
                     </div>
                     <div class="video-play-icon"></div>
-                    <iframe data-src="https://www.youtube.com/embed/6p45ooZOOPo?autoplay=1" allowfullscreen="allowfullscreen"></iframe>
+                    <iframe src="{{ $json_data['video_url'] }}" allowfullscreen="allowfullscreen"></iframe>
                 </div>
                 <!--end video cover-->
             </div>

@@ -2,19 +2,29 @@
     <div>
         <div class="x_panel">
             <div class="x_title">
-                <h2>RichText Section <input type="checkbox" class="js-switch ml-4" v-model="visibility" /> Visible</h2>
+                <h2>RichText Section</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="btn btn-link" v-if="submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
                         <a class="btn btn-link text-accent" href="" v-else @click.prevent="updateSection" >Save Section</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                    <li><a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a></li>
+                    <li><slot name="delete"></slot></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <form class="form-horizontal form-label-left">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                            Section Visibility
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="checkbox" class="js-switch-custom" v-model="visibility" />
+                            <span v-if="visibility">Visible</span>
+                            <span v-else>Hidden</span>
+                        </div>
+                    </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align">
                             Section Order
@@ -48,7 +58,6 @@
             </div>
         </div>
 
-        <delete-section ref="deleteSection"></delete-section>
     </div>
 </template>
 
@@ -56,7 +65,6 @@
     import PageService from "../../../../services/PageService";
     import {Errors} from "../../../../../../../../resources/js/error";
     import {EventBus} from "../../../app";
-    import DeleteSection from "./DeleteSection";
 
     export default {
         name: "RichText",
@@ -65,7 +73,6 @@
             'section',
         ],
         components: {
-            DeleteSection,
         },
         data(){
             return{

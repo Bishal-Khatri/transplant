@@ -44,7 +44,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{ $page->title }}<br>
+                                                <a href="{{ route('cms.page.edit', $page->id) }}">{{ $page->title }}</a><br>
                                                 <small class="">Created on {{ $page->created_at }}</small>
                                             </td>
                                             <td class="text-right">

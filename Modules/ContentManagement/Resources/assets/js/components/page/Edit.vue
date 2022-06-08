@@ -11,10 +11,7 @@
 
                         <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="component-tab" data-toggle="tab" href="#component" role="tab" aria-controls="home" aria-selected="true">Components</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="widget-tab" data-toggle="tab" href="#widget" role="tab" aria-controls="profile" aria-selected="false">Widget</a>
+                                <a class="nav-link active" id="component-tab" data-toggle="tab" href="#component" role="tab" aria-controls="home" aria-selected="true">Sections</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -31,18 +28,14 @@
                                         <p>Banner - Home Page <a class="float-right" href="#" @click.prevent="addSection('banner', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
                                     </li>
 
-                                    <!--<li>-->
-                                    <!--<p>Image <a class="float-right" href="" @click.prevent="addSection('image', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>-->
-                                    <!--</li>-->
+                                    <li>
+                                        <p>Image <a class="float-right" href="" @click.prevent="addSection('image', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
 
                                     <li>
                                         <p>Pdf <a class="float-right" href="" @click.prevent="addSection('pdf')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
                                     </li>
 
-                                </ul>
-                            </div>
-                            <div class="tab-pane fade" id="widget" role="tabpanel" aria-labelledby="profile-tab">
-                                <ul class="to_do">
                                     <li>
                                         <p>Image Gallery <a class="float-right" href="" @click.prevent="addSection('gallery', 'widget')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
                                     </li>
@@ -52,6 +45,7 @@
                                     <li>
                                         <p>Slider <a class="float-right" href="#" @click.prevent="addSection('slider', 'widget')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
                                     </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -95,7 +89,7 @@
                                     Header Visibility
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="checkbox" class="js-switch ml-4" v-model="title_visibility" id="title_visibility"/>
+                                    <input type="checkbox" class="js-switch-custom ml-4" v-model="title_visibility" id="title_visibility"/>
                                     <span v-if="title_visibility">Visible</span>
                                     <span v-else>Hidden</span>
                                 </div>
@@ -147,22 +141,54 @@
                 <div v-if="sections.length" v-for="(section, index) in sections" :key="index">
 
                     <!--COMPONENTS-->
-                    <call-to-action v-if="section.section_name === 'call_to_action'" :page="page" :section="section"></call-to-action>
+                    <call-to-action v-if="section.section_name === 'call_to_action'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </call-to-action>
 
-                    <rich-text v-if="section.section_name === 'text'" :page="page" :section="section"></rich-text>
+                    <rich-text v-if="section.section_name === 'text'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </rich-text>
 
-                    <banner v-if="section.section_name === 'banner'" :page="page" :section="section"></banner>
+                    <banner v-if="section.section_name === 'banner'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </banner>
 
-                    <!--<pdf v-else-if="section.section_name === 'pdf'" :page="page" :section="section"></pdf>-->
+                    <pdf v-else-if="section.section_name === 'pdf'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </pdf>
 
-                    <!--<image-field v-if="section.section_name === 'image'" :page="page" :section="section"></image-field>-->
+                    <image-field v-if="section.section_name === 'image'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </image-field>
 
                     <!--WIDGET-->
-                    <slider v-if="section.section_name === 'slider'" :page="page" :section="section" :galleries="galleries"></slider>
+                    <slider v-if="section.section_name === 'slider'" :page="page" :section="section" :galleries="galleries">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </slider>
 
-                    <gallery v-if="section.section_name === 'gallery'" :page="page" :section="section" :galleries="galleries"></gallery>
+                    <gallery v-if="section.section_name === 'gallery'" :page="page" :section="section" :galleries="galleries">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </gallery>
 
-                    <file-download v-else-if="section.section_name === 'file_download'" :page="page" :section="section"></file-download>
+                    <file-download v-else-if="section.section_name === 'file_download'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </file-download>
 
 
                 </div>
@@ -170,7 +196,7 @@
             </div>
 
 
-
+            <delete-section ref="deleteSection"></delete-section>
         </div>
     </div>
 </template>
@@ -187,6 +213,8 @@
     import ImageField from "./section/ImageField";
     import CallToAction from "./section/CallToAction";
     import Banner from "./section/Banner";
+    import DeleteSection from "./section/DeleteSection";
+
     export default {
         name: "Edit",
         components: {
@@ -198,6 +226,7 @@
             Pdf,
             Slider,
             Banner,
+            DeleteSection,
         },
         props: [
             'page',
@@ -222,8 +251,20 @@
             EventBus.$on('sectionUpdated', () => {
                 this.getPageDetails();
             });
+            this.init();
         },
         methods: {
+            init(){
+                if ($(".js-switch-custom")[0]) {
+                    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch-custom'));
+                    elems.forEach(function (html) {
+                        var switchery = new Switchery(html, {
+                            color: '#172D44'
+                        });
+                    });
+                }
+            },
+
             async getPageDetails() {
                 const response = await PageService.getPageDetails(this.page.id);
                 this.page_details = response.data.data.page;
@@ -236,6 +277,7 @@
                     $("#title_visibility").attr("checked", "newId");
                 }
             },
+
             async addSection(section_name, section_type) {
                 const formData = {
                     page_id: this.page.id,
@@ -246,18 +288,12 @@
                 if (response.data.error === false) {
                     Errors.Notification(response);
                 }
-                this.getPageDetails();
-            },
-
-            init(){
-
+                await this.getPageDetails();
             },
 
             async updatePage() {
                 this.submitting = true;
                 try {
-                    let title_visibility = $("#title_visibility").val();
-                    console.log(this.title_visibility)
                     const formData = {
                         page_id: this.page.id,
                         title: this.title,
@@ -283,9 +319,6 @@
                 this.main_image = event.target.files[0];
                 this.item_image_url = URL.createObjectURL(event.target.files[0]);
             },
-            clearForm() {
-                // this.id = this.item_name = this.sku = this.category = this.brand = '';
-            },
             async showDelete(delete_id){
                 this.delete_quantity_id = delete_id;
                 $("#deleteModal").modal("show");
@@ -294,43 +327,6 @@
                 this.delete_quantity_id = '';
                 $("#deleteModal").modal("hide");
             },
-
-            // async uploadAdditionalImages(event){
-            //     this.uploading_image = true;
-            //     const files = event.target.files;
-            //     if (files.length){
-            //         for (let i=0; i < files.length; i++){
-            //             await this.uploadFile(files[i]);
-            //         }
-            //         this.getItemDetails();
-            //     }
-            //     this.uploading_image = false;
-            // },
-            //
-            // async uploadFile(file){
-            //     const fd = new FormData();
-            //     if (file) {
-            //         fd.append("file", file, file.name);
-            //     }
-            //     fd.append("item_id", this.itemId);
-            //     try {
-            //         const response = await InventoryService.uploadAdditionalImage(fd);
-            //         if (response.data.error === false) {
-            //         }
-            //         Errors.Notification(response);
-            //     }catch (error) {
-            //         this.errors.record(error.response.data);
-            //         Errors.Notification(error.response);
-            //     }
-            // },
-            //
-            // async deleteAdditionalImage(image_id){
-            //     const response = await InventoryService.deleteAdditionalImage(image_id);
-            //     if (response.data.error === false) {
-            //         Errors.Notification(response);
-            //         this.getItemDetails();
-            //     }
-            // }
         },
     }
 </script>

@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="modal fade" id="select-file" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal fade" :id="name" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Create/Update Disease</h4>
+                        <h4 class="modal-title" id="myModalLabel">Create/Update Disease Key: {{title}}</h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -12,10 +12,9 @@
                         <file-manager v-bind:settings="settings"></file-manager>
                     </div>
                     <div class="modal-footer">
-                        {{fileSelected}}
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                         <button v-if="submitting" type="button" class="btn btn-accent btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                        <button v-else type="button" class="btn btn-accent btn-sm" @click.prevent="selectFiles">Save</button>
+                        <button v-else type="button" class="btn btn-accent btn-sm" @click.prevent="selectFiles">Select</button>
                     </div>
                 </div>
             </div>
@@ -28,6 +27,7 @@
 
     export default {
         name: "SelectFile",
+        props:['title', 'name'],
         data(){
             return{
                 errors: new Errors(),
@@ -47,22 +47,31 @@
             fileSelected() {
                 if (this.fileSelected.length > 0) {
                     this.modelValue.url = `/storage/${this.fileSelected[0]}`;
-                    this.isFilemanagerOpen = false;
                 }
             }
         },
         methods:{
             openDialog() {
-                $("#select-file").modal("show");
+                let id = '#'+this.name;
+                $(id).modal("show");
             },
             selectFiles() {
+                let id = '#'+this.name;
                 this.$emit("filesSelected", this.fileSelected);
-                $("#select-file").modal("hide");
+                $(id).modal("hide");
             },
         }
     }
 </script>
 
-<style scoped>
-
+<style>
+    .fm-modal {
+        min-height: 400px;
+    }
+    .fm .fm-body{
+        min-height: 400px;
+    }
+    .fm-content {
+        min-height: 400px;
+    }
 </style>

@@ -78,15 +78,22 @@ class StorageController extends Controller
         $request->validate([
             'gallery_id' => 'required',
             'image' => 'required',
+            'file_type' => 'required',
         ]);
 
         try {
-//            $path = $request->file('image')->store('gallery_images', 'public');
-            $resolution = [
-                'original'=> true,
-                'large' => [1000,800],
-            ];
-            $main_image = $this->saveImage($request->image, 'gallery_images', $resolution);
+            if ($request->file_type == 'link'){
+                $main_image['original']  = 'filemanager/'.$request->image;
+                $main_image['large']  = 'filemanager/'.$request->image;
+
+            }else{
+                $resolution = [
+                    'original'=> true,
+                    'large' => [1000,800],
+                ];
+                $main_image = $this->saveImage($request->image, 'gallery_images', $resolution);
+
+            }
 
             $galleryImage = new GalleryImage();
             $galleryImage->gallery_id = $request->gallery_id;

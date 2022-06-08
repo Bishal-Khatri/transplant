@@ -2,14 +2,14 @@
     <div>
         <div class="x_panel">
             <div class="x_title">
-                <h2>Slider <input type="checkbox" class="js-switch ml-4" v-model="visibility" /> Visible</h2>
+                <h2>Slider <input type="checkbox" class="js-switch-custom ml-4" v-model="visibility" /> Visible</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="btn btn-link" v-if="submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
                         <a class="btn btn-link text-accent" href="" v-else @click.prevent="updateSection" >Save Section</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                    <li><a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a></li>
+                    <li><slot name="delete"></slot></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -58,13 +58,11 @@
             </div>
         </div>
 
-        <delete-section ref="deleteSection"></delete-section>
     </div>
 </template>
 
 <script>
     import {Errors} from "../../../../../../../../resources/js/error";
-    import DeleteSection from "./DeleteSection";
     import {EventBus} from "../../../app";
     import PageService from "../../../../services/PageService";
 
@@ -76,7 +74,6 @@
             'galleries',
         ],
         components: {
-            DeleteSection,
         },
         data(){
             return{
@@ -86,7 +83,7 @@
                 title: '',
                 text: '',
                 slider_id: '',
-                visibility: 1,
+                visibility: true,
                 section_order: 0,
             }
         },

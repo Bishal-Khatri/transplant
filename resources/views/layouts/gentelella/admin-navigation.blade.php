@@ -48,6 +48,11 @@
                             <i class="fa fa-hospital-o"></i> Hospitals
                         </a>
                     </li>
+                    <li>
+                    <a href="{{ route('admin.patients') }}">
+                            <i class="fa fa-patient-o"></i> Patients
+                        </a>
+                    </li>
                 </ul>
 
                 <h3 class="mt-4">Content Management</h3>

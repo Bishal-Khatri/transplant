@@ -111,6 +111,7 @@ class PageController extends Controller
 
     public function updateSection(Request $request)
     {
+//        dd($request->all());
         $request->validate([
             'section_id' => 'required|integer'
         ]);

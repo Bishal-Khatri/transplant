@@ -78,8 +78,12 @@
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
                                     Background Image
                                 </label>
-                                <div class="col-md-6 col-sm-6 ">
+                                <div class="col-md-4 col-sm-4 ">
                                     <input type="text" v-model="background_image" class="form-control" disabled>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-accent btn-block" @click.prevent="$refs.backgroundImage.openDialog()"><i class="fa fa-images mr-1"></i>Choose</button>
+                                    <select-file name="backgroundImage" title="Select File" ref="backgroundImage" @filesSelected="selectBackgroundImage"/>
                                 </div>
                             </div>
 
@@ -87,17 +91,25 @@
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
                                     Thumbnail Image
                                 </label>
-                                <div class="col-md-6 col-sm-6 ">
+                                <div class="col-md-4 col-sm-4 ">
                                     <input type="text" v-model="image_url" class="form-control" disabled>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-accent btn-block" @click.prevent="$refs.thumbnailImage.openDialog()"><i class="fa fa-images mr-1"></i>Choose</button>
+                                    <select-file name="thumbnailImage" title="Select File" ref="thumbnailImage" @filesSelected="selectThumbnailImage"/>
                                 </div>
                             </div>
 
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                    Video Url (Youtube)
+                                    Video
                                 </label>
-                                <div class="col-md-6 col-sm-6 ">
+                                <div class="col-md-4 col-sm-4 ">
                                     <input type="text" v-model="video_url" class="form-control" disabled>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-accent btn-block" @click.prevent="$refs.selectVideo.openDialog()"><i class="fa fa-images mr-1"></i>Choose</button>
+                                    <select-file name="selectVideo" title="Select File" ref="selectVideo" @filesSelected="selectVideo"/>
                                 </div>
                             </div>
 
@@ -130,6 +142,7 @@
     import {Errors} from "../../../../../../../../resources/js/error";
     import {EventBus} from "../../../app";
     import PageService from "../../../../services/PageService";
+    import SelectFile from "../../storage/SelectFile";
 
     export default {
         name: "Banner",
@@ -139,6 +152,7 @@
             'sliders',
         ],
         components: {
+            SelectFile
         },
         data(){
             return{
@@ -150,11 +164,11 @@
                 visibility: 1,
                 section_order: 0,
 
-                background_image: "http://127.0.0.1:8000/themes/stack/images/banner.jpg",
-                image_url: "http://127.0.0.1:8000/themes/stack/images/banner.jpg",
-                video_url: "https://www.youtube.com/embed/6p45ooZOOPo?autoplay=1",
+                background_image: '',
+                image_url: '',
+                video_url: '',
                 button_name: "Read More",
-                button_link: "",
+                button_link: "#",
             }
         },
         async mounted(){
@@ -162,6 +176,15 @@
             this.init();
         },
         methods:{
+            selectBackgroundImage(path){
+                this.background_image = '/storage/filemanager/'+path;
+            },
+            selectThumbnailImage(path){
+                this.image_url = '/storage/filemanager/'+path;
+            },
+            selectVideo(path){
+                this.video_url = '/storage/filemanager/'+path;
+            },
             async setData(){
                 this.title = this.section.title;
                 this.visibility = this.section.visibility;
@@ -169,13 +192,15 @@
                 this.body = this.section.text;
 
                 // parse background
-                // let background = JSON.parse(this.section.background);
-                // this.background_image = json_data.image_url;
+                let background = JSON.parse(this.section.background);
+                this.background_image = background.image_url;
 
                 // parse media
-                // let json_data = JSON.parse(this.section.json_data);
-                // this.image_url = json_data.image_url;
-                // this.video_url = json_data.video_url;
+                let json_data = JSON.parse(this.section.json_data);
+                this.image_url = json_data.image_url;
+                this.video_url = json_data.video_url;
+                this.button_name = json_data.button_name;
+                this.button_link = json_data.button_link;
             },
             async init(){
             },

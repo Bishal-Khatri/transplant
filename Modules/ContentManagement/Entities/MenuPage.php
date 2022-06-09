@@ -24,6 +24,35 @@ class MenuPage extends Model
         return $this->belongsTo(Menu::class, 'menu_id');
     }
 
+    public function getLink()
+    {
+        switch ($this->type){
+            case 'url':
+                $link = $this->url;
+                break;
+            case 'page':
+                $link = $this->getPageLink();
+                break;
+            case 'category':
+                $link = $this->getCategoryLink();
+                break;
+            default:
+                $link = '/link-broken';
+        }
+
+        return $link;
+    }
+
+    public function getPageLink()
+    {
+        return route('get-page', $this->slug);
+    }
+
+    public function getCategoryLink()
+    {
+        return route('get-category', $this->slug);
+    }
+
 //    public function menu()
 //    {
 //        return $this->belongsTo(Menu::class, 'menu_id');

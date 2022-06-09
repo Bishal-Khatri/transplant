@@ -1,4 +1,4 @@
-@extends('errors::gentelella')
+@extends('errors::stack')
 
 @section('title', __('Page Expired'))
 @section('code', '419')

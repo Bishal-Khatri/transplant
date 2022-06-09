@@ -6,7 +6,7 @@
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="btn btn-link" v-if="submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
-                        <a class="btn btn-link text-accent" href="" v-else @click.prevent="updateSection" >Save Section</a>
+                        <a class="btn btn-link text-accent" href="" v-else @click.prevent="updateSection">Save Section</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                     <li><slot name="delete"></slot></li>

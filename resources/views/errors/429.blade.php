@@ -1,4 +1,4 @@
-@extends('errors::gentelella')
+@extends('errors::stack')
 
 @section('title', __('Too Many Requests'))
 @section('code', '429')

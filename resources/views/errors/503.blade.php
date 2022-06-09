@@ -1,4 +1,4 @@
-@extends('errors::gentelella')
+@extends('errors::stack')
 
 @section('title', __('Service Unavailable'))
 @section('code', '503')

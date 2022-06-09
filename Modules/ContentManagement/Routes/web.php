@@ -8,6 +8,10 @@ use Modules\ContentManagement\Http\Controllers\ThemeController;
 use Modules\ContentManagement\Http\Controllers\PublicController;
 
 Route::get('/', [ThemeController::class, 'index'])->name('cms.index');
+// dynamic page
+Route::get('/page/{page_slug}', [ThemeController::class, 'index'])->name('get-page');
+Route::get('/category/{category_slug}', [ThemeController::class, 'getCategory'])->name('get-category');
+
 Route::get('/register-hospital', [\Modules\Hospital\Http\Controllers\HospitalController::class, 'getRegisterHospital'])->name('register-hospital');
 Route::post('/register-hospital', [\Modules\Hospital\Http\Controllers\HospitalController::class, 'registerHospital']);
 
@@ -33,8 +37,9 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
         Route::get('/scan', [ThemeController::class, 'scanTheme'])->name('cms.theme.scan');
     });
 
-    Route::group(['prefix' => 'slider'], function (){
-    });
+//    Route::group(['prefix' => 'stack'], function (){
+//        Route::get('/', [ThemeController::class, 'adminIndex'])->name('cms.stack.index');
+//    });
 
     // MENU //
     Route::group(['prefix' => 'menu', 'as'=> 'cms.menu.'], function () {

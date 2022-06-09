@@ -27,7 +27,7 @@
             <div class="col-lg-6 col-md-4 col-12">
                 <div class="video-cover border--round box-shadow-wide">
                     <div class="background-image-holder">
-                        <img alt="image" src="{{ asset($background['image_url']) }}" />
+                        <img alt="image" src="{{ asset($json_data['image_url']) }}" />
                     </div>
                     <div class="video-play-icon"></div>
                     <iframe src="{{ $json_data['video_url'] }}" allowfullscreen="allowfullscreen"></iframe>

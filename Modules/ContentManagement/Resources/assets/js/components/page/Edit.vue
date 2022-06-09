@@ -58,10 +58,10 @@
                         <h2>Page Details</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li class="mr-3">
-                                <a class="" class="text-accent" v-if="submitting" href="">Saving <i class="fa fa-spinner fa-spin"></i></a>
-                                <a class="" class="text-accent" v-else @click.prevent="updatePage" href="">Save Section</a>
+                                <a class="text-accent" v-if="submitting" href="">Saving <i class="fa fa-spinner fa-spin"></i></a>
+                                <a class="text-accent"  :class="page_details_loading ? 'disabled-link' : ''" v-else @click.prevent="updatePage" href="#">Save Section</a>
                             </li>
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            <li><a class="collapse-link-section"><i class="fa fa-chevron-up"></i></a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -69,7 +69,7 @@
                                     <a class="dropdown-item" href="#">Disable</a>
                                 </div>
                             </li>
-                            <li><a class="" @click.prevent="getPageDetails"><i class="fa fa-refresh"></i></a></li>
+                            <li><a class="" @click.prevent="getPageDetails"><i class="fa fa-refresh" :class="page_details_loading ? 'fa-spin' : ''"></i></a></li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -238,6 +238,7 @@
             return{
                 submitting: false,
                 title_visibility: false,
+                page_details_loading: false,
                 page_details: '',
                 sections: '',
 
@@ -248,9 +249,9 @@
         },
         async mounted(){
             await this.getPageDetails();
-            EventBus.$on('sectionUpdated', () => {
-                this.getPageDetails();
-            });
+            // EventBus.$on('sectionUpdated', () => {
+            //     this.getPageDetails();
+            // });
             this.init();
         },
         methods: {
@@ -266,6 +267,7 @@
             },
 
             async getPageDetails() {
+                this.page_details_loading = true;
                 const response = await PageService.getPageDetails(this.page.id);
                 this.page_details = response.data.data.page;
                 this.sections = response.data.data.page.sections;
@@ -276,6 +278,7 @@
                 if (this.title_visibility === true){
                     $("#title_visibility").attr("checked", "newId");
                 }
+                this.page_details_loading = false;
             },
 
             async addSection(section_name, section_type) {

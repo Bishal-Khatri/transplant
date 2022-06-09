@@ -2,7 +2,7 @@
     <div>
         <div class="x_panel">
             <div class="x_title">
-                <div class="d-flex">
+                <div class="">
                     <h2>Gallery </h2>
                 </div>
                 <ul class="nav navbar-right panel_toolbox">

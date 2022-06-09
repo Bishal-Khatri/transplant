@@ -24,12 +24,7 @@
             <!-- /page content -->
 
             <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    Bootstrap Admin Template
-                </div>
-                <div class="clearfix"></div>
-            </footer>
+        @include('layouts.gentelella.footer')
             <!-- /footer content -->
         </div>
     </div>

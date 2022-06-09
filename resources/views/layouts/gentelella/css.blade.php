@@ -79,5 +79,9 @@
     .bg-accent-1{
         background-color: #2A3F54 !important;
     }
+
+    .disabled-link {
+        pointer-events: none;
+    }
 </style>
 @yield('css')

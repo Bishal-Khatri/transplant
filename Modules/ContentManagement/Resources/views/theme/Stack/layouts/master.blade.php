@@ -21,9 +21,9 @@
             <div class="col-lg-6 text-right text-left-xs text-left-sm">
                 <div class="bar__module">
                     <ul class="menu-horizontal">
-                        <li>
-                            <div class="modal-instance">
-                                <a href="#" class="modal-trigger text-white">Login</a>
+                        {{--<li>--}}
+                            {{--<div class="modal-instance">--}}
+                                {{--<a href="#" class="modal-trigger text-white">Login</a>--}}
                                 {{--<div class="modal-container">--}}
                                     {{--<div class="modal-content section-modal">--}}
                                         {{--<section class="unpad">--}}
@@ -77,11 +77,11 @@
                                         {{--</section>--}}
                                     {{--</div>--}}
                                 {{--</div>--}}
-                            </div>
-                        </li>
-                        <li>
-                            <div class="modal-instance">
-                                <a href="#" class="modal-trigger text-white">Create Account</a>
+                            {{--</div>--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<div class="modal-instance">--}}
+                                {{--<a href="#" class="modal-trigger text-white">Create Account</a>--}}
                                 {{--<div class="modal-container">--}}
                                     {{--<div class="modal-content">--}}
                                         {{--<section class="imageblock feature-large bg--white border--round ">--}}
@@ -141,8 +141,8 @@
                                         {{--</section>--}}
                                     {{--</div>--}}
                                 {{--</div>--}}
-                            </div>
-                        </li>
+                            {{--</div>--}}
+                        {{--</li>--}}
                         <li>
                             <a href="#" data-notification-link="side-menu">
                                 <i class="stack-dot-3 text-white"></i>

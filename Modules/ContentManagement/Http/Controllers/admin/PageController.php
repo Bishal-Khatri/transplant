@@ -102,7 +102,7 @@ class PageController extends Controller
         $section->order = 0;
         $section->section_type = $request->section_type;
         $section->section_name = $request->section_name;
-        $section->visibility = 0;
+        $section->visibility = 1;
         $section->save();
 
         $returnData = $this->prepareResponse(false, 'Success <br>Section Added Successfully.', [], []);
@@ -111,7 +111,6 @@ class PageController extends Controller
 
     public function updateSection(Request $request)
     {
-//        dd($request->all());
         $request->validate([
             'section_id' => 'required|integer'
         ]);

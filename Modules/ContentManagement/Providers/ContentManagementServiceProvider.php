@@ -48,6 +48,36 @@ class ContentManagementServiceProvider extends ServiceProvider
             $nav_menu_id = $active_theme->nav_menu_id;
             $nav_menu = MenuPage::where('menu_id',$nav_menu_id)->where('parent_id', 0)->with('children', 'children.children')->orderBy('order')->get();
 
+//            $nav_menu->map(function($item) {
+//                switch ($item->type){
+//                    case 'url':
+//                        $link = $item->url;
+//                        break;
+//                    case 'page':
+//                        $link = $item->getPageLink();
+//                        break;
+//                    case 'category':
+//                        $link = $item->getCategoryLink();
+//                        break;
+//                    default:
+//                        $link = '/link-broken';
+//                }
+//
+//                return collect([
+//                    'id' => $item->id,
+//                    'display_name' => $item->display_name,
+//                    'order' => $item->order,
+//                    'parent_id' => $item->parent_id,
+//                    'alt_text' => $item->alt_text,
+//                    'target' => $item->target,
+//                    'custom_css' => $item->custom_css,
+//                    'children' => $item->children,
+//                    'link' => $link,
+//                ]);
+//            });
+
+//            dd($nav_menu);
+
             $view->with(compact('active_theme', 'nav_menu'));
         });
     }

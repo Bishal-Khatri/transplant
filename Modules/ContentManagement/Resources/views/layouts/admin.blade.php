@@ -18,20 +18,28 @@
 <div class="container body">
     <div class="main_container">
 
-        @include('layouts.gentelella.admin-navigation')
+    @include('layouts.gentelella.admin-navigation')
 
-        <!-- page content -->
+    <!-- page content -->
         <div id="app">
             @yield('content')
         </div>
         <!-- /page content -->
 
         <!-- footer content -->
-            @include('layouts.gentelella.footer')
-        <!-- /footer content -->
+    @include('layouts.gentelella.footer')
+    <!-- /footer content -->
     </div>
 </div>
-@include('layouts.gentelella.script')r
-<script src="{{ mix('js/contentmanagement.js') }}"></script>
+
+{{--temp fix | convert menu to vue component--}}
+@if(Request::is('admin/cms/menu'))
+    <script src="{{ mix('js/contentmanagement.js') }}"></script>
+    @include('layouts.gentelella.script')
+@else
+    @include('layouts.gentelella.script')
+    <script src="{{ mix('js/contentmanagement.js') }}"></script>
+
+@endif
 </body>
 </html>

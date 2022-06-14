@@ -10,33 +10,19 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-content">
                                 <div class="file-manager">
-                                    <h5>Show:</h5>
-                                    <a href="#" class="file-control active">Ale</a>
-                                    <a href="#" class="file-control">Documents</a>
-                                    <a href="#" class="file-control">Audio</a>
-                                    <a href="#" class="file-control">Images</a>
+                                    <button class="btn btn-primary btn-block" @click.prevent="$refs.createGallery.openDialog()">Create New Gallery</button>
                                     <div class="hr-line-dashed"></div>
-                                    <button class="btn btn-primary btn-block">Upload Files</button>
-                                    <div class="hr-line-dashed"></div>
-                                    <h5>Folders</h5>
+                                    <h5>Galleries</h5>
                                     <ul class="folder-list" style="padding: 0">
-                                        <li><a href=""><i class="fa fa-folder"></i> Files</a></li>
-                                        <li><a href=""><i class="fa fa-folder"></i> Pictures</a></li>
-                                        <li><a href=""><i class="fa fa-folder"></i> Web pages</a></li>
-                                        <li><a href=""><i class="fa fa-folder"></i> Illustrations</a></li>
-                                        <li><a href=""><i class="fa fa-folder"></i> Films</a></li>
-                                        <li><a href=""><i class="fa fa-folder"></i> Books</a></li>
-                                    </ul>
-                                    <h5 class="tag-title">Tags</h5>
-                                    <ul class="tag-list" style="padding: 0">
-                                        <li><a href="">Family</a></li>
-                                        <li><a href="">Work</a></li>
-                                        <li><a href="">Home</a></li>
-                                        <li><a href="">Children</a></li>
-                                        <li><a href="">Holidays</a></li>
-                                        <li><a href="">Music</a></li>
-                                        <li><a href="">Photography</a></li>
-                                        <li><a href="">Film</a></li>
+                                        <li v-for="(gallery, index) in galleries" :key="index">
+                                            <div class="d-flex">
+                                                <a href="" @click.prevent="selectGallery(gallery)">
+                                                    <i class="fa fa-folder"></i> {{ gallery.title || 'Not-Available'}}
+                                                </a>
+                                                <a href="#" class="ml-3" @click.prevent="$refs.createGallery.openDialog(gallery)"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="ml-1" @click.prevent="showImageDeleteModal(gallery.id)"><i class="fa fa-trash text-danger"></i></a>
+                                            </div>
+                                        </li>
                                     </ul>
                                     <div class="clearfix"></div>
                                 </div>
@@ -45,383 +31,55 @@
                     </div>
                     <div class="col-md-9 animated fadeInRight">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-file"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Document_2014.doc
-                                                <br>
-                                                <small>Added: Jan 11, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/87CEFA/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                Italy street.jpg
-                                                <br>
-                                                <small>Added: Jan 6, 2014</small>
-                                            </div>
-                                        </a>
-
+                            <div class="col-md-6 col-lg-6">
+                                <h5>Showing <strong>{{ selected_gallery.title }}</strong></h5>
+                            </div>
+                            <div class="col-md-6 col-lg-6 text-right">
+                                <div class="btn-group" role="group">
+                                    <button id="filter-verification-status" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-upload mr-1"></i> Upload
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filter-verification-status"
+                                         x-placement="bottom-start"
+                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                        <a class="dropdown-item" @click.prevent="$refs.file.click()">Choose File</a>
+                                        <a class="dropdown-item" @click.prevent="$refs.selectFile.openDialog()">From Storage</a>
                                     </div>
                                 </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/FF7F50/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                My feel.png
-                                                <br>
-                                                <small>Added: Jan 7, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-music"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Michal Jackson.mp3
-                                                <br>
-                                                <small>Added: Jan 22, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/FFB6C1/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                Document_2014.doc
-                                                <br>
-                                                <small>Added: Fab 11, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="img-responsive fa fa-film"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Monica's birthday.mpg4
-                                                <br>
-                                                <small>Added: Fab 18, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <a href="#">
-                                        <div class="file">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-bar-chart-o"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Annual report 2014.xls
-                                                <br>
-                                                <small>Added: Fab 22, 2014</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-file"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Document_2014.doc
-                                                <br>
-                                                <small>Added: Jan 11, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/4169E1/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                Italy street.jpg
-                                                <br>
-                                                <small>Added: Jan 6, 2014</small>
-                                            </div>
-                                        </a>
-
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/EE82EE/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                My feel.png
-                                                <br>
-                                                <small>Added: Jan 7, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-music"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Michal Jackson.mp3
-                                                <br>
-                                                <small>Added: Jan 22, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/008080/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                Document_2014.doc
-                                                <br>
-                                                <small>Added: Fab 11, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="img-responsive fa fa-film"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Monica's birthday.mpg4
-                                                <br>
-                                                <small>Added: Fab 18, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <a href="#">
-                                        <div class="file">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-bar-chart-o"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Annual report 2014.xls
-                                                <br>
-                                                <small>Added: Fab 22, 2014</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-file"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Document_2014.doc
-                                                <br>
-                                                <small>Added: Jan 11, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/40E0D0/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                Italy street.jpg
-                                                <br>
-                                                <small>Added: Jan 6, 2014</small>
-                                            </div>
-                                        </a>
-
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/FF6347/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                My feel.png
-                                                <br>
-                                                <small>Added: Jan 7, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-music"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Michal Jackson.mp3
-                                                <br>
-                                                <small>Added: Jan 22, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="image">
-                                                <img alt="image" class="img-responsive" src="https://via.placeholder.com/400x300/6A5ACD/000000">
-                                            </div>
-                                            <div class="file-name">
-                                                Document_2014.doc
-                                                <br>
-                                                <small>Added: Fab 11, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <div class="file">
-                                        <a href="#">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="img-responsive fa fa-film"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Monica's birthday.mpg4
-                                                <br>
-                                                <small>Added: Fab 18, 2014</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="file-box">
-                                    <a href="#">
-                                        <div class="file">
-                                            <span class="corner"></span>
-
-                                            <div class="icon">
-                                                <i class="fa fa-bar-chart-o"></i>
-                                            </div>
-                                            <div class="file-name">
-                                                Annual report 2014.xls
-                                                <br>
-                                                <small>Added: Fab 22, 2014</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
+                                <input type="file" ref="file" class="form-control-sm" id="additional-image" style="display: none; width:210px" @change.prevent="uploadMultipleImages" accept="image/png, image/jpeg" multiple>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <hr>
 
-            <div class="x_panel">
-                <div class="x_title">
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li>
-                            <a href="" @click.prevent="$refs.createGallery.openDialog()">Create New</a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    <div class="row">
-                        <div class="col-md-2" v-for="(gallery, index) in galleries" :key="index">
-                            <div class="thumbnail">
-                                <div class="image view view-first">
-                                    <i class="fa fa-folder" style="font-size: 7rem"></i>
-                                    <div class="mask">
-                                        <p></p>
-                                        <div class="tools tools-bottom">
-                                            <a :href="'/admin/cms/storage/gallery/'+gallery.id"><i class="fa fa-eye"></i></a>
-                                            <a href="#" class="ml-2" @click.prevent="$refs.createGallery.openDialog(gallery)"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="ml-2 text-danger" @click.prevent="showDeleteModal(gallery.id)"><i class="fa fa-times"></i></a>
-                                        </div>
+                        <div v-if="uploading_image" style="height: 150px;" class="mt-4 pt-4">
+                            <p class="text-center mt-4 text-muted"> <i class="fa fa-spinner fa-spin mr-2"></i>Uploading Images...</p>
+                        </div>
+                        <div class="row" v-else>
+                            <div class="col-lg-12">
+                                <div v-if="loading" class="text-center">
+                                    <i class="fa fa-spinner fa-spin fa-2x"></i>
+                                </div>
+                                <div v-else-if="!images.length">No images found in {{ selected_gallery.title }}.</div>
+                                <div class="file-box" v-else v-for="(image, index) in images" :key="index">
+                                    <div class="file">
+                                        <a href="#" >
+                                            <span class="corner"></span>
+
+                                            <div class="image">
+                                                <a href="" @click.prevent="$refs.imagePreview.openDialog('/storage/'+image.image_original)">
+                                                    <img alt="image" class="img-responsive" :src="'/storage/'+image.image_original">
+                                                </a>
+                                            </div>
+                                            <div class="file-name">
+                                                {{ image.image_original }}
+                                                <br>
+                                                <small>Added: {{ image.created_at }} <a class="float-right" href="" @click.prevent="showImageDeleteModal(image.id)"><i class="fa fa-trash text-danger"></i></a></small>
+                                            </div>
+                                        </a>
+
                                     </div>
                                 </div>
-                                <div class="caption">
-                                    <p>{{ gallery.title || 'Not-Available'}}</p>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -449,7 +107,29 @@
             </div>
         </div>
 
+        <div class="modal fade" id="delete-image-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Delete Image</h4>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-3">
+                        <p><strong>Attention !</strong> Are you sure you want to permanently delete this record?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <button v-if="delete_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deleteImage">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <create-gallery ref="createGallery"/>
+        <image-preview ref="imagePreview"/>
+        <select-file ref="selectFile" name="add-image-gallery" @filesSelected="uploadSelectedFiles" config="3"/>
     </div>
 </template>
 
@@ -458,27 +138,45 @@
     import StorageService from "../../../../services/StorageService";
     import CreateGallery from "./CreateGallery";
     import {Errors} from "../../../../../../../../resources/js/error";
+    import ImagePreview from "../../../../../../../../resources/js/components/ImagePreview";
+    import SelectFile from "../SelectFile";
 
     export default {
         name: "GalleryIndex",
         components: {
             CreateGallery,
+            ImagePreview,
+            SelectFile
         },
         data(){
             return{
                 errors: new Errors(),
+                loading: true,
                 delete_submitting: false,
                 delete_id: '',
                 galleries: '',
+
+                // gallery images
+                delete_image_id: '',
+                uploading_image: false,
+
+                selected_gallery: '',
+                images: '',
             }
         },
         async mounted(){
             await this.getGalleries();
+            this.selected_gallery = this.galleries[0];
+            await this.getImages();
             EventBus.$on('galleryCreated', () => {
                 this.getGalleries();
             });
         },
         methods: {
+            selectGallery(gallery){
+                this.selected_gallery = gallery;
+                this.getImages();
+            },
             async getGalleries() {
                 const response = await StorageService.getGalleries();
                 this.galleries = response.data.data.galleries;
@@ -498,6 +196,76 @@
                     $("#delete-gallery-dialog").modal('hide');
                 }
                 this.delete_id = '';
+                this.delete_submitting = false;
+            },
+
+
+            // gallery images
+            async getImages() {
+                this.loading = true;
+                const response = await StorageService.getGalleryImages(this.selected_gallery.id);
+                this.selected_gallery = response.data.data.gallery;
+                this.images = response.data.data.gallery.images;
+                this.loading = false;
+            },
+
+            async uploadMultipleImages(event){
+                this.uploading_image = true;
+                const files = event.target.files;
+                if (files.length){
+                    for (let i=0; i < files.length; i++){
+                        await this.uploadFile(files[i]);
+                    }
+                    this.getImages();
+                }
+                this.uploading_image = false;
+            },
+
+            async uploadSelectedFiles(files) {
+                this.uploading_image = true;
+                if (files.length){
+                    for (let i=0; i < files.length; i++){
+                        await this.uploadFile(files[i], 'link');
+                    }
+                    this.getImages();
+                }
+                this.uploading_image = false;
+            },
+
+            async uploadFile(file, fileType='formData'){
+                const fd = new FormData();
+                if (fileType === 'link'){
+                    fd.append("image", file);
+                } else{
+                    fd.append("image", file, file.name);
+                }
+                fd.append("gallery_id", this.selected_gallery.id);
+                fd.append("file_type", fileType);
+                try {
+                    const response = await StorageService.addImageToGallery(fd);
+                    if (response.data.error === false) {
+                    }
+                    Errors.Notification(response);
+                }catch (error) {
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
+                }
+            },
+
+            showImageDeleteModal(image_id) {
+                this.delete_image_id = image_id;
+                $("#delete-image-dialog").modal('show');
+            },
+
+            async deleteImage() {
+                this.delete_submitting = true;
+                const response = await StorageService.removeImageFromGallery(this.delete_image_id);
+                if (response.data.error === false) {
+                    Errors.Notification(response);
+                    this.getImages();
+                    $("#delete-image-dialog").modal('hide');
+                }
+                this.delete_image_id = '';
                 this.delete_submitting = false;
             },
         },

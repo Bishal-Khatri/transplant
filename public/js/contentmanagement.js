@@ -13017,8 +13017,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(laravel_file_manager__WEBPACK_IMP
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('register-hospital', __webpack_require__(/*! ./frontend/RegisterHospital.vue */ "./Resources/assets/js/frontend/RegisterHospital.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('theme-customization', __webpack_require__(/*! ./components/theme/ThemeCustomization.vue */ "./Resources/assets/js/components/theme/ThemeCustomization.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('page-edit', __webpack_require__(/*! ./components/page/Edit.vue */ "./Resources/assets/js/components/page/Edit.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('gallery-index', __webpack_require__(/*! ./components/storage/gallery/GalleryIndex.vue */ "./Resources/assets/js/components/storage/gallery/GalleryIndex.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('gallery-images', __webpack_require__(/*! ./components/storage/gallery/GalleryImages.vue */ "./Resources/assets/js/components/storage/gallery/GalleryImages.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('gallery-index', __webpack_require__(/*! ./components/storage/gallery/GalleryIndex.vue */ "./Resources/assets/js/components/storage/gallery/GalleryIndex.vue")["default"]); // Vue.component('gallery-images', require('./components/storage/gallery/GalleryImages.vue').default);
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('storage-index', __webpack_require__(/*! ./components/storage/StorageIndex */ "./Resources/assets/js/components/storage/StorageIndex.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "../../node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 var EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
@@ -13996,75 +13996,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateGallery_vue_vue_type_template_id_1671c51e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateGallery_vue_vue_type_template_id_1671c51e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/storage/gallery/GalleryImages.vue":
-/*!**************************************************************************!*\
-  !*** ./Resources/assets/js/components/storage/gallery/GalleryImages.vue ***!
-  \**************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _GalleryImages_vue_vue_type_template_id_de1c5e5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GalleryImages.vue?vue&type=template&id=de1c5e5c&scoped=true& */ "./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=template&id=de1c5e5c&scoped=true&");
-/* harmony import */ var _GalleryImages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GalleryImages.vue?vue&type=script&lang=js& */ "./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _GalleryImages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _GalleryImages_vue_vue_type_template_id_de1c5e5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _GalleryImages_vue_vue_type_template_id_de1c5e5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "de1c5e5c",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "Resources/assets/js/components/storage/gallery/GalleryImages.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GalleryImages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./GalleryImages.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GalleryImages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=template&id=de1c5e5c&scoped=true&":
-/*!*********************************************************************************************************************!*\
-  !*** ./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=template&id=de1c5e5c&scoped=true& ***!
-  \*********************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GalleryImages_vue_vue_type_template_id_de1c5e5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./GalleryImages.vue?vue&type=template&id=de1c5e5c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=template&id=de1c5e5c&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GalleryImages_vue_vue_type_template_id_de1c5e5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GalleryImages_vue_vue_type_template_id_de1c5e5c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -19271,366 +19202,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../app */ "./Resources/assets/js/app.js");
-/* harmony import */ var _services_StorageService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../services/StorageService */ "./Resources/assets/services/StorageService.js");
-/* harmony import */ var _resources_js_error__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../../resources/js/error */ "../../resources/js/error.js");
-/* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
-/* harmony import */ var _SelectFile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../SelectFile */ "./Resources/assets/js/components/storage/SelectFile.vue");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "GalleryImages",
-  props: ['gallery_id'],
-  components: {
-    ImagePreview: _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_3__["default"],
-    SelectFile: _SelectFile__WEBPACK_IMPORTED_MODULE_4__["default"]
-  },
-  computed: {},
-  data: function data() {
-    return {
-      errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"](),
-      delete_submitting: false,
-      delete_id: '',
-      uploading_image: false,
-      images: '',
-      gallery: ''
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _this.getImages();
-
-            case 2:
-              _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('galleryCreated', function () {
-                _this.getImages();
-              });
-
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  },
-  methods: {
-    getImages: function getImages() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return _services_StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].getGalleryImages(_this2.gallery_id);
-
-              case 2:
-                response = _context2.sent;
-                _this2.gallery = response.data.data.gallery;
-                _this2.images = response.data.data.gallery.images;
-
-              case 5:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    uploadMultipleImages: function uploadMultipleImages(event) {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var files, i;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _this3.uploading_image = true;
-                files = event.target.files;
-
-                if (!files.length) {
-                  _context3.next = 11;
-                  break;
-                }
-
-                i = 0;
-
-              case 4:
-                if (!(i < files.length)) {
-                  _context3.next = 10;
-                  break;
-                }
-
-                _context3.next = 7;
-                return _this3.uploadFile(files[i]);
-
-              case 7:
-                i++;
-                _context3.next = 4;
-                break;
-
-              case 10:
-                _this3.getImages();
-
-              case 11:
-                _this3.uploading_image = false;
-
-              case 12:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    uploadSelectedFiles: function uploadSelectedFiles(files) {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var i;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _this4.uploading_image = true;
-
-                if (!files.length) {
-                  _context4.next = 10;
-                  break;
-                }
-
-                i = 0;
-
-              case 3:
-                if (!(i < files.length)) {
-                  _context4.next = 9;
-                  break;
-                }
-
-                _context4.next = 6;
-                return _this4.uploadFile(files[i], 'link');
-
-              case 6:
-                i++;
-                _context4.next = 3;
-                break;
-
-              case 9:
-                _this4.getImages();
-
-              case 10:
-                _this4.uploading_image = false;
-
-              case 11:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }))();
-    },
-    uploadFile: function uploadFile(file) {
-      var _arguments = arguments,
-          _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var fileType, fd, response;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                fileType = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : 'formData';
-                fd = new FormData();
-
-                if (fileType === 'link') {
-                  fd.append("image", file);
-                } else {
-                  fd.append("image", file, file.name);
-                }
-
-                fd.append("gallery_id", _this5.gallery_id);
-                fd.append("file_type", fileType);
-                _context5.prev = 5;
-                _context5.next = 8;
-                return _services_StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].addImageToGallery(fd);
-
-              case 8:
-                response = _context5.sent;
-
-                if (response.data.error === false) {}
-
-                _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"].Notification(response);
-                _context5.next = 17;
-                break;
-
-              case 13:
-                _context5.prev = 13;
-                _context5.t0 = _context5["catch"](5);
-
-                _this5.errors.record(_context5.t0.response.data);
-
-                _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"].Notification(_context5.t0.response);
-
-              case 17:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, null, [[5, 13]]);
-      }))();
-    },
-    showDeleteModal: function showDeleteModal(image_id) {
-      this.delete_id = image_id;
-      $("#delete-image-dialog").modal('show');
-    },
-    deleteImage: function deleteImage() {
-      var _this6 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var response;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                _this6.delete_submitting = true;
-                _context6.next = 3;
-                return _services_StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].removeImageFromGallery(_this6.delete_id);
-
-              case 3:
-                response = _context6.sent;
-
-                if (response.data.error === false) {
-                  _resources_js_error__WEBPACK_IMPORTED_MODULE_2__["Errors"].Notification(response);
-
-                  _this6.getImages();
-
-                  $("#delete-image-dialog").modal('hide');
-                }
-
-                _this6.delete_id = '';
-                _this6.delete_submitting = false;
-
-              case 7:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }))();
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/storage/gallery/GalleryIndex.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/storage/gallery/GalleryIndex.vue?vue&type=script&lang=js& ***!
@@ -19644,6 +19215,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_StorageService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../services/StorageService */ "./Resources/assets/services/StorageService.js");
 /* harmony import */ var _CreateGallery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CreateGallery */ "./Resources/assets/js/components/storage/gallery/CreateGallery.vue");
 /* harmony import */ var _resources_js_error__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../../resources/js/error */ "../../resources/js/error.js");
+/* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
+/* harmony import */ var _SelectFile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../SelectFile */ "./Resources/assets/js/components/storage/SelectFile.vue");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -19787,326 +19360,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 
@@ -20114,14 +19369,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GalleryIndex",
   components: {
-    CreateGallery: _CreateGallery__WEBPACK_IMPORTED_MODULE_2__["default"]
+    CreateGallery: _CreateGallery__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ImagePreview: _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_4__["default"],
+    SelectFile: _SelectFile__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   data: function data() {
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_3__["Errors"](),
+      loading: true,
       delete_submitting: false,
       delete_id: '',
-      galleries: ''
+      galleries: '',
+      // gallery images
+      delete_image_id: '',
+      uploading_image: false,
+      selected_gallery: '',
+      images: ''
     };
   },
   mounted: function mounted() {
@@ -20136,11 +19399,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this.getGalleries();
 
             case 2:
+              _this.selected_gallery = _this.galleries[0];
+              _context.next = 5;
+              return _this.getImages();
+
+            case 5:
               _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('galleryCreated', function () {
                 _this.getGalleries();
               });
 
-            case 3:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -20149,6 +19417,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   methods: {
+    selectGallery: function selectGallery(gallery) {
+      this.selected_gallery = gallery;
+      this.getImages();
+    },
     getGalleries: function getGalleries() {
       var _this2 = this;
 
@@ -20210,6 +19482,216 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee3);
+      }))();
+    },
+    // gallery images
+    getImages: function getImages() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this4.loading = true;
+                _context4.next = 3;
+                return _services_StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].getGalleryImages(_this4.selected_gallery.id);
+
+              case 3:
+                response = _context4.sent;
+                _this4.selected_gallery = response.data.data.gallery;
+                _this4.images = response.data.data.gallery.images;
+                _this4.loading = false;
+
+              case 7:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    uploadMultipleImages: function uploadMultipleImages(event) {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var files, i;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _this5.uploading_image = true;
+                files = event.target.files;
+
+                if (!files.length) {
+                  _context5.next = 11;
+                  break;
+                }
+
+                i = 0;
+
+              case 4:
+                if (!(i < files.length)) {
+                  _context5.next = 10;
+                  break;
+                }
+
+                _context5.next = 7;
+                return _this5.uploadFile(files[i]);
+
+              case 7:
+                i++;
+                _context5.next = 4;
+                break;
+
+              case 10:
+                _this5.getImages();
+
+              case 11:
+                _this5.uploading_image = false;
+
+              case 12:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    uploadSelectedFiles: function uploadSelectedFiles(files) {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var i;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _this6.uploading_image = true;
+
+                if (!files.length) {
+                  _context6.next = 10;
+                  break;
+                }
+
+                i = 0;
+
+              case 3:
+                if (!(i < files.length)) {
+                  _context6.next = 9;
+                  break;
+                }
+
+                _context6.next = 6;
+                return _this6.uploadFile(files[i], 'link');
+
+              case 6:
+                i++;
+                _context6.next = 3;
+                break;
+
+              case 9:
+                _this6.getImages();
+
+              case 10:
+                _this6.uploading_image = false;
+
+              case 11:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    uploadFile: function uploadFile(file) {
+      var _arguments = arguments,
+          _this7 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var fileType, fd, response;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                fileType = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : 'formData';
+                fd = new FormData();
+
+                if (fileType === 'link') {
+                  fd.append("image", file);
+                } else {
+                  fd.append("image", file, file.name);
+                }
+
+                fd.append("gallery_id", _this7.selected_gallery.id);
+                fd.append("file_type", fileType);
+                _context7.prev = 5;
+                _context7.next = 8;
+                return _services_StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].addImageToGallery(fd);
+
+              case 8:
+                response = _context7.sent;
+
+                if (response.data.error === false) {}
+
+                _resources_js_error__WEBPACK_IMPORTED_MODULE_3__["Errors"].Notification(response);
+                _context7.next = 17;
+                break;
+
+              case 13:
+                _context7.prev = 13;
+                _context7.t0 = _context7["catch"](5);
+
+                _this7.errors.record(_context7.t0.response.data);
+
+                _resources_js_error__WEBPACK_IMPORTED_MODULE_3__["Errors"].Notification(_context7.t0.response);
+
+              case 17:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, null, [[5, 13]]);
+      }))();
+    },
+    showImageDeleteModal: function showImageDeleteModal(image_id) {
+      this.delete_image_id = image_id;
+      $("#delete-image-dialog").modal('show');
+    },
+    deleteImage: function deleteImage() {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _this8.delete_submitting = true;
+                _context8.next = 3;
+                return _services_StorageService__WEBPACK_IMPORTED_MODULE_1__["default"].removeImageFromGallery(_this8.delete_image_id);
+
+              case 3:
+                response = _context8.sent;
+
+                if (response.data.error === false) {
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_3__["Errors"].Notification(response);
+
+                  _this8.getImages();
+
+                  $("#delete-image-dialog").modal('hide');
+                }
+
+                _this8.delete_image_id = '';
+                _this8.delete_submitting = false;
+
+              case 7:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
       }))();
     }
   }
@@ -84716,7 +84198,7 @@ var render = function () {
               _c(
                 "h4",
                 { staticClass: "modal-title", attrs: { id: "myModalLabel" } },
-                [_vm._v("Create/Update Disease Key: " + _vm._s(_vm.title))]
+                [_vm._v(_vm._s(_vm.title || "Select File"))]
               ),
               _vm._v(" "),
               _vm._m(0),
@@ -84957,10 +84439,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=template&id=de1c5e5c&scoped=true&":
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/storage/gallery/GalleryImages.vue?vue&type=template&id=de1c5e5c&scoped=true& ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/storage/gallery/GalleryIndex.vue?vue&type=template&id=f6b8eb30&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/storage/gallery/GalleryIndex.vue?vue&type=template&id=f6b8eb30&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -84976,168 +84458,291 @@ var render = function () {
     "div",
     { staticClass: "row" },
     [
-      _c("div", { staticClass: "col-md-12 col-sm-12" }, [
-        _c("div", { staticClass: "x_panel" }, [
-          _c("div", { staticClass: "x_title" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-6 col-lg-6" }, [
-                _c("h2", [_vm._v("Images on " + _vm._s(_vm.gallery.title))]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-6 col-lg-6 text-right" }, [
-                _c(
-                  "div",
-                  { staticClass: "btn-group", attrs: { role: "group" } },
-                  [
-                    _vm._m(0),
-                    _vm._v(" "),
+      _c("div", { staticClass: "col-md-12 col-sm-12  " }, [
+        _c("link", {
+          attrs: {
+            href: "https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css",
+            rel: "stylesheet",
+          },
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "ibox float-e-margins" }, [
+                _c("div", { staticClass: "ibox-content" }, [
+                  _c("div", { staticClass: "file-manager" }, [
                     _c(
-                      "div",
+                      "button",
                       {
-                        staticClass: "dropdown-menu",
-                        staticStyle: {
-                          position: "absolute",
-                          "will-change": "transform",
-                          top: "0px",
-                          left: "0px",
-                          transform: "translate3d(0px, 38px, 0px)",
-                        },
-                        attrs: {
-                          "aria-labelledby": "filter-verification-status",
-                          "x-placement": "bottom-start",
+                        staticClass: "btn btn-primary btn-block",
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.$refs.createGallery.openDialog()
+                          },
                         },
                       },
-                      [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            on: {
-                              click: function ($event) {
-                                $event.preventDefault()
-                                return _vm.$refs.file.click()
-                              },
-                            },
-                          },
-                          [_vm._v("Choose File")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            on: {
-                              click: function ($event) {
-                                $event.preventDefault()
-                                return _vm.$refs.selectFile.openDialog()
-                              },
-                            },
-                          },
-                          [_vm._v("From Storage")]
-                        ),
-                      ]
+                      [_vm._v("Create New Gallery")]
                     ),
-                  ]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  ref: "file",
-                  staticClass: "form-control-sm",
-                  staticStyle: { display: "none", width: "210px" },
-                  attrs: {
-                    type: "file",
-                    id: "additional-image",
-                    accept: "image/png, image/jpeg",
-                    multiple: "",
-                  },
-                  on: {
-                    change: function ($event) {
-                      $event.preventDefault()
-                      return _vm.uploadMultipleImages.apply(null, arguments)
-                    },
-                  },
-                }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "hr-line-dashed" }),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v("Galleries")]),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      {
+                        staticClass: "folder-list",
+                        staticStyle: { padding: "0" },
+                      },
+                      _vm._l(_vm.galleries, function (gallery, index) {
+                        return _c("li", { key: index }, [
+                          _c("div", { staticClass: "d-flex" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: "" },
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.selectGallery(gallery)
+                                  },
+                                },
+                              },
+                              [
+                                _c("i", { staticClass: "fa fa-folder" }),
+                                _vm._v(
+                                  " " +
+                                    _vm._s(gallery.title || "Not-Available") +
+                                    "\n                                            "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "ml-3",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.$refs.createGallery.openDialog(
+                                      gallery
+                                    )
+                                  },
+                                },
+                              },
+                              [_c("i", { staticClass: "fa fa-pencil" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "ml-1",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.showImageDeleteModal(gallery.id)
+                                  },
+                                },
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-trash text-danger",
+                                }),
+                              ]
+                            ),
+                          ]),
+                        ])
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "clearfix" }),
+                  ]),
+                ]),
               ]),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "clearfix" }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "x_content" }, [
-            _vm.uploading_image
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "mt-4 pt-4",
-                    staticStyle: { height: "150px" },
-                  },
-                  [_vm._m(1)]
-                )
-              : _c(
-                  "div",
-                  [
-                    !_vm.images.length
-                      ? _c("div", { staticClass: "col-md-12" }, [
-                          _vm._v("No images found"),
-                        ])
-                      : _vm._l(_vm.images, function (image, index) {
-                          return _c(
-                            "div",
-                            { key: index, staticClass: "col-md-55" },
-                            [
-                              _c("div", { staticClass: "thumbnail" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "image view view-first" },
-                                  [
-                                    _c("img", {
-                                      staticStyle: {
-                                        width: "100%",
-                                        display: "block",
-                                      },
-                                      attrs: {
-                                        src: "/storage/" + image.image_original,
-                                        alt: "image",
-                                      },
-                                    }),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "mask" }, [
-                                      _c("p"),
+            _c("div", { staticClass: "col-md-9 animated fadeInRight" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6 col-lg-6" }, [
+                  _c("h5", [
+                    _vm._v("Showing "),
+                    _c("strong", [_vm._v(_vm._s(_vm.selected_gallery.title))]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6 col-lg-6 text-right" }, [
+                  _c(
+                    "div",
+                    { staticClass: "btn-group", attrs: { role: "group" } },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "dropdown-menu",
+                          staticStyle: {
+                            position: "absolute",
+                            "will-change": "transform",
+                            top: "0px",
+                            left: "0px",
+                            transform: "translate3d(0px, 38px, 0px)",
+                          },
+                          attrs: {
+                            "aria-labelledby": "filter-verification-status",
+                            "x-placement": "bottom-start",
+                          },
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.$refs.file.click()
+                                },
+                              },
+                            },
+                            [_vm._v("Choose File")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.$refs.selectFile.openDialog()
+                                },
+                              },
+                            },
+                            [_vm._v("From Storage")]
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    ref: "file",
+                    staticClass: "form-control-sm",
+                    staticStyle: { display: "none", width: "210px" },
+                    attrs: {
+                      type: "file",
+                      id: "additional-image",
+                      accept: "image/png, image/jpeg",
+                      multiple: "",
+                    },
+                    on: {
+                      change: function ($event) {
+                        $event.preventDefault()
+                        return _vm.uploadMultipleImages.apply(null, arguments)
+                      },
+                    },
+                  }),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _vm.uploading_image
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "mt-4 pt-4",
+                      staticStyle: { height: "150px" },
+                    },
+                    [_vm._m(1)]
+                  )
+                : _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-lg-12" },
+                      [
+                        _vm.loading
+                          ? _c("div", { staticClass: "text-center" }, [
+                              _c("i", {
+                                staticClass: "fa fa-spinner fa-spin fa-2x",
+                              }),
+                            ])
+                          : !_vm.images.length
+                          ? _c("div", [
+                              _vm._v(
+                                "No images found in " +
+                                  _vm._s(_vm.selected_gallery.title) +
+                                  "."
+                              ),
+                            ])
+                          : _vm._l(_vm.images, function (image, index) {
+                              return _c(
+                                "div",
+                                { key: index, staticClass: "file-box" },
+                                [
+                                  _c("div", { staticClass: "file" }, [
+                                    _c("a", { attrs: { href: "#" } }, [
+                                      _c("span", { staticClass: "corner" }),
                                       _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "tools tools-bottom" },
-                                        [
-                                          _c(
-                                            "a",
-                                            {
-                                              attrs: { href: "#" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.$refs.imagePreview.openDialog(
-                                                    "/storage/" +
-                                                      image.image_original
-                                                  )
-                                                },
+                                      _c("div", { staticClass: "image" }, [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: { href: "" },
+                                            on: {
+                                              click: function ($event) {
+                                                $event.preventDefault()
+                                                return _vm.$refs.imagePreview.openDialog(
+                                                  "/storage/" +
+                                                    image.image_original
+                                                )
                                               },
                                             },
-                                            [
-                                              _c("i", {
-                                                staticClass: "fa fa-eye",
-                                              }),
-                                            ]
+                                          },
+                                          [
+                                            _c("img", {
+                                              staticClass: "img-responsive",
+                                              attrs: {
+                                                alt: "image",
+                                                src:
+                                                  "/storage/" +
+                                                  image.image_original,
+                                              },
+                                            }),
+                                          ]
+                                        ),
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "file-name" }, [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(image.image_original) +
+                                            "\n                                            "
+                                        ),
+                                        _c("br"),
+                                        _vm._v(" "),
+                                        _c("small", [
+                                          _vm._v(
+                                            "Added: " +
+                                              _vm._s(image.created_at) +
+                                              " "
                                           ),
-                                          _vm._v(" "),
                                           _c(
                                             "a",
                                             {
-                                              staticClass: "ml-2 text-danger",
-                                              attrs: { href: "#" },
+                                              staticClass: "float-right",
+                                              attrs: { href: "" },
                                               on: {
                                                 click: function ($event) {
                                                   $event.preventDefault()
-                                                  return _vm.showDeleteModal(
+                                                  return _vm.showImageDeleteModal(
                                                     image.id
                                                   )
                                                 },
@@ -85145,22 +84750,23 @@ var render = function () {
                                             },
                                             [
                                               _c("i", {
-                                                staticClass: "fa fa-times",
+                                                staticClass:
+                                                  "fa fa-trash text-danger",
                                               }),
                                             ]
                                           ),
-                                        ]
-                                      ),
+                                        ]),
+                                      ]),
                                     ]),
-                                  ]
-                                ),
-                              ]),
-                            ]
-                          )
-                        }),
-                  ],
-                  2
-                ),
+                                  ]),
+                                ]
+                              )
+                            }),
+                      ],
+                      2
+                    ),
+                  ]),
+            ]),
           ]),
         ]),
       ]),
@@ -85170,7 +84776,7 @@ var render = function () {
         {
           staticClass: "modal fade",
           attrs: {
-            id: "delete-image-dialog",
+            id: "delete-gallery-dialog",
             tabindex: "-1",
             role: "dialog",
             "aria-hidden": "true",
@@ -85213,6 +84819,67 @@ var render = function () {
                           on: {
                             click: function ($event) {
                               $event.preventDefault()
+                              return _vm.deleteGallery.apply(null, arguments)
+                            },
+                          },
+                        },
+                        [_vm._v("Confirm")]
+                      ),
+                ]),
+              ]),
+            ]
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "delete-image-dialog",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-hidden": "true",
+          },
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog modal-sm modal-dialog-centered" },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button", "data-dismiss": "modal" },
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _vm.delete_submitting
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "button" },
+                        },
+                        [_c("i", { staticClass: "fa fa-spinner fa-spin" })]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
                               return _vm.deleteImage.apply(null, arguments)
                             },
                           },
@@ -85226,11 +84893,13 @@ var render = function () {
         ]
       ),
       _vm._v(" "),
+      _c("create-gallery", { ref: "createGallery" }),
+      _vm._v(" "),
       _c("image-preview", { ref: "imagePreview" }),
       _vm._v(" "),
       _c("select-file", {
         ref: "selectFile",
-        attrs: { config: "3" },
+        attrs: { name: "add-image-gallery", config: "3" },
         on: { filesSelected: _vm.uploadSelectedFiles },
       }),
     ],
@@ -85245,7 +84914,7 @@ var staticRenderFns = [
     return _c(
       "button",
       {
-        staticClass: "btn btn-secondary dropdown-toggle",
+        staticClass: "btn btn-secondary dropdown-toggle btn-sm",
         attrs: {
           id: "filter-verification-status",
           type: "button",
@@ -85256,7 +84925,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "fa fa-upload mr-1" }),
-        _vm._v(" Upload\n                            "),
+        _vm._v(" Upload\n                                "),
       ]
     )
   },
@@ -85296,846 +84965,6 @@ var staticRenderFns = [
       _c("p", [
         _c("strong", [_vm._v("Attention !")]),
         _vm._v(" Are you sure you want to permanently delete this record?"),
-      ]),
-    ])
-  },
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./Resources/assets/js/components/storage/gallery/GalleryIndex.vue?vue&type=template&id=f6b8eb30&scoped=true&":
-/*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./Resources/assets/js/components/storage/gallery/GalleryIndex.vue?vue&type=template&id=f6b8eb30&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "row" },
-    [
-      _c("div", { staticClass: "col-md-12 col-sm-12  " }, [
-        _c("link", {
-          attrs: {
-            href: "https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css",
-            rel: "stylesheet",
-          },
-        }),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "x_panel" }, [
-          _c("div", { staticClass: "x_title" }, [
-            _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    attrs: { href: "" },
-                    on: {
-                      click: function ($event) {
-                        $event.preventDefault()
-                        return _vm.$refs.createGallery.openDialog()
-                      },
-                    },
-                  },
-                  [_vm._v("Create New")]
-                ),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "clearfix" }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "x_content" }, [
-            _c(
-              "div",
-              { staticClass: "row" },
-              _vm._l(_vm.galleries, function (gallery, index) {
-                return _c("div", { key: index, staticClass: "col-md-2" }, [
-                  _c("div", { staticClass: "thumbnail" }, [
-                    _c("div", { staticClass: "image view view-first" }, [
-                      _c("i", {
-                        staticClass: "fa fa-folder",
-                        staticStyle: { "font-size": "7rem" },
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "mask" }, [
-                        _c("p"),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "tools tools-bottom" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href:
-                                  "/admin/cms/storage/gallery/" + gallery.id,
-                              },
-                            },
-                            [_c("i", { staticClass: "fa fa-eye" })]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              staticClass: "ml-2",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.$refs.createGallery.openDialog(
-                                    gallery
-                                  )
-                                },
-                              },
-                            },
-                            [_c("i", { staticClass: "fa fa-pencil" })]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              staticClass: "ml-2 text-danger",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.showDeleteModal(gallery.id)
-                                },
-                              },
-                            },
-                            [_c("i", { staticClass: "fa fa-times" })]
-                          ),
-                        ]),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "caption" }, [
-                      _c("p", [
-                        _vm._v(_vm._s(gallery.title || "Not-Available")),
-                      ]),
-                    ]),
-                  ]),
-                ])
-              }),
-              0
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "modal fade",
-          attrs: {
-            id: "delete-gallery-dialog",
-            tabindex: "-1",
-            role: "dialog",
-            "aria-hidden": "true",
-          },
-        },
-        [
-          _c(
-            "div",
-            { staticClass: "modal-dialog modal-sm modal-dialog-centered" },
-            [
-              _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c("div", { staticClass: "modal-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary btn-sm",
-                      attrs: { type: "button", "data-dismiss": "modal" },
-                    },
-                    [_vm._v("Close")]
-                  ),
-                  _vm._v(" "),
-                  _vm.delete_submitting
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: { type: "button" },
-                        },
-                        [_c("i", { staticClass: "fa fa-spinner fa-spin" })]
-                      )
-                    : _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          attrs: { type: "submit" },
-                          on: {
-                            click: function ($event) {
-                              $event.preventDefault()
-                              return _vm.deleteGallery.apply(null, arguments)
-                            },
-                          },
-                        },
-                        [_vm._v("Confirm")]
-                      ),
-                ]),
-              ]),
-            ]
-          ),
-        ]
-      ),
-      _vm._v(" "),
-      _c("create-gallery", { ref: "createGallery" }),
-    ],
-    1
-  )
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("div", { staticClass: "ibox float-e-margins" }, [
-            _c("div", { staticClass: "ibox-content" }, [
-              _c("div", { staticClass: "file-manager" }, [
-                _c("h5", [_vm._v("Show:")]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "file-control active", attrs: { href: "#" } },
-                  [_vm._v("Ale")]
-                ),
-                _vm._v(" "),
-                _c("a", { staticClass: "file-control", attrs: { href: "#" } }, [
-                  _vm._v("Documents"),
-                ]),
-                _vm._v(" "),
-                _c("a", { staticClass: "file-control", attrs: { href: "#" } }, [
-                  _vm._v("Audio"),
-                ]),
-                _vm._v(" "),
-                _c("a", { staticClass: "file-control", attrs: { href: "#" } }, [
-                  _vm._v("Images"),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "hr-line-dashed" }),
-                _vm._v(" "),
-                _c("button", { staticClass: "btn btn-primary btn-block" }, [
-                  _vm._v("Upload Files"),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "hr-line-dashed" }),
-                _vm._v(" "),
-                _c("h5", [_vm._v("Folders")]),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  { staticClass: "folder-list", staticStyle: { padding: "0" } },
-                  [
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [
-                        _c("i", { staticClass: "fa fa-folder" }),
-                        _vm._v(" Files"),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [
-                        _c("i", { staticClass: "fa fa-folder" }),
-                        _vm._v(" Pictures"),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [
-                        _c("i", { staticClass: "fa fa-folder" }),
-                        _vm._v(" Web pages"),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [
-                        _c("i", { staticClass: "fa fa-folder" }),
-                        _vm._v(" Illustrations"),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [
-                        _c("i", { staticClass: "fa fa-folder" }),
-                        _vm._v(" Films"),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [
-                        _c("i", { staticClass: "fa fa-folder" }),
-                        _vm._v(" Books"),
-                      ]),
-                    ]),
-                  ]
-                ),
-                _vm._v(" "),
-                _c("h5", { staticClass: "tag-title" }, [_vm._v("Tags")]),
-                _vm._v(" "),
-                _c(
-                  "ul",
-                  { staticClass: "tag-list", staticStyle: { padding: "0" } },
-                  [
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [_vm._v("Family")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [_vm._v("Work")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [_vm._v("Home")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [_vm._v("Children")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [_vm._v("Holidays")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [_vm._v("Music")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [_vm._v("Photography")]),
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "" } }, [_vm._v("Film")]),
-                    ]),
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "clearfix" }),
-              ]),
-            ]),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-9 animated fadeInRight" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-12" }, [
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-file" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Document_2014.doc\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 11, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/87CEFA/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Italy street.jpg\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 6, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/FF7F50/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            My feel.png\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 7, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-music" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Michal Jackson.mp3\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 22, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/FFB6C1/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Document_2014.doc\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 11, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "img-responsive fa fa-film" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Monica's birthday.mpg4\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 18, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("div", { staticClass: "file" }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-bar-chart-o" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Annual report 2014.xls\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 22, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-file" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Document_2014.doc\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 11, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/4169E1/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Italy street.jpg\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 6, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/EE82EE/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            My feel.png\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 7, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-music" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Michal Jackson.mp3\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 22, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/008080/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Document_2014.doc\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 11, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "img-responsive fa fa-film" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Monica's birthday.mpg4\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 18, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("div", { staticClass: "file" }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-bar-chart-o" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Annual report 2014.xls\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 22, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-file" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Document_2014.doc\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 11, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/40E0D0/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Italy street.jpg\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 6, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/FF6347/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            My feel.png\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 7, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-music" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Michal Jackson.mp3\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Jan 22, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "image" }, [
-                      _c("img", {
-                        staticClass: "img-responsive",
-                        attrs: {
-                          alt: "image",
-                          src: "https://via.placeholder.com/400x300/6A5ACD/000000",
-                        },
-                      }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Document_2014.doc\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 11, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("div", { staticClass: "file" }, [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "img-responsive fa fa-film" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Monica's birthday.mpg4\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 18, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "file-box" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("div", { staticClass: "file" }, [
-                    _c("span", { staticClass: "corner" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "icon" }, [
-                      _c("i", { staticClass: "fa fa-bar-chart-o" }),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n                                            Annual report 2014.xls\n                                            "
-                      ),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", [_vm._v("Added: Fab 22, 2014")]),
-                    ]),
-                  ]),
-                ]),
-              ]),
-            ]),
-          ]),
-        ]),
       ]),
     ])
   },

@@ -69,10 +69,11 @@
                             <li><a href="{{ route('cms.theme.index') }}">Customization</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="{{ route('cms.storage.index') }}">
-                            <i class="fa fa-dropbox"></i> Storage
-                        </a>
+                    <li><a><i class="fa fa-dropbox"></i> Storage <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('cms.storage.index') }}">All Files</a></li>
+                            <li><a href="{{ route('cms.storage.gallery.index') }}">Gallery</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

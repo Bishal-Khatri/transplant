@@ -44,7 +44,7 @@ return [
 
         'public-fm' => [
             'driver' => 'local',
-            'root' => storage_path('app/public-fm'),
+            'root' => storage_path('app/public/filemanager'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

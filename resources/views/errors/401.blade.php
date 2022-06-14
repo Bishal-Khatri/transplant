@@ -1,4 +1,4 @@
-@extends('errors::gentelella')
+@extends('errors::stack')
 
 @section('title', __('Unauthorized'))
 @section('code', '401')

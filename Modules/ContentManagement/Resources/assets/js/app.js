@@ -9,6 +9,8 @@ const store = new Vuex.Store();
 Vue.use(FileManager, {store});
 
 Vue.component('register-hospital', require('./frontend/RegisterHospital.vue').default);
+
+Vue.component('theme-customization', require('./components/theme/ThemeCustomization.vue').default);
 Vue.component('page-edit', require('./components/page/Edit.vue').default);
 Vue.component('gallery-index', require('./components/storage/gallery/GalleryIndex.vue').default);
 Vue.component('gallery-images', require('./components/storage/gallery/GalleryImages.vue').default);

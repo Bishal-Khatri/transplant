@@ -2,33 +2,44 @@
     <div>
         <div class="x_panel">
             <div class="x_title">
-                <h2>Call To Action <input type="checkbox" class="js-switch ml-4" v-model="visibility" /> Visible</h2>
+                <h2>Call To Action </h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="btn btn-link" v-if="submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
                         <a class="btn btn-link text-accent" href="" v-else @click.prevent="updateSection">Save Section</a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                    <li><a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a></li>
+                    <li><slot name="delete"></slot></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <ul class="nav nav-tabs justify-content-end bar_tabs" id="myTab" role="tablist">
+                <ul class="nav nav-tabs justify-content-start bar_tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="home" aria-selected="true">
+                        <a class="nav-link active" id="content-tab" data-toggle="tab" :href="'#content-'+section.id" role="tab" aria-controls="home" aria-selected="true">
                             Header
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="style-tab" data-toggle="tab" href="#style" role="tab" aria-controls="profile" aria-selected="false">
+                        <a class="nav-link" id="style-tab" data-toggle="tab" :href="'#style-'+section.id" role="tab" aria-controls="profile" aria-selected="false">
                             Content
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+                    <div class="tab-pane fade show active" v-bind:id="'content-'+section.id" role="tabpanel" aria-labelledby="content-tab">
                         <form class="form-horizontal form-label-left">
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Section Visibility
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="checkbox" class="js-switch-custom" v-model="visibility" />
+                                    <span v-if="visibility">Visible</span>
+                                    <span v-else>Hidden</span>
+                                </div>
+                            </div>
+
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
                                     Section Order
@@ -60,7 +71,7 @@
                         </form>
                     </div>
 
-                    <div class="tab-pane fade" id="style" role="tabpanel" aria-labelledby="style-tab">
+                    <div class="tab-pane fade" v-bind:id="'style-'+section.id" role="tabpanel" aria-labelledby="style-tab">
                         <form class="form-horizontal form-label-left">
 
                             <div class="item form-group">
@@ -110,12 +121,10 @@
                 </div>
             </div>
         </div>
-        <delete-section ref="deleteSection"></delete-section>
     </div>
 </template>
 
 <script>
-    import DeleteSection from "./DeleteSection";
     import {Errors} from "../../../../../../../../resources/js/error";
     import PageService from "../../../../services/PageService";
     import {EventBus} from "../../../app";
@@ -127,7 +136,6 @@
             'section',
         ],
         components: {
-            DeleteSection,
         },
         data(){
             return{
@@ -155,11 +163,13 @@
                 this.section_order = this.section.order;
 
                 let background = JSON.parse(this.section.background);
-                this.type = background.type;
+                background ? this.type = background.type : '';
 
                 let json_data = JSON.parse(this.section.json_data);
-                this.button_name = json_data.button_name;
-                this.link = json_data.link;
+                if(json_data){
+                    this.button_name = json_data.button_name;
+                    this.link = json_data.link;
+                }
             },
 
             async updateSection(){

@@ -8,22 +8,56 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Modules\ContentManagement\Entities\Menu;
 use Modules\ContentManagement\Entities\Page;
+use Modules\ContentManagement\Entities\PageCategory;
 use Modules\ContentManagement\Entities\Theme;
 use Modules\ContentManagement\Enum\ContentType;
 
 class ThemeController extends Controller
 {
-    public function index()
+    public  $active_theme;
+    public function __construct()
     {
-        $active_theme = Theme::where('is_active', 1)->first();
+        $this->active_theme = Theme::where('is_active', 1)->first();
+    }
+
+    public function getPage($slug)
+    {
+        $active_theme = $this->active_theme;
+
+
+
+        if (!$content OR blank($content)){
+            return view('contentmanagement::default-page');
+        }
+
+        $index_file = 'contentmanagement::theme'.'.'.$active_theme->name.'.'.'index';
+
+        return view($index_file, compact('content', 'active_theme'));
+    }
+
+    public function getCategory($slug)
+    {
+        $page = PageCategory::where('slug', $slug)->with('pages')->firstOrFail();
+
+    }
+
+    public function index($slug = null)
+    {
+        $active_theme = $this->active_theme;
 
         if (!$active_theme OR blank($active_theme)){
             return abort(404, 'Theme not activated');
         }
 
-        $content = Page::where('content_type', ContentType::PAGE)
-            ->where('visibility', 1)->with('sections')
-            ->whereId($active_theme->homepage_id)->first();
+        $query = Page::query();
+        $query->where('content_type', ContentType::PAGE)
+            ->where('visibility', 1)->with('sections');
+
+        if (!blank($slug)){
+            $content = $query->where('slug', $slug)->firstOrFail();
+        } else {
+            $content = $query->whereId($active_theme->homepage_id)->firstOrFail();
+        }
 
         if (!$content OR blank($content)){
             return view('contentmanagement::default-page');

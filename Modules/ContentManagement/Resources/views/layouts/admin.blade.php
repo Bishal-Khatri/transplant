@@ -18,40 +18,28 @@
 <div class="container body">
     <div class="main_container">
 
-        @include('layouts.gentelella.admin-navigation')
+    @include('layouts.gentelella.admin-navigation')
 
-        <!-- page content -->
+    <!-- page content -->
         <div id="app">
             @yield('content')
         </div>
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer>
-            <div class="pull-right">
-                Bootstrap Admin Template
-            </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+    @include('layouts.gentelella.footer')
+    <!-- /footer content -->
     </div>
 </div>
-<script src="{{ mix('js/contentmanagement.js') }}"></script>
-@include('layouts.gentelella.script')r
-<script src="{{ asset('asset/gentelella/vendors/switchery/dist/switchery.min.js') }}"></script>
-<script>
-    // $(document).ready(function() {
-    //     if ($(".js-switch")[0]) {
-    //         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-    //         elems.forEach(function (html) {
-    //             var switchery = new Switchery(html, {
-    //                 color: '#26B99A'
-    //             });
-    //             // console.log(switchery)
-    //             // alert()
-    //         });
-    //     }
-    // });
-</script>
+
+{{--temp fix | convert menu to vue component--}}
+@if(Request::is('admin/cms/menu'))
+    <script src="{{ mix('js/contentmanagement.js') }}"></script>
+    @include('layouts.gentelella.script')
+@else
+    @include('layouts.gentelella.script')
+    <script src="{{ mix('js/contentmanagement.js') }}"></script>
+
+@endif
 </body>
 </html>

@@ -33,4 +33,5 @@ class PublicController extends Controller
 
         return response()->json($this->prepareResponse(false, 'success', compact('municipalities'), []));
     }
+
 }

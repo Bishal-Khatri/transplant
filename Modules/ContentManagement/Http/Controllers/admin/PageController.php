@@ -102,7 +102,7 @@ class PageController extends Controller
         $section->order = 0;
         $section->section_type = $request->section_type;
         $section->section_name = $request->section_name;
-        $section->visibility = 0;
+        $section->visibility = 1;
         $section->save();
 
         $returnData = $this->prepareResponse(false, 'Success <br>Section Added Successfully.', [], []);

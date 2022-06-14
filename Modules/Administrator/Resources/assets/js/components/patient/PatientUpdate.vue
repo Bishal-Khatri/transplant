@@ -1,6 +1,15 @@
 <template>
     <div>
-        <div class="row">
+        <div class="row" v-if="patient_details_loading">
+            <div class="col-md-12 ">
+                <section class="x_panel" >
+                    <div class="panel-body d-flex justify-content-center align-items-center" style="height: 80vh;">
+                        <i class="fa fa-spinner fa-spin " style=""></i>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row" v-else>
             <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                     <div class="x_content">
@@ -497,6 +506,7 @@
         data(){
             return{
                 errors: new Errors(),
+                patient_details_loading: false,
                 isLastStep: false,
                 // form data
                 name: '',
@@ -564,9 +574,12 @@
         },
         computed: {
         },
-        mounted() {
+        async mounted() {
             this.getProvince();
-            this.initForm();
+
+            this.patient_details_loading = true;
+            await this.initForm();
+            this.patient_details_loading = false;
         },
         watch:{
             current_province(value){

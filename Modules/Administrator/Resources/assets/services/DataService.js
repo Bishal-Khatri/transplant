@@ -126,6 +126,11 @@ export default {
 
     getHospitals(page,filter,filter_by,filter_by_option){
         return Api().get('/admin/web-api/hospitals?page=' + page + '&filter=' + filter+'&filter_by='+filter_by+'&filter_by_option='+filter_by_option);
-    }
+    },
+
+    // activity
+    getActivity(page){
+        return Api().get('/admin/web-api/my-activity?page=' + page);
+    },
 
 }

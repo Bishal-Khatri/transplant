@@ -2,6 +2,8 @@ import Vue from 'vue';
 
 window._ = require('lodash');
 
+Vue.component('recent-activity', require('./components/dashboard/RecentActivity.vue').default);
+
 Vue.component('hospital-index', require('./components/hospital/HospitalIndex.vue').default);
 Vue.component('hospital-details', require('./components/hospital/HospitalView.vue').default);
 Vue.component('hospital-create', require('./components/hospital/CreateHospital.vue').default);

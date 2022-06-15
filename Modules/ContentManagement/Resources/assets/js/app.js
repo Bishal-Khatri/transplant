@@ -13,7 +13,7 @@ Vue.component('register-hospital', require('./frontend/RegisterHospital.vue').de
 Vue.component('theme-customization', require('./components/theme/ThemeCustomization.vue').default);
 Vue.component('page-edit', require('./components/page/Edit.vue').default);
 Vue.component('gallery-index', require('./components/storage/gallery/GalleryIndex.vue').default);
-Vue.component('gallery-images', require('./components/storage/gallery/GalleryImages.vue').default);
+// Vue.component('gallery-images', require('./components/storage/gallery/GalleryImages.vue').default);
 Vue.component('storage-index', require('./components/storage/StorageIndex').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 

@@ -11,9 +11,9 @@ class GalleryImage extends Model
 
     protected $fillable = [];
 
-    protected static function newFactory()
+    public function getCreatedAtAttribute($value)
     {
-        return \Modules\ContentManagement\Database\factories\GalleryImageFactory::new();
+        return date('M d Y', strtotime($value));
     }
 
     public function gallery(){

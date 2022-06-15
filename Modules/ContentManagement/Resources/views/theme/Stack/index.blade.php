@@ -1,7 +1,7 @@
 @extends('contentmanagement::theme.Stack.layouts.master')
 
 @section('content')
-
+    <div id="app"></div>
     @if($content->title_visibility)
         <section class="text-center imagebg space--lg" data-overlay="3">
             <div class="background-image-holder">

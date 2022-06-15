@@ -11,6 +11,7 @@ use Modules\Administrator\Entities\EthnicGroup;
 use Modules\Administrator\Entities\Disease;
 use Modules\Administrator\Entities\EducationLevel;
 use Modules\Administrator\Entities\Occupation;
+use Spatie\Activitylog\Models\Activity;
 
 class DataController extends Controller
 {
@@ -331,4 +332,19 @@ class DataController extends Controller
         }
     }
     // Occupation END
+
+    // Activity
+    public function myActivities(Request $request)
+    {
+        try {
+            $per_page = $request->per_page ?: 4;
+            $activities = Activity::with('causer')->orderBy('id', 'desc')->paginate($per_page);
+            $returnData = $this->prepareResponse(false, 'success', compact('activities'), []);
+            return response()->json($returnData, 200);
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
 }

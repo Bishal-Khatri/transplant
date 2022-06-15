@@ -264,7 +264,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img alt="Image" class="logo" src="{{ asset('themes/stack/img/logo-dark.png') }}" />
+                    <img alt="Image" class="logo" src="{{ $active_theme->logo ? 'storage/'.$active_theme->logo : '' }}" />
                     <ul class="list-inline list--hover">
                         <li class="list-inline-item">
                             <a href="#">
@@ -273,7 +273,7 @@
                         </li>
                         <li class="list-inline-item">
                             <a href="#">
-                                <span class="type--fine-print">help@stack.io</span>
+                                <span class="type--fine-print">help@iionstech.com</span>
                             </a>
                         </li>
                     </ul>

@@ -264,7 +264,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img alt="Image" class="logo" src="{{ $active_theme->logo ? 'storage/'.$active_theme->logo : '' }}" />
+                    <img alt="Image" class="logo" src="{{ $active_theme->logo ? '/storage/'.$active_theme->logo : '' }}" />
                     <ul class="list-inline list--hover">
                         <li class="list-inline-item">
                             <a href="#">

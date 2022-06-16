@@ -4,6 +4,7 @@ namespace Modules\Hospital\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Administrator\Entities\Disease;
 use Modules\Administrator\Entities\EducationLevel;
 use Modules\Administrator\Entities\EthnicGroup;
 use Modules\Administrator\Entities\Occupation;
@@ -93,6 +94,10 @@ class Patient extends Model
     // permanent municipality
     public function permanent_municipality(){
         return $this->belongsTo(Municipality::class);
+    }
+
+    public function disease(){
+        return $this->belongsToMany(Disease::class);
     }
 
 }

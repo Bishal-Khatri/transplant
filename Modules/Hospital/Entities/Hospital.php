@@ -54,8 +54,8 @@ class Hospital extends Model
 
     public function getLicense()
     {
-        $licenses = $this->license()->get();
-        return $licenses->last();
+        $licenses = $this->license()->first();
+        return $licenses->getRawOriginal();
     }
     public function province()
     {

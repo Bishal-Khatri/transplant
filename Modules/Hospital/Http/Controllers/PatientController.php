@@ -6,6 +6,7 @@ use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Administrator\Entities\Disease;
 use Modules\Administrator\Entities\EducationLevel;
 use Modules\Administrator\Entities\EthnicGroup;
 use Modules\Administrator\Entities\Occupation;
@@ -45,7 +46,7 @@ class PatientController extends Controller
     public function savePatient(Request $request)
     {
         $request->validate([
-            'patient_image' => 'required',
+            'patient_image' => 'nullable|image',
             'patient_name' => 'required',
             'citizenship_number' => 'required',
         ]);
@@ -71,7 +72,6 @@ class PatientController extends Controller
 
     public function updatePatient(Request $request)
     {
-    //    dd($request->all());
         if (!isset($request->page) OR blank($request->page)){
             return;
         }
@@ -220,11 +220,28 @@ class PatientController extends Controller
             $patient->letter_date = $request->letter_date;
             $patient->opd_number = $request->opd_number;
             $patient->hospital_bipanna_number = $request->hospital_bipanna_number;
-            $patient->disease = $request->disease;
             $patient->max_facilitatory_amount = $request->max_facilitatory_amount;
             $patient->referred_by = $request->referred_by;
+            $patient->blood_group = $request->blood_group;
             $patient->transplant_type = $request->transplant_type;
+
+            if ($request->transplant_type == 'kidney'){
+                $patient->dialysis_start_date = $request->dialysis_start_date;
+                $patient->hal_tissue_type = $request->hal_tissue_type;
+                $patient->cross_match_cdc = $request->cross_match_cdc;
+                $patient->dsa_titre = $request->dsa_titre;
+                $patient->pra = $request->pra;
+            }
+            elseif ($request->transplant_type == 'liver'){
+                $patient->meld_score = $request->meld_score;
+            }
+
             $patient->save();
+
+            $diseases = json_decode($request->disease);
+            $patient->disease()->sync($diseases);
+
+
 
             $returnData = $this->prepareResponse(false, 'Success <br> Patient updated successfully.', [], []);
             return response()->json($returnData);
@@ -282,12 +299,14 @@ class PatientController extends Controller
             'occupation',
             'religion',
             'ethnic_group',
+            'disease',
         ])->findOrFail($patient_id);
         $religions = Religion::all();
         $ethnic_groups = EthnicGroup::all();
         $education_levels = EducationLevel::all();
         $occupations = Occupation::all();
-        return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations'));
+        $diseases = Disease::all();
+        return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases'));
     }
     public function view($patient_id){
         $patient = Patient::with([

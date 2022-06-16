@@ -16,6 +16,7 @@
                             :religions="{{ $religions }}"
                             :ethnic_groups="{{ $ethnic_groups }}"
                             :education_levels="{{ $education_levels }}"
+                            :diseases="{{ $diseases }}"
                             :occupations="{{ $occupations }}"></patient-update>
         </div>
     </div>

@@ -14,7 +14,7 @@ class LicenseVerification
         $hospital = $user->hospital;
         $license = $hospital->getLicense();
         if($license){
-            if($license->expiry_date > Carbon::today()){
+            if($license['expiry_date'] > Carbon::today()){
                 return $next($request);
             }else{
                 abort(403, 'Your license has been expired.');

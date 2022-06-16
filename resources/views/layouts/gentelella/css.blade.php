@@ -27,6 +27,12 @@
         width: 32px;
         height: 32px;
     }
+
+    img.image-sm {
+        /*width: 38px;*/
+        height: 38px;
+    }
+
     .btn-accent{
         color: #fff;
         background-color: #2A3F54;

@@ -90,8 +90,6 @@
                 </div>
             </div>
         </div>
-        <patient-create ref="createPatient"/>
-        <image-preview ref="imagePreview"/>
 
         <div class="modal" id="delete-patient-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
@@ -112,6 +110,9 @@
                 </div>
             </div>
         </div>
+
+        <patient-create ref="createPatient"/>
+        <image-preview ref="imagePreview"/>
     </div>
 </template>
 

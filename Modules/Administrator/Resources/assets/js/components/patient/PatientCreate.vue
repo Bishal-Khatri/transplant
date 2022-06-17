@@ -53,10 +53,11 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-md-9 col-sm-9">
-                                <select v-model="transplant_center" class="form-control" id="">
-                                    <option value="">Select Transplant Center</option>
-                                    <option v-if="hospitals.length" v-for="hospital in hospitals" :key="hospital.id" :value="hospital.id">{{ hospital.hospital_name }}</option>
-                                </select>
+                                {{hospitals}}
+                                <!--<select v-model="transplant_center" class="form-control" id="">-->
+                                    <!--<option value="">Select Transplant Center</option>-->
+                                    <!--<option v-if="hospitals.length" v-for="hospital in hospitals" :key="hospital.id" :value="hospital.id">{{ hospital.hospital_name }}</option>-->
+                                <!--</select>-->
                                 <span class="form-text text-danger" v-html="errors.get('transplant_center')"></span>
                             </div>
                         </div>

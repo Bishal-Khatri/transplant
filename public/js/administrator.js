@@ -58928,8 +58928,9 @@ var render = function () {
                               _c("td", [
                                 _vm._v(
                                   _vm._s(
-                                    patient.hospital.hospital_name ||
-                                      "Not-Available"
+                                    patient.hospital
+                                      ? patient.hospital.hospital_name
+                                      : "Not-Available"
                                   )
                                 ),
                               ]),

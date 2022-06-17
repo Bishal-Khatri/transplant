@@ -27,4 +27,5 @@ Route::group(['prefix' => 'hospital/web-api/patient', 'middleware' => ['auth']],
     Route::post('/create', [PatientController::class, 'savePatient']);
     Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);
     Route::post('/update', [PatientController::class, 'updatePatient']);
+    Route::post('/transfer', [PatientController::class, 'transferPatient']);
 });

@@ -17689,6 +17689,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   deletePatient: function deletePatient(patient_id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/hospital/web-api/patient/delete/' + patient_id);
+  },
+  transferPatient: function transferPatient(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/hospital/web-api/patient/transfer', formData);
   }
 });
 
@@ -18072,6 +18075,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18079,14 +18123,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PatientList",
+  props: ['hospitals'],
   data: function data() {
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"](),
+      delete_submitting: false,
+      transfer_submitting: false,
       filter: '',
       patients: {},
       patients_pg: {},
-      delete_submitting: '',
-      delete_id: ''
+      delete_id: '',
+      transfer_patient_id: '',
+      transplant_center: ''
     };
   },
   components: {
@@ -18136,24 +18184,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    showDeleteModal: function showDeleteModal(patient_id) {
-      this.delete_id = patient_id;
-      $("#delete-patient-dialog").modal('show');
+    showTransferModal: function showTransferModal(patient_id) {
+      this.transfer_patient_id = patient_id;
+      $("#transfer-patient-dialog").modal('show');
     },
-    deletePatient: function deletePatient() {
+    transferPatient: function transferPatient() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var response;
+        var formData, response;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this3.delete_submitting = true;
-                _context2.next = 3;
-                return _services_PatientService__WEBPACK_IMPORTED_MODULE_1__["default"].deletePatient(_this3.delete_id);
+                _this3.transfer_submitting = true;
+                formData = {
+                  transplant_center: _this3.transplant_center,
+                  patient_id: _this3.transfer_patient_id
+                };
+                _context2.next = 4;
+                return _services_PatientService__WEBPACK_IMPORTED_MODULE_1__["default"].transferPatient(formData);
 
-              case 3:
+              case 4:
                 response = _context2.sent;
 
                 if (response.data.error === false) {
@@ -18161,18 +18213,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this3.getPatients();
 
-                  $("#delete-patient-dialog").modal('hide');
+                  $("#transfer-patient-dialog").modal('hide');
                 }
 
-                _this3.delete_id = '';
-                _this3.delete_submitting = false;
+                _this3.transfer_patient_id = '';
+                _this3.transfer_submitting = false;
 
-              case 7:
+              case 8:
               case "end":
                 return _context2.stop();
             }
           }
         }, _callee2);
+      }))();
+    },
+    showDeleteModal: function showDeleteModal(patient_id) {
+      this.delete_id = patient_id;
+      $("#delete-patient-dialog").modal('show');
+    },
+    deletePatient: function deletePatient() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this4.delete_submitting = true;
+                _context3.next = 3;
+                return _services_PatientService__WEBPACK_IMPORTED_MODULE_1__["default"].deletePatient(_this4.delete_id);
+
+              case 3:
+                response = _context3.sent;
+
+                if (response.data.error === false) {
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"].Notification(response);
+
+                  _this4.getPatients();
+
+                  $("#delete-patient-dialog").modal('hide');
+                }
+
+                _this4.delete_id = '';
+                _this4.delete_submitting = false;
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -61511,53 +61602,125 @@ var render = function () {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-right" }, [
-                                _c("div", { staticClass: "btn-group" }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-accent btn-sm",
-                                      attrs: {
-                                        href: "#",
-                                        href:
-                                          "/hospital/patient/view/" +
-                                          patient.id,
-                                        type: "button",
-                                      },
-                                    },
-                                    [_vm._v("View")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-accent btn-sm",
-                                      attrs: {
-                                        href: "#",
-                                        href:
-                                          "/hospital/patient/update/" +
-                                          patient.id,
-                                        type: "button",
-                                      },
-                                    },
-                                    [_vm._v("Edit")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-danger btn-sm deleteModal",
-                                      attrs: { href: "#", type: "button" },
-                                      on: {
-                                        click: function ($event) {
-                                          $event.preventDefault()
-                                          return _vm.showDeleteModal(patient.id)
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "btn-group",
+                                    attrs: { role: "group" },
+                                  },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-secondary dropdown-toggle btn-sm",
+                                        attrs: {
+                                          id: "btnGroupDrop1",
+                                          type: "button",
+                                          "data-toggle": "dropdown",
+                                          "aria-haspopup": "true",
+                                          "aria-expanded": "false",
                                         },
                                       },
-                                    },
-                                    [_vm._v("Delete")]
-                                  ),
-                                ]),
+                                      [
+                                        _vm._v(
+                                          "\n                                        Actions\n                                    "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "dropdown-menu",
+                                        staticStyle: {
+                                          position: "absolute",
+                                          "will-change": "transform",
+                                          top: "0px",
+                                          left: "0px",
+                                          transform:
+                                            "translate3d(0px, 38px, 0px)",
+                                        },
+                                        attrs: {
+                                          "aria-labelledby": "btnGroupDrop1",
+                                          "x-placement": "bottom-start",
+                                        },
+                                      },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "dropdown-item",
+                                            attrs: {
+                                              href: "#",
+                                              href:
+                                                "/hospital/patient/view/" +
+                                                patient.id,
+                                              type: "button",
+                                            },
+                                          },
+                                          [_vm._v("View")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "dropdown-item",
+                                            attrs: {
+                                              href: "#",
+                                              href:
+                                                "/hospital/patient/update/" +
+                                                patient.id,
+                                              type: "button",
+                                            },
+                                          },
+                                          [_vm._v("Edit")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "dropdown-item",
+                                            attrs: {
+                                              href: "#",
+                                              type: "button",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                $event.preventDefault()
+                                                return _vm.showTransferModal(
+                                                  patient.id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Transfer")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass:
+                                              "dropdown-item text-danger deleteModal",
+                                            attrs: {
+                                              href: "#",
+                                              type: "button",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                $event.preventDefault()
+                                                return _vm.showDeleteModal(
+                                                  patient.id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Delete")]
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                ),
                               ]),
                             ])
                           }),
@@ -61636,6 +61799,134 @@ var render = function () {
                           },
                         },
                         [_vm._v("Confirm")]
+                      ),
+                ]),
+              ]),
+            ]
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal",
+          attrs: {
+            id: "transfer-patient-dialog",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-hidden": "true",
+          },
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog modal-lg modal-dialog-centered" },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body m-3" }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("form", { attrs: { action: "" } }, [
+                    _c("div", { staticClass: "form-group row" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.transplant_center,
+                                expression: "transplant_center",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "" },
+                            on: {
+                              change: function ($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function (o) {
+                                    return o.selected
+                                  })
+                                  .map(function (o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.transplant_center = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                            },
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Select Transplant Center"),
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.hospitals, function (hospital) {
+                              return _c(
+                                "option",
+                                {
+                                  key: hospital.id,
+                                  domProps: { value: hospital.id },
+                                },
+                                [_vm._v(_vm._s(hospital.hospital_name))]
+                              )
+                            }),
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "form-text text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.errors.get("transplant_center")
+                            ),
+                          },
+                        }),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button", "data-dismiss": "modal" },
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _vm.transfer_submitting
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "button" },
+                        },
+                        [_c("i", { staticClass: "fa fa-spinner fa-spin" })]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.transferPatient.apply(null, arguments)
+                            },
+                          },
+                        },
+                        [_vm._v("Transfer")]
                       ),
                 ]),
               ]),
@@ -61764,6 +62055,47 @@ var staticRenderFns = [
         _vm._v(" Are you sure you want to permanently delete this record?"),
       ]),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h2", { staticClass: "modal-title" }, [_vm._v("Transfer Patient")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" },
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("strong", [_vm._v("Attention !")]),
+      _vm._v(" Are you sure you want to transfer this patient permanently?"),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [
+        _vm._v(
+          "\n                                Transplant Center\n                                "
+        ),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      ]
+    )
   },
 ]
 render._withStripped = true

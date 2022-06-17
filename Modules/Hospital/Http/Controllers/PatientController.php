@@ -12,6 +12,7 @@ use Modules\Administrator\Entities\EducationLevel;
 use Modules\Administrator\Entities\EthnicGroup;
 use Modules\Administrator\Entities\Occupation;
 use Modules\Administrator\Entities\Religion;
+use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Entities\Patient;
 
 class PatientController extends Controller
@@ -255,18 +256,6 @@ class PatientController extends Controller
         }
     }
 
-//    private function checkPatient(Request $request)
-//    {
-//        if (Patient::where('name', $request->patient_name)->where('citizenship_number', $request->citizenship_number)->exists()){
-//            $request->validate([
-//                'unique_patient' => 'required'
-//            ], [
-//                'unique_patient.required' => "This record already exists in the system."
-//            ]);
-//        }
-//        return 'true';
-//    }
-
     public function deletePatient($patient_id)
     {
         try {
@@ -286,7 +275,8 @@ class PatientController extends Controller
 
     public function index()
     {
-        return view('hospital::patient.index');
+        $hospitals = Hospital::all();
+        return view('hospital::patient.index', compact('hospitals'));
     }
 
     public function edit($patient_id)
@@ -312,7 +302,9 @@ class PatientController extends Controller
         $auth_user = auth()->user();
         return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
     }
-    public function view($patient_id){
+
+    public function view($patient_id)
+    {
         $patient = Patient::with([
             'current_province',
             'current_district',
@@ -326,5 +318,20 @@ class PatientController extends Controller
             'ethnic_group',
         ])->findOrFail($patient_id);
         return view('hospital::patient.view', compact('patient'));
+    }
+
+    public function transferPatient(Request $request)
+    {
+        $request->validate([
+            'transplant_center' => 'required|integer',
+            'patient_id' => 'required|integer',
+        ]);
+
+        $patient = Patient::findOrFail($request->patient_id);
+        $patient->hospital_id = $request->transplant_center;
+        $patient->save();
+
+        $returnData = $this->prepareResponse(false, 'Success <br> Patient transferred successfully.', [], []);
+        return response()->json($returnData);
     }
 }

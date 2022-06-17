@@ -17415,6 +17415,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   deletePatient: function deletePatient(patient_id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/hospital/web-api/patient/delete/' + patient_id);
+  },
+  transferPatient: function transferPatient(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/hospital/web-api/patient/transfer', formData);
   }
 });
 

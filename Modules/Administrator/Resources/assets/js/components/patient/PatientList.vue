@@ -48,10 +48,9 @@
                                 <th>Citizenship Number</th>
                                 <th>Gender</th>
                                 <th>Date Of Birth</th>
-                                <!--<th>Nationality</th>-->
-                                <th>Score</th>
                                 <th>Transplant Type</th>
                                 <th>Transplant Center</th>
+                                <th>Score</th>
                                 <th style="width: 180px" class="text-right">Action</th>
                             </tr>
                             </thead>
@@ -73,10 +72,9 @@
                                 <td>{{ patient.citizenship_number || 'Not-Available' }}</td>
                                 <td>{{ patient.gender ? patient.gender.toUpperCase() : 'Not-Available' }}</td>
                                 <td>{{ patient.date_of_birth || 'Not-Available' }}</td>
-                                <!--<td>{{ patient.nationality || 'Not-Available' }}</td>-->
-                                <td style="width: 70px;">{{ patient.point }}</td>
                                 <td>{{ patient.transplant_type ? patient.transplant_type.toUpperCase() : 'Not-Available' }}</td>
                                 <td>{{ patient.hospital.hospital_name }}</td>
+                                <td style="width: 70px;">{{ patient.point }}</td>
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <a href="#" class="btn btn-accent btn-sm" :href="'/admin/patient/view/'+patient.id" type="button">View</a>

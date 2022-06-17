@@ -11,7 +11,7 @@
                     <div class="modal-body m-3">
 
                         <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">
                                 Patient's Photo
                             </label>
                             <div class="col-md-9 col-sm-9">
@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">
                                 Patient's Name
                                 <span class="required">*</span>
                             </label>
@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">
                                 Citizenship Number
                                 <span class="required">*</span>
                             </label>
@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">
                                 Transplant Center
                                 <span class="required">*</span>
                             </label>
@@ -60,7 +60,35 @@
                                 <span class="form-text text-danger" v-html="errors.get('transplant_center')"></span>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                Gender <span class="required">*</span>
+                            </label>
+                            <div class="col-md-9 col-sm-9">
+                                <select name="" v-model="gender" class="form-control">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <span class="form-text small text-danger" v-html="errors.get('gender')"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align">Transplant Type <span class="required">*</span></label>
+                            <div class="col-md-9 col-sm-9">
+                                <select class="form-control" v-model="transplant_type" required="required">
+                                    <option value="">Select Transplant Type</option>
+                                    <option value="kidney">Kidney</option>
+                                    <option value="liver">Liver</option>
+                                </select>
+                                <span class="form-text small text-danger" v-html="errors.get('transplant_type')"></span>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                         <button v-if="submitting" type="button" class="btn btn-accent btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
@@ -92,6 +120,8 @@
             citizenship_number: '',
             patient_image: '',
             transplant_center: '',
+            gender: '',
+            transplant_type: '',
         }),
         computed:{
         },
@@ -113,6 +143,8 @@
                     this.patient_name ? formData.append("patient_name", this.patient_name) : '';
                     this.citizenship_number ? formData.append("citizenship_number", this.citizenship_number) : '';
                     this.transplant_center ? formData.append("transplant_center", this.transplant_center) : '';
+                    this.gender ? formData.append("gender", this.gender) : '';
+                    this.transplant_type ? formData.append("transplant_type", this.transplant_type) : '';
 
                     const response = await PatientService.savePatient(formData);
                     if (response.data.error === false) {
@@ -131,7 +163,7 @@
             },
 
             clearForm() {
-                this.patient_name = this.citizenship_number = this.patient_image = this.patient_image_url = '';
+                this.patient_name = this.citizenship_number = this.patient_image = this.patient_image_url = this.gender = this.transplant_type = '';
                 this.errors.clear();
             },
         },

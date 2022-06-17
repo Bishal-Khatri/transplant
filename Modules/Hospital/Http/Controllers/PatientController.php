@@ -50,6 +50,8 @@ class PatientController extends Controller
             'patient_image' => 'nullable|image',
             'patient_name' => 'required',
             'citizenship_number' => 'required',
+            'gender' => 'required',
+            'transplant_type' => 'required',
         ]);
 
         $this->checkPatient($request);
@@ -64,6 +66,8 @@ class PatientController extends Controller
         $patient->name = $request->patient_name;
         $patient->citizenship_number = $request->citizenship_number;
         $patient->hospital_id = $hospital->id;
+        $patient->gender = $request->gender;
+        $patient->transplant_type = $request->transplant_type;
 
         $patient->save();
 

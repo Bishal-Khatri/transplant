@@ -2,6 +2,7 @@
 
 namespace Modules\Hospital\Entities;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Administrator\Entities\Disease;
@@ -12,6 +13,7 @@ use Modules\Administrator\Entities\Religion;
 use Modules\Administrator\Entities\Province;
 use Modules\Administrator\Entities\District;
 use Modules\Administrator\Entities\Municipality;
+use Modules\Hospital\Enum\TransplantTypes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 class Patient extends Model
@@ -20,6 +22,9 @@ class Patient extends Model
 
     protected $fillable = [];
     protected $appends = ['point'];
+    protected $casts = [
+        'dialysis_start_date' => 'date',
+    ];
     protected static $logAttributes = [
         'name',
         'citizenship_number',
@@ -42,12 +47,22 @@ class Patient extends Model
         return LogOptions::defaults()->logAll();
     }
 
+    // Patient Point Start
     public function getPointAttribute()
     {
-        $pointByGender = $this->pointByGender();
-        $pointByRegistration = $this->pointByRegistration();
+        $pointByDialysis = 0;
 
-        $totalPoint = (int) $pointByGender + (int) $pointByRegistration;
+        $pointByGender = $this->pointByGender();
+        $pointByRegistration = $this->pointByRegistrationDate();
+
+        if ($this->transplant_type === TransplantTypes::KIDNEY){
+            $pointByDialysis = $this->pointByDialysis();
+        }
+        elseif($this->transplant_type === TransplantTypes::LIVER){
+        }
+
+        $totalPoint = (int) $pointByGender + (int) $pointByDialysis + $pointByRegistration;
+
         return $totalPoint;
     }
 
@@ -56,15 +71,35 @@ class Patient extends Model
         if($this->gender == 'male'){
             return 1;
         }
-        if($this->gender == 'female'){
+        elseif($this->gender == 'female'){
             return 2;
+        }else{
+            return 1;
         }
     }
 
-    private function pointByRegistration()
+    private function pointByRegistrationDate()
     {
-        return 1;
+        $registration_date = Carbon::parse($this->created_at);
+        $today = Carbon::today();
+        $number_of_months = $registration_date->diffInMonths($today);
+        $score = $number_of_months / 6;
+        return round($score, 2);
     }
+
+    private function pointByDialysis()
+    {
+        $dialysis_start_date = $this->dialysis_start_date;
+        if (!blank($dialysis_start_date)){
+
+            $today = Carbon::today();
+            $number_of_months = $dialysis_start_date->diffInMonths($today);
+            $score = $number_of_months * 1;
+            return $score;
+        }
+    }
+
+    // Patient Points End
 
     public function getCreatedAtAttribute($value)
     {

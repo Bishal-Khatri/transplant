@@ -17810,6 +17810,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17825,7 +17853,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // form data
       patient_name: '',
       citizenship_number: '',
-      patient_image: ''
+      patient_image: '',
+      gender: '',
+      transplant_type: ''
     };
   },
   computed: {},
@@ -17852,10 +17882,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.patient_image ? formData.append("patient_image", _this.patient_image, _this.patient_image.name) : '';
                 _this.patient_name ? formData.append("patient_name", _this.patient_name) : '';
                 _this.citizenship_number ? formData.append("citizenship_number", _this.citizenship_number) : '';
-                _context.next = 8;
+                _this.gender ? formData.append("gender", _this.gender) : '';
+                _this.transplant_type ? formData.append("transplant_type", _this.transplant_type) : '';
+                _context.next = 10;
                 return _services_PatientService__WEBPACK_IMPORTED_MODULE_2__["default"].savePatient(formData);
 
-              case 8:
+              case 10:
                 response = _context.sent;
 
                 if (response.data.error === false) {
@@ -17867,11 +17899,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _this.submitting = false;
-                _context.next = 18;
+                _context.next = 20;
                 break;
 
-              case 13:
-                _context.prev = 13;
+              case 15:
+                _context.prev = 15;
                 _context.t0 = _context["catch"](1);
                 _this.submitting = false;
 
@@ -17879,20 +17911,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(_context.t0.response);
 
-              case 18:
+              case 20:
                 _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('patientCreated');
                 _this.submitting = false;
 
-              case 20:
+              case 22:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 13]]);
+        }, _callee, null, [[1, 15]]);
       }))();
     },
     clearForm: function clearForm() {
-      this.patient_name = this.citizenship_number = this.patient_image = this.patient_image_url = '';
+      this.patient_name = this.citizenship_number = this.patient_image = this.patient_image_url = this.gender = this.transplant_type = '';
       this.errors.clear();
     }
   }
@@ -60873,7 +60905,7 @@ var render = function () {
                     "label",
                     {
                       staticClass:
-                        "col-form-label col-md-3 col-sm-3 label-align text-left",
+                        "col-form-label col-md-3 col-sm-3 label-align",
                     },
                     [
                       _vm._v(
@@ -61002,6 +61034,122 @@ var render = function () {
                     ]),
                   ]),
                 ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.gender,
+                            expression: "gender",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "" },
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.gender = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Select Gender"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "male" } }, [
+                          _vm._v("Male"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "female" } }, [
+                          _vm._v("Female"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "other" } }, [
+                          _vm._v("Other"),
+                        ]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "form-text small text-danger",
+                      domProps: { innerHTML: _vm._s(_vm.errors.get("gender")) },
+                    }),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.transplant_type,
+                            expression: "transplant_type",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { required: "required" },
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.transplant_type = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Select Transplant Type"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "kidney" } }, [
+                          _vm._v("Kidney"),
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "liver" } }, [
+                          _vm._v("Liver"),
+                        ]),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "form-text small text-danger",
+                      domProps: {
+                        innerHTML: _vm._s(_vm.errors.get("transplant_type")),
+                      },
+                    }),
+                  ]),
+                ]),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -61071,7 +61219,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align text-left" },
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
       [
         _vm._v(
           "\n                            Patient's Name\n                            "
@@ -61086,11 +61234,40 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align text-left" },
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
       [
         _vm._v(
           "\n                            Citizenship Number\n                            "
         ),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "col-form-label col-md-3 col-sm-3 label-align",
+        attrs: { for: "last-name" },
+      },
+      [
+        _vm._v("\n                            Gender "),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [
+        _vm._v("Transplant Type "),
         _c("span", { staticClass: "required" }, [_vm._v("*")]),
       ]
     )

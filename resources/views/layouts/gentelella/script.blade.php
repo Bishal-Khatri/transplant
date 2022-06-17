@@ -18,7 +18,7 @@
 <script src="{{ asset('asset/vendor/nestable/jquery.nestable.js') }}"></script>
 <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 <script src="{{ asset('asset/gentelella/vendors/switchery/dist/switchery.min.js') }}"></script>
-
+<script src="{{ asset('asset/gentelella/vendors/Chart.js/dist/Chart.min.js') }}"></script>
 <script>
 
     $.ajaxSetup({

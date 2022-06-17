@@ -11,8 +11,8 @@ class Theme extends Model
 
     protected $fillable = ['name', 'is_active'];
 
-    protected static function newFactory()
+    public function getCreatedAtAttribute($value)
     {
-        return \Modules\ContentManagement\Database\factories\ThemeFactory::new();
+        return date('M d Y', strtotime($value));
     }
 }

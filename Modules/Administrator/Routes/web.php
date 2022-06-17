@@ -32,8 +32,10 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
         Route::get('/update/{patient_id}', [PatientController::class, 'edit'])->name('admin.patient.edit');
     });
     // End Patient
-    
+
     Route::group(['prefix' => 'web-api'],function() {
+
+        Route::get('/my-activity', [DataController::class, 'myActivities']);
 
         Route::get('/hospitals-details/{id}', [HospitalController::class, 'getHospitalDetails']);
 
@@ -108,6 +110,6 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
             Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);
             Route::post('/update', [PatientController::class, 'updatePatient']);
         });
-       
+
     });
 });

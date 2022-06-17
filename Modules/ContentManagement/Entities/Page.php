@@ -16,9 +16,9 @@ class Page extends Model
         'visibility' => 'boolean',
     ];
 
-    protected static function newFactory()
+    public function getCreatedAtAttribute($value)
     {
-        return \Modules\ContentManagement\Database\factories\PageFactory::new();
+        return date('M d Y', strtotime($value));
     }
 
     public function category(){

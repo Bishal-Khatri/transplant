@@ -16,8 +16,8 @@ class PageSection extends Model
 
     protected $fillable = [];
 
-    protected static function newFactory()
+    public function getCreatedAtAttribute($value)
     {
-        return \Modules\ContentManagement\Database\factories\PageSectionFactory::new();
+        return date('M d Y', strtotime($value));
     }
 }

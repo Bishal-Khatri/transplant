@@ -101,7 +101,7 @@ class StorageController extends Controller
             $galleryImage->image_large = $main_image['large'];
             $galleryImage->save();
 
-            $responseData = $this->prepareResponse(false, 'Success <br> Gallery created successfully.', [], []);
+            $responseData = $this->prepareResponse(false, 'Success <br> Image Added successfully.', [], []);
             return response()->json($responseData);
         }catch (\Exception $exception){
             $responseData = $this->prepareResponse(true, $exception->getMessage(), [], []);

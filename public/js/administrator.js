@@ -25361,6 +25361,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -25376,7 +25418,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       patients: {},
       patients_pg: {},
       delete_submitting: '',
-      delete_id: ''
+      delete_id: '',
+      selectAll: '',
+      selected: []
     };
   },
   components: {
@@ -25465,6 +25509,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    select: function select() {
+      this.selected = [];
+
+      if (!this.selectAll) {
+        for (var i in this.patients) {
+          this.selected.push(this.patients[i].id);
+        }
+      }
+    },
+    exportPatient: function exportPatient(type) {
+      alert(type);
+      console.log(this.selected);
     }
   }
 });
@@ -58205,13 +58262,156 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "x_content" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "row mb-3" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "btn-group float-right",
+                      attrs: { role: "group" },
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary dropdown-toggle",
+                          attrs: {
+                            id: "export",
+                            type: "button",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false",
+                            disabled: !_vm.selected.length,
+                          },
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-download mr-1" }),
+                          _vm._v(" Export\n                                "),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "dropdown-menu",
+                          staticStyle: {
+                            position: "absolute",
+                            "will-change": "transform",
+                            top: "0px",
+                            left: "0px",
+                            transform: "translate3d(0px, 38px, 0px)",
+                          },
+                          attrs: {
+                            "aria-labelledby": "export",
+                            "x-placement": "bottom-start",
+                          },
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.exportPatient("excel")
+                                },
+                              },
+                            },
+                            [_vm._v("Excel (.xls)")]
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]),
+              ]),
               _vm._v(" "),
               _c(
                 "table",
                 { staticClass: "table table-striped jambo_table bulk_action" },
                 [
-                  _vm._m(1),
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [
+                        _c("div", { staticClass: "checkbox" }, [
+                          _c("label", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.selectAll,
+                                  expression: "selectAll",
+                                },
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(_vm.selectAll)
+                                  ? _vm._i(_vm.selectAll, null) > -1
+                                  : _vm.selectAll,
+                              },
+                              on: {
+                                click: _vm.select,
+                                change: function ($event) {
+                                  var $$a = _vm.selectAll,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (_vm.selectAll = $$a.concat([$$v]))
+                                    } else {
+                                      $$i > -1 &&
+                                        (_vm.selectAll = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.selectAll = $$c
+                                  }
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("i", { staticClass: "form-icon" }),
+                          ]),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Patient's Photo")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Patient's Name")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Citizenship Number")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Gender")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Date Of Birth")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Transplant Type")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Transplant Center")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Score")]),
+                      _vm._v(" "),
+                      _c(
+                        "th",
+                        {
+                          staticClass: "text-right",
+                          staticStyle: { width: "180px" },
+                        },
+                        [_vm._v("Action")]
+                      ),
+                    ]),
+                  ]),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -58224,6 +58424,49 @@ var render = function () {
                           ])
                         : _vm._l(_vm.patients, function (patient, index) {
                             return _c("tr", { key: index }, [
+                              _c("td", [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.selected,
+                                      expression: "selected",
+                                    },
+                                  ],
+                                  staticClass: "rowCheck",
+                                  attrs: { type: "checkbox" },
+                                  domProps: {
+                                    value: patient.id,
+                                    checked: Array.isArray(_vm.selected)
+                                      ? _vm._i(_vm.selected, patient.id) > -1
+                                      : _vm.selected,
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      var $$a = _vm.selected,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = patient.id,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            (_vm.selected = $$a.concat([$$v]))
+                                        } else {
+                                          $$i > -1 &&
+                                            (_vm.selected = $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1)))
+                                        }
+                                      } else {
+                                        _vm.selected = $$c
+                                      }
+                                    },
+                                  },
+                                }),
+                              ]),
+                              _vm._v(" "),
                               _c("td", { staticStyle: { width: "150px" } }, [
                                 patient.image
                                   ? _c(
@@ -58332,51 +58575,125 @@ var render = function () {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-right" }, [
-                                _c("div", { staticClass: "btn-group" }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-accent btn-sm",
-                                      attrs: {
-                                        href: "#",
-                                        href:
-                                          "/admin/patient/view/" + patient.id,
-                                        type: "button",
-                                      },
-                                    },
-                                    [_vm._v("View")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-accent btn-sm",
-                                      attrs: {
-                                        href: "#",
-                                        href:
-                                          "/admin/patient/update/" + patient.id,
-                                        type: "button",
-                                      },
-                                    },
-                                    [_vm._v("Edit")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-danger btn-sm deleteModal",
-                                      attrs: { href: "#", type: "button" },
-                                      on: {
-                                        click: function ($event) {
-                                          $event.preventDefault()
-                                          return _vm.showDeleteModal(patient.id)
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "btn-group",
+                                    attrs: { role: "group" },
+                                  },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "btn btn-secondary dropdown-toggle btn-sm",
+                                        attrs: {
+                                          id: "btnGroupDrop1",
+                                          type: "button",
+                                          "data-toggle": "dropdown",
+                                          "aria-haspopup": "true",
+                                          "aria-expanded": "false",
                                         },
                                       },
-                                    },
-                                    [_vm._v("Delete")]
-                                  ),
-                                ]),
+                                      [
+                                        _vm._v(
+                                          "\n                                        Actions\n                                    "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "dropdown-menu",
+                                        staticStyle: {
+                                          position: "absolute",
+                                          "will-change": "transform",
+                                          top: "0px",
+                                          left: "0px",
+                                          transform:
+                                            "translate3d(0px, 38px, 0px)",
+                                        },
+                                        attrs: {
+                                          "aria-labelledby": "btnGroupDrop1",
+                                          "x-placement": "bottom-start",
+                                        },
+                                      },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "dropdown-item",
+                                            attrs: {
+                                              href: "#",
+                                              href:
+                                                "/admin/patient/view/" +
+                                                patient.id,
+                                              type: "button",
+                                            },
+                                          },
+                                          [_vm._v("View")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "dropdown-item",
+                                            attrs: {
+                                              href: "#",
+                                              href:
+                                                "/admin/patient/update/" +
+                                                patient.id,
+                                              type: "button",
+                                            },
+                                          },
+                                          [_vm._v("Edit")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "dropdown-item",
+                                            attrs: {
+                                              href: "#",
+                                              type: "button",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                $event.preventDefault()
+                                                return _vm.showDeleteModal(
+                                                  patient.id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Change Status")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass:
+                                              "dropdown-item text-danger deleteModal",
+                                            attrs: {
+                                              href: "#",
+                                              type: "button",
+                                            },
+                                            on: {
+                                              click: function ($event) {
+                                                $event.preventDefault()
+                                                return _vm.showDeleteModal(
+                                                  patient.id
+                                                )
+                                              },
+                                            },
+                                          },
+                                          [_vm._v("Delete")]
+                                        ),
+                                      ]
+                                    ),
+                                  ]
+                                ),
                               ]),
                             ])
                           }),
@@ -58478,85 +58795,112 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-3" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary dropdown-toggle",
-              attrs: {
-                id: "filter-hospital-type",
-                type: "button",
-                "data-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "false",
-              },
-            },
-            [
-              _c("i", { staticClass: "fa fa-filter mr-1" }),
-              _vm._v(" Transplant Type\n                                "),
-            ]
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            id: "filter-patient-status",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+          },
+        },
+        [
+          _c("i", { staticClass: "fa fa-filter mr-1" }),
+          _vm._v(
+            " Patient Status: Active (12)\n                                "
           ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: {
+            position: "absolute",
+            "will-change": "transform",
+            top: "0px",
+            left: "0px",
+            transform: "translate3d(0px, 38px, 0px)",
+          },
+          attrs: {
+            "aria-labelledby": "filter-patient-status",
+            "x-placement": "bottom-start",
+          },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Active (12)"),
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "dropdown-menu",
-              staticStyle: {
-                position: "absolute",
-                "will-change": "transform",
-                top: "0px",
-                left: "0px",
-                transform: "translate3d(0px, 38px, 0px)",
-              },
-              attrs: {
-                "aria-labelledby": "filter-hospital-type",
-                "x-placement": "bottom-start",
-              },
-            },
-            [
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("KIDNEY"),
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("LIVER"),
-              ]),
-            ]
-          ),
-        ]),
-      ]),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("On Hold (2)"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Received (0)"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Canceled / Deceased (9)"),
+          ]),
+        ]
+      ),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Patient's Photo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Patient's Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Citizenship Number")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Gender")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date Of Birth")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Transplant Type")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Transplant Center")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Score")]),
-        _vm._v(" "),
-        _c(
-          "th",
-          { staticClass: "text-right", staticStyle: { width: "180px" } },
-          [_vm._v("Action")]
-        ),
-      ]),
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            id: "filter-hospital-type",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+          },
+        },
+        [
+          _c("i", { staticClass: "fa fa-filter mr-1" }),
+          _vm._v(" Transplant Type: KIDNEY\n                                "),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: {
+            position: "absolute",
+            "will-change": "transform",
+            top: "0px",
+            left: "0px",
+            transform: "translate3d(0px, 38px, 0px)",
+          },
+          attrs: {
+            "aria-labelledby": "filter-hospital-type",
+            "x-placement": "bottom-start",
+          },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("KIDNEY"),
+          ]),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("LIVER"),
+          ]),
+        ]
+      ),
     ])
   },
   function () {

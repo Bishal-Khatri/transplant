@@ -55,22 +55,49 @@ class HospitalController extends Controller
     {
         $query = Hospital::query();
         $query->with('approvedByUser');
-        if ($request->has('filter_by') AND !blank($request->filter_by)) {
-            if($request->filter_by=="HospitalTypes"){
-                    $query->where('hospital_type',$request->filter_by_option);
-            }else if($request->filter_by=="HospitalVerificationStatus"){
-                $query->where('verification_status', $request->filter_by_option);
-            }else if($request->filter_by=="TransplantTypes"){
-                $query->where('transplant_type', $request->filter_by_option);
-            }else if($request->filter_by=="HospitalApproveStatus"){
-                $query->where('approve_status',$request->filter_by_option);
-            }else if($request->filter_by=="VerificationStatus"){
-                $query->where('verification_status',$request->filter_by_option);
-            }
-            if($request->has('filter')){
-                $query->where('hospital_name', 'LIKE', '%'.$request->filter.'%');
-            }
+        // if($request->has('filter')){
+        //     $query->where('hospital_name', 'LIKE', '%'.$request->filter.'%');
+        // }
+        if($request->has('hospital_type') && !blank($request->hospital_type)){
+            $query->where('hospital_type', $request->hospital_type);
         }
+        // transplant_type
+        if($request->has('transplant_type') && !blank($request->transplant_type)){
+            $query->where('transplant_type', $request->transplant_type);
+        }
+        // approval_status
+        if($request->has('approval_status') && !blank($request->approval_status)){
+            $query->where('approve_status', $request->approval_status);
+        }
+        // document_verification
+        if($request->has('document_verification') && !blank($request->document_verification)){
+            $query->where('document_verification', $request->document_verification);
+        }
+        // physical_verification
+        if($request->has('physical_verification') && !blank($request->physical_verification)){
+            $query->where('physical_verification', $request->physical_verification);
+        }
+
+        // if ($request->has('filters')){
+        //     $filters = json_decode($request->filters);
+        //         if (!blank($filters)){
+        //             foreach ($filters as $filter){
+        //                 if(!blank($filter)){
+        //                     if ($filter->filter_by=="HospitalTypes"){
+        //                         $query->where('hospital_type',$filter->filter_by_option);
+        //                     }else if($filter->filter_by=="HospitalVerificationStatus"){
+        //                         $query->where('verification_status', $filter->filter_by_option);
+        //                     }else if($filter->filter_by=="TransplantTypes"){
+        //                         $query->where('transplant_type', $filter->filter_by_option);
+        //                     }else if($filter->filter_by=="HospitalApproveStatus"){
+        //                         $query->where('approve_status',$filter->filter_by_option);
+        //                     }else if($filter->filter_by=="VerificationStatus"){
+        //                         $query->where('verification_status',$filter->filter_by_option);
+        //                     }
+        //                 }
+        //             }
+        //     }
+        // }
         $hospitals = $query->orderBy('id', 'desc')->paginate(10);
         return response()->json($hospitals);
     }

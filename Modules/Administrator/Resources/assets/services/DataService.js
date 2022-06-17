@@ -124,8 +124,20 @@ export default {
         return Api().delete('/admin/web-api/palika/delete/'+id);
     },
 
-    getHospitals(page,filter,filter_by,filter_by_option){
-        return Api().get('/admin/web-api/hospitals?page=' + page + '&filter=' + filter+'&filter_by='+filter_by+'&filter_by_option='+filter_by_option);
+    getHospitals(page,filter){
+
+        return Api().get('/admin/web-api/hospitals?page=' + 
+        page+ '&hospital_type=' + filter.hospital_type+
+        '&query=' + filter.query+
+        // transplant_type
+        '&transplant_type=' + filter.transplant_type+
+        // approval_status
+        '&approval_status=' + filter.approval_status+
+        // physical_verification
+        '&physical_verification=' + filter.physical_verification+
+        // document_verification
+        '&document_verification=' + filter.document_verification
+        );
     },
 
     // activity

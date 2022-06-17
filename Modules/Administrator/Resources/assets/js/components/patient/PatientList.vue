@@ -108,7 +108,7 @@
                                 <td>{{ patient.gender ? patient.gender.toUpperCase() : 'Not-Available' }}</td>
                                 <td>{{ patient.date_of_birth || 'Not-Available' }}</td>
                                 <td>{{ patient.transplant_type ? patient.transplant_type.toUpperCase() : 'Not-Available' }}</td>
-                                <td>{{ patient.hospital.hospital_name }}</td>
+                                <td>{{ patient.hospital.hospital_name || 'Not-Available' }}</td>
                                 <td style="width: 70px;">{{ patient.point }}</td>
                                 <td class="text-right">
                                     <div class="btn-group" role="group">

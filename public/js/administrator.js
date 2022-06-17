@@ -25241,7 +25241,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -58201,10 +58200,54 @@ var render = function () {
                   _vm._m(3),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(_vm.hospitals) +
-                        "\n                            "
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.transplant_center,
+                            expression: "transplant_center",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "" },
+                        on: {
+                          change: function ($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function (o) {
+                                return o.selected
+                              })
+                              .map(function (o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.transplant_center = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                        },
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Select Transplant Center"),
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.hospitals, function (hospital) {
+                          return _vm.hospitals.length
+                            ? _c(
+                                "option",
+                                {
+                                  key: hospital.id,
+                                  domProps: { value: hospital.id },
+                                },
+                                [_vm._v(_vm._s(hospital.hospital_name))]
+                              )
+                            : _vm._e()
+                        }),
+                      ],
+                      2
                     ),
                     _vm._v(" "),
                     _c("span", {
@@ -58883,7 +58926,12 @@ var render = function () {
                               ]),
                               _vm._v(" "),
                               _c("td", [
-                                _vm._v(_vm._s(patient.hospital.hospital_name)),
+                                _vm._v(
+                                  _vm._s(
+                                    patient.hospital.hospital_name ||
+                                      "Not-Available"
+                                  )
+                                ),
                               ]),
                               _vm._v(" "),
                               _c("td", { staticStyle: { width: "70px" } }, [

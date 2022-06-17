@@ -45,6 +45,9 @@
                                     <li>
                                         <p>Slider <a class="float-right" href="#" @click.prevent="addSection('slider', 'widget')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
                                     </li>
+                                     <li>
+                                        <p>Process <a class="float-right" href="#" @click.prevent="addSection('process', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
 
                                 </ul>
                             </div>
@@ -189,8 +192,11 @@
                             <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
                         </template>
                     </file-download>
-
-
+                    <process v-else-if="section.section_name === 'process'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </process>
                 </div>
 
             </div>
@@ -214,6 +220,8 @@
     import CallToAction from "./section/CallToAction";
     import Banner from "./section/Banner";
     import DeleteSection from "./section/DeleteSection";
+    import Process from "./section/Process";
+
 
     export default {
         name: "Edit",
@@ -227,6 +235,7 @@
             Slider,
             Banner,
             DeleteSection,
+            Process
         },
         props: [
             'page',

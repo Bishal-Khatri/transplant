@@ -88,7 +88,7 @@
                             </thead>
                             <tbody>
                             <tr v-if="!patients.length">
-                                <td colspan="9">No items to display.</td>
+                                <td colspan="10">No items to display.</td>
                             </tr>
                             <tr v-else v-for="(patient, index) in patients" :key="index">
                                 <td>

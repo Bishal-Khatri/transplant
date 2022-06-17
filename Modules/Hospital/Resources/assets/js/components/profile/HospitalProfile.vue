@@ -422,22 +422,22 @@
                                             <div class="col-md-12">
                                                 <ul class="messages">
                                                     <!-- notifications -->
-                                                    <li v-for="(notification,index) in notifications" :key="index">
-                                                        <i v-if="notification.event=='updated'" class="fa fa-edit text-accent float-left" style="font-size: 30px;"></i>
-                                                        <i v-else-if="notification.event=='created'" class="fa fa-plus text-success float-left" style="font-size: 30px;"></i>
-                                                        <i v-else class="fa fa-trash text-danger float-left" style="font-size: 30px;"></i>
+                                                    <li v-for="(activity,index) in notifications" :key="index">
+                                                        <i v-if="activity.description === 'updated'" class="fa fa-edit text-accent float-left"></i>
+                                                        <i v-else-if="activity.description === 'created'" class="fa fa-plus text-success float-left"></i>
+                                                        <i v-else class="fa fa-trash text-danger float-left"></i>
                                                         <div class="message_date">
-                                                            <h2 class="date text-info"></h2>
-                                                            <p class="month">{{ notification.created_at_diff_for_human }}</p>
+                                                            <h2 class="date text-info">{{ moment(activity.created_at).format('MMM') }}</h2>
+                                                            <p class="month">{{ moment(activity.created_at).format('DD') }}</p>
                                                         </div>
                                                         <div class="message_wrapper">
                                                             <h4 class="heading">Hospital User</h4>
                                                             <blockquote class="message">
-                                                                A {{ notification.subject_name }} data has been {{ notification.event }} by Hospital user
-                                                                <a href="">{{ notification.created_at_diff_for_human }}</a>.</blockquote>
+                                                                A <strong>{{ activity.subject_name }}</strong> has been <strong>{{ activity.description }}</strong> by <strong>{{ activity.causer ? activity.causer.name : 'Not-Available' }}</strong>
+                                                                <a href="">{{ moment(activity.created_at).format('Do MMM YYYY') }}</a>.</blockquote>
                                                             <br />
                                                             <p class="url">
-                                                                <a href="#" @click.prevent="changeDialog(notification)">View Changes </a>
+                                                                <a href="#" @click.prevent="changeDialog(activity)">View Changes </a>
                                                             </p>
                                                         </div>
                                                     </li>

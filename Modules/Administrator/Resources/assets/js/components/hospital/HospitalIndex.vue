@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <input type="text" class="form-control"
-                                       placeholder="Search" v-model="filter"
+                                       placeholder="Search" v-model="filter.query"
                                        @keydown.backspace="setSearch"
                                        @keydown.enter="setSearch"
                                        @keypress="setSearch">
@@ -27,18 +27,55 @@
                                    <h4 class="mr-3">
                                        <i class="fa fa-filter mr-1"></i> Filter Options
                                    </h4>
-                                   <button>Hospital Type: GOVERNMENT <i class="fa fa-times" @click.prevent="removeFilter"></i></button>
+
+                                   <button v-if="filter.hospital_type">Hospital Type: 
+                                      <span v-if="filter.hospital_type===1">Government</span>
+                                      <span v-else-if="filter.hospital_type===2">Private</span>
+                                      <span v-else> All</span>
+                                     <i class="fa fa-times" @click.prevent="filter.hospital_type='';getHospitals();"></i>
+                                    </button>
+                                    <!--  transplant_type -->
+                                    <button v-if="filter.transplant_type">Transplant Type: 
+                                      <span v-if="filter.transplant_type==='kidney'">Kidney</span>
+                                      <span v-else-if="filter.transplant_type==='liver'">Liver</span>
+                                      <span v-else> All</span>
+                                        <i class="fa fa-times" @click.prevent="filter.transplant_type='';getHospitals();"></i>
+                                    </button>
+                                    <!-- approval status -->
+                                    <button v-if="filter.approval_status">Approval Status: 
+                                      <span v-if="filter.approval_status==='approved'">Approved</span>
+                                      <span v-else-if="filter.approval_status==='unapproved'">Un Approved</span>
+                                        <span v-else> Rejected</span>
+                                        <i class="fa fa-times" @click.prevent="filter.approval_status='';getHospitals();"></i>
+                                    </button>
+                                    <!-- physical_verification -->
+                                    <button v-if="filter.physical_verification">Physical Verification: 
+                                      <span v-if="filter.physical_verification===1">Verified</span>
+                                      <span v-else-if="filter.physical_verification===2">Not Verified</span>
+                                        <span v-else> All</span>
+                                        <i class="fa fa-times" @click.prevent="filter.physical_verification='';getHospitals();"></i>
+                                    </button>
+                                    <!-- documentation_verification -->
+                                    <button v-if="filter.document_verification">Documentation Verification: 
+                                      <span v-if="filter.document_verification===1">Verified</span>
+                                      <span v-else-if="filter.document_verification===2">Not Verified</span>
+                                        <span v-else> All</span>
+                                        <i class="fa fa-times" @click.prevent="filter.document_verification='';getHospitals();"></i>
+                                    </button>
+                                    <!-- clear all -->
+                                    <a v-if="filter.hospital_type!='' || filter.transplant_type!='' || filter.approval_status !='' || filter.physical_verification !='' || filter.document_verification !=''"  href="#" @click.prevent="clearFilter();getHospitals();">Clear All</a>
+                                    
                                </div>
 
                                <div class="btn-group" role="group">
-                                   <button id="filter-hospital-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   <button id="filter-hospital-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                                        Hospital Type
                                    </button>
                                    <div class="dropdown-menu" aria-labelledby="filter-hospital-type"
                                         x-placement="bottom-start"
                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                       <a class="dropdown-item" href="#">GOVERNMENT</a>
-                                       <a class="dropdown-item" href="#" >PRIVATE</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.hospital_type=1;getHospitals();">GOVERNMENT</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.hospital_type=2;getHospitals();">PRIVATE</a>
                                    </div>
                                </div>
 
@@ -49,9 +86,9 @@
                                    <div class="dropdown-menu" aria-labelledby="filter-approval-status"
                                         x-placement="bottom-start"
                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                       <a class="dropdown-item" href="#">UNAPPROVED</a>
-                                       <a class="dropdown-item" href="#" >APPROVED</a>
-                                       <a class="dropdown-item" href="#" >REJECTED</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.approval_status='unapproved';getHospitals();">UNAPPROVED</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.approval_status='approved';getHospitals();">APPROVED</a>
+                                       <a class="dropdown-item" href="#"  @click.prevent="filter.approval_status='rejected';getHospitals();">REJECTED</a>
                                    </div>
                                </div>
 
@@ -62,10 +99,9 @@
                                    <div class="dropdown-menu" aria-labelledby="filter-verification-status"
                                         x-placement="bottom-start"
                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                       <a class="dropdown-item" href="#">NONE</a>
-                                       <a class="dropdown-item" href="#">DOCUMENT_VERIFIED</a>
-                                       <a class="dropdown-item" href="#">PHYSICAL_VERIFIED</a>
-                                       <a class="dropdown-item" href="#">VERIFIED</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.physical_verification=0;filter.document_verification=1;getHospitals();">DOCUMENT_VERIFIED</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.document_verification=0;filter.physical_verification=1;getHospitals();">PHYSICAL_VERIFIED</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.document_verification=1;filter.physical_verification=1;getHospitals();">VERIFIED</a>
                                    </div>
                                </div>
 
@@ -76,8 +112,8 @@
                                    <div class="dropdown-menu" aria-labelledby="filter-transplant"
                                         x-placement="bottom-start"
                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                       <a class="dropdown-item" href="#">KIDNEY</a>
-                                       <a class="dropdown-item" href="#" >LIVER</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.transplant_type='kidney';getHospitals();">KIDNEY</a>
+                                       <a class="dropdown-item" href="#" @click.prevent="filter.transplant_type='liver';getHospitals();" >LIVER</a>
                                    </div>
                                </div>
                                <!--<select class="form-control" v-model="filter_by">-->
@@ -197,7 +233,14 @@
                 filter_by_option: '',
                 errors: new Errors(),
                 delete_submitting: false,
-                filter: '',
+                filter:{
+                    query: '',
+                    hospital_type: '',
+                    transplant_type: '',
+                    approval_status: '',
+                    physical_verification: '',
+                    document_verification: '',
+                },
                 filter_by: '',
                 delete_id: '',
 
@@ -205,6 +248,19 @@
                 hospitals_pg: {},
 
                 clicked_hospital: "",
+
+                // filters
+                hospital_type: "",
+                approval_status: "",
+                document_approval_status: "",
+                transplant_type: "",
+                last_page:1,
+                filter_options: {
+                    hospital_type: {},
+                    approval_status: [],
+                    document_approval_status: [],
+                    transplant_type: []
+                },
             }
         },
         watch:{
@@ -291,9 +347,10 @@
             }, 800),
 
             async getHospitals(page = 1) {
-                const response = await DataService.getHospitals(page, this.filter,this.filter_by,this.filter_by_option);
+                const response = await DataService.getHospitals(page,this.filter);
                 this.hospitals_pg = response.data;
                 this.hospitals = response.data.data;
+                this.last_page = response.data.last_page;
             },
 
             showDeleteModal(item_id) {
@@ -308,6 +365,59 @@
 
             removeFilter(){
                 alert()
+            },
+            updateFilter(key,value) {
+                switch (key) {
+                    case 'hospital_type':
+                        this.filter_by='HospitalTypes';
+                        this.filter_by_option = value;
+                        this.filter_options.hospital_type ={
+                            filter_by:'HospitalTypes',
+                            filter_by_option:value
+                        };
+                        break;
+                    case 'approval_status':
+                        this.filter_by='HospitalApproveStatus';
+                        this.filter_by_option = value;
+                        this.filter_options.approval_status ={
+                            filter_by:'HospitalApproveStatus',
+                            filter_by_option:value
+                        };
+                        break;
+                    case 'document_approval_status':
+                        this.filter_by='HospitalVerificationStatus';
+                        this.filter_by_option = value;
+                        this.filter_options.document_approval_status ={
+                            filter_by:'HospitalVerificationStatus',
+                            filter_by_option:value
+                        };
+                        break;
+                    case 'transplant_type':
+                        this.filter_by='TransplantTypes';
+                        this.filter_by_option = value;
+                        this.filter_options.transplant_type ={
+                            filter_by:'TransplantTypes',
+                            filter_by_option:value
+                        };
+                        break;
+                }
+                this.getHospitals();
+            }
+            ,clearFilter(){
+                this.filter={
+                    query: '',
+                    hospital_type: '',
+                    transplant_type: '',
+                    approval_status: '',
+                    physical_verification: '',
+                    document_verification: '',
+                };
+            }
+            ,checkFilter(){
+                if( this.filter.hospital_type === '' || this.filter.approval_status === '' || this.filter.document_approval_status === '' || this.filter.transplant_type === ''){
+                    return true;
+                }
+                return false;
             }
         },
 

@@ -10,7 +10,7 @@ Vue.component('hospital-create', require('./components/hospital/CreateHospital.v
 
 Vue.component('patient-list', require('./components/patient/PatientList.vue').default);
 Vue.component('patient-preview', require('./components/patient/PatientPreview.vue').default);
-Vue.component('patient-update', require('./components/patient/PatientUpdate.vue').default);
+Vue.component('patient-update', require('../../../../Hospital/Resources/assets/js/components/patient/PatientUpdate.vue').default);
 
 Vue.component('religion-index', require('./components/religion/ReligionIndex.vue').default);
 Vue.component('ethnic-groups-index', require('./components/ethnic_groups/EthnicGroupsIndex.vue').default);

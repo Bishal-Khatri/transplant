@@ -577,6 +577,7 @@
                                     </div>
                                     <div class="wizard-footer-right">
                                         <button class="btn btn-accent" v-if="!props.isLastStep" @click.prevent="submitForm(submitFormName)"><i v-if="submitting" class="fa fa-spinner fa-spin"></i> Save & Proceed</button>
+                                        <a class="btn btn-accent" v-else-if="auth_user.user_type === 'administrator'" href="/admin/patient">Done</a>
                                         <a class="btn btn-accent" v-else href="/hospital/patient">Done</a>
                                     </div>
                                 </template>
@@ -599,7 +600,7 @@
 
     export default {
         name: "PatientCreate",
-        props:['patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases'],
+        props:['patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'],
 
         data(){
             return{

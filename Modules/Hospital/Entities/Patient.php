@@ -19,6 +19,7 @@ class Patient extends Model
     use HasFactory,LogsActivity;
 
     protected $fillable = [];
+    protected $appends = ['point'];
     protected static $logAttributes = [
         'name',
         'citizenship_number',
@@ -39,6 +40,30 @@ class Patient extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->logAll();
+    }
+
+    public function getPointAttribute()
+    {
+        $pointByGender = $this->pointByGender();
+        $pointByRegistration = $this->pointByRegistration();
+
+        $totalPoint = (int) $pointByGender + (int) $pointByRegistration;
+        return $totalPoint;
+    }
+
+    private function pointByGender()
+    {
+        if($this->gender == 'male'){
+            return 1;
+        }
+        if($this->gender == 'female'){
+            return 2;
+        }
+    }
+
+    private function pointByRegistration()
+    {
+        return 1;
     }
 
     public function getCreatedAtAttribute($value)

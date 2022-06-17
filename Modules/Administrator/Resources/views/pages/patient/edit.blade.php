@@ -9,11 +9,18 @@
                 </div>
             </div>
             <div class="clearfix"></div>
+            {{--<patient-update :patient="{{ $patient }}"--}}
+                            {{--:religions="{{ $religions }}"--}}
+                            {{--:ethnic_groups="{{ $ethnic_groups }}"--}}
+                            {{--:education_levels="{{ $education_levels }}"--}}
+                            {{--:occupations="{{ $occupations }}"></patient-update>--}}
             <patient-update :patient="{{ $patient }}"
                             :religions="{{ $religions }}"
                             :ethnic_groups="{{ $ethnic_groups }}"
                             :education_levels="{{ $education_levels }}"
-                            :occupations="{{ $occupations }}"></patient-update>
+                            :diseases="{{ $diseases }}"
+                            :occupations="{{ $occupations }}"
+                            :auth_user="{{ $auth_user }}"></patient-update>
         </div>
     </div>
 @endsection

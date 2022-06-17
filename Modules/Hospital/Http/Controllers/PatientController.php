@@ -2,6 +2,7 @@
 
 namespace Modules\Hospital\Http\Controllers;
 
+use App\Traits\PatientTrait;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ use Modules\Hospital\Entities\Patient;
 
 class PatientController extends Controller
 {
-    use SetResponse;
+    use SetResponse, PatientTrait;
 
     public function getPatientList(Request $request)
     {
@@ -241,8 +242,6 @@ class PatientController extends Controller
             $diseases = json_decode($request->disease);
             $patient->disease()->sync($diseases);
 
-
-
             $returnData = $this->prepareResponse(false, 'Success <br> Patient updated successfully.', [], []);
             return response()->json($returnData);
         }catch (\Exception $exception){
@@ -252,17 +251,17 @@ class PatientController extends Controller
         }
     }
 
-    private function checkPatient(Request $request)
-    {
-        if (Patient::where('name', $request->patient_name)->where('citizenship_number', $request->citizenship_number)->exists()){
-            $request->validate([
-                'unique_patient' => 'required'
-            ], [
-                'unique_patient.required' => "This record already exists in the system."
-            ]);
-        }
-        return 'true';
-    }
+//    private function checkPatient(Request $request)
+//    {
+//        if (Patient::where('name', $request->patient_name)->where('citizenship_number', $request->citizenship_number)->exists()){
+//            $request->validate([
+//                'unique_patient' => 'required'
+//            ], [
+//                'unique_patient.required' => "This record already exists in the system."
+//            ]);
+//        }
+//        return 'true';
+//    }
 
     public function deletePatient($patient_id)
     {
@@ -306,7 +305,8 @@ class PatientController extends Controller
         $education_levels = EducationLevel::all();
         $occupations = Occupation::all();
         $diseases = Disease::all();
-        return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases'));
+        $auth_user = auth()->user();
+        return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
     }
     public function view($patient_id){
         $patient = Patient::with([

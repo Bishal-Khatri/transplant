@@ -17,7 +17,8 @@
                             :ethnic_groups="{{ $ethnic_groups }}"
                             :education_levels="{{ $education_levels }}"
                             :diseases="{{ $diseases }}"
-                            :occupations="{{ $occupations }}"></patient-update>
+                            :occupations="{{ $occupations }}"
+                            :auth_user="{{ $auth_user }}"></patient-update>
         </div>
     </div>
 @endsection

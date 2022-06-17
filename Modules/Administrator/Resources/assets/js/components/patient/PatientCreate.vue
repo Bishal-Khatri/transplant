@@ -11,20 +11,14 @@
                     <div class="modal-body m-3">
 
                         <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left"></label>
-                            <div class="col-md-9 col-sm-9">
-                                <img v-if="patient_image_url" :src="patient_image_url" alt="" width="150">
-                                <img v-else src="/images/placeholder-dark.jpg" alt="" width="150">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
                                 Patient's Photo
-                                <span class="required">*</span>
                             </label>
                             <div class="col-md-9 col-sm-9">
-                                <input type="file" class="form-control" placeholder="Enter patient's image" @change.prevent="handelUpload" style="width: 250px;">
+                                <div class="d-flex">
+                                    <img v-if="patient_image_url" :src="patient_image_url" alt="" class="image-sm mr-2 rounded">
+                                    <input type="file" class="form-control" placeholder="Enter patient's image" @change.prevent="handelUpload" style="width: 250px;">
+                                </div>
                                 <span class="form-text text-danger" v-html="errors.get('patient_image')"></span>
                             </div>
                         </div>
@@ -52,6 +46,20 @@
                                 <span class="form-text text-info">Enter all the characters in citizenship number</span>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align text-left">
+                                Transplant Center
+                                <span class="required">*</span>
+                            </label>
+                            <div class="col-md-9 col-sm-9">
+                                <select v-model="transplant_center" class="form-control" id="">
+                                    <option value="">Select Transplant Center</option>
+                                    <option v-for="hospital in hospitals" :key="hospital.id" :value="hospital.id">{{ hospital.hospital_name }}</option>
+                                </select>
+                                <span class="form-text text-danger" v-html="errors.get('transplant_center')"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
@@ -71,8 +79,7 @@
 
     export default {
         name: "PatientCreate",
-        props: {
-        },
+        props: ['hospitals'],
         components: {
         },
         data: () => ({
@@ -84,6 +91,7 @@
             patient_name: '',
             citizenship_number: '',
             patient_image: '',
+            transplant_center: '',
         }),
         computed:{
         },
@@ -104,6 +112,7 @@
                     this.patient_image ? formData.append("patient_image", this.patient_image, this.patient_image.name) : '';
                     this.patient_name ? formData.append("patient_name", this.patient_name) : '';
                     this.citizenship_number ? formData.append("citizenship_number", this.citizenship_number) : '';
+                    this.transplant_center ? formData.append("transplant_center", this.transplant_center) : '';
 
                     const response = await PatientService.savePatient(formData);
                     if (response.data.error === false) {

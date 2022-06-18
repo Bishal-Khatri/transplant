@@ -91,7 +91,6 @@ class Patient extends Model
     {
         $dialysis_start_date = $this->dialysis_start_date;
         if (!blank($dialysis_start_date)){
-
             $today = Carbon::today();
             $number_of_months = $dialysis_start_date->diffInMonths($today);
             $score = $number_of_months * 1;

@@ -19308,7 +19308,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getPatients: function getPatients(page, filter) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/patient/list?page=' + page + '&filter=' + filter);
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/patient/list?page=' + page + '&filter=' + filter.query + '&t_t=' + filter.transplant_type + '&p_s=' + filter.patient_status);
+  },
+  getPatientsCount: function getPatientsCount() {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/admin/web-api/patient/count');
   },
   savePatient: function savePatient(formData) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/web-api/patient/create', formData);
@@ -19318,6 +19321,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   deletePatient: function deletePatient(patient_id) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]('/admin/web-api/patient/delete/' + patient_id);
+  },
+  changePatientStatus: function changePatientStatus(formData) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/admin/web-api/patient/change-status', formData);
   }
 });
 
@@ -20666,7 +20672,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     initForm: function initForm() {
       this.name = this.patient.name;
-      this.patient_image_url = '/storage/' + this.patient.image;
+      this.patient_image_url = this.patient.image ? '/storage/' + this.patient.image : '';
       this.gender = this.patient.gender;
       this.date_of_birth = this.patient.date_of_birth;
       this.marital_status = this.patient.marital_status;
@@ -20704,7 +20710,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       this.disease = disease;
       this.blood_group = this.patient.blood_group;
-      console.log(this.blood_group);
       this.max_facilitatory_amount = this.patient.max_facilitatory_amount;
       this.referred_by = this.patient.referred_by;
       this.transplant_type = this.patient.transplant_type; // kidney
@@ -25521,6 +25526,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -25531,14 +25591,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"](),
+      count: '',
       hospitals: '',
-      filter: '',
+      filter: {
+        query: '',
+        transplant_type: 'kidney',
+        patient_status: 1
+      },
       patients: {},
       patients_pg: {},
       delete_submitting: '',
       delete_id: '',
-      selectAll: '',
-      selected: []
+      patient_status: '',
+      status_change_remark: '',
+      selected_patient_id: '',
+      status_submitting: false
     };
   },
   components: {
@@ -25563,7 +25630,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var page, response;
+        var page, response, response_count;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -25581,7 +25648,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.hospitals = response.data.data.hospitals;
                 }
 
-              case 5:
+                _context.next = 7;
+                return _services_PatientService__WEBPACK_IMPORTED_MODULE_1__["default"].getPatientsCount();
+
+              case 7:
+                response_count = _context.sent;
+
+                if (response_count.data.error === false) {
+                  _this2.count = response_count.data.data.count;
+                }
+
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -25628,6 +25705,51 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
+    showChangeStatusModal: function showChangeStatusModal(patient_id) {
+      this.selected_patient_id = patient_id;
+      $("#change-patient-status").modal('show');
+    },
+    changePatientStatus: function changePatientStatus() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var formData, response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this4.status_submitting = true;
+                formData = {
+                  patient_id: _this4.selected_patient_id,
+                  patient_status: _this4.patient_status,
+                  status_change_remark: _this4.status_change_remark
+                };
+                _context3.next = 4;
+                return _services_PatientService__WEBPACK_IMPORTED_MODULE_1__["default"].changePatientStatus(formData);
+
+              case 4:
+                response = _context3.sent;
+
+                if (response.data.error === false) {
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"].Notification(response);
+
+                  _this4.getPatients();
+
+                  $("#change-patient-status").modal('hide');
+                }
+
+                _this4.patient_status = '';
+                _this4.status_change_remark = '';
+                _this4.status_submitting = false;
+
+              case 9:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     select: function select() {
       this.selected = [];
 
@@ -25636,10 +25758,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           this.selected.push(this.patients[i].id);
         }
       }
+
+      this.selected_json = JSON.stringify(this.selected);
+      console.log(this.selected_json);
     },
-    exportPatient: function exportPatient(type) {
-      alert(type);
-      console.log(this.selected);
+    selectOne: function selectOne(patient_id) {
+      this.selected.push(patient_id);
+      this.selected_json = JSON.stringify(this.selected);
+      console.log(this.selected_json);
     }
   }
 });
@@ -58544,13 +58670,13 @@ var render = function () {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.filter,
-                        expression: "filter",
+                        value: _vm.filter.query,
+                        expression: "filter.query",
                       },
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text", placeholder: "Search" },
-                    domProps: { value: _vm.filter },
+                    domProps: { value: _vm.filter.query },
                     on: {
                       keydown: [
                         function ($event) {
@@ -58589,7 +58715,7 @@ var render = function () {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.filter = $event.target.value
+                        _vm.$set(_vm.filter, "query", $event.target.value)
                       },
                     },
                   }),
@@ -58623,33 +58749,32 @@ var render = function () {
             _c("div", { staticClass: "x_content" }, [
               _c("div", { staticClass: "row mb-3" }, [
                 _c("div", { staticClass: "col-md-12" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
                   _c(
                     "div",
-                    {
-                      staticClass: "btn-group float-right",
-                      attrs: { role: "group" },
-                    },
+                    { staticClass: "btn-group", attrs: { role: "group" } },
                     [
                       _c(
                         "button",
                         {
                           staticClass: "btn btn-secondary dropdown-toggle",
                           attrs: {
-                            id: "export",
+                            id: "filter-hospital-type",
                             type: "button",
                             "data-toggle": "dropdown",
                             "aria-haspopup": "true",
                             "aria-expanded": "false",
-                            disabled: !_vm.selected.length,
                           },
                         },
                         [
-                          _c("i", { staticClass: "fa fa-download mr-1" }),
-                          _vm._v(" Export\n                                "),
+                          _c("i", { staticClass: "fa fa-filter mr-1" }),
+                          _vm._v(
+                            " Transplant Type:\n                                    "
+                          ),
+                          _vm.filter.transplant_type === "kidney"
+                            ? _c("span", [_vm._v("KIDNEY")])
+                            : _vm.filter.transplant_type === "liver"
+                            ? _c("span", [_vm._v("LIVER")])
+                            : _vm._e(),
                         ]
                       ),
                       _vm._v(" "),
@@ -58665,7 +58790,7 @@ var render = function () {
                             transform: "translate3d(0px, 38px, 0px)",
                           },
                           attrs: {
-                            "aria-labelledby": "export",
+                            "aria-labelledby": "filter-hospital-type",
                             "x-placement": "bottom-start",
                           },
                         },
@@ -58678,16 +58803,231 @@ var render = function () {
                               on: {
                                 click: function ($event) {
                                   $event.preventDefault()
-                                  return _vm.exportPatient("excel")
+                                  _vm.filter.transplant_type = "kidney"
+                                  _vm.getPatients()
                                 },
                               },
                             },
-                            [_vm._v("Excel (.xls)")]
+                            [_vm._v("KIDNEY")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.transplant_type = "liver"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("LIVER")]
                           ),
                         ]
                       ),
                     ]
                   ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "btn-group", attrs: { role: "group" } },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary dropdown-toggle",
+                          attrs: {
+                            id: "filter-patient-status",
+                            type: "button",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false",
+                          },
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-filter mr-1" }),
+                          _vm._v(
+                            " Patient Status:\n                                    "
+                          ),
+                          _vm.filter.patient_status === 1
+                            ? _c("span", [
+                                _vm._v("Active "),
+                                _vm.count
+                                  ? _c("span", [
+                                      _vm._v(
+                                        "(" + _vm._s(_vm.count.active) + ")"
+                                      ),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.filter.patient_status === 2
+                            ? _c("span", [
+                                _vm._v("On Hold "),
+                                _vm.count
+                                  ? _c("span", [
+                                      _vm._v(
+                                        "(" + _vm._s(_vm.count.on_hold) + ")"
+                                      ),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.filter.patient_status === 3
+                            ? _c("span", [
+                                _vm._v("Received "),
+                                _vm.count
+                                  ? _c("span", [
+                                      _vm._v(
+                                        "(" + _vm._s(_vm.count.received) + ")"
+                                      ),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.filter.patient_status === 4
+                            ? _c("span", [
+                                _vm._v("Canceled / Deceased "),
+                                _vm.count
+                                  ? _c("span", [
+                                      _vm._v(
+                                        "(" + _vm._s(_vm.count.canceled) + ")"
+                                      ),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "dropdown-menu",
+                          staticStyle: {
+                            position: "absolute",
+                            "will-change": "transform",
+                            top: "0px",
+                            left: "0px",
+                            transform: "translate3d(0px, 38px, 0px)",
+                          },
+                          attrs: {
+                            "aria-labelledby": "filter-patient-status",
+                            "x-placement": "bottom-start",
+                          },
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.patient_status = 1
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [
+                              _vm._v("Active "),
+                              _vm.count
+                                ? _c("span", [
+                                    _vm._v(
+                                      "(" + _vm._s(_vm.count.active) + ")"
+                                    ),
+                                  ])
+                                : _vm._e(),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.patient_status = 2
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [
+                              _vm._v("On Hold "),
+                              _vm.count
+                                ? _c("span", [
+                                    _vm._v(
+                                      "(" + _vm._s(_vm.count.on_hold) + ")"
+                                    ),
+                                  ])
+                                : _vm._e(),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.patient_status = 3
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [
+                              _vm._v("Received "),
+                              _vm.count
+                                ? _c("span", [
+                                    _vm._v(
+                                      "(" + _vm._s(_vm.count.received) + ")"
+                                    ),
+                                  ])
+                                : _vm._e(),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.patient_status = 4
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [
+                              _vm._v("Canceled / Deceased "),
+                              _vm.count
+                                ? _c("span", [
+                                    _vm._v(
+                                      "(" + _vm._s(_vm.count.canceled) + ")"
+                                    ),
+                                  ])
+                                : _vm._e(),
+                            ]
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0),
                 ]),
               ]),
               _vm._v(" "),
@@ -58695,82 +59035,7 @@ var render = function () {
                 "table",
                 { staticClass: "table table-striped jambo_table bulk_action" },
                 [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [
-                        _c("div", { staticClass: "checkbox" }, [
-                          _c("label", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.selectAll,
-                                  expression: "selectAll",
-                                },
-                              ],
-                              attrs: { type: "checkbox" },
-                              domProps: {
-                                checked: Array.isArray(_vm.selectAll)
-                                  ? _vm._i(_vm.selectAll, null) > -1
-                                  : _vm.selectAll,
-                              },
-                              on: {
-                                click: _vm.select,
-                                change: function ($event) {
-                                  var $$a = _vm.selectAll,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.selectAll = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.selectAll = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.selectAll = $$c
-                                  }
-                                },
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c("i", { staticClass: "form-icon" }),
-                          ]),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Patient's Photo")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Patient's Name")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Citizenship Number")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Gender")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Date Of Birth")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Transplant Type")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Transplant Center")]),
-                      _vm._v(" "),
-                      _c("th", [_vm._v("Score")]),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          staticClass: "text-right",
-                          staticStyle: { width: "180px" },
-                        },
-                        [_vm._v("Action")]
-                      ),
-                    ]),
-                  ]),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -58783,49 +59048,6 @@ var render = function () {
                           ])
                         : _vm._l(_vm.patients, function (patient, index) {
                             return _c("tr", { key: index }, [
-                              _c("td", [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.selected,
-                                      expression: "selected",
-                                    },
-                                  ],
-                                  staticClass: "rowCheck",
-                                  attrs: { type: "checkbox" },
-                                  domProps: {
-                                    value: patient.id,
-                                    checked: Array.isArray(_vm.selected)
-                                      ? _vm._i(_vm.selected, patient.id) > -1
-                                      : _vm.selected,
-                                  },
-                                  on: {
-                                    change: function ($event) {
-                                      var $$a = _vm.selected,
-                                        $$el = $event.target,
-                                        $$c = $$el.checked ? true : false
-                                      if (Array.isArray($$a)) {
-                                        var $$v = patient.id,
-                                          $$i = _vm._i($$a, $$v)
-                                        if ($$el.checked) {
-                                          $$i < 0 &&
-                                            (_vm.selected = $$a.concat([$$v]))
-                                        } else {
-                                          $$i > -1 &&
-                                            (_vm.selected = $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1)))
-                                        }
-                                      } else {
-                                        _vm.selected = $$c
-                                      }
-                                    },
-                                  },
-                                }),
-                              ]),
-                              _vm._v(" "),
                               _c("td", { staticStyle: { width: "150px" } }, [
                                 patient.image
                                   ? _c(
@@ -58939,6 +59161,40 @@ var render = function () {
                                 _vm._v(_vm._s(patient.point)),
                               ]),
                               _vm._v(" "),
+                              _c("td", [
+                                patient.status === 1
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "badge badge-accent" },
+                                      [_vm._v("Active")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                patient.status === 3
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "badge badge-success" },
+                                      [_vm._v("Received")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                patient.status === 2
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "badge badge-danger" },
+                                      [_vm._v("On Hold")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                patient.status === 4
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "badge badge-danger" },
+                                      [_vm._v("Canceled / Deceased")]
+                                    )
+                                  : _vm._e(),
+                              ]),
+                              _vm._v(" "),
                               _c("td", { staticClass: "text-right" }, [
                                 _c(
                                   "div",
@@ -59026,7 +59282,7 @@ var render = function () {
                                             on: {
                                               click: function ($event) {
                                                 $event.preventDefault()
-                                                return _vm.showDeleteModal(
+                                                return _vm.showChangeStatusModal(
                                                   patient.id
                                                 )
                                               },
@@ -59145,6 +59401,176 @@ var render = function () {
         ]
       ),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal",
+          attrs: {
+            id: "change-patient-status",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-hidden": "true",
+          },
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog modal-lg modal-dialog-centered" },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body m-3" }, [
+                  _c("form", { attrs: { action: "" } }, [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.patient_status,
+                                expression: "patient_status",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "" },
+                            on: {
+                              change: function ($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function (o) {
+                                    return o.selected
+                                  })
+                                  .map(function (o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.patient_status = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                            },
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Select Status"),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "1" } }, [
+                              _vm._v("Active"),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "2" } }, [
+                              _vm._v("On Hold"),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "3" } }, [
+                              _vm._v("Received"),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "4" } }, [
+                              _vm._v("Canceled / Deceased"),
+                            ]),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "form-text text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(_vm.errors.get("patient_status")),
+                          },
+                        }),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _vm._m(7),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.status_change_remark,
+                              expression: "status_change_remark",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: { cols: "20", rows: "5" },
+                          domProps: { value: _vm.status_change_remark },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.status_change_remark = $event.target.value
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "form-text text-danger",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.errors.get("status_change_remark")
+                            ),
+                          },
+                        }),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm",
+                      attrs: { type: "button", "data-dismiss": "modal" },
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _vm.status_submitting
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "button" },
+                        },
+                        [_c("i", { staticClass: "fa fa-spinner fa-spin" })]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.changePatientStatus.apply(
+                                null,
+                                arguments
+                              )
+                            },
+                          },
+                        },
+                        [_vm._v("Change")]
+                      ),
+                ]),
+              ]),
+            ]
+          ),
+        ]
+      ),
+      _vm._v(" "),
       _c("patient-create", {
         ref: "createPatient",
         attrs: { hospitals: _vm.hospitals },
@@ -59160,112 +59586,88 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary dropdown-toggle",
-          attrs: {
-            id: "filter-patient-status",
-            type: "button",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false",
+    return _c(
+      "div",
+      { staticClass: "btn-group float-right", attrs: { role: "group" } },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary dropdown-toggle",
+            attrs: {
+              id: "export-excel",
+              type: "button",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false",
+            },
           },
-        },
-        [
-          _c("i", { staticClass: "fa fa-filter mr-1" }),
-          _vm._v(
-            " Patient Status: Active (12)\n                                "
-          ),
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "dropdown-menu",
-          staticStyle: {
-            position: "absolute",
-            "will-change": "transform",
-            top: "0px",
-            left: "0px",
-            transform: "translate3d(0px, 38px, 0px)",
+          [
+            _c("i", { staticClass: "fa fa-download mr-1" }),
+            _vm._v(" Export\n                                "),
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "dropdown-menu",
+            staticStyle: {
+              position: "absolute",
+              "will-change": "transform",
+              top: "0px",
+              left: "0px",
+              transform: "translate3d(0px, 38px, 0px)",
+            },
+            attrs: {
+              "aria-labelledby": "filter-hospital-type",
+              "x-placement": "bottom-start",
+            },
           },
-          attrs: {
-            "aria-labelledby": "filter-patient-status",
-            "x-placement": "bottom-start",
-          },
-        },
-        [
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Active (12)"),
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("On Hold (2)"),
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Received (0)"),
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Canceled / Deceased (9)"),
-          ]),
-        ]
-      ),
-    ])
+          [
+            _c(
+              "a",
+              {
+                staticClass: "dropdown-item",
+                attrs: { href: "/admin/export" },
+              },
+              [_vm._v("Excel (.xslx)")]
+            ),
+          ]
+        ),
+      ]
+    )
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary dropdown-toggle",
-          attrs: {
-            id: "filter-hospital-type",
-            type: "button",
-            "data-toggle": "dropdown",
-            "aria-haspopup": "true",
-            "aria-expanded": "false",
-          },
-        },
-        [
-          _c("i", { staticClass: "fa fa-filter mr-1" }),
-          _vm._v(" Transplant Type: KIDNEY\n                                "),
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "dropdown-menu",
-          staticStyle: {
-            position: "absolute",
-            "will-change": "transform",
-            top: "0px",
-            left: "0px",
-            transform: "translate3d(0px, 38px, 0px)",
-          },
-          attrs: {
-            "aria-labelledby": "filter-hospital-type",
-            "x-placement": "bottom-start",
-          },
-        },
-        [
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("KIDNEY"),
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("LIVER"),
-          ]),
-        ]
-      ),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Patient's Photo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Patient's Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Citizenship Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Gender")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date Of Birth")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Transplant Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Transplant Center")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Score")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "text-right", staticStyle: { width: "180px" } },
+          [_vm._v("Action")]
+        ),
+      ]),
     ])
   },
   function () {
@@ -59297,6 +59699,72 @@ var staticRenderFns = [
         _vm._v(" Are you sure you want to permanently delete this record?"),
       ]),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h2", { staticClass: "modal-title" }, [
+        _vm._v("Change Patient Status"),
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" },
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c("label", {
+        staticClass: "col-form-label col-md-3 col-sm-3 label-align",
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+        _c("p", [
+          _c("strong", [_vm._v("Attention !")]),
+          _vm._v(" Are you sure you want to change patient status?"),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [
+        _vm._v(
+          "\n                                Status\n                                "
+        ),
+        _c("span", { staticClass: "required" }, [_vm._v("*")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [
+        _vm._v(
+          "\n                                Remarks\n                                "
+        ),
+        _c("small", {}, [_vm._v("Optional")]),
+      ]
+    )
   },
 ]
 render._withStripped = true

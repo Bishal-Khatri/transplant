@@ -8,6 +8,7 @@ use Modules\Administrator\Http\Controllers\PatientController;
 
 Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() {
     Route::get('/', [AdministratorController::class, 'index'])->name('admin.index');
+    Route::get('/export', [DataController::class, 'export'])->name('export');
 
     Route::get('/religion', [DataController::class, 'religionIndex'])->name('admin.religion');
     Route::get('/ethnic-group', [DataController::class, 'ethnicGroupIndex'])->name('admin.ethnic-group');
@@ -109,6 +110,8 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
             Route::post('/create', [PatientController::class, 'savePatient']);
             Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);
             Route::post('/update', [PatientController::class, 'updatePatient']);
+            Route::get('/count', [PatientController::class, 'getPatientCount']);
+            Route::post('/change-status', [PatientController::class, 'changePatientStatus']);
         });
 
     });

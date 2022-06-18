@@ -2,10 +2,12 @@
 
 namespace Modules\Administrator\Http\Controllers;
 
+use App\Exports\PatientsExport;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\Administrator\Entities\Religion;
 use Modules\Administrator\Entities\EthnicGroup;
 use Modules\Administrator\Entities\Disease;
@@ -16,6 +18,11 @@ use Spatie\Activitylog\Models\Activity;
 class DataController extends Controller
 {
     use SetResponse;
+
+    public function export()
+    {
+        return Excel::download(new PatientsExport(), 'patient_list.xlsx');
+    }
 
     public function religionIndex()
     {

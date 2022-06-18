@@ -14,6 +14,7 @@ use Modules\Administrator\Entities\Occupation;
 use Modules\Administrator\Entities\Religion;
 use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Entities\Patient;
+use Modules\Hospital\Entities\PatientTransferLog;
 
 class PatientController extends Controller
 {
@@ -323,15 +324,45 @@ class PatientController extends Controller
     public function transferPatient(Request $request)
     {
         $request->validate([
-            'transplant_center' => 'required|integer',
             'patient_id' => 'required|integer',
+            'transplant_center' => 'required|integer',
+            'transfer_remarks' => 'nullable|max:1000',
         ]);
 
-        $patient = Patient::findOrFail($request->patient_id);
-        $patient->hospital_id = $request->transplant_center;
-        $patient->save();
+        try{
+            $user = auth()->user();
+            $hospital = $user->hospital;
+            if (!$hospital){
+                return response()->json($this->prepareResponse(true, 'Error <br> Transfer hospital not available.', [], []));
+            }
 
-        $returnData = $this->prepareResponse(false, 'Success <br> Patient transferred successfully.', [], []);
-        return response()->json($returnData);
+            $transfer_to_hospital = Hospital::findOrFail($request->transplant_center);
+
+            $patient = Patient::findOrFail($request->patient_id);
+            $patient->hospital_id = $transfer_to_hospital->id; // hospital id changed
+            $patient->transfer_remarks = $request->transfer_remarks;
+            $patient->save();
+
+            // add log
+            $transfer_log = new PatientTransferLog();
+            $transfer_log->transferred_by_user = auth()->user()->id;
+            $transfer_log->transferred_by_hospital = $hospital->id;
+            $transfer_log->transferred_to_hospital = $transfer_to_hospital->id;
+            $transfer_log->remark = $request->remark;
+            $transfer_log->save();
+
+            // Add log
+            activity()
+                ->causedBy($user)
+                ->performedOn($patient)
+                ->log("Transferred");
+//                ->log("A patient ".$patient->name." is transferred from".$hospital->hospital_name." to ".$transfer_to_hospital->hospital_name);
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Patient transferred successfully.', [], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $returnData = $this->prepareResponse(true, 'Error <br> Error processing request.'.$exception->getMessage(), [], []);
+            return response()->json($returnData, 500);
+        }
     }
 }

@@ -44,6 +44,12 @@
         border-color: #2A3F54;
     }
 
+    .badge-accent{
+        color: #fff;
+        background-color: #2A3F54;
+        border-color: #2A3F54;
+    }
+
 
     element.style {
         border: 0;

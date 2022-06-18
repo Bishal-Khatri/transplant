@@ -14,6 +14,8 @@ use Modules\Administrator\Entities\Occupation;
 use Modules\Administrator\Entities\Religion;
 use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Entities\Patient;
+use Modules\Hospital\Enum\PatientStatus;
+use Modules\Hospital\Enum\TransplantTypes;
 
 class PatientController extends Controller
 {
@@ -22,9 +24,17 @@ class PatientController extends Controller
     public function getPatientList(Request $request)
     {
         $query = Patient::query();
-        if (isset($request->filter) AND !blank($request->filter)){
+        if (isset($request->query) AND !blank($request->query)){
             $query->where('name', 'LIKE', "%" . $request->filter . "%");
         }
+        if (isset($request->t_t) AND !blank($request->t_t)){
+            $query->where('transplant_type', $request->t_t);
+        }
+
+        if (isset($request->p_s) AND !blank($request->p_s)){
+            $query->where('status', $request->p_s);
+        }
+
         $patients = $query->with([
             'current_province',
             'current_district',
@@ -41,6 +51,36 @@ class PatientController extends Controller
 
         $hospitals = Hospital::all();
         $returnData = $this->prepareResponse(false, 'success', compact('patients', 'hospitals'), []);
+        return response()->json($returnData);
+    }
+
+    public function getPatientCount()
+    {
+        $count['active'] = Patient::where('status', PatientStatus::ACTIVE)->count();
+        $count['on_hold'] = Patient::where('status', PatientStatus::ON_HOLD)->count();
+        $count['received'] = Patient::where('status', PatientStatus::RECEIVED)->count();
+        $count['canceled'] = Patient::where('status', PatientStatus::CANCELED)->count();
+
+        $returnData = $this->prepareResponse(false, 'success', compact('count'), []);
+        return response()->json($returnData);
+    }
+
+    public function changePatientStatus(Request $request)
+    {
+
+        $request->validate([
+            'patient_id' => 'required|integer',
+            'patient_status' => 'required',
+            'status_change_remark' => 'nullable',
+        ]);
+
+        $patient = Patient::findOrFail($request->patient_id);
+
+        $patient->status = $request->patient_status;
+        $patient->status_change_remark = $request->status_change_remark;
+        $patient->save();
+
+        $returnData = $this->prepareResponse(false, 'Success <br> Status changed successfully.', [], []);
         return response()->json($returnData);
     }
 

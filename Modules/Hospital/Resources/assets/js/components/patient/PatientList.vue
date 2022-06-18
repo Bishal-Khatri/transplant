@@ -125,9 +125,15 @@
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body m-3">
-                        <p><strong>Attention !</strong> Are you sure you want to transfer this patient permanently?</p>
 
                         <form action="">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <p><strong>Attention !</strong> Are you sure you want to transfer this patient permanently?</p>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
                                     Transplant Center
@@ -139,6 +145,16 @@
                                         <option v-for="hospital in hospitals" :key="hospital.id" :value="hospital.id">{{ hospital.hospital_name }}</option>
                                     </select>
                                     <span class="form-text text-danger" v-html="errors.get('transplant_center')"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Remarks
+                                    <small class="">Optional</small>
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <textarea v-model="transfer_remarks" cols="20" rows="5" class="form-control"></textarea>
+                                    <span class="form-text text-danger" v-html="errors.get('transfer_remarks')"></span>
                                 </div>
                             </div>
                         </form>
@@ -180,6 +196,7 @@
                 delete_id: '',
                 transfer_patient_id: '',
                 transplant_center: '',
+                transfer_remarks: '',
             }
         },
         components: {
@@ -215,18 +232,25 @@
             async transferPatient() {
                 this.transfer_submitting = true;
                 const formData = {
+                    patient_id: this.transfer_patient_id,
                     transplant_center: this.transplant_center,
-                    patient_id: this.transfer_patient_id
+                    transfer_remarks: this.transfer_remarks
                 };
 
-                const response = await PatientService.transferPatient(formData);
-                if (response.data.error === false) {
-                    Errors.Notification(response);
-                    this.getPatients();
-                    $("#transfer-patient-dialog").modal('hide');
+                try{
+                    const response = await PatientService.transferPatient(formData);
+                    if (response.data.error === false) {
+                        Errors.Notification(response);
+                        this.getPatients();
+                        $("#transfer-patient-dialog").modal('hide');
+                        this.transfer_patient_id  = this.transplant_center = this.transfer_remarks = '';
+                        this.getPatients();
+                    }
+                }catch (error) {
+                    this.transfer_submitting = false;
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
                 }
-                this.transfer_patient_id = '';
-                this.transfer_submitting = false;
             },
 
             showDeleteModal(patient_id) {

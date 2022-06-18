@@ -729,7 +729,7 @@
             },
             initForm(){
                 this.name = this.patient.name;
-                this.patient_image_url = '/storage/'+this.patient.image;
+                this.patient_image_url = this.patient.image ? '/storage/'+this.patient.image : '';
                 this.gender = this.patient.gender;
                 this.date_of_birth = this.patient.date_of_birth;
                 this.marital_status = this.patient.marital_status;
@@ -772,7 +772,7 @@
                 });
                 this.disease = disease;
                 this.blood_group = this.patient.blood_group;
-                console.log(this.blood_group)
+
                 this.max_facilitatory_amount = this.patient.max_facilitatory_amount;
                 this.referred_by = this.patient.referred_by;
                 this.transplant_type = this.patient.transplant_type;

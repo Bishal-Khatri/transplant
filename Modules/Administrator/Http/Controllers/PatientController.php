@@ -248,9 +248,8 @@ class PatientController extends Controller
         try {
             $patient = Patient::findOrFail($patient_id);
             $patient->delete();
-
             $returnData = $this->prepareResponse(false, 'Success <br> Patient deleted successfully.', [], []);
-            return re::patient.sponse()->json($returnData);
+            return response()->json($returnData);
         }catch (\Exception $exception){
             $message = $exception->getMessage();
             $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);

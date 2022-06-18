@@ -204,7 +204,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                         <button v-if="delete_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deletehospital">Confirm</button>
+                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="deleteHospital">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -340,6 +340,10 @@
             EventBus.$on('hospitalStatusChanged', () => {
                 this.getHospitals();
             });
+            // delete hospital
+            EventBus.$on('hospitalDeleted', () => {
+                this.getHospitals();
+            });
         },
         methods: {
             setSearch:_.debounce(function(){
@@ -418,9 +422,18 @@
                     return true;
                 }
                 return false;
+            },
+            async deleteHospital() {
+                    this.delete_submitting = true;
+                    const response = await DataService.deleteHospital(this.delete_id);
+                     if (response.data.error === false) {
+                        Errors.Notification(response);
+                        this.delete_submitting = false;
+                        $("#delete-hospital-dialog").modal('hide');
+                        EventBus.$emit('hospitalDeleted');
+                    }
             }
-        },
-
+        }
     }
 </script>
 

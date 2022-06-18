@@ -144,5 +144,7 @@ export default {
     getActivity(page){
         return Api().get('/admin/web-api/my-activity?page=' + page);
     },
-
+    deleteHospital(id){
+        return Api().delete('/admin/web-api/hospitals/delete/'+id);
+    }
 }

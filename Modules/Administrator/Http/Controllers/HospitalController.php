@@ -2,7 +2,9 @@
 
 namespace Modules\Administrator\Http\Controllers;
 
+use App\Traits\SendEmail;
 use App\Traits\SetResponse;
+use App\Traits\UserTrait;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -14,7 +16,7 @@ use Modules\Hospital\Enum\HospitalApproveStatus;
 
 class HospitalController extends Controller
 {
-    use SetResponse;
+    use SetResponse, UserTrait, SendEmail;
 
     public function listHospitals()
     {
@@ -144,6 +146,7 @@ class HospitalController extends Controller
             'hospital_id' => 'required|integer',
         ]);
 
+        \DB::beginTransaction();
         try{
             $hospital = Hospital::findOrFail($request->hospital_id);
             $hospital->approve_status = HospitalApproveStatus::APPROVED;
@@ -170,9 +173,21 @@ class HospitalController extends Controller
                 }
             }
 
+            // send email
+            $hospital_user = $hospital->user;
+            $data = [
+                'name' => $hospital_user->name,
+                'account_link' => 'https://www.transplant.iionstech.com/hospital',
+                'email' => $hospital_user->email,
+                'password' => $this->defaultPasswordText()
+            ];
+            $this->basic_email($hospital_user,$data);
+
+            \DB::commit();
             $returnData = $this->prepareResponse(false, 'Success <br> Hospital approved successfully.', [], []);
             return response()->json($returnData);
         }catch (\Exception $exception){
+            \DB::rollback();
             $returnData = $this->prepareResponse(false, $exception->getMessage(), [], []);
             return response()->json($returnData, 500);
         }
@@ -190,6 +205,15 @@ class HospitalController extends Controller
             $hospital->approve_status = HospitalApproveStatus::REJECTED;
             $hospital->reject_message = $request->reject_message;
             $hospital->save();
+
+//            $hospital_user = $hospital->user;
+//            $data = [
+//                'name' => $hospital_user->name,
+//                'account_link' => 'https://www.transplant.iionstech.com/hospital',
+//                'email' => $hospital_user->email,
+//                'password' => $this->defaultPasswordText()
+//            ];
+//            $this->basic_email($hospital_user,$data);
 
             $returnData = $this->prepareResponse(false, 'Success <br> Hospital rejected successfully.', [], []);
             return response()->json($returnData);

@@ -4,7 +4,6 @@ namespace Modules\Hospital\Http\Controllers;
 
 use App\Traits\PatientTrait;
 use App\Traits\SetResponse;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Administrator\Entities\Disease;

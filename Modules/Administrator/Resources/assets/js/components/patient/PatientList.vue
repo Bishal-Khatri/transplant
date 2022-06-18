@@ -88,7 +88,7 @@
                             <tr v-if="!patients.length">
                                 <td colspan="10">No items to display.</td>
                             </tr>
-                            <tr v-else v-for="(patient, index) in patients" :key="index">
+                            <tr v-else v-for="(patient, index) in sortArrays(patients)" :key="index">
                                 <td style="width: 150px;">
                                     <a v-if="patient.image" href="#" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
                                         <img :src="'/storage/'+patient.image" alt="" class="rounded" width="60">
@@ -129,7 +129,7 @@
                             </tbody>
                         </table>
                         <div class="pull-right">
-                            <pagination :data="patients_pg" @pagination-change-page=""></pagination>
+                            <!--<pagination :data="patients_pg" @pagination-change-page=""></pagination>-->
                         </div>
                     </div>
                 </div>
@@ -259,6 +259,10 @@
             });
         },
         methods: {
+            sortArrays(arrays) {
+                return _.orderBy(arrays, 'point', 'desc');
+            },
+
             setSearch:_.debounce(function(){
                 this.getPatients();
             }, 800),
@@ -266,8 +270,8 @@
             async getPatients(page = 1){
                 const response = await PatientService.getPatients(page, this.filter);
                 if (response.data.error === false){
-                    this.patients_pg = response.data.data.patients;
-                    this.patients = response.data.data.patients.data;
+                    // this.patients_pg = response.data.data.patients;
+                    this.patients = response.data.data.patients;
                     this.hospitals = response.data.data.hospitals;
                 }
 

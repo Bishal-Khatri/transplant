@@ -34,8 +34,7 @@ class PatientController extends Controller
         if (isset($request->p_s) AND !blank($request->p_s)){
             $query->where('status', $request->p_s);
         }
-
-        $patients = $query->with([
+        $query->with([
             'current_province',
             'current_district',
             'current_municipality',
@@ -47,7 +46,10 @@ class PatientController extends Controller
             'religion',
             'ethnic_group',
             'hospital'
-        ])->paginate(10);
+        ]);
+        $query->orderBy('created_at', 'DESC');
+        $patients = $query->get();
+//        $patients = $query->paginate(10);
 
         $hospitals = Hospital::all();
         $returnData = $this->prepareResponse(false, 'success', compact('patients', 'hospitals'), []);

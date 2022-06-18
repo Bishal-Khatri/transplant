@@ -25622,6 +25622,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     });
   },
   methods: {
+    sortArrays: function sortArrays(arrays) {
+      return _.orderBy(arrays, 'point', 'desc');
+    },
     setSearch: _.debounce(function () {
       this.getPatients();
     }, 800),
@@ -25643,8 +25646,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context.sent;
 
                 if (response.data.error === false) {
-                  _this2.patients_pg = response.data.data.patients;
-                  _this2.patients = response.data.data.patients.data;
+                  // this.patients_pg = response.data.data.patients;
+                  _this2.patients = response.data.data.patients;
                   _this2.hospitals = response.data.data.hospitals;
                 }
 
@@ -59046,295 +59049,288 @@ var render = function () {
                               _vm._v("No items to display."),
                             ]),
                           ])
-                        : _vm._l(_vm.patients, function (patient, index) {
-                            return _c("tr", { key: index }, [
-                              _c("td", { staticStyle: { width: "150px" } }, [
-                                patient.image
-                                  ? _c(
-                                      "a",
-                                      {
-                                        attrs: { href: "#" },
-                                        on: {
-                                          click: function ($event) {
-                                            $event.preventDefault()
-                                            return _vm.$refs.imagePreview.openDialog(
-                                              "/storage/" + patient.image
-                                            )
+                        : _vm._l(
+                            _vm.sortArrays(_vm.patients),
+                            function (patient, index) {
+                              return _c("tr", { key: index }, [
+                                _c("td", { staticStyle: { width: "150px" } }, [
+                                  patient.image
+                                    ? _c(
+                                        "a",
+                                        {
+                                          attrs: { href: "#" },
+                                          on: {
+                                            click: function ($event) {
+                                              $event.preventDefault()
+                                              return _vm.$refs.imagePreview.openDialog(
+                                                "/storage/" + patient.image
+                                              )
+                                            },
                                           },
                                         },
-                                      },
-                                      [
-                                        _c("img", {
-                                          staticClass: "rounded",
-                                          attrs: {
-                                            src: "/storage/" + patient.image,
-                                            alt: "",
-                                            width: "60",
-                                          },
-                                        }),
-                                      ]
-                                    )
-                                  : _c("img", {
+                                        [
+                                          _c("img", {
+                                            staticClass: "rounded",
+                                            attrs: {
+                                              src: "/storage/" + patient.image,
+                                              alt: "",
+                                              width: "60",
+                                            },
+                                          }),
+                                        ]
+                                      )
+                                    : _c("img", {
+                                        attrs: {
+                                          src: "/images/placeholder-dark.jpg",
+                                          alt: "",
+                                          width: "60",
+                                          height: "40",
+                                        },
+                                      }),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "mr-2",
                                       attrs: {
-                                        src: "/images/placeholder-dark.jpg",
-                                        alt: "",
-                                        width: "60",
-                                        height: "40",
+                                        href:
+                                          "/admin/patient/update/" + patient.id,
                                       },
-                                    }),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "mr-2",
-                                    attrs: {
-                                      href:
-                                        "/admin/patient/update/" + patient.id,
                                     },
-                                  },
-                                  [
+                                    [
+                                      _vm._v(
+                                        _vm._s(patient.name || "Not-Available")
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c("small", {}, [
                                     _vm._v(
-                                      _vm._s(patient.name || "Not-Available")
+                                      "Created on " + _vm._s(patient.created_at)
                                     ),
-                                  ]
-                                ),
+                                  ]),
+                                ]),
                                 _vm._v(" "),
-                                _c("br"),
-                                _vm._v(" "),
-                                _c("small", {}, [
+                                _c("td", [
                                   _vm._v(
-                                    "Created on " + _vm._s(patient.created_at)
+                                    _vm._s(
+                                      patient.citizenship_number ||
+                                        "Not-Available"
+                                    )
                                   ),
                                 ]),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    patient.citizenship_number ||
-                                      "Not-Available"
-                                  )
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    patient.gender
-                                      ? patient.gender.toUpperCase()
-                                      : "Not-Available"
-                                  )
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    patient.date_of_birth || "Not-Available"
-                                  )
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    patient.transplant_type
-                                      ? patient.transplant_type.toUpperCase()
-                                      : "Not-Available"
-                                  )
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    patient.hospital
-                                      ? patient.hospital.hospital_name
-                                      : "Not-Available"
-                                  )
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticStyle: { width: "70px" } }, [
-                                _vm._v(_vm._s(patient.point)),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                patient.status === 1
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "badge badge-accent" },
-                                      [_vm._v("Active")]
-                                    )
-                                  : _vm._e(),
                                 _vm._v(" "),
-                                patient.status === 3
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "badge badge-success" },
-                                      [_vm._v("Received")]
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      patient.gender
+                                        ? patient.gender.toUpperCase()
+                                        : "Not-Available"
                                     )
-                                  : _vm._e(),
+                                  ),
+                                ]),
                                 _vm._v(" "),
-                                patient.status === 2
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "badge badge-danger" },
-                                      [_vm._v("On Hold")]
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      patient.date_of_birth || "Not-Available"
                                     )
-                                  : _vm._e(),
+                                  ),
+                                ]),
                                 _vm._v(" "),
-                                patient.status === 4
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "badge badge-danger" },
-                                      [_vm._v("Canceled / Deceased")]
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      patient.transplant_type
+                                        ? patient.transplant_type.toUpperCase()
+                                        : "Not-Available"
                                     )
-                                  : _vm._e(),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-right" }, [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "btn-group",
-                                    attrs: { role: "group" },
-                                  },
-                                  [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-secondary dropdown-toggle btn-sm",
-                                        attrs: {
-                                          id: "btnGroupDrop1",
-                                          type: "button",
-                                          "data-toggle": "dropdown",
-                                          "aria-haspopup": "true",
-                                          "aria-expanded": "false",
-                                        },
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                        Actions\n                                    "
-                                        ),
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass: "dropdown-menu",
-                                        staticStyle: {
-                                          position: "absolute",
-                                          "will-change": "transform",
-                                          top: "0px",
-                                          left: "0px",
-                                          transform:
-                                            "translate3d(0px, 38px, 0px)",
-                                        },
-                                        attrs: {
-                                          "aria-labelledby": "btnGroupDrop1",
-                                          "x-placement": "bottom-start",
-                                        },
-                                      },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "dropdown-item",
-                                            attrs: {
-                                              href: "#",
-                                              href:
-                                                "/admin/patient/view/" +
-                                                patient.id,
-                                              type: "button",
-                                            },
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      patient.hospital
+                                        ? patient.hospital.hospital_name
+                                        : "Not-Available"
+                                    )
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticStyle: { width: "70px" } }, [
+                                  _vm._v(_vm._s(patient.point)),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  patient.status === 1
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "badge badge-accent" },
+                                        [_vm._v("Active")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  patient.status === 3
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "badge badge-success" },
+                                        [_vm._v("Received")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  patient.status === 2
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "badge badge-danger" },
+                                        [_vm._v("On Hold")]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  patient.status === 4
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "badge badge-danger" },
+                                        [_vm._v("Canceled / Deceased")]
+                                      )
+                                    : _vm._e(),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-right" }, [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "btn-group",
+                                      attrs: { role: "group" },
+                                    },
+                                    [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass:
+                                            "btn btn-secondary dropdown-toggle btn-sm",
+                                          attrs: {
+                                            id: "btnGroupDrop1",
+                                            type: "button",
+                                            "data-toggle": "dropdown",
+                                            "aria-haspopup": "true",
+                                            "aria-expanded": "false",
                                           },
-                                          [_vm._v("View")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "dropdown-item",
-                                            attrs: {
-                                              href: "#",
-                                              href:
-                                                "/admin/patient/update/" +
-                                                patient.id,
-                                              type: "button",
-                                            },
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Actions\n                                    "
+                                          ),
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "dropdown-menu",
+                                          staticStyle: {
+                                            position: "absolute",
+                                            "will-change": "transform",
+                                            top: "0px",
+                                            left: "0px",
+                                            transform:
+                                              "translate3d(0px, 38px, 0px)",
                                           },
-                                          [_vm._v("Edit")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass: "dropdown-item",
-                                            attrs: {
-                                              href: "#",
-                                              type: "button",
-                                            },
-                                            on: {
-                                              click: function ($event) {
-                                                $event.preventDefault()
-                                                return _vm.showChangeStatusModal(
-                                                  patient.id
-                                                )
+                                          attrs: {
+                                            "aria-labelledby": "btnGroupDrop1",
+                                            "x-placement": "bottom-start",
+                                          },
+                                        },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "dropdown-item",
+                                              attrs: {
+                                                href: "#",
+                                                href:
+                                                  "/admin/patient/view/" +
+                                                  patient.id,
+                                                type: "button",
                                               },
                                             },
-                                          },
-                                          [_vm._v("Change Status")]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass:
-                                              "dropdown-item text-danger deleteModal",
-                                            attrs: {
-                                              href: "#",
-                                              type: "button",
-                                            },
-                                            on: {
-                                              click: function ($event) {
-                                                $event.preventDefault()
-                                                return _vm.showDeleteModal(
-                                                  patient.id
-                                                )
+                                            [_vm._v("View")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "dropdown-item",
+                                              attrs: {
+                                                href: "#",
+                                                href:
+                                                  "/admin/patient/update/" +
+                                                  patient.id,
+                                                type: "button",
                                               },
                                             },
-                                          },
-                                          [_vm._v("Delete")]
-                                        ),
-                                      ]
-                                    ),
-                                  ]
-                                ),
-                              ]),
-                            ])
-                          }),
+                                            [_vm._v("Edit")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "dropdown-item",
+                                              attrs: {
+                                                href: "#",
+                                                type: "button",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.showChangeStatusModal(
+                                                    patient.id
+                                                  )
+                                                },
+                                              },
+                                            },
+                                            [_vm._v("Change Status")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass:
+                                                "dropdown-item text-danger deleteModal",
+                                              attrs: {
+                                                href: "#",
+                                                type: "button",
+                                              },
+                                              on: {
+                                                click: function ($event) {
+                                                  $event.preventDefault()
+                                                  return _vm.showDeleteModal(
+                                                    patient.id
+                                                  )
+                                                },
+                                              },
+                                            },
+                                            [_vm._v("Delete")]
+                                          ),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                ]),
+                              ])
+                            }
+                          ),
                     ],
                     2
                   ),
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "pull-right" },
-                [
-                  _c("pagination", {
-                    attrs: { data: _vm.patients_pg },
-                    on: { "pagination-change-page": function ($event) {} },
-                  }),
-                ],
-                1
-              ),
+              _c("div", { staticClass: "pull-right" }),
             ]),
           ]),
         ]),

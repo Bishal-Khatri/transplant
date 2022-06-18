@@ -2,19 +2,22 @@
 
 namespace Modules\Hospital\Http\Controllers;
 
+use App\Traits\PatientTrait;
 use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Administrator\Entities\Disease;
 use Modules\Administrator\Entities\EducationLevel;
 use Modules\Administrator\Entities\EthnicGroup;
 use Modules\Administrator\Entities\Occupation;
 use Modules\Administrator\Entities\Religion;
+use Modules\Hospital\Entities\Hospital;
 use Modules\Hospital\Entities\Patient;
 
 class PatientController extends Controller
 {
-    use SetResponse;
+    use SetResponse, PatientTrait;
 
     public function getPatientList(Request $request)
     {
@@ -45,9 +48,11 @@ class PatientController extends Controller
     public function savePatient(Request $request)
     {
         $request->validate([
-            'patient_image' => 'required',
+            'patient_image' => 'nullable|image',
             'patient_name' => 'required',
             'citizenship_number' => 'required',
+            'gender' => 'required',
+            'transplant_type' => 'required',
         ]);
 
         $this->checkPatient($request);
@@ -62,6 +67,8 @@ class PatientController extends Controller
         $patient->name = $request->patient_name;
         $patient->citizenship_number = $request->citizenship_number;
         $patient->hospital_id = $hospital->id;
+        $patient->gender = $request->gender;
+        $patient->transplant_type = $request->transplant_type;
 
         $patient->save();
 
@@ -71,7 +78,6 @@ class PatientController extends Controller
 
     public function updatePatient(Request $request)
     {
-    //    dd($request->all());
         if (!isset($request->page) OR blank($request->page)){
             return;
         }
@@ -220,11 +226,26 @@ class PatientController extends Controller
             $patient->letter_date = $request->letter_date;
             $patient->opd_number = $request->opd_number;
             $patient->hospital_bipanna_number = $request->hospital_bipanna_number;
-            $patient->disease = $request->disease;
             $patient->max_facilitatory_amount = $request->max_facilitatory_amount;
             $patient->referred_by = $request->referred_by;
+            $patient->blood_group = $request->blood_group;
             $patient->transplant_type = $request->transplant_type;
+
+            if ($request->transplant_type == 'kidney'){
+                $patient->dialysis_start_date = $request->dialysis_start_date;
+                $patient->hal_tissue_type = $request->hal_tissue_type;
+                $patient->cross_match_cdc = $request->cross_match_cdc;
+                $patient->dsa_titre = $request->dsa_titre;
+                $patient->pra = $request->pra;
+            }
+            elseif ($request->transplant_type == 'liver'){
+                $patient->meld_score = $request->meld_score;
+            }
+
             $patient->save();
+
+            $diseases = json_decode($request->disease);
+            $patient->disease()->sync($diseases);
 
             $returnData = $this->prepareResponse(false, 'Success <br> Patient updated successfully.', [], []);
             return response()->json($returnData);
@@ -233,18 +254,6 @@ class PatientController extends Controller
             $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
             return response()->json($returnData, 500);
         }
-    }
-
-    private function checkPatient(Request $request)
-    {
-        if (Patient::where('name', $request->patient_name)->where('citizenship_number', $request->citizenship_number)->exists()){
-            $request->validate([
-                'unique_patient' => 'required'
-            ], [
-                'unique_patient.required' => "This record already exists in the system."
-            ]);
-        }
-        return 'true';
     }
 
     public function deletePatient($patient_id)
@@ -266,7 +275,8 @@ class PatientController extends Controller
 
     public function index()
     {
-        return view('hospital::patient.index');
+        $hospitals = Hospital::all();
+        return view('hospital::patient.index', compact('hospitals'));
     }
 
     public function edit($patient_id)
@@ -282,14 +292,19 @@ class PatientController extends Controller
             'occupation',
             'religion',
             'ethnic_group',
+            'disease',
         ])->findOrFail($patient_id);
         $religions = Religion::all();
         $ethnic_groups = EthnicGroup::all();
         $education_levels = EducationLevel::all();
         $occupations = Occupation::all();
-        return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations'));
+        $diseases = Disease::all();
+        $auth_user = auth()->user();
+        return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
     }
-    public function view($patient_id){
+
+    public function view($patient_id)
+    {
         $patient = Patient::with([
             'current_province',
             'current_district',
@@ -303,5 +318,20 @@ class PatientController extends Controller
             'ethnic_group',
         ])->findOrFail($patient_id);
         return view('hospital::patient.view', compact('patient'));
+    }
+
+    public function transferPatient(Request $request)
+    {
+        $request->validate([
+            'transplant_center' => 'required|integer',
+            'patient_id' => 'required|integer',
+        ]);
+
+        $patient = Patient::findOrFail($request->patient_id);
+        $patient->hospital_id = $request->transplant_center;
+        $patient->save();
+
+        $returnData = $this->prepareResponse(false, 'Success <br> Patient transferred successfully.', [], []);
+        return response()->json($returnData);
     }
 }

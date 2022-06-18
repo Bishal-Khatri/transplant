@@ -74,10 +74,16 @@
                                 <td>{{ patient.nationality || 'Not-Available' }}</td>
                                 <td>{{ patient.transplant_type ? patient.transplant_type.toUpperCase() : 'Not-Available' }}</td>
                                 <td class="text-right">
-                                    <div class="btn-group">
-                                        <a href="#" class="btn btn-accent btn-sm" :href="'/hospital/patient/view/'+patient.id" type="button">View</a>
-                                        <a href="#" class="btn btn-accent btn-sm" :href="'/hospital/patient/update/'+patient.id" type="button">Edit</a>
-                                        <a href="#" @click.prevent="showDeleteModal(patient.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                            <a href="#" class="dropdown-item" :href="'/hospital/patient/view/'+patient.id" type="button">View</a>
+                                            <a href="#" class="dropdown-item" :href="'/hospital/patient/update/'+patient.id" type="button">Edit</a>
+                                            <a href="#" class="dropdown-item" @click.prevent="showTransferModal(patient.id)" type="button">Transfer</a>
+                                            <a href="#" class="dropdown-item text-danger deleteModal" @click.prevent="showDeleteModal(patient.id)" type="button">Delete</a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -90,8 +96,6 @@
                 </div>
             </div>
         </div>
-        <patient-create ref="createPatient"/>
-        <image-preview ref="imagePreview"/>
 
         <div class="modal" id="delete-patient-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
@@ -112,6 +116,44 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal" id="transfer-patient-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Transfer Patient</h2>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body m-3">
+                        <p><strong>Attention !</strong> Are you sure you want to transfer this patient permanently?</p>
+
+                        <form action="">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Transplant Center
+                                    <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9">
+                                    <select v-model="transplant_center" class="form-control" id="">
+                                        <option value="">Select Transplant Center</option>
+                                        <option v-for="hospital in hospitals" :key="hospital.id" :value="hospital.id">{{ hospital.hospital_name }}</option>
+                                    </select>
+                                    <span class="form-text text-danger" v-html="errors.get('transplant_center')"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <button v-if="transfer_submitting" type="button" class="btn btn-danger btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                        <button v-else type="submit" class="btn btn-danger btn-sm" @click.prevent="transferPatient">Transfer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <patient-create ref="createPatient"/>
+        <image-preview ref="imagePreview"/>
     </div>
 </template>
 
@@ -124,15 +166,20 @@
 
     export default {
         name: "PatientList",
+        props: ['hospitals'],
         data(){
             return{
                 errors: new Errors(),
+                delete_submitting: false,
+                transfer_submitting: false,
                 filter: '',
 
                 patients: {},
                 patients_pg: {},
-                delete_submitting: '',
+
                 delete_id: '',
+                transfer_patient_id: '',
+                transplant_center: '',
             }
         },
         components: {
@@ -158,6 +205,28 @@
                     this.patients_pg = response.data.data.patients;
                     this.patients = response.data.data.patients.data;
                 }
+            },
+
+            showTransferModal(patient_id) {
+                this.transfer_patient_id = patient_id;
+                $("#transfer-patient-dialog").modal('show');
+            },
+
+            async transferPatient() {
+                this.transfer_submitting = true;
+                const formData = {
+                    transplant_center: this.transplant_center,
+                    patient_id: this.transfer_patient_id
+                };
+
+                const response = await PatientService.transferPatient(formData);
+                if (response.data.error === false) {
+                    Errors.Notification(response);
+                    this.getPatients();
+                    $("#transfer-patient-dialog").modal('hide');
+                }
+                this.transfer_patient_id = '';
+                this.transfer_submitting = false;
             },
 
             showDeleteModal(patient_id) {

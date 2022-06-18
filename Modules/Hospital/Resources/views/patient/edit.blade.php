@@ -6,7 +6,7 @@
         <div class="">
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Create New Patient</h3>
+                    <h3>Update Patient Information</h3>
                 </div>
             </div>
 
@@ -16,7 +16,9 @@
                             :religions="{{ $religions }}"
                             :ethnic_groups="{{ $ethnic_groups }}"
                             :education_levels="{{ $education_levels }}"
-                            :occupations="{{ $occupations }}"></patient-update>
+                            :diseases="{{ $diseases }}"
+                            :occupations="{{ $occupations }}"
+                            :auth_user="{{ $auth_user }}"></patient-update>
         </div>
     </div>
 @endsection

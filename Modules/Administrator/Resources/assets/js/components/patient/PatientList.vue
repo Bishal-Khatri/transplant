@@ -25,14 +25,38 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <div class="btn-group" role="group">
+                                    <button id="filter-patient-status" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-filter mr-1"></i> Patient Status: Active (12)
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filter-patient-status"
+                                         x-placement="bottom-start"
+                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                        <a class="dropdown-item" href="#">Active (12)</a>
+                                        <a class="dropdown-item" href="#" >On Hold (2)</a>
+                                        <a class="dropdown-item" href="#" >Received (0)</a>
+                                        <a class="dropdown-item" href="#" >Canceled / Deceased (9)</a>
+                                    </div>
+                                </div>
+                                <div class="btn-group" role="group">
                                     <button id="filter-hospital-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-filter mr-1"></i> Transplant Type
+                                        <i class="fa fa-filter mr-1"></i> Transplant Type: KIDNEY
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="filter-hospital-type"
                                          x-placement="bottom-start"
                                          style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
                                         <a class="dropdown-item" href="#">KIDNEY</a>
                                         <a class="dropdown-item" href="#" >LIVER</a>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group float-right" role="group">
+                                    <button id="export" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" :disabled="!selected.length">
+                                        <i class="fa fa-download mr-1"></i> Export
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="export"
+                                         x-placement="bottom-start"
+                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                        <a class="dropdown-item" href="#" @click.prevent="exportPatient('excel')">Excel (.xls)</a>
                                     </div>
                                 </div>
 
@@ -43,21 +67,33 @@
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr>
+                                <th>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" v-model="selectAll" @click="select">
+                                            <i class="form-icon"></i>
+                                        </label>
+                                    </div>
+                                </th>
                                 <th>Patient's Photo</th>
                                 <th>Patient's Name</th>
                                 <th>Citizenship Number</th>
                                 <th>Gender</th>
                                 <th>Date Of Birth</th>
-                                <th>Nationality</th>
                                 <th>Transplant Type</th>
+                                <th>Transplant Center</th>
+                                <th>Score</th>
                                 <th style="width: 180px" class="text-right">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-if="!patients.length">
-                                <td colspan="8">No items to display.</td>
+                                <td colspan="10">No items to display.</td>
                             </tr>
                             <tr v-else v-for="(patient, index) in patients" :key="index">
+                                <td>
+                                    <input type="checkbox" class="rowCheck" :value="patient.id" v-model="selected"/>
+                                </td>
                                 <td style="width: 150px;">
                                     <a v-if="patient.image" href="#" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
                                         <img :src="'/storage/'+patient.image" alt="" class="rounded" width="60">
@@ -71,13 +107,21 @@
                                 <td>{{ patient.citizenship_number || 'Not-Available' }}</td>
                                 <td>{{ patient.gender ? patient.gender.toUpperCase() : 'Not-Available' }}</td>
                                 <td>{{ patient.date_of_birth || 'Not-Available' }}</td>
-                                <td>{{ patient.nationality || 'Not-Available' }}</td>
                                 <td>{{ patient.transplant_type ? patient.transplant_type.toUpperCase() : 'Not-Available' }}</td>
+                                <td>{{ patient.hospital.hospital_name }}</td>
+                                <td style="width: 70px;">{{ patient.point }}</td>
                                 <td class="text-right">
-                                    <div class="btn-group">
-                                        <a href="#" class="btn btn-accent btn-sm" :href="'/admin/patient/view/'+patient.id" type="button">View</a>
-                                        <a href="#" class="btn btn-accent btn-sm" :href="'/admin/patient/update/'+patient.id" type="button">Edit</a>
-                                        <a href="#" @click.prevent="showDeleteModal(patient.id)" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                            <a href="#" class="dropdown-item" :href="'/admin/patient/view/'+patient.id" type="button">View</a>
+                                            <a href="#" class="dropdown-item" :href="'/admin/patient/update/'+patient.id" type="button">Edit</a>
+                                            <a href="#" class="dropdown-item" @click.prevent="showDeleteModal(patient.id)" type="button">Change Status</a>
+                                            <!--<a href="#" class="dropdown-item" @click.prevent="showTransferModal(patient.id)" type="button">Transfer</a>-->
+                                            <a href="#" class="dropdown-item text-danger deleteModal" @click.prevent="showDeleteModal(patient.id)" type="button">Delete</a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -90,8 +134,6 @@
                 </div>
             </div>
         </div>
-        <patient-create ref="createPatient"/>
-        <image-preview ref="imagePreview"/>
 
         <div class="modal" id="delete-patient-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered">
@@ -112,28 +154,34 @@
                 </div>
             </div>
         </div>
+
+        <patient-create ref="createPatient" :hospitals="hospitals"/>
+        <image-preview ref="imagePreview"/>
     </div>
 </template>
 
 <script>
     import {Errors} from "../../../../../../../resources/js/error";
-    // services/PatientService
     import PatientService from "../../../services/PatientService";
-    import PatientCreate from "./PatientCreate";
     import {EventBus} from "../../app";
     import ImagePreview from "../../../../../../../resources/js/components/ImagePreview";
+    import PatientCreate from "./PatientCreate";
 
     export default {
         name: "PatientList",
         data(){
             return{
                 errors: new Errors(),
+                hospitals: '',
                 filter: '',
 
                 patients: {},
                 patients_pg: {},
                 delete_submitting: '',
                 delete_id: '',
+
+                selectAll:'',
+                selected:[],
             }
         },
         components: {
@@ -158,6 +206,7 @@
                 if (response.data.error === false){
                     this.patients_pg = response.data.data.patients;
                     this.patients = response.data.data.patients.data;
+                    this.hospitals = response.data.data.hospitals;
                 }
             },
 
@@ -178,6 +227,19 @@
                 this.delete_submitting = false;
             },
 
+            select() {
+                this.selected = [];
+                if (!this.selectAll) {
+                    for (let i in this.patients) {
+                        this.selected.push(this.patients[i].id);
+                    }
+                }
+            },
+
+            exportPatient(type) {
+                alert(type)
+                console.log(this.selected)
+            },
         }
     }
 </script>

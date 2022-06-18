@@ -17,4 +17,8 @@ export default {
     deletePatient(patient_id){
         return Api().delete('/hospital/web-api/patient/delete/'+patient_id);
     },
+
+    transferPatient(formData){
+        return Api().post('/hospital/web-api/patient/transfer', formData);
+    },
 }

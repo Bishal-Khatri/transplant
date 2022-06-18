@@ -204,7 +204,7 @@ class HospitalController extends Controller
         return response()->json($returnData);
     }
     public function notificationList(Request $request){
-        $items = Activity::where(["causer_id" =>auth()->user()->id])->paginate(10);
+        $items = Activity::with('causer')->where(["causer_id" =>auth()->user()->id])->orderBy('id', 'desc')->paginate(10);
         $notifications=$items->setCollection(
             $items->getCollection()->transform(function ($value) {
                 $subj=explode('\\',$value->subject_type);

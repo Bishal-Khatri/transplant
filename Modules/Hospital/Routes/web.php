@@ -19,11 +19,13 @@ Route::group(['prefix' => 'hospital', 'middleware' => ['auth', 'hospital'], 'as'
         // update hospital profile
         Route::get('notification/list',[HospitalController::class, 'notificationList'])->name('notification.list');
         Route::post('/hospital-update', [HospitalController::class, 'update'])->name('hospital.update');
-        Route::group(['prefix' => 'patient'], function (){
-            Route::get('/list', [PatientController::class, 'getPatientList']);
-            Route::post('/create', [PatientController::class, 'savePatient']);
-            Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);
-            Route::post('/update', [PatientController::class, 'updatePatient']);
-        });
     });
+});
+
+Route::group(['prefix' => 'hospital/web-api/patient', 'middleware' => ['auth']], function (){
+    Route::get('/list', [PatientController::class, 'getPatientList']);
+    Route::post('/create', [PatientController::class, 'savePatient']);
+    Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);
+    Route::post('/update', [PatientController::class, 'updatePatient']);
+    Route::post('/transfer', [PatientController::class, 'transferPatient']);
 });

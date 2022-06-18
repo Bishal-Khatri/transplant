@@ -11,7 +11,7 @@
 
             <div class="clearfix"></div>
 
-            <patient-list/>
+            <patient-list :hospitals="{{ $hospitals }}"/>
         </div>
     </div>
 @endsection

@@ -50,7 +50,7 @@
                                         Image
                                     </label>
                                     <div class="col-md-9 col-sm-9">
-                                        <img :src="`/storage/${patient.image ? patient.image:''}`" width="100" height="100" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
+                                        <img :src="`/storage/${patient.image ? patient.image:''}`" class="image-xl rounded" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
                                     </div>
                                 </div>
 
@@ -59,7 +59,6 @@
                                         Gender <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9">
-
                                         <input  :value="`${patient.gender ? patient.gender:''}`" class="form-control" disabled/>
                                     </div>
                                 </div>
@@ -406,7 +405,12 @@
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Disease <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.disease ? patient.disease:''}`" required="required"  class="form-control" disabled>
+                                        <span v-if="patient.disease" class="ml-2 badge badge-secondary" style="padding:10px"
+                                              v-for="disease in patient.disease"
+                                              :key="disease.id">
+                                            {{ disease.title }}
+                                        </span>
+                                        <!--<input type="text" :value="`${patient.disease ? patient.disease:''}`" required="required"  class="form-control" disabled>-->
                                     </div>
                                 </div>
                             </div>
@@ -428,17 +432,84 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6"></div>
+
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Transplant Type <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9">
-                                        <input  class="form-control" disabled :value="`${patient.transplant_type ? patient.transplant_type:''}`" required="required" >
-
+                                        <input  class="form-control" disabled :value="`${patient.transplant_type ? patient.transplant_type.toUpperCase() : ''}`" required="required" >
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <template v-if="patient.transplant_type === 'kidney'">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                            Dialysis Start Date
+                                        </label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="date" :value="`${patient.dialysis_start_date ? patient.dialysis_start_date:''}`" required="required" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" :value="patient.hal_tissue_type" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                            Cross Match CDC
+                                        </label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" :value="patient.cross_match_cdc" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                            DSA Titre
+                                        </label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" :value="patient.dsa_titre" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                            PRA
+                                        </label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" :value="patient.pra" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-else-if="patient.transplant_type === 'liver'">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">MELD Score</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" :value="patient.meld_score" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
                     </div>
                 </div>
             </section>
@@ -453,7 +524,7 @@
         name: "PatientPreview",
         props: ['patient'],
         mounted(){
-            console.log(this.patient);
+            // console.log(this.patient);
         },
         components: {
             ImagePreview

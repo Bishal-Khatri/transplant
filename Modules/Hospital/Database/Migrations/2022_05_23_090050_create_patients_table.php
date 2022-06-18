@@ -13,7 +13,7 @@ class CreatePatientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('patients', function (Blueprint $table) {            
+        Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('citizenship_number');
@@ -29,7 +29,7 @@ class CreatePatientsTable extends Migration
             $table->string('nationality')->nullable();
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
-            
+
             $table->string('relative_name')->nullable();
             $table->string('relation_with_relative')->nullable();
             $table->string('contact_number_1')->nullable();
@@ -46,12 +46,11 @@ class CreatePatientsTable extends Migration
             $table->unsignedBigInteger('current_municipality_id')->nullable();
             $table->string('current_ward')->nullable();
             $table->string('current_tole')->nullable();
-            
+
             $table->string('letter_number')->nullable();
             $table->date('letter_date')->nullable();
             $table->string('opd_number')->nullable();
             $table->string('hospital_bipanna_number')->nullable();
-            $table->string('disease')->nullable();
             $table->string('max_facilitatory_amount')->nullable();
             $table->string('referred_by')->nullable();
             $table->enum('transplant_type', ['kidney','liver'])->nullable();

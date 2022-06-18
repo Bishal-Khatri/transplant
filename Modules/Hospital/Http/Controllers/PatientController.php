@@ -215,9 +215,7 @@ class PatientController extends Controller
             'letter_number' => 'required',
             'letter_date' => 'required',
             'opd_number' => 'required',
-            'hospital_bipanna_number' => 'required',
             'disease' => 'required',
-            'max_facilitatory_amount' => 'required',
             'referred_by' => 'required',
             'transplant_type' => 'required',
         ]);
@@ -225,8 +223,6 @@ class PatientController extends Controller
             $patient->letter_number = $request->letter_number;
             $patient->letter_date = $request->letter_date;
             $patient->opd_number = $request->opd_number;
-            $patient->hospital_bipanna_number = $request->hospital_bipanna_number;
-            $patient->max_facilitatory_amount = $request->max_facilitatory_amount;
             $patient->referred_by = $request->referred_by;
             $patient->blood_group = $request->blood_group;
             $patient->transplant_type = $request->transplant_type;

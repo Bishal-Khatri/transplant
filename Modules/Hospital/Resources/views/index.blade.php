@@ -37,16 +37,11 @@
                                 <i class="fa fa-info-circle mr-2"></i>
                                 License expiry warning message goes here.
                             </p>
-                            <p>
-                                <label>DOB: </label>
-                                <input type="text" value="" name="date" class="bod-picker" placeholder="Select Date of Birth">
-                                <button id="clear-bth" onclick="">Clear</button>
-                            </p>
-
-                            <p class="alert alert-error">
-                                <i class="fa fa-info-circle mr-2"></i>
-                                License expiry message goes here. <a href="/hospital/profile" class="text-white ml-2 btn btn-link btn-sm">Go to profile</a>
-                            </p>
+                            {{--<p class="alert alert-error">--}}
+                                {{--<i class="fa fa-info-circle mr-2"></i>--}}
+                                {{--License expiry message goes here.--}}
+                                {{--<a href="/hospital/profile" class="text-white ml-2 btn btn-link btn-sm">Go to profile</a>--}}
+                            {{--</p>--}}
 
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a  href="#" class="text-accent">FAQ</a></li>

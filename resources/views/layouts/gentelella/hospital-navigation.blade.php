@@ -35,7 +35,7 @@
                     </li>
                     <li>
                         <a href="{{ route('hospital.patients') }}">
-                            <i class="fa fa-users"></i> Patients
+                            <i class="fa fa-users"></i> Patients Information
                         </a>
                     </li>
                     <li>

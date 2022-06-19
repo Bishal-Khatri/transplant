@@ -23,6 +23,7 @@ Route::group(['prefix' => 'hospital', 'middleware' => ['auth', 'hospital'], 'as'
 });
 
 Route::group(['prefix' => 'hospital/web-api/patient', 'middleware' => ['auth']], function (){
+    Route::get('/get/{id}', [PatientController::class, 'getPatient'])->name('patient.get');
     Route::get('/list', [PatientController::class, 'getPatientList']);
     Route::post('/create', [PatientController::class, 'savePatient']);
     Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);

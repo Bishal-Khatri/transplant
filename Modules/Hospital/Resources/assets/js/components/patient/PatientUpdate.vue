@@ -584,11 +584,21 @@
 
     export default {
         name: "PatientCreate",
-        props:['patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'],
+        props:['patient_id'],
 
         data(){
             return{
                 errors: new Errors(),
+
+                // initial data 'patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'
+                patient:{},
+                religions:{},
+                ethnic_groups:{},
+                education_levels:{},
+                occupations:{},
+                diseases:{},
+                auth_user:{},
+                
                 // isLastStep: false,
                 submitting: false,
                 patient_details_loading: false,
@@ -673,6 +683,7 @@
         async mounted() {
             this.getProvince();
             this.patient_details_loading = true;
+            await this.getPatient();
             await this.initForm();
             this.patient_details_loading = false;
         },
@@ -767,6 +778,8 @@
 
                 // liver
                 this.meld_score = this.patient.meld_score;
+
+                
             },
 
             async submitForm(page_name){
@@ -833,17 +846,17 @@
 
                     // liver
                     this.meld_score ? formData.append("meld_score", this.meld_score) : '';
-
                     nextForm = "preview";
                 }
                 try {
                     const response = await PatientService.updatePatient(formData);
                     if(response.data.error === false){
                         Errors.Notification(response);
-
                         this.submitFormName = nextForm;
+                        await this.getPatient();
                         this.$refs.updatePatient.nextTab();
                         this.errors.clear();
+
                     }
                 }catch (error) {
                     this.errors.record(error.response.data);
@@ -877,6 +890,20 @@
                 const  response = await PublicService.getMunicipality(district_id);
                 this.current_municipalities = response.data.data.municipalities;
             },
+            // initialize the form
+            async getPatient(){
+                const response = await PatientService.getPatient(this.patient_id);
+                if(response.data.error === false){
+                    const data=response.data.data;
+                    this.patient = data.patient;
+                    this.religions=data.religions;
+                    this.ethnic_groups=data.ethnic_groups;
+                    this.education_levels=data.education_levels;
+                    this.occupations=data.occupations;
+                    this.diseases=data.diseases;
+                    this.auth_user=data.auth_user;
+                }
+            }
         }
     }
 </script>

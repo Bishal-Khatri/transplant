@@ -72,7 +72,7 @@ class PatientController extends Controller
 
         $patient->save();
 
-        $returnData = $this->prepareResponse(false, 'Success <br> Patient registered successfully.', [], []);
+        $returnData = $this->prepareResponse(false, 'Success <br> Patient registered successfully.', compact('patient'), []);
         return response()->json($returnData);
     }
 
@@ -215,9 +215,7 @@ class PatientController extends Controller
             'letter_number' => 'required',
             'letter_date' => 'required',
             'opd_number' => 'required',
-            'hospital_bipanna_number' => 'required',
             'disease' => 'required',
-            'max_facilitatory_amount' => 'required',
             'referred_by' => 'required',
             'transplant_type' => 'required',
         ]);
@@ -225,8 +223,6 @@ class PatientController extends Controller
             $patient->letter_number = $request->letter_number;
             $patient->letter_date = $request->letter_date;
             $patient->opd_number = $request->opd_number;
-            $patient->hospital_bipanna_number = $request->hospital_bipanna_number;
-            $patient->max_facilitatory_amount = $request->max_facilitatory_amount;
             $patient->referred_by = $request->referred_by;
             $patient->blood_group = $request->blood_group;
             $patient->transplant_type = $request->transplant_type;
@@ -272,6 +268,45 @@ class PatientController extends Controller
 
 
     }
+    public function getPatient($patient_id)
+    {
+        try {
+            $patient = Patient::with([
+                'current_province',
+                'current_district',
+                'current_municipality',
+                'permanent_province',
+                'permanent_district',
+                'permanent_municipality',
+                'education_level',
+                'occupation',
+                'religion',
+                'ethnic_group',
+                'disease',
+            ])->findOrFail($patient_id);
+            $religions = Religion::all();
+            $ethnic_groups = EthnicGroup::all();
+            $education_levels = EducationLevel::all();
+            $occupations = Occupation::all();
+            $diseases = Disease::all();
+            $auth_user = auth()->user();
+
+            $returnData = $this->prepareResponse(false, 'Success <br> Patient found successfully.', [
+                'patient' => $patient,
+                'religions' => $religions,
+                'ethnic_groups' => $ethnic_groups,
+                'education_levels'=>$education_levels,
+                'occupations'=> $occupations,
+                'diseases'=>$diseases,
+                'auth_user'=>$auth_user
+            ], []);
+            return response()->json($returnData, 200);
+        }catch (\Exception $exception){
+            $message = $exception->getMessage();
+            $returnData = $this->prepareResponse(true, "Fail <br> $message", [], []);
+            return response()->json($returnData, 500);
+        }
+    }
 
     public function index()
     {
@@ -281,28 +316,8 @@ class PatientController extends Controller
 
     public function edit($patient_id)
     {
-        $patient = Patient::with([
-            'current_province',
-            'current_district',
-            'current_municipality',
-            'permanent_province',
-            'permanent_district',
-            'permanent_municipality',
-            'education_level',
-            'occupation',
-            'religion',
-            'ethnic_group',
-            'disease',
-        ])->findOrFail($patient_id);
-        $religions = Religion::all();
-        $ethnic_groups = EthnicGroup::all();
-        $education_levels = EducationLevel::all();
-        $occupations = Occupation::all();
-        $diseases = Disease::all();
-        $auth_user = auth()->user();
-        return view('hospital::patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
+        return view('hospital::patient.edit', compact('patient_id'));
     }
-
     public function view($patient_id)
     {
         $patient = Patient::with([

@@ -30,7 +30,11 @@ class Hospital
         $user = auth()->user();
         $hospital = $user->hospital;
         if (!$hospital OR !$hospital->status){
-            abort(403, 'This account has been disabled.');
+            \Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            session()->flash('message', 'This account has been disabled.');
+            return redirect('/login');
         }
 
         return $next($request);

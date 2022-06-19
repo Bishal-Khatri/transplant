@@ -7,6 +7,9 @@
                 <form  method="POST" action="{{ route('login') }}" novalidate id="login-form">
                     @csrf
                     <h1>Login Form</h1>
+                    @if(Session::has('message'))
+                        <p class="alert alert-danger">{{ Session::get('message') }}</p>
+                    @endif
                     <div style="margin-bottom: 20px;">
                         <input type="email" name="email" required="required" autocomplete="email" value="{{ old('email') }}" class="form-control mb-0" placeholder="{{ __('Email Address') }}" />
                         @error('email')

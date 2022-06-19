@@ -426,15 +426,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Hospital Bipanna Number <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-9 col-sm-9">
-                                                        <input type="text" v-model="hospital_bipanna_number" required="required" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-6">
                                                 <div class="form-group row">
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Diseases</label>
@@ -450,15 +442,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Max Facilitatory Amount <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-9 col-sm-9">
-                                                        <input type="text" v-model="max_facilitatory_amount" required="required" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="col-md-6">
                                                 <div class="form-group row">
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Referred By (Palika Name) <span class="required">*</span>
@@ -600,11 +584,21 @@
 
     export default {
         name: "PatientCreate",
-        props:['patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'],
+        props:['patient_id'],
 
         data(){
             return{
                 errors: new Errors(),
+
+                // initial data 'patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'
+                patient:{},
+                religions:{},
+                ethnic_groups:{},
+                education_levels:{},
+                occupations:{},
+                diseases:{},
+                auth_user:{},
+
                 // isLastStep: false,
                 submitting: false,
                 patient_details_loading: false,
@@ -661,9 +655,7 @@
                 letter_number:'',
                 letter_date:'',
                 opd_number:'',
-                hospital_bipanna_number:'',
                 disease: [],
-                max_facilitatory_amount:'',
                 referred_by:'',
                 blood_group: '',
                 transplant_type:'',
@@ -691,6 +683,7 @@
         async mounted() {
             this.getProvince();
             this.patient_details_loading = true;
+            await this.getPatient();
             await this.initForm();
             this.patient_details_loading = false;
         },
@@ -764,7 +757,7 @@
                 this.letter_number = this.patient.letter_number;
                 this.letter_date = this.patient.letter_date;
                 this.opd_number = this.patient.opd_number;
-                this.hospital_bipanna_number = this.patient.hospital_bipanna_number;
+
 
                 // disease
                 var disease = this.patient.disease.map(function(object) {
@@ -772,8 +765,6 @@
                 });
                 this.disease = disease;
                 this.blood_group = this.patient.blood_group;
-
-                this.max_facilitatory_amount = this.patient.max_facilitatory_amount;
                 this.referred_by = this.patient.referred_by;
                 this.transplant_type = this.patient.transplant_type;
 
@@ -786,6 +777,8 @@
 
                 // liver
                 this.meld_score = this.patient.meld_score;
+
+
             },
 
             async submitForm(page_name){
@@ -838,9 +831,7 @@
                     this.letter_number ? formData.append("letter_number", this.letter_number) : '';
                     this.letter_date ? formData.append("letter_date",this.letter_date) : '';
                     this.opd_number ? formData.append("opd_number", this.opd_number) : '';
-                    this.hospital_bipanna_number ? formData.append("hospital_bipanna_number", this.hospital_bipanna_number) : '';
                     this.disease ? formData.append("disease", JSON.stringify(this.disease)) : '';
-                    this.max_facilitatory_amount ? formData.append("max_facilitatory_amount", this.max_facilitatory_amount) : '';
                     this.referred_by ? formData.append("referred_by", this.referred_by) : '';
                     this.transplant_type ? formData.append("transplant_type", this.transplant_type) : '';
                     this.blood_group ? formData.append("blood_group", this.blood_group) : '';
@@ -854,17 +845,17 @@
 
                     // liver
                     this.meld_score ? formData.append("meld_score", this.meld_score) : '';
-
                     nextForm = "preview";
                 }
                 try {
                     const response = await PatientService.updatePatient(formData);
                     if(response.data.error === false){
                         Errors.Notification(response);
-
                         this.submitFormName = nextForm;
+                        await this.getPatient();
                         this.$refs.updatePatient.nextTab();
                         this.errors.clear();
+
                     }
                 }catch (error) {
                     this.errors.record(error.response.data);
@@ -898,6 +889,20 @@
                 const  response = await PublicService.getMunicipality(district_id);
                 this.current_municipalities = response.data.data.municipalities;
             },
+            // initialize the form
+            async getPatient(){
+                const response = await PatientService.getPatient(this.patient_id);
+                if(response.data.error === false){
+                    const data=response.data.data;
+                    this.patient = data.patient;
+                    this.religions=data.religions;
+                    this.ethnic_groups=data.ethnic_groups;
+                    this.education_levels=data.education_levels;
+                    this.occupations=data.occupations;
+                    this.diseases=data.diseases;
+                    this.auth_user=data.auth_user;
+                }
+            }
         }
     }
 </script>

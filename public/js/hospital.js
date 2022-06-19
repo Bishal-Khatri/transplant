@@ -17678,6 +17678,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Api */ "./Resources/assets/services/Api.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  getPatient: function getPatient(id) {
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/hospital/web-api/patient/get/' + id);
+  },
   getPatients: function getPatients(page, filter) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/hospital/web-api/patient/list?page=' + page + '&filter=' + filter);
   },
@@ -17841,6 +17844,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17852,6 +17861,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"](),
       submitting: false,
+      continue_editing: true,
       patient_image_url: '',
       // form data
       patient_name: '',
@@ -17895,10 +17905,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (response.data.error === false) {
                   $("#create-patient-dialog").modal("hide");
+                  _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
+
+                  if (_this.continue_editing) {
+                    window.location.href = '/hospital/patient/update/' + response.data.data.patient.id;
+                  }
 
                   _this.clearForm();
-
-                  _resources_js_error__WEBPACK_IMPORTED_MODULE_1__["Errors"].Notification(response);
                 }
 
                 _this.submitting = false;
@@ -18312,24 +18325,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -19446,22 +19441,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -19470,10 +19449,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PatientCreate",
-  props: ['patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'],
+  props: ['patient_id'],
   data: function data() {
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"](),
+      // initial data 'patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'
+      patient: {},
+      religions: {},
+      ethnic_groups: {},
+      education_levels: {},
+      occupations: {},
+      diseases: {},
+      auth_user: {},
       // isLastStep: false,
       submitting: false,
       patient_details_loading: false,
@@ -19526,9 +19513,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       letter_number: '',
       letter_date: '',
       opd_number: '',
-      hospital_bipanna_number: '',
       disease: [],
-      max_facilitatory_amount: '',
       referred_by: '',
       blood_group: '',
       transplant_type: '',
@@ -19561,12 +19546,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               _this.patient_details_loading = true;
               _context.next = 4;
-              return _this.initForm();
+              return _this.getPatient();
 
             case 4:
+              _context.next = 6;
+              return _this.initForm();
+
+            case 6:
               _this.patient_details_loading = false;
 
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -19639,15 +19628,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.current_tole = this.patient.current_tole;
       this.letter_number = this.patient.letter_number;
       this.letter_date = this.patient.letter_date;
-      this.opd_number = this.patient.opd_number;
-      this.hospital_bipanna_number = this.patient.hospital_bipanna_number; // disease
+      this.opd_number = this.patient.opd_number; // disease
 
       var disease = this.patient.disease.map(function (object) {
         return object.id;
       });
       this.disease = disease;
       this.blood_group = this.patient.blood_group;
-      this.max_facilitatory_amount = this.patient.max_facilitatory_amount;
       this.referred_by = this.patient.referred_by;
       this.transplant_type = this.patient.transplant_type; // kidney
 
@@ -19717,9 +19704,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.letter_number ? formData.append("letter_number", _this2.letter_number) : '';
                   _this2.letter_date ? formData.append("letter_date", _this2.letter_date) : '';
                   _this2.opd_number ? formData.append("opd_number", _this2.opd_number) : '';
-                  _this2.hospital_bipanna_number ? formData.append("hospital_bipanna_number", _this2.hospital_bipanna_number) : '';
                   _this2.disease ? formData.append("disease", JSON.stringify(_this2.disease)) : '';
-                  _this2.max_facilitatory_amount ? formData.append("max_facilitatory_amount", _this2.max_facilitatory_amount) : '';
                   _this2.referred_by ? formData.append("referred_by", _this2.referred_by) : '';
                   _this2.transplant_type ? formData.append("transplant_type", _this2.transplant_type) : '';
                   _this2.blood_group ? formData.append("blood_group", _this2.blood_group) : ''; // kidney
@@ -19741,35 +19726,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 8:
                 response = _context2.sent;
 
-                if (response.data.error === false) {
-                  _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"].Notification(response);
-                  _this2.submitFormName = nextForm;
-
-                  _this2.$refs.updatePatient.nextTab();
-
-                  _this2.errors.clear();
+                if (!(response.data.error === false)) {
+                  _context2.next = 16;
+                  break;
                 }
 
-                _context2.next = 16;
+                _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"].Notification(response);
+                _this2.submitFormName = nextForm;
+                _context2.next = 14;
+                return _this2.getPatient();
+
+              case 14:
+                _this2.$refs.updatePatient.nextTab();
+
+                _this2.errors.clear();
+
+              case 16:
+                _context2.next = 22;
                 break;
 
-              case 12:
-                _context2.prev = 12;
+              case 18:
+                _context2.prev = 18;
                 _context2.t0 = _context2["catch"](5);
 
                 _this2.errors.record(_context2.t0.response.data);
 
                 _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"].Notification(_context2.t0.response);
 
-              case 16:
+              case 22:
                 _this2.submitting = false;
 
-              case 17:
+              case 23:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[5, 12]]);
+        }, _callee2, null, [[5, 18]]);
       }))();
     },
     handelImage: function handelImage() {
@@ -19894,6 +19886,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee7);
+      }))();
+    },
+    // initialize the form
+    getPatient: function getPatient() {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        var response, data;
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return _services_PatientService__WEBPACK_IMPORTED_MODULE_1__["default"].getPatient(_this8.patient_id);
+
+              case 2:
+                response = _context8.sent;
+
+                if (response.data.error === false) {
+                  data = response.data.data;
+                  _this8.patient = data.patient;
+                  _this8.religions = data.religions;
+                  _this8.ethnic_groups = data.ethnic_groups;
+                  _this8.education_levels = data.education_levels;
+                  _this8.occupations = data.occupations;
+                  _this8.diseases = data.diseases;
+                  _this8.auth_user = data.auth_user;
+                }
+
+              case 4:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
       }))();
     }
   }
@@ -61271,6 +61298,56 @@ var render = function () {
                     }),
                   ]),
                 ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("label", {
+                    staticClass: "col-form-label col-md-3 col-sm-3 label-align",
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                    _c("label", { attrs: { for: "" } }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.continue_editing,
+                            expression: "continue_editing",
+                          },
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.continue_editing)
+                            ? _vm._i(_vm.continue_editing, null) > -1
+                            : _vm.continue_editing,
+                        },
+                        on: {
+                          change: function ($event) {
+                            var $$a = _vm.continue_editing,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  (_vm.continue_editing = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.continue_editing = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.continue_editing = $$c
+                            }
+                          },
+                        },
+                      }),
+                      _vm._v(" Continue Editing? "),
+                    ]),
+                  ]),
+                ]),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -63068,30 +63145,6 @@ var render = function () {
                     _c("div", { staticClass: "form-group row" }, [
                       _vm._m(31),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            required: "required",
-                            disabled: "",
-                          },
-                          domProps: {
-                            value:
-                              "" +
-                              (_vm.patient.hospital_bipanna_number
-                                ? _vm.patient.hospital_bipanna_number
-                                : ""),
-                          },
-                        }),
-                      ]),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(32),
-                      _vm._v(" "),
                       _c(
                         "div",
                         { staticClass: "col-md-9 col-sm-9" },
@@ -63121,31 +63174,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(33),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            required: "required",
-                            disabled: "",
-                          },
-                          domProps: {
-                            value:
-                              "" +
-                              (_vm.patient.max_facilitatory_amount
-                                ? _vm.patient.max_facilitatory_amount
-                                : ""),
-                          },
-                        }),
-                      ]),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(34),
+                      _vm._m(32),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                         _c("input", {
@@ -63171,7 +63200,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(35),
+                      _vm._m(33),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                         _c("input", {
@@ -63761,33 +63790,7 @@ var staticRenderFns = [
       "label",
       { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
       [
-        _vm._v("Hospital Bipanna Number "),
-        _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
-      [
         _vm._v("Disease "),
-        _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
-      [
-        _vm._v("Max Facilitatory Amount "),
         _c("span", { staticClass: "required" }, [_vm._v("*")]),
       ]
     )
@@ -66692,73 +66695,6 @@ var render = function () {
                                               staticClass:
                                                 "col-form-label col-md-3 col-sm-3 label-align",
                                             },
-                                            [
-                                              _vm._v(
-                                                "Hospital Bipanna Number "
-                                              ),
-                                              _c(
-                                                "span",
-                                                { staticClass: "required" },
-                                                [_vm._v("*")]
-                                              ),
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass: "col-md-9 col-sm-9",
-                                            },
-                                            [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value:
-                                                      _vm.hospital_bipanna_number,
-                                                    expression:
-                                                      "hospital_bipanna_number",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: {
-                                                  type: "text",
-                                                  required: "required",
-                                                },
-                                                domProps: {
-                                                  value:
-                                                    _vm.hospital_bipanna_number,
-                                                },
-                                                on: {
-                                                  input: function ($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.hospital_bipanna_number =
-                                                      $event.target.value
-                                                  },
-                                                },
-                                              }),
-                                            ]
-                                          ),
-                                        ]
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-md-6" }, [
-                                      _c(
-                                        "div",
-                                        { staticClass: "form-group row" },
-                                        [
-                                          _c(
-                                            "label",
-                                            {
-                                              staticClass:
-                                                "col-form-label col-md-3 col-sm-3 label-align",
-                                            },
                                             [_vm._v("Diseases")]
                                           ),
                                           _vm._v(" "),
@@ -66855,73 +66791,6 @@ var render = function () {
                                               ),
                                             ],
                                             2
-                                          ),
-                                        ]
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-md-6" }, [
-                                      _c(
-                                        "div",
-                                        { staticClass: "form-group row" },
-                                        [
-                                          _c(
-                                            "label",
-                                            {
-                                              staticClass:
-                                                "col-form-label col-md-3 col-sm-3 label-align",
-                                            },
-                                            [
-                                              _vm._v(
-                                                "Max Facilitatory Amount "
-                                              ),
-                                              _c(
-                                                "span",
-                                                { staticClass: "required" },
-                                                [_vm._v("*")]
-                                              ),
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass: "col-md-9 col-sm-9",
-                                            },
-                                            [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value:
-                                                      _vm.max_facilitatory_amount,
-                                                    expression:
-                                                      "max_facilitatory_amount",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: {
-                                                  type: "text",
-                                                  required: "required",
-                                                },
-                                                domProps: {
-                                                  value:
-                                                    _vm.max_facilitatory_amount,
-                                                },
-                                                on: {
-                                                  input: function ($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.max_facilitatory_amount =
-                                                      $event.target.value
-                                                  },
-                                                },
-                                              }),
-                                            ]
                                           ),
                                         ]
                                       ),

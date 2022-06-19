@@ -74,6 +74,12 @@
                                 <span class="form-text small text-danger" v-html="errors.get('transplant_type')"></span>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3 col-sm-3 label-align"></label>
+                            <div class="col-md-9 col-sm-9">
+                                <label for=""><input type="checkbox" v-model="continue_editing"> Continue Editing? </label>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
@@ -100,6 +106,7 @@
         data: () => ({
             errors: new Errors(),
             submitting: false,
+            continue_editing: true,
             patient_image_url: '',
 
             // form data
@@ -134,8 +141,11 @@
                     const response = await PatientService.savePatient(formData);
                     if (response.data.error === false) {
                         $("#create-patient-dialog").modal("hide");
-                        this.clearForm();
                         Errors.Notification(response);
+                        if(this.continue_editing){
+                            window.location.href = '/hospital/patient/update/'+response.data.data.patient.id;
+                        }
+                        this.clearForm();
                     }
                     this.submitting = false;
                 } catch (error) {

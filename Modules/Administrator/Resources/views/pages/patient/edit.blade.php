@@ -20,7 +20,7 @@
                             :education_levels="{{ $education_levels }}"
                             :diseases="{{ $diseases }}"
                             :occupations="{{ $occupations }}"
-                            :auth_user="{{ $auth_user }}"></patient-update>
+                            :auth_user="{{ $auth_user }}" :patient_id="{{ $patient->id }}"></patient-update>
         </div>
     </div>
 @endsection

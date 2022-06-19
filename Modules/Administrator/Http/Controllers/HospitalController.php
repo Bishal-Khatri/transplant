@@ -222,5 +222,16 @@ class HospitalController extends Controller
             return response()->json($returnData, 500);
         }
     }
+    public function delete($id){
+        try{
+            $hospital = Hospital::findOrFail($id);
+            $hospital->delete();
+            $returnData = $this->prepareResponse(false, 'Success <br> Hospital deleted successfully.', [], []);
+            return response()->json($returnData);
+        }catch (\Exception $exception){
+            $returnData = $this->prepareResponse(false, $exception->getMessage(), [], []);
+            return response()->json($returnData, 500);
+        }
+    }
 
 }

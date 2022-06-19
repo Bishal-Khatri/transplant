@@ -1,7 +1,9 @@
 import Api from './Api';
 
 export default {
-
+    getPatient(id){
+        return Api().get('/hospital/web-api/patient/get/' + id);
+    },
     getPatients(page,filter){
         return Api().get('/hospital/web-api/patient/list?page=' + page + '&filter=' + filter);
     },

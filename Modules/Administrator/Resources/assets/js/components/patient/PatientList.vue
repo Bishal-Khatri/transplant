@@ -96,8 +96,11 @@
                                     <img v-else src="/images/placeholder-dark.jpg" alt="" width="60" height="40">
                                 </td>
                                 <td>
-                                    <a class="mr-2" :href="'/admin/patient/update/'+patient.id">{{ patient.name || 'Not-Available' }}</a> <br>
-                                    <small class="">Created on {{ patient.created_at }}</small>
+                                    <a class="mr-2" :href="'/admin/patient/update/'+patient.id">
+                                        {{ patient.name || 'Not-Available' }}
+                                    </a>
+                                    <br>
+                                    <small class="mr-1">#{{ patient.id }}</small><small>Created on {{ patient.created_at }}</small>
                                 </td>
                                 <td>{{ patient.citizenship_number || 'Not-Available' }}</td>
                                 <td>{{ patient.gender ? patient.gender.toUpperCase() : 'Not-Available' }}</td>

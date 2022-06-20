@@ -9,16 +9,15 @@
                         </button>
                     </div>
                     <div class="modal-body m-3">
-
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <h5>Old Data</h5>
                                 <div v-for="(data, index) in current_notification.old" :key="index"  class="row"  >
                                     <span class="col-4">{{ index }}</span>
                                     <span>{{ data }}</span>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <h5>New Data</h5>
                                 <div v-for="(noti, index) in current_notification.attributes" :key="index">
                                     <span>@{{ index }}</span>
@@ -387,7 +386,7 @@
                                                     <tr v-for="(license, index) in licenses" :key="index">
                                                         <td>{{ license.id }}</td>
                                                         <td>{{ license.license_number }}</td>
-                                                        <td>{{ license.issued_by }}</td>
+                                                        <td>{{ license.issued_by_user.name || 'Not-Available' }}</td>
                                                         <td>{{ license.issue_date }}</td>
                                                         <td>{{ license.expiry_date }}</td>
                                                         <td class="text-right">
@@ -629,7 +628,6 @@
         },
         mounted() {
             this.hospital = JSON.parse(this.hospital_json);
-            console.log(this.hospital);
             this.licenses = JSON.parse(this.licenses_json);
             this.province_id=this.hospital.province_id;
             this.district_id=this.hospital.district_id;

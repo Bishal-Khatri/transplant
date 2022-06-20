@@ -29,7 +29,7 @@ class HospitalController extends Controller
             'district',
             'municipality',
         ])->find($hospital_id));
-        $licenses= License::where('licenseable_id',$hospital_id)->get();
+        $licenses= License::with('issuedByUser')->where('licenseable_id',$hospital_id)->get();
         return view('hospital::profile.index',compact('hospital','licenses'));
     }
 

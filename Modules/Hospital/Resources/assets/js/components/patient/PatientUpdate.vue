@@ -218,26 +218,28 @@
                                     </form>
                                 </tab-content>
 
-                                <tab-content title="Contact Information">
+                                <tab-content title="Contact Information & Address">
                                     <form class="form-horizontal form-label-left">
 
                                         <span class="section">Contact Information</span>
                                         <div class="row">
+                                             <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Email Address <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-9 col-sm-9">
+                                                        <input type="text" v-model="email_address" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('email_address')"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-md-6">
                                                 <div class="form-group row">
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Relative Name <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="relative_name" required="required" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Relation with Relative <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-9 col-sm-9">
-                                                        <input type="text" v-model="relation_with_relative" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('relative_name')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -247,6 +249,17 @@
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="contact_number_1" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('contact_number_1')"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Relation with Relative <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-9 col-sm-9">
+                                                        <input type="text" v-model="relation_with_relative" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('relation_with_relative')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -256,25 +269,12 @@
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="contact_number_2" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('contact_number_2')"></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Email Address <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-9 col-sm-9">
-                                                        <input type="text" v-model="email_address" required="required" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
                                         </div>
-                                    </form>
-                                </tab-content>
-
-                                <tab-content title="Address">
-                                    <form class="form-horizontal form-label-left">
-                                        <span class="section">Address</span>
                                         <span class="section">Permanent Address</span>
                                         <div class="row">
 
@@ -288,6 +288,7 @@
                                                             <option value="">Select Province</option>
                                                             <option v-for="province in provinces" :value="province.id" :key="province.id">{{ province.title }}</option>
                                                         </select>
+                                                        <span class="form-text small text-danger" v-html="errors.get('permanent_province_id')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -296,10 +297,12 @@
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
-                                                        <select v-model="permanent_district" required="required" class="form-control" >
+                                                        <input type="text" value="Select District" required="required" class="form-control" v-if="!permanent_province_is_loaded" readonly> 
+                                                        <select v-model="permanent_district" required="required" class="form-control" v-else>
                                                             <option value="">Select District</option>
                                                             <option v-for="district in permanent_districts" :value="district.id" :key="district.id">{{ district.title }}</option>
                                                         </select>
+                                                        <span class="form-text small text-danger" v-html="errors.get('permanent_district_id')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -308,10 +311,12 @@
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Municipality <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
-                                                        <select v-model="permanent_municipality" required="required" class="form-control">
+                                                        <input type="text" value="Select Municipality" required="required" class="form-control" v-if="!permanent_district_is_loaded" readonly>
+                                                        <select v-else v-model="permanent_municipality" required="required" class="form-control">
                                                             <option value="">Select Municipality</option>
                                                             <option v-for="municipality in permanent_municipalities" :value="municipality.id" :key="municipality.id">{{ municipality.title }}</option>
                                                         </select>
+                                                         <span class="form-text small text-danger" v-html="errors.get('permanent_municipality_id')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -321,12 +326,13 @@
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="permanent_ward" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('permanent_ward')"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Tole <span class="required">*</span>
+                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Tole 
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="permanent_tole" required="required" class="form-control">
@@ -334,7 +340,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="section">Current Address</span>
+                                        <span class="section">
+                                            Current Address
+                                            <span style="font-size:.8rem;">
+                                                <input type="checkbox" v-model="same_as_permanent_address" >
+                                                Same as Permanent Address
+                                            </span>
+                                        </span>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group row">
@@ -345,6 +357,7 @@
                                                             <option value="">Select Province</option>
                                                             <option v-for="province in provinces" :value="province.id" :key="province.id">{{ province.title }}</option>
                                                         </select>
+                                                        <span class="form-text small text-danger" v-html="errors.get('current_province_id')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -353,11 +366,12 @@
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
-                                                        <!-- <input type="text" v-model="current_district" required="required" class="form-control"> -->
-                                                        <select v-model="current_district" required="required" class="form-control" >
+                                                        <input type="text" value="Select District" required="required" class="form-control" v-if="!current_province_is_loaded" readonly>
+                                                        <select v-else v-model="current_district" required="required" class="form-control" >
                                                             <option value="">Select District</option>
                                                             <option v-for="district in current_districts" :value="district.id" :key="district.id">{{ district.title }}</option>
                                                         </select>
+                                                        <span class="form-text small text-danger" v-html="errors.get('current_district_id')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -366,10 +380,12 @@
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Municipality <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
-                                                        <select v-model="current_municipality" required="required" class="form-control">
+                                                        <input type="text" value="Select Municipality" required="required" class="form-control" v-if="!current_district_is_loaded" readonly>
+                                                        <select v-else v-model="current_municipality" required="required" class="form-control">
                                                             <option value="">Select Municipality</option>
                                                             <option v-for="municipality in current_municipalities" :value="municipality.id" :key="municipality.id">{{ municipality.title }}</option>
                                                         </select>
+                                                        <span class="form-text small text-danger" v-html="errors.get('current_municipality_id')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,12 +395,13 @@
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="current_ward" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('current_ward')"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Tole <span class="required">*</span>
+                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Tole
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="current_tole" required="required" class="form-control">
@@ -405,6 +422,7 @@
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="letter_number" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('letter_number')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -414,6 +432,7 @@
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="date" v-model="letter_date" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('letter_date')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -423,6 +442,7 @@
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="opd_number" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('opd_number')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -449,6 +469,7 @@
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="referred_by" required="required" class="form-control">
+                                                        <span class="form-text small text-danger" v-html="errors.get('referred_by')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -480,6 +501,7 @@
                                                             <option value="kidney">Kidney</option>
                                                             <option value="liver">Liver</option>
                                                         </select>
+                                                        <span class="form-text small text-danger" v-html="errors.get('transplant_type')"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -584,20 +606,16 @@
 
     export default {
         name: "PatientCreate",
-        props:['patient_id'],
+        props:['patient_id','religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'],
 
         data(){
             return{
                 errors: new Errors(),
+                tmp_current_address: {},
+                same_as_permanent_address: false,
 
-                // initial data 'patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'
+                // initial data 'patient'
                 patient:{},
-                religions:{},
-                ethnic_groups:{},
-                education_levels:{},
-                occupations:{},
-                diseases:{},
-                auth_user:{},
 
                 // isLastStep: false,
                 submitting: false,
@@ -645,12 +663,22 @@
                 permanent_municipality:'',
                 permanent_ward:'',
                 permanent_tole:'',
+
+                // is loading
+                permanent_province_is_loaded: false,
+                permanent_district_is_loaded: false,
+
                 // current address
                 current_province:'',
                 current_district:'',
                 current_municipality:'',
                 current_ward:'',
                 current_tole:'',
+
+                // is loading
+                current_province_is_loaded: false,
+                current_district_is_loaded: false,
+
                 // Diagnosis / Treatment Information
                 letter_number:'',
                 letter_date:'',
@@ -700,6 +728,31 @@
             permanent_district(value){
                 this.getPermanentMunicipality(value);
             },
+            same_as_permanent_address(){
+                if(this.same_as_permanent_address){
+                    this.tmp_current_address= {
+                        province: this.current_province,
+                        district: this.current_district,
+                        municipality: this.current_municipality,
+                        ward: this.current_ward,
+                        tole: this.current_tole
+                    };
+                    this.current_province = this.permanent_province;
+                    this.current_district = this.permanent_district;
+                    this.current_municipality = this.permanent_municipality;
+                    this.current_ward = this.permanent_ward;
+                    this.current_tole = this.permanent_tole;
+                }else{
+                    if(this.tmp_current_address !={}){
+                        this.current_province = this.tmp_current_address.province;
+                        this.current_district = this.tmp_current_address.district;
+                        this.current_municipality = this.tmp_current_address.municipality;
+                        this.current_ward = this.tmp_current_address.ward;
+                        this.current_tole = this.tmp_current_address.tole;
+                    }
+                }
+
+            }
         },
         methods: {
             isLastStep() {
@@ -715,8 +768,6 @@
                 }else if(newIndex === 1){
                     this.submitFormName = 'contact_information';
                 }else if(newIndex === 2){
-                    this.submitFormName = 'address_information';
-                }else if(newIndex === 3){
                     this.submitFormName = 'diagnosis_information';
                 }
             },
@@ -742,15 +793,15 @@
                 this.contact_number_2 = this.patient.contact_number_2;
                 this.email_address = this.patient.email_address;
 
-                this.permanent_province = this.patient.permanent_province_id;
-                this.permanent_district = this.patient.permanent_district_id;
-                this.permanent_municipality = this.patient.permanent_municipality_id;
+                this.permanent_province = this.patient.permanent_province_id??'';
+                this.permanent_district = this.patient.permanent_district_id??'';
+                this.permanent_municipality = this.patient.permanent_municipality_id??'';
                 this.permanent_ward = this.patient.permanent_ward;
                 this.permanent_tole = this.patient.permanent_tole;
 
-                this.current_province = this.patient.current_province_id;
-                this.current_district = this.patient.current_district_id;
-                this.current_municipality = this.patient.current_municipality_id;
+                this.current_province = this.patient.current_province_id??'';
+                this.current_district = this.patient.current_district_id??'';
+                this.current_municipality = this.patient.current_municipality_id??'';
                 this.current_ward = this.patient.current_ward;
                 this.current_tole = this.patient.current_tole;
 
@@ -812,9 +863,6 @@
                     this.contact_number_1 ? formData.append("contact_number_1", this.contact_number_1) : '';
                     this.contact_number_2 ? formData.append("contact_number_2", this.contact_number_2) : '';
                     this.email_address ? formData.append("email_address", this.email_address) : '';
-                    nextForm = "address_information";
-                }else if(page_name === 'address_information'){
-                    formData.append('page', page_name);
                     this.permanent_province ? formData.append("permanent_province_id", this.permanent_province) : '';
                     this.permanent_district ? formData.append("permanent_district_id", this.permanent_district) : '';
                     this.permanent_municipality ? formData.append("permanent_municipality_id", this.permanent_municipality) : '';
@@ -870,22 +918,34 @@
 
             async getProvince(){
                 const  response = await PublicService.getProvince();
-                this.provinces = response.data.data.provinces;
+                this.provinces = await response.data.data.provinces;
             },
             // For Permanent Address
             async getPermanentDistrict(province_id){
+                if(this.permanent_province >0){
+                    this.permanent_province_is_loaded = true;
+                }
                 const  response = await PublicService.getDistrict(province_id);
                 this.permanent_districts = response.data.data.districts;
             },
             async getPermanentMunicipality(district_id){
+                if(this.permanent_district >0){
+                    this.permanent_district_is_loaded = true;
+                }
                 const  response = await PublicService.getMunicipality(district_id);
                 this.permanent_municipalities = response.data.data.municipalities;
             },
             async getCurrentDistrict(province_id){
+                if(this.current_province >0){
+                    this.current_province_is_loaded = true;
+                }
                 const  response = await PublicService.getDistrict(province_id);
                 this.current_districts = response.data.data.districts;
             },
             async getCurrentMunicipality(district_id){
+                if(this.current_district >0){
+                    this.current_district_is_loaded = true;
+                }
                 const  response = await PublicService.getMunicipality(district_id);
                 this.current_municipalities = response.data.data.municipalities;
             },
@@ -895,12 +955,6 @@
                 if(response.data.error === false){
                     const data=response.data.data;
                     this.patient = data.patient;
-                    this.religions=data.religions;
-                    this.ethnic_groups=data.ethnic_groups;
-                    this.education_levels=data.education_levels;
-                    this.occupations=data.occupations;
-                    this.diseases=data.diseases;
-                    this.auth_user=data.auth_user;
                 }
             }
         }

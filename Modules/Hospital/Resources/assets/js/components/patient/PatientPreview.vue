@@ -180,19 +180,19 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Relative Name <span class="required">*</span>
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Email Address <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.relative_name ? patient.relative_name:''}`" required="required" class="form-control" disabled>
+                                        <input type="text" :value="`${patient.email_address ? patient.email_address:''}`" required="required" class="form-control" disabled>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Relation with Relative <span class="required">*</span>
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Relative Name <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.relation_with_relative ? patient.relation_with_relative:''}`" required="required" class="form-control" disabled>
+                                        <input type="text" :value="`${patient.relative_name ? patient.relative_name:''}`" required="required" class="form-control" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -207,6 +207,16 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Relation with Relative <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9 col-sm-9">
+                                        <input type="text" :value="`${patient.relation_with_relative ? patient.relation_with_relative:''}`" required="required" class="form-control" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Number 2 <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9">
@@ -214,15 +224,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Email Address <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.email_address ? patient.email_address:''}`" required="required" class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

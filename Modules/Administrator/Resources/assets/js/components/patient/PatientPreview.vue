@@ -392,15 +392,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Hospital Bipanna Number <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.hospital_bipanna_number ? patient.hospital_bipanna_number:''}`" required="required"  class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Disease <span class="required">*</span>
@@ -410,15 +402,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Max Facilitatory Amount <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.max_facilitatory_amount ? patient.max_facilitatory_amount:''}`" required="required"  class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Referred By (Palika Name) <span class="required">*</span>

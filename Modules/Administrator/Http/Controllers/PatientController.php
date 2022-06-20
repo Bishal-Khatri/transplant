@@ -314,27 +314,13 @@ class PatientController extends Controller
 
     public function edit($patient_id)
     {
-        $patient = Patient::with([
-            'current_province',
-            'current_district',
-            'current_municipality',
-            'permanent_province',
-            'permanent_district',
-            'permanent_municipality',
-            'education_level',
-            'occupation',
-            'religion',
-            'ethnic_group',
-            'disease',
-            'hospital'
-        ])->findOrFail($patient_id);
         $religions = Religion::all();
         $ethnic_groups = EthnicGroup::all();
         $education_levels = EducationLevel::all();
         $occupations = Occupation::all();
         $diseases = Disease::all();
         $auth_user = auth()->user();
-        return view('administrator::pages.patient.edit', compact('patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
+        return view('hospital::patient.edit', compact('patient_id','religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
     }
 
     public function view($patient_id){

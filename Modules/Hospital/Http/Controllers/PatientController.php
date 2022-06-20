@@ -157,6 +157,17 @@ class PatientController extends Controller
             'contact_number_1' => 'required',
             'contact_number_2' => 'required',
             'email_address' => 'required',
+            // Address
+            'permanent_province_id' => 'required',
+            'permanent_district_id' => 'required',
+            'permanent_municipality_id' => 'required',
+            'permanent_ward' => 'required',
+            'permanent_tole' => 'string|nullable',
+            'current_province_id' => 'required',
+            'current_district_id' => 'required',
+            'current_municipality_id' => 'required',
+            'current_ward' => 'required',
+            'current_tole' => 'string|nullable',
         ]);
         try{
             $patient->relative_name = $request->relative_name;
@@ -164,8 +175,18 @@ class PatientController extends Controller
             $patient->contact_number_1 = $request->contact_number_1;
             $patient->contact_number_2 = $request->contact_number_2;
             $patient->email_address = $request->email_address;
+            // address
+            $patient->permanent_province_id = $request->permanent_province_id;
+            $patient->permanent_district_id = $request->permanent_district_id;
+            $patient->permanent_municipality_id = $request->permanent_municipality_id;
+            $patient->permanent_ward = $request->permanent_ward;
+            $patient->permanent_tole = $request->permanent_tole;
+            $patient->current_province_id = $request->current_province_id;
+            $patient->current_district_id = $request->current_district_id;
+            $patient->current_municipality_id = $request->current_municipality_id;
+            $patient->current_ward = $request->current_ward;
+            $patient->current_tole = $request->current_tole;
             $patient->save();
-
             $returnData = $this->prepareResponse(false, 'Success <br> Patient updated successfully.', [], []);
             return response()->json($returnData);
         }catch (\Exception $exception){
@@ -284,21 +305,9 @@ class PatientController extends Controller
                 'ethnic_group',
                 'disease',
             ])->findOrFail($patient_id);
-            $religions = Religion::all();
-            $ethnic_groups = EthnicGroup::all();
-            $education_levels = EducationLevel::all();
-            $occupations = Occupation::all();
-            $diseases = Disease::all();
-            $auth_user = auth()->user();
 
             $returnData = $this->prepareResponse(false, 'Success <br> Patient found successfully.', [
-                'patient' => $patient,
-                'religions' => $religions,
-                'ethnic_groups' => $ethnic_groups,
-                'education_levels'=>$education_levels,
-                'occupations'=> $occupations,
-                'diseases'=>$diseases,
-                'auth_user'=>$auth_user
+                'patient' => $patient
             ], []);
             return response()->json($returnData, 200);
         }catch (\Exception $exception){
@@ -315,8 +324,14 @@ class PatientController extends Controller
     }
 
     public function edit($patient_id)
-    {
-        return view('hospital::patient.edit', compact('patient_id'));
+    { 
+        $religions = Religion::all();
+        $ethnic_groups = EthnicGroup::all();
+        $education_levels = EducationLevel::all();
+        $occupations = Occupation::all();
+        $diseases = Disease::all();
+        $auth_user = auth()->user();
+        return view('hospital::patient.edit', compact('patient_id','religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
     }
     public function view($patient_id)
     {

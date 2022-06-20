@@ -23,7 +23,7 @@ class Patient extends Model
     protected $fillable = [];
     protected $appends = ['point'];
     protected $casts = [
-        'dialysis_start_date' => 'date',
+        'dialysis_start_date' => 'date:Y-m-d',
     ];
     protected static $logAttributes = [
         'name',

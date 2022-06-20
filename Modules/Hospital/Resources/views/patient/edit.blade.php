@@ -12,7 +12,15 @@
 
             <div class="clearfix"></div>
 
-            <patient-update :patient_id="{{ $patient_id }}" ></patient-update>
+            <patient-update 
+                :patient_id="{{ $patient_id }}"
+                :religions="{{ $religions }}"
+                :ethnic_groups="{{ $ethnic_groups }}"
+                :education_levels="{{ $education_levels }}"
+                :diseases="{{ $diseases }}"
+                :occupations="{{ $occupations }}"
+                :auth_user="{{ $auth_user }}" 
+             ></patient-update>
         </div>
     </div>
 @endsection

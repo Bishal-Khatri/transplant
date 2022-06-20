@@ -19883,6 +19883,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PatientPreview",
@@ -20497,6 +20499,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20505,18 +20529,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PatientCreate",
-  props: ['patient_id'],
+  props: ['patient_id', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'],
   data: function data() {
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"](),
-      // initial data 'patient', 'religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'
+      tmp_current_address: {},
+      same_as_permanent_address: false,
+      // initial data 'patient'
       patient: {},
-      religions: {},
-      ethnic_groups: {},
-      education_levels: {},
-      occupations: {},
-      diseases: {},
-      auth_user: {},
       // isLastStep: false,
       submitting: false,
       patient_details_loading: false,
@@ -20559,12 +20579,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       permanent_municipality: '',
       permanent_ward: '',
       permanent_tole: '',
+      // is loading
+      permanent_province_is_loaded: false,
+      permanent_district_is_loaded: false,
       // current address
       current_province: '',
       current_district: '',
       current_municipality: '',
       current_ward: '',
       current_tole: '',
+      // is loading
+      current_province_is_loaded: false,
+      current_district_is_loaded: false,
       // Diagnosis / Treatment Information
       letter_number: '',
       letter_date: '',
@@ -20631,6 +20657,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     permanent_district: function permanent_district(value) {
       this.getPermanentMunicipality(value);
+    },
+    same_as_permanent_address: function same_as_permanent_address() {
+      if (this.same_as_permanent_address) {
+        this.tmp_current_address = {
+          province: this.current_province,
+          district: this.current_district,
+          municipality: this.current_municipality,
+          ward: this.current_ward,
+          tole: this.current_tole
+        };
+        this.current_province = this.permanent_province;
+        this.current_district = this.permanent_district;
+        this.current_municipality = this.permanent_municipality;
+        this.current_ward = this.permanent_ward;
+        this.current_tole = this.permanent_tole;
+      } else {
+        if (this.tmp_current_address != {}) {
+          this.current_province = this.tmp_current_address.province;
+          this.current_district = this.tmp_current_address.district;
+          this.current_municipality = this.tmp_current_address.municipality;
+          this.current_ward = this.tmp_current_address.ward;
+          this.current_tole = this.tmp_current_address.tole;
+        }
+      }
     }
   },
   methods: {
@@ -20647,12 +20697,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else if (newIndex === 1) {
         this.submitFormName = 'contact_information';
       } else if (newIndex === 2) {
-        this.submitFormName = 'address_information';
-      } else if (newIndex === 3) {
         this.submitFormName = 'diagnosis_information';
       }
     },
     initForm: function initForm() {
+      var _this$patient$permane, _this$patient$permane2, _this$patient$permane3, _this$patient$current, _this$patient$current2, _this$patient$current3;
+
       this.name = this.patient.name;
       this.patient_image_url = this.patient.image ? '/storage/' + this.patient.image : '';
       this.gender = this.patient.gender;
@@ -20672,14 +20722,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.contact_number_1 = this.patient.contact_number_1;
       this.contact_number_2 = this.patient.contact_number_2;
       this.email_address = this.patient.email_address;
-      this.permanent_province = this.patient.permanent_province_id;
-      this.permanent_district = this.patient.permanent_district_id;
-      this.permanent_municipality = this.patient.permanent_municipality_id;
+      this.permanent_province = (_this$patient$permane = this.patient.permanent_province_id) !== null && _this$patient$permane !== void 0 ? _this$patient$permane : '';
+      this.permanent_district = (_this$patient$permane2 = this.patient.permanent_district_id) !== null && _this$patient$permane2 !== void 0 ? _this$patient$permane2 : '';
+      this.permanent_municipality = (_this$patient$permane3 = this.patient.permanent_municipality_id) !== null && _this$patient$permane3 !== void 0 ? _this$patient$permane3 : '';
       this.permanent_ward = this.patient.permanent_ward;
       this.permanent_tole = this.patient.permanent_tole;
-      this.current_province = this.patient.current_province_id;
-      this.current_district = this.patient.current_district_id;
-      this.current_municipality = this.patient.current_municipality_id;
+      this.current_province = (_this$patient$current = this.patient.current_province_id) !== null && _this$patient$current !== void 0 ? _this$patient$current : '';
+      this.current_district = (_this$patient$current2 = this.patient.current_district_id) !== null && _this$patient$current2 !== void 0 ? _this$patient$current2 : '';
+      this.current_municipality = (_this$patient$current3 = this.patient.current_municipality_id) !== null && _this$patient$current3 !== void 0 ? _this$patient$current3 : '';
       this.current_ward = this.patient.current_ward;
       this.current_tole = this.patient.current_tole;
       this.letter_number = this.patient.letter_number;
@@ -20741,9 +20791,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.contact_number_1 ? formData.append("contact_number_1", _this2.contact_number_1) : '';
                   _this2.contact_number_2 ? formData.append("contact_number_2", _this2.contact_number_2) : '';
                   _this2.email_address ? formData.append("email_address", _this2.email_address) : '';
-                  nextForm = "address_information";
-                } else if (page_name === 'address_information') {
-                  formData.append('page', page_name);
                   _this2.permanent_province ? formData.append("permanent_province_id", _this2.permanent_province) : '';
                   _this2.permanent_district ? formData.append("permanent_district_id", _this2.permanent_district) : '';
                   _this2.permanent_municipality ? formData.append("permanent_municipality_id", _this2.permanent_municipality) : '';
@@ -20837,9 +20884,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 response = _context3.sent;
-                _this3.provinces = response.data.data.provinces;
+                _context3.next = 5;
+                return response.data.data.provinces;
 
-              case 4:
+              case 5:
+                _this3.provinces = _context3.sent;
+
+              case 6:
               case "end":
                 return _context3.stop();
             }
@@ -20857,14 +20908,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
+                if (_this4.permanent_province > 0) {
+                  _this4.permanent_province_is_loaded = true;
+                }
+
+                _context4.next = 3;
                 return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_2__["default"].getDistrict(province_id);
 
-              case 2:
+              case 3:
                 response = _context4.sent;
                 _this4.permanent_districts = response.data.data.districts;
 
-              case 4:
+              case 5:
               case "end":
                 return _context4.stop();
             }
@@ -20881,14 +20936,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
+                if (_this5.permanent_district > 0) {
+                  _this5.permanent_district_is_loaded = true;
+                }
+
+                _context5.next = 3;
                 return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_2__["default"].getMunicipality(district_id);
 
-              case 2:
+              case 3:
                 response = _context5.sent;
                 _this5.permanent_municipalities = response.data.data.municipalities;
 
-              case 4:
+              case 5:
               case "end":
                 return _context5.stop();
             }
@@ -20905,14 +20964,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.next = 2;
+                if (_this6.current_province > 0) {
+                  _this6.current_province_is_loaded = true;
+                }
+
+                _context6.next = 3;
                 return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_2__["default"].getDistrict(province_id);
 
-              case 2:
+              case 3:
                 response = _context6.sent;
                 _this6.current_districts = response.data.data.districts;
 
-              case 4:
+              case 5:
               case "end":
                 return _context6.stop();
             }
@@ -20929,14 +20992,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _context7.next = 2;
+                if (_this7.current_district > 0) {
+                  _this7.current_district_is_loaded = true;
+                }
+
+                _context7.next = 3;
                 return _ContentManagement_Resources_assets_services_PublicService__WEBPACK_IMPORTED_MODULE_2__["default"].getMunicipality(district_id);
 
-              case 2:
+              case 3:
                 response = _context7.sent;
                 _this7.current_municipalities = response.data.data.municipalities;
 
-              case 4:
+              case 5:
               case "end":
                 return _context7.stop();
             }
@@ -20963,12 +21030,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (response.data.error === false) {
                   data = response.data.data;
                   _this8.patient = data.patient;
-                  _this8.religions = data.religions;
-                  _this8.ethnic_groups = data.ethnic_groups;
-                  _this8.education_levels = data.education_levels;
-                  _this8.occupations = data.occupations;
-                  _this8.diseases = data.diseases;
-                  _this8.auth_user = data.auth_user;
                 }
 
               case 4:
@@ -25840,22 +25901,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -45896,8 +45941,8 @@ var render = function () {
                         domProps: {
                           value:
                             "" +
-                            (_vm.patient.relative_name
-                              ? _vm.patient.relative_name
+                            (_vm.patient.email_address
+                              ? _vm.patient.email_address
                               : ""),
                         },
                       }),
@@ -45920,8 +45965,8 @@ var render = function () {
                         domProps: {
                           value:
                             "" +
-                            (_vm.patient.relation_with_relative
-                              ? _vm.patient.relation_with_relative
+                            (_vm.patient.relative_name
+                              ? _vm.patient.relative_name
                               : ""),
                         },
                       }),
@@ -45968,8 +46013,8 @@ var render = function () {
                         domProps: {
                           value:
                             "" +
-                            (_vm.patient.contact_number_2
-                              ? _vm.patient.contact_number_2
+                            (_vm.patient.relation_with_relative
+                              ? _vm.patient.relation_with_relative
                               : ""),
                         },
                       }),
@@ -45992,8 +46037,8 @@ var render = function () {
                         domProps: {
                           value:
                             "" +
-                            (_vm.patient.email_address
-                              ? _vm.patient.email_address
+                            (_vm.patient.contact_number_2
+                              ? _vm.patient.contact_number_2
                               : ""),
                         },
                       }),
@@ -46703,7 +46748,7 @@ var staticRenderFns = [
       "label",
       { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
       [
-        _vm._v("Relative Name "),
+        _vm._v("Email Address "),
         _c("span", { staticClass: "required" }, [_vm._v("*")]),
       ]
     )
@@ -46716,7 +46761,7 @@ var staticRenderFns = [
       "label",
       { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
       [
-        _vm._v("Relation with Relative "),
+        _vm._v("Relative Name "),
         _c("span", { staticClass: "required" }, [_vm._v("*")]),
       ]
     )
@@ -46742,7 +46787,7 @@ var staticRenderFns = [
       "label",
       { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
       [
-        _vm._v("Contact Number 2 "),
+        _vm._v("Relation with Relative "),
         _c("span", { staticClass: "required" }, [_vm._v("*")]),
       ]
     )
@@ -46755,7 +46800,7 @@ var staticRenderFns = [
       "label",
       { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
       [
-        _vm._v("Email Address "),
+        _vm._v("Contact Number 2 "),
         _c("span", { staticClass: "required" }, [_vm._v("*")]),
       ]
     )
@@ -48459,7 +48504,9 @@ var render = function () {
                           _vm._v(" "),
                           _c(
                             "tab-content",
-                            { attrs: { title: "Contact Information" } },
+                            {
+                              attrs: { title: "Contact Information & Address" },
+                            },
                             [
                               _c(
                                 "form",
@@ -48473,6 +48520,80 @@ var render = function () {
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "row" }, [
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("Email Address "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.email_address,
+                                                    expression: "email_address",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "text",
+                                                  required: "required",
+                                                },
+                                                domProps: {
+                                                  value: _vm.email_address,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.email_address =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "email_address"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
                                     _c("div", { staticClass: "col-md-6" }, [
                                       _c(
                                         "div",
@@ -48527,6 +48648,93 @@ var render = function () {
                                                     _vm.relative_name =
                                                       $event.target.value
                                                   },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "relative_name"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("Contact Number 1 "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.contact_number_1,
+                                                    expression:
+                                                      "contact_number_1",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "text",
+                                                  required: "required",
+                                                },
+                                                domProps: {
+                                                  value: _vm.contact_number_1,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.contact_number_1 =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "contact_number_1"
+                                                    )
+                                                  ),
                                                 },
                                               }),
                                             ]
@@ -48594,67 +48802,16 @@ var render = function () {
                                                   },
                                                 },
                                               }),
-                                            ]
-                                          ),
-                                        ]
-                                      ),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "col-md-6" }, [
-                                      _c(
-                                        "div",
-                                        { staticClass: "form-group row" },
-                                        [
-                                          _c(
-                                            "label",
-                                            {
-                                              staticClass:
-                                                "col-form-label col-md-3 col-sm-3 label-align",
-                                            },
-                                            [
-                                              _vm._v("Contact Number 1 "),
-                                              _c(
-                                                "span",
-                                                { staticClass: "required" },
-                                                [_vm._v("*")]
-                                              ),
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass: "col-md-9 col-sm-9",
-                                            },
-                                            [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: _vm.contact_number_1,
-                                                    expression:
-                                                      "contact_number_1",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: {
-                                                  type: "text",
-                                                  required: "required",
-                                                },
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
                                                 domProps: {
-                                                  value: _vm.contact_number_1,
-                                                },
-                                                on: {
-                                                  input: function ($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.contact_number_1 =
-                                                      $event.target.value
-                                                  },
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "relation_with_relative"
+                                                    )
+                                                  ),
                                                 },
                                               }),
                                             ]
@@ -48720,6 +48877,142 @@ var render = function () {
                                                   },
                                                 },
                                               }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "contact_number_2"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "section" }, [
+                                    _vm._v("Permanent Address"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "row" }, [
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("Province "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              _c(
+                                                "select",
+                                                {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value:
+                                                        _vm.permanent_province,
+                                                      expression:
+                                                        "permanent_province",
+                                                    },
+                                                  ],
+                                                  staticClass: "form-control",
+                                                  attrs: {
+                                                    required: "required",
+                                                  },
+                                                  on: {
+                                                    change: function ($event) {
+                                                      var $$selectedVal =
+                                                        Array.prototype.filter
+                                                          .call(
+                                                            $event.target
+                                                              .options,
+                                                            function (o) {
+                                                              return o.selected
+                                                            }
+                                                          )
+                                                          .map(function (o) {
+                                                            var val =
+                                                              "_value" in o
+                                                                ? o._value
+                                                                : o.value
+                                                            return val
+                                                          })
+                                                      _vm.permanent_province =
+                                                        $event.target.multiple
+                                                          ? $$selectedVal
+                                                          : $$selectedVal[0]
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c(
+                                                    "option",
+                                                    { attrs: { value: "" } },
+                                                    [_vm._v("Select Province")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _vm._l(
+                                                    _vm.provinces,
+                                                    function (province) {
+                                                      return _c(
+                                                        "option",
+                                                        {
+                                                          key: province.id,
+                                                          domProps: {
+                                                            value: province.id,
+                                                          },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              province.title
+                                                            )
+                                                          ),
+                                                        ]
+                                                      )
+                                                    }
+                                                  ),
+                                                ],
+                                                2
+                                              ),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "permanent_province_id"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
                                             ]
                                           ),
                                         ]
@@ -48738,7 +49031,292 @@ var render = function () {
                                                 "col-form-label col-md-3 col-sm-3 label-align",
                                             },
                                             [
-                                              _vm._v("Email Address "),
+                                              _vm._v("District "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              !_vm.permanent_province_is_loaded
+                                                ? _c("input", {
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      type: "text",
+                                                      value: "Select District",
+                                                      required: "required",
+                                                      readonly: "",
+                                                    },
+                                                  })
+                                                : _c(
+                                                    "select",
+                                                    {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.permanent_district,
+                                                          expression:
+                                                            "permanent_district",
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      attrs: {
+                                                        required: "required",
+                                                      },
+                                                      on: {
+                                                        change: function (
+                                                          $event
+                                                        ) {
+                                                          var $$selectedVal =
+                                                            Array.prototype.filter
+                                                              .call(
+                                                                $event.target
+                                                                  .options,
+                                                                function (o) {
+                                                                  return o.selected
+                                                                }
+                                                              )
+                                                              .map(function (
+                                                                o
+                                                              ) {
+                                                                var val =
+                                                                  "_value" in o
+                                                                    ? o._value
+                                                                    : o.value
+                                                                return val
+                                                              })
+                                                          _vm.permanent_district =
+                                                            $event.target
+                                                              .multiple
+                                                              ? $$selectedVal
+                                                              : $$selectedVal[0]
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "option",
+                                                        {
+                                                          attrs: { value: "" },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Select District"
+                                                          ),
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _vm._l(
+                                                        _vm.permanent_districts,
+                                                        function (district) {
+                                                          return _c(
+                                                            "option",
+                                                            {
+                                                              key: district.id,
+                                                              domProps: {
+                                                                value:
+                                                                  district.id,
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  district.title
+                                                                )
+                                                              ),
+                                                            ]
+                                                          )
+                                                        }
+                                                      ),
+                                                    ],
+                                                    2
+                                                  ),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "permanent_district_id"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("Municipality "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              !_vm.permanent_district_is_loaded
+                                                ? _c("input", {
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      type: "text",
+                                                      value:
+                                                        "Select Municipality",
+                                                      required: "required",
+                                                      readonly: "",
+                                                    },
+                                                  })
+                                                : _c(
+                                                    "select",
+                                                    {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.permanent_municipality,
+                                                          expression:
+                                                            "permanent_municipality",
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      attrs: {
+                                                        required: "required",
+                                                      },
+                                                      on: {
+                                                        change: function (
+                                                          $event
+                                                        ) {
+                                                          var $$selectedVal =
+                                                            Array.prototype.filter
+                                                              .call(
+                                                                $event.target
+                                                                  .options,
+                                                                function (o) {
+                                                                  return o.selected
+                                                                }
+                                                              )
+                                                              .map(function (
+                                                                o
+                                                              ) {
+                                                                var val =
+                                                                  "_value" in o
+                                                                    ? o._value
+                                                                    : o.value
+                                                                return val
+                                                              })
+                                                          _vm.permanent_municipality =
+                                                            $event.target
+                                                              .multiple
+                                                              ? $$selectedVal
+                                                              : $$selectedVal[0]
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "option",
+                                                        {
+                                                          attrs: { value: "" },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Select Municipality"
+                                                          ),
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _vm._l(
+                                                        _vm.permanent_municipalities,
+                                                        function (
+                                                          municipality
+                                                        ) {
+                                                          return _c(
+                                                            "option",
+                                                            {
+                                                              key: municipality.id,
+                                                              domProps: {
+                                                                value:
+                                                                  municipality.id,
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  municipality.title
+                                                                )
+                                                              ),
+                                                            ]
+                                                          )
+                                                        }
+                                                      ),
+                                                    ],
+                                                    2
+                                                  ),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "permanent_municipality_id"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("Ward "),
                                               _c(
                                                 "span",
                                                 { staticClass: "required" },
@@ -48758,8 +49336,9 @@ var render = function () {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: _vm.email_address,
-                                                    expression: "email_address",
+                                                    value: _vm.permanent_ward,
+                                                    expression:
+                                                      "permanent_ward",
                                                   },
                                                 ],
                                                 staticClass: "form-control",
@@ -48768,7 +49347,7 @@ var render = function () {
                                                   required: "required",
                                                 },
                                                 domProps: {
-                                                  value: _vm.email_address,
+                                                  value: _vm.permanent_ward,
                                                 },
                                                 on: {
                                                   input: function ($event) {
@@ -48777,7 +49356,685 @@ var render = function () {
                                                     ) {
                                                       return
                                                     }
-                                                    _vm.email_address =
+                                                    _vm.permanent_ward =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "permanent_ward"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v(
+                                                "Tole \n                                                "
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.permanent_tole,
+                                                    expression:
+                                                      "permanent_tole",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "text",
+                                                  required: "required",
+                                                },
+                                                domProps: {
+                                                  value: _vm.permanent_tole,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.permanent_tole =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "section" }, [
+                                    _vm._v(
+                                      "\n                                        Current Address\n                                        "
+                                    ),
+                                    _c(
+                                      "span",
+                                      { staticStyle: { "font-size": ".8rem" } },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value:
+                                                _vm.same_as_permanent_address,
+                                              expression:
+                                                "same_as_permanent_address",
+                                            },
+                                          ],
+                                          attrs: { type: "checkbox" },
+                                          domProps: {
+                                            checked: Array.isArray(
+                                              _vm.same_as_permanent_address
+                                            )
+                                              ? _vm._i(
+                                                  _vm.same_as_permanent_address,
+                                                  null
+                                                ) > -1
+                                              : _vm.same_as_permanent_address,
+                                          },
+                                          on: {
+                                            change: function ($event) {
+                                              var $$a =
+                                                  _vm.same_as_permanent_address,
+                                                $$el = $event.target,
+                                                $$c = $$el.checked
+                                                  ? true
+                                                  : false
+                                              if (Array.isArray($$a)) {
+                                                var $$v = null,
+                                                  $$i = _vm._i($$a, $$v)
+                                                if ($$el.checked) {
+                                                  $$i < 0 &&
+                                                    (_vm.same_as_permanent_address =
+                                                      $$a.concat([$$v]))
+                                                } else {
+                                                  $$i > -1 &&
+                                                    (_vm.same_as_permanent_address =
+                                                      $$a
+                                                        .slice(0, $$i)
+                                                        .concat(
+                                                          $$a.slice($$i + 1)
+                                                        ))
+                                                }
+                                              } else {
+                                                _vm.same_as_permanent_address =
+                                                  $$c
+                                              }
+                                            },
+                                          },
+                                        }),
+                                        _vm._v(
+                                          "\n                                            Same as Permanent Address\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "row" }, [
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("Province "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              _c(
+                                                "select",
+                                                {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value:
+                                                        _vm.current_province,
+                                                      expression:
+                                                        "current_province",
+                                                    },
+                                                  ],
+                                                  staticClass: "form-control",
+                                                  attrs: {
+                                                    required: "required",
+                                                  },
+                                                  on: {
+                                                    change: function ($event) {
+                                                      var $$selectedVal =
+                                                        Array.prototype.filter
+                                                          .call(
+                                                            $event.target
+                                                              .options,
+                                                            function (o) {
+                                                              return o.selected
+                                                            }
+                                                          )
+                                                          .map(function (o) {
+                                                            var val =
+                                                              "_value" in o
+                                                                ? o._value
+                                                                : o.value
+                                                            return val
+                                                          })
+                                                      _vm.current_province =
+                                                        $event.target.multiple
+                                                          ? $$selectedVal
+                                                          : $$selectedVal[0]
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c(
+                                                    "option",
+                                                    { attrs: { value: "" } },
+                                                    [_vm._v("Select Province")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _vm._l(
+                                                    _vm.provinces,
+                                                    function (province) {
+                                                      return _c(
+                                                        "option",
+                                                        {
+                                                          key: province.id,
+                                                          domProps: {
+                                                            value: province.id,
+                                                          },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              province.title
+                                                            )
+                                                          ),
+                                                        ]
+                                                      )
+                                                    }
+                                                  ),
+                                                ],
+                                                2
+                                              ),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "current_province_id"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("District "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              !_vm.current_province_is_loaded
+                                                ? _c("input", {
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      type: "text",
+                                                      value: "Select District",
+                                                      required: "required",
+                                                      readonly: "",
+                                                    },
+                                                  })
+                                                : _c(
+                                                    "select",
+                                                    {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.current_district,
+                                                          expression:
+                                                            "current_district",
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      attrs: {
+                                                        required: "required",
+                                                      },
+                                                      on: {
+                                                        change: function (
+                                                          $event
+                                                        ) {
+                                                          var $$selectedVal =
+                                                            Array.prototype.filter
+                                                              .call(
+                                                                $event.target
+                                                                  .options,
+                                                                function (o) {
+                                                                  return o.selected
+                                                                }
+                                                              )
+                                                              .map(function (
+                                                                o
+                                                              ) {
+                                                                var val =
+                                                                  "_value" in o
+                                                                    ? o._value
+                                                                    : o.value
+                                                                return val
+                                                              })
+                                                          _vm.current_district =
+                                                            $event.target
+                                                              .multiple
+                                                              ? $$selectedVal
+                                                              : $$selectedVal[0]
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "option",
+                                                        {
+                                                          attrs: { value: "" },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Select District"
+                                                          ),
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _vm._l(
+                                                        _vm.current_districts,
+                                                        function (district) {
+                                                          return _c(
+                                                            "option",
+                                                            {
+                                                              key: district.id,
+                                                              domProps: {
+                                                                value:
+                                                                  district.id,
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  district.title
+                                                                )
+                                                              ),
+                                                            ]
+                                                          )
+                                                        }
+                                                      ),
+                                                    ],
+                                                    2
+                                                  ),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "current_district_id"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("Municipality "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              !_vm.current_district_is_loaded
+                                                ? _c("input", {
+                                                    staticClass: "form-control",
+                                                    attrs: {
+                                                      type: "text",
+                                                      value:
+                                                        "Select Municipality",
+                                                      required: "required",
+                                                      readonly: "",
+                                                    },
+                                                  })
+                                                : _c(
+                                                    "select",
+                                                    {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.current_municipality,
+                                                          expression:
+                                                            "current_municipality",
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      attrs: {
+                                                        required: "required",
+                                                      },
+                                                      on: {
+                                                        change: function (
+                                                          $event
+                                                        ) {
+                                                          var $$selectedVal =
+                                                            Array.prototype.filter
+                                                              .call(
+                                                                $event.target
+                                                                  .options,
+                                                                function (o) {
+                                                                  return o.selected
+                                                                }
+                                                              )
+                                                              .map(function (
+                                                                o
+                                                              ) {
+                                                                var val =
+                                                                  "_value" in o
+                                                                    ? o._value
+                                                                    : o.value
+                                                                return val
+                                                              })
+                                                          _vm.current_municipality =
+                                                            $event.target
+                                                              .multiple
+                                                              ? $$selectedVal
+                                                              : $$selectedVal[0]
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "option",
+                                                        {
+                                                          attrs: { value: "" },
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Select Municipality"
+                                                          ),
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _vm._l(
+                                                        _vm.current_municipalities,
+                                                        function (
+                                                          municipality
+                                                        ) {
+                                                          return _c(
+                                                            "option",
+                                                            {
+                                                              key: municipality.id,
+                                                              domProps: {
+                                                                value:
+                                                                  municipality.id,
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  municipality.title
+                                                                )
+                                                              ),
+                                                            ]
+                                                          )
+                                                        }
+                                                      ),
+                                                    ],
+                                                    2
+                                                  ),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "current_municipality_id"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v("Ward "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "required" },
+                                                [_vm._v("*")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.current_ward,
+                                                    expression: "current_ward",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "text",
+                                                  required: "required",
+                                                },
+                                                domProps: {
+                                                  value: _vm.current_ward,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.current_ward =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "current_ward"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
+                                            ]
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "col-md-6" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "form-group row" },
+                                        [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "col-form-label col-md-3 col-sm-3 label-align",
+                                            },
+                                            [
+                                              _vm._v(
+                                                "Tole\n                                                "
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "col-md-9 col-sm-9",
+                                            },
+                                            [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.current_tole,
+                                                    expression: "current_tole",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                attrs: {
+                                                  type: "text",
+                                                  required: "required",
+                                                },
+                                                domProps: {
+                                                  value: _vm.current_tole,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.current_tole =
                                                       $event.target.value
                                                   },
                                                 },
@@ -48792,870 +50049,6 @@ var render = function () {
                               ),
                             ]
                           ),
-                          _vm._v(" "),
-                          _c("tab-content", { attrs: { title: "Address" } }, [
-                            _c(
-                              "form",
-                              {
-                                staticClass: "form-horizontal form-label-left",
-                              },
-                              [
-                                _c("span", { staticClass: "section" }, [
-                                  _vm._v("Address"),
-                                ]),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "section" }, [
-                                  _vm._v("Permanent Address"),
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "row" }, [
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("Province "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c(
-                                              "select",
-                                              {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value:
-                                                      _vm.permanent_province,
-                                                    expression:
-                                                      "permanent_province",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { required: "required" },
-                                                on: {
-                                                  change: function ($event) {
-                                                    var $$selectedVal =
-                                                      Array.prototype.filter
-                                                        .call(
-                                                          $event.target.options,
-                                                          function (o) {
-                                                            return o.selected
-                                                          }
-                                                        )
-                                                        .map(function (o) {
-                                                          var val =
-                                                            "_value" in o
-                                                              ? o._value
-                                                              : o.value
-                                                          return val
-                                                        })
-                                                    _vm.permanent_province =
-                                                      $event.target.multiple
-                                                        ? $$selectedVal
-                                                        : $$selectedVal[0]
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c(
-                                                  "option",
-                                                  { attrs: { value: "" } },
-                                                  [_vm._v("Select Province")]
-                                                ),
-                                                _vm._v(" "),
-                                                _vm._l(
-                                                  _vm.provinces,
-                                                  function (province) {
-                                                    return _c(
-                                                      "option",
-                                                      {
-                                                        key: province.id,
-                                                        domProps: {
-                                                          value: province.id,
-                                                        },
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(province.title)
-                                                        ),
-                                                      ]
-                                                    )
-                                                  }
-                                                ),
-                                              ],
-                                              2
-                                            ),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("District "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c(
-                                              "select",
-                                              {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value:
-                                                      _vm.permanent_district,
-                                                    expression:
-                                                      "permanent_district",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { required: "required" },
-                                                on: {
-                                                  change: function ($event) {
-                                                    var $$selectedVal =
-                                                      Array.prototype.filter
-                                                        .call(
-                                                          $event.target.options,
-                                                          function (o) {
-                                                            return o.selected
-                                                          }
-                                                        )
-                                                        .map(function (o) {
-                                                          var val =
-                                                            "_value" in o
-                                                              ? o._value
-                                                              : o.value
-                                                          return val
-                                                        })
-                                                    _vm.permanent_district =
-                                                      $event.target.multiple
-                                                        ? $$selectedVal
-                                                        : $$selectedVal[0]
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c(
-                                                  "option",
-                                                  { attrs: { value: "" } },
-                                                  [_vm._v("Select District")]
-                                                ),
-                                                _vm._v(" "),
-                                                _vm._l(
-                                                  _vm.permanent_districts,
-                                                  function (district) {
-                                                    return _c(
-                                                      "option",
-                                                      {
-                                                        key: district.id,
-                                                        domProps: {
-                                                          value: district.id,
-                                                        },
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(district.title)
-                                                        ),
-                                                      ]
-                                                    )
-                                                  }
-                                                ),
-                                              ],
-                                              2
-                                            ),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("Municipality "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c(
-                                              "select",
-                                              {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value:
-                                                      _vm.permanent_municipality,
-                                                    expression:
-                                                      "permanent_municipality",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { required: "required" },
-                                                on: {
-                                                  change: function ($event) {
-                                                    var $$selectedVal =
-                                                      Array.prototype.filter
-                                                        .call(
-                                                          $event.target.options,
-                                                          function (o) {
-                                                            return o.selected
-                                                          }
-                                                        )
-                                                        .map(function (o) {
-                                                          var val =
-                                                            "_value" in o
-                                                              ? o._value
-                                                              : o.value
-                                                          return val
-                                                        })
-                                                    _vm.permanent_municipality =
-                                                      $event.target.multiple
-                                                        ? $$selectedVal
-                                                        : $$selectedVal[0]
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c(
-                                                  "option",
-                                                  { attrs: { value: "" } },
-                                                  [
-                                                    _vm._v(
-                                                      "Select Municipality"
-                                                    ),
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _vm._l(
-                                                  _vm.permanent_municipalities,
-                                                  function (municipality) {
-                                                    return _c(
-                                                      "option",
-                                                      {
-                                                        key: municipality.id,
-                                                        domProps: {
-                                                          value:
-                                                            municipality.id,
-                                                        },
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            municipality.title
-                                                          )
-                                                        ),
-                                                      ]
-                                                    )
-                                                  }
-                                                ),
-                                              ],
-                                              2
-                                            ),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("Ward "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.permanent_ward,
-                                                  expression: "permanent_ward",
-                                                },
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "text",
-                                                required: "required",
-                                              },
-                                              domProps: {
-                                                value: _vm.permanent_ward,
-                                              },
-                                              on: {
-                                                input: function ($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.permanent_ward =
-                                                    $event.target.value
-                                                },
-                                              },
-                                            }),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("Tole "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.permanent_tole,
-                                                  expression: "permanent_tole",
-                                                },
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "text",
-                                                required: "required",
-                                              },
-                                              domProps: {
-                                                value: _vm.permanent_tole,
-                                              },
-                                              on: {
-                                                input: function ($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.permanent_tole =
-                                                    $event.target.value
-                                                },
-                                              },
-                                            }),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                ]),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "section" }, [
-                                  _vm._v("Current Address"),
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "row" }, [
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("Province "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c(
-                                              "select",
-                                              {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: _vm.current_province,
-                                                    expression:
-                                                      "current_province",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { required: "required" },
-                                                on: {
-                                                  change: function ($event) {
-                                                    var $$selectedVal =
-                                                      Array.prototype.filter
-                                                        .call(
-                                                          $event.target.options,
-                                                          function (o) {
-                                                            return o.selected
-                                                          }
-                                                        )
-                                                        .map(function (o) {
-                                                          var val =
-                                                            "_value" in o
-                                                              ? o._value
-                                                              : o.value
-                                                          return val
-                                                        })
-                                                    _vm.current_province =
-                                                      $event.target.multiple
-                                                        ? $$selectedVal
-                                                        : $$selectedVal[0]
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c(
-                                                  "option",
-                                                  { attrs: { value: "" } },
-                                                  [_vm._v("Select Province")]
-                                                ),
-                                                _vm._v(" "),
-                                                _vm._l(
-                                                  _vm.provinces,
-                                                  function (province) {
-                                                    return _c(
-                                                      "option",
-                                                      {
-                                                        key: province.id,
-                                                        domProps: {
-                                                          value: province.id,
-                                                        },
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(province.title)
-                                                        ),
-                                                      ]
-                                                    )
-                                                  }
-                                                ),
-                                              ],
-                                              2
-                                            ),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("District "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c(
-                                              "select",
-                                              {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: _vm.current_district,
-                                                    expression:
-                                                      "current_district",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { required: "required" },
-                                                on: {
-                                                  change: function ($event) {
-                                                    var $$selectedVal =
-                                                      Array.prototype.filter
-                                                        .call(
-                                                          $event.target.options,
-                                                          function (o) {
-                                                            return o.selected
-                                                          }
-                                                        )
-                                                        .map(function (o) {
-                                                          var val =
-                                                            "_value" in o
-                                                              ? o._value
-                                                              : o.value
-                                                          return val
-                                                        })
-                                                    _vm.current_district =
-                                                      $event.target.multiple
-                                                        ? $$selectedVal
-                                                        : $$selectedVal[0]
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c(
-                                                  "option",
-                                                  { attrs: { value: "" } },
-                                                  [_vm._v("Select District")]
-                                                ),
-                                                _vm._v(" "),
-                                                _vm._l(
-                                                  _vm.current_districts,
-                                                  function (district) {
-                                                    return _c(
-                                                      "option",
-                                                      {
-                                                        key: district.id,
-                                                        domProps: {
-                                                          value: district.id,
-                                                        },
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(district.title)
-                                                        ),
-                                                      ]
-                                                    )
-                                                  }
-                                                ),
-                                              ],
-                                              2
-                                            ),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("Municipality "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c(
-                                              "select",
-                                              {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value:
-                                                      _vm.current_municipality,
-                                                    expression:
-                                                      "current_municipality",
-                                                  },
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { required: "required" },
-                                                on: {
-                                                  change: function ($event) {
-                                                    var $$selectedVal =
-                                                      Array.prototype.filter
-                                                        .call(
-                                                          $event.target.options,
-                                                          function (o) {
-                                                            return o.selected
-                                                          }
-                                                        )
-                                                        .map(function (o) {
-                                                          var val =
-                                                            "_value" in o
-                                                              ? o._value
-                                                              : o.value
-                                                          return val
-                                                        })
-                                                    _vm.current_municipality =
-                                                      $event.target.multiple
-                                                        ? $$selectedVal
-                                                        : $$selectedVal[0]
-                                                  },
-                                                },
-                                              },
-                                              [
-                                                _c(
-                                                  "option",
-                                                  { attrs: { value: "" } },
-                                                  [
-                                                    _vm._v(
-                                                      "Select Municipality"
-                                                    ),
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _vm._l(
-                                                  _vm.current_municipalities,
-                                                  function (municipality) {
-                                                    return _c(
-                                                      "option",
-                                                      {
-                                                        key: municipality.id,
-                                                        domProps: {
-                                                          value:
-                                                            municipality.id,
-                                                        },
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            municipality.title
-                                                          )
-                                                        ),
-                                                      ]
-                                                    )
-                                                  }
-                                                ),
-                                              ],
-                                              2
-                                            ),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("Ward "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.current_ward,
-                                                  expression: "current_ward",
-                                                },
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "text",
-                                                required: "required",
-                                              },
-                                              domProps: {
-                                                value: _vm.current_ward,
-                                              },
-                                              on: {
-                                                input: function ($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.current_ward =
-                                                    $event.target.value
-                                                },
-                                              },
-                                            }),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "col-md-6" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "form-group row" },
-                                      [
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "col-form-label col-md-3 col-sm-3 label-align",
-                                          },
-                                          [
-                                            _vm._v("Tole "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "required" },
-                                              [_vm._v("*")]
-                                            ),
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          { staticClass: "col-md-9 col-sm-9" },
-                                          [
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.current_tole,
-                                                  expression: "current_tole",
-                                                },
-                                              ],
-                                              staticClass: "form-control",
-                                              attrs: {
-                                                type: "text",
-                                                required: "required",
-                                              },
-                                              domProps: {
-                                                value: _vm.current_tole,
-                                              },
-                                              on: {
-                                                input: function ($event) {
-                                                  if ($event.target.composing) {
-                                                    return
-                                                  }
-                                                  _vm.current_tole =
-                                                    $event.target.value
-                                                },
-                                              },
-                                            }),
-                                          ]
-                                        ),
-                                      ]
-                                    ),
-                                  ]),
-                                ]),
-                              ]
-                            ),
-                          ]),
                           _vm._v(" "),
                           _c(
                             "tab-content",
@@ -49733,6 +50126,18 @@ var render = function () {
                                                   },
                                                 },
                                               }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "letter_number"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
                                             ]
                                           ),
                                         ]
@@ -49795,6 +50200,18 @@ var render = function () {
                                                   },
                                                 },
                                               }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "letter_date"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
                                             ]
                                           ),
                                         ]
@@ -49855,6 +50272,16 @@ var render = function () {
                                                     _vm.opd_number =
                                                       $event.target.value
                                                   },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get("opd_number")
+                                                  ),
                                                 },
                                               }),
                                             ]
@@ -50031,6 +50458,18 @@ var render = function () {
                                                     _vm.referred_by =
                                                       $event.target.value
                                                   },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "referred_by"
+                                                    )
+                                                  ),
                                                 },
                                               }),
                                             ]
@@ -50264,6 +50703,18 @@ var render = function () {
                                                   ),
                                                 ]
                                               ),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass:
+                                                  "form-text small text-danger",
+                                                domProps: {
+                                                  innerHTML: _vm._s(
+                                                    _vm.errors.get(
+                                                      "transplant_type"
+                                                    )
+                                                  ),
+                                                },
+                                              }),
                                             ]
                                           ),
                                         ]
@@ -58571,26 +59022,7 @@ var render = function () {
                   }),
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-9" }, [
-                  _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
-                    _c("li", [
-                      _c(
-                        "a",
-                        {
-                          staticStyle: { color: "#5A738E" },
-                          attrs: { href: "#" },
-                          on: {
-                            click: function ($event) {
-                              $event.preventDefault()
-                              return _vm.$refs.createPatient.openDialog()
-                            },
-                          },
-                        },
-                        [_vm._v("Register New Patient")]
-                      ),
-                    ]),
-                  ]),
-                ]),
+                _vm._m(0),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "clearfix" }),
@@ -58877,7 +59309,7 @@ var render = function () {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _vm._m(1),
                 ]),
               ]),
               _vm._v(" "),
@@ -58885,7 +59317,7 @@ var render = function () {
                 "table",
                 { staticClass: "table table-striped jambo_table bulk_action" },
                 [
-                  _vm._m(1),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -59200,9 +59632,9 @@ var render = function () {
             { staticClass: "modal-dialog modal-sm modal-dialog-centered" },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(2),
-                _vm._v(" "),
                 _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
                   _c(
@@ -59261,14 +59693,14 @@ var render = function () {
             { staticClass: "modal-dialog modal-lg modal-dialog-centered" },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(4),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body m-3" }, [
                   _c("form", { attrs: { action: "" } }, [
-                    _vm._m(5),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(6),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                         _c(
@@ -59333,7 +59765,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(7),
+                      _vm._m(8),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                         _c("textarea", {
@@ -59425,6 +59857,14 @@ var render = function () {
   )
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-9" }, [
+      _c("ul", { staticClass: "nav navbar-right panel_toolbox" }),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -60497,30 +60937,6 @@ var render = function () {
                         domProps: {
                           value:
                             "" +
-                            (_vm.patient.hospital_bipanna_number
-                              ? _vm.patient.hospital_bipanna_number
-                              : ""),
-                        },
-                      }),
-                    ]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(32),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          required: "required",
-                          disabled: "",
-                        },
-                        domProps: {
-                          value:
-                            "" +
                             (_vm.patient.disease ? _vm.patient.disease : ""),
                         },
                       }),
@@ -60530,31 +60946,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-6" }, [
                   _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(33),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          required: "required",
-                          disabled: "",
-                        },
-                        domProps: {
-                          value:
-                            "" +
-                            (_vm.patient.max_facilitatory_amount
-                              ? _vm.patient.max_facilitatory_amount
-                              : ""),
-                        },
-                      }),
-                    ]),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(34),
+                    _vm._m(32),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                       _c("input", {
@@ -60578,7 +60970,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-6" }, [
                   _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(35),
+                    _vm._m(33),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                       _c("input", {
@@ -61000,33 +61392,7 @@ var staticRenderFns = [
       "label",
       { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
       [
-        _vm._v("Hospital Bipanna Number "),
-        _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
-      [
         _vm._v("Disease "),
-        _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
-      [
-        _vm._v("Max Facilitatory Amount "),
         _c("span", { staticClass: "required" }, [_vm._v("*")]),
       ]
     )

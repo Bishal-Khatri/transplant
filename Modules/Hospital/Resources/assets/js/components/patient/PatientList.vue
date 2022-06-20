@@ -210,6 +210,16 @@
             EventBus.$on('patientCreated', () => {
                 this.getPatients();
             });
+
+            let vm = this;
+            this.$nextTick(() => {
+                $('.modal').each(function (){
+                    $(this).on('hidden.bs.modal', function () {
+                        vm.clearForm();
+                    });
+                });
+            });
+
         },
         methods: {
             setSearch:_.debounce(function(){
@@ -270,6 +280,9 @@
                 this.delete_submitting = false;
             },
 
+            clearForm(){
+                this.delete_id = this.delete_id = this.transfer_patient_id = this.ransplant_center = this.transfer_remarks = '';
+            },
         }
     }
 </script>

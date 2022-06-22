@@ -21,7 +21,7 @@ class Patient extends Model
     use HasFactory,LogsActivity;
 
     protected $fillable = [];
-    protected $appends = ['point'];
+    protected $appends = ['point', 'point_details'];
     protected $casts = [
         'dialysis_start_date' => 'date:Y-m-d',
     ];
@@ -66,6 +66,15 @@ class Patient extends Model
         return $totalPoint;
     }
 
+    public function getPointDetailsAttribute()
+    {
+        $data['pointByGender'] = $this->pointByGender();
+        $data['pointByRegistration'] = $this->pointByRegistrationDate();
+        $data['pointByDialysis'] = $this->pointByDialysis();
+        $data['totalPoint'] = $this->getPointAttribute();
+        return json_encode($data);
+    }
+
     private function pointByGender()
     {
         if($this->gender == 'male'){
@@ -93,7 +102,7 @@ class Patient extends Model
         if (!blank($dialysis_start_date)){
             $today = Carbon::today();
             $number_of_months = $dialysis_start_date->diffInMonths($today);
-            $score = $number_of_months * 1;
+            $score = $number_of_months / 6;
             return $score;
         }
     }

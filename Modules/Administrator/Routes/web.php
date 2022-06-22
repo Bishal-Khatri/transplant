@@ -109,7 +109,7 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
             Route::get('/list', [PatientController::class, 'getPatientList']);
             Route::post('/create', [PatientController::class, 'savePatient']);
             Route::delete('/delete/{patient_id}', [PatientController::class, 'deletePatient']);
-            Route::post('/update', [PatientController::class, 'updatePatient']);
+//            Route::post('/update', [PatientController::class, 'updatePatient']);
             Route::get('/count', [PatientController::class, 'getPatientCount']);
             Route::post('/change-status', [PatientController::class, 'changePatientStatus']);
         });

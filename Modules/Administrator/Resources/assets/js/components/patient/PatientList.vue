@@ -107,7 +107,9 @@
                                 <td>{{ patient.date_of_birth || 'Not-Available' }}</td>
                                 <td>{{ patient.transplant_type ? patient.transplant_type.toUpperCase() : 'Not-Available' }}</td>
                                 <td>{{ patient.hospital ? patient.hospital.hospital_name : 'Not-Available' }}</td>
-                                <td style="width: 70px;">{{ patient.point }}</td>
+                                <td style="width: 70px;">
+                                    <a href="#" @click.prevent="showPointDetails(patient)">{{ patient.point }}</a>
+                                </td>
                                 <td>
                                     <span class="badge badge-accent" v-if="patient.status === 1">Active</span>
                                     <span class="badge badge-success" v-if="patient.status === 3">Received</span>
@@ -134,6 +136,60 @@
                         <div class="pull-right">
                             <!--<pagination :data="patients_pg" @pagination-change-page=""></pagination>-->
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="show-point-details" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Point Details</h2>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-3">
+                        <div class="row">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Point</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        Point By Gender
+                                        <!--<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Tooltip left"></i>-->
+                                    </td>
+                                    <td>{{ point_details.pointByGender || 'Not-Available' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Point By Registration
+                                        <!--<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Tooltip left"></i>-->
+                                    </td>
+                                    <td>{{ point_details.pointByRegistration || 'Not-Available' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Point By Dialysis
+                                        <!--<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Tooltip left"></i>-->
+                                    </td>
+                                    <td>{{ point_details.pointByDialysis || 'Not-Available' }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Point</strong></td>
+                                    <td>{{ point_details.totalPoint || 'Not-Available' }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -247,6 +303,8 @@
                 status_change_remark:'',
                 selected_patient_id:'',
                 status_submitting:false,
+
+                point_details:'',
             }
         },
         components: {
@@ -260,8 +318,31 @@
             EventBus.$on('patientCreated', () => {
                 this.getPatients();
             });
+
+            let vm = this;
+            this.$nextTick(() => {
+                $('.modal').each(function (){
+                    $(this).on('hidden.bs.modal', function () {
+                        vm.clearForm();
+                    });
+                });
+            });
         },
         methods: {
+            clearForm(){
+                this.point_details =
+                    this.delete_submitting =
+                        this.delete_id =
+                            this.patient_status =
+                                this.status_change_remark =
+                                    this.selected_patient_id =
+                                        this.status_submitting = '';
+            },
+            async showPointDetails(data) {
+                this.point_details = await JSON.parse(data.point_details);
+                $("#show-point-details").modal('show');
+            },
+
             sortArrays(arrays) {
                 return _.orderBy(arrays, 'point', 'desc');
             },

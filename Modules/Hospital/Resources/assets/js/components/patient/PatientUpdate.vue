@@ -273,7 +273,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
+
                                         </div>
                                         <span class="section">Permanent Address</span>
                                         <div class="row">
@@ -297,7 +297,7 @@
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">District <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
-                                                        <input type="text" value="Select District" required="required" class="form-control" v-if="!permanent_province_is_loaded" readonly> 
+                                                        <input type="text" value="Select District" required="required" class="form-control" v-if="!permanent_province_is_loaded" readonly>
                                                         <select v-model="permanent_district" required="required" class="form-control" v-else>
                                                             <option value="">Select District</option>
                                                             <option v-for="district in permanent_districts" :value="district.id" :key="district.id">{{ district.title }}</option>
@@ -332,7 +332,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Tole 
+                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Tole
                                                     </label>
                                                     <div class="col-md-9 col-sm-9">
                                                         <input type="text" v-model="permanent_tole" required="required" class="form-control">
@@ -482,7 +482,7 @@
                                                             <option value="A+">A+</option>
                                                             <option value="A-">A-</option>
                                                             <option value="B+">B+</option>
-                                                            <option value="B-">B--</option>
+                                                            <option value="B-">B-</option>
                                                             <option value="O+">O+</option>
                                                             <option value="O-">O-</option>
                                                             <option value="AB+">AB+</option>

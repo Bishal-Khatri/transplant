@@ -254,9 +254,19 @@ class PatientController extends Controller
                 $patient->cross_match_cdc = $request->cross_match_cdc;
                 $patient->dsa_titre = $request->dsa_titre;
                 $patient->pra = $request->pra;
+
+                // reset liver field
+                $patient->meld_score = null;
             }
             elseif ($request->transplant_type == 'liver'){
                 $patient->meld_score = $request->meld_score;
+
+                // reset kidney fileds
+                $patient->dialysis_start_date = null;
+                $patient->hal_tissue_type = null;
+                $patient->cross_match_cdc = null;
+                $patient->dsa_titre = null;
+                $patient->pra = null;
             }
 
             $patient->save();
@@ -324,7 +334,7 @@ class PatientController extends Controller
     }
 
     public function edit($patient_id)
-    { 
+    {
         $religions = Religion::all();
         $ethnic_groups = EthnicGroup::all();
         $education_levels = EducationLevel::all();

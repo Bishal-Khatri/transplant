@@ -320,7 +320,7 @@ class PatientController extends Controller
         $occupations = Occupation::all();
         $diseases = Disease::all();
         $auth_user = auth()->user();
-        return view('hospital::patient.edit', compact('patient_id','religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
+        return view('administrator::pages.patient.edit', compact('patient_id','religions', 'ethnic_groups', 'education_levels', 'occupations', 'diseases', 'auth_user'));
     }
 
     public function view($patient_id){

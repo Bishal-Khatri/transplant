@@ -145,7 +145,7 @@
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title">Point Details</h2>
+                        <h2 class="modal-title">Score Details</h2>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -162,23 +162,22 @@
                                 <tr>
                                     <td>
                                         Point By Gender
-                                        <!--<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Tooltip left"></i>-->
                                     </td>
-                                    <td>{{ point_details.pointByGender || 'Not-Available' }}</td>
+                                    <td>{{ point_details.pointByGender || 'Not-Available' }} | {{ selected_patient.gender || 'Not-Available'}}</td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Point By Registration
                                         <!--<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Tooltip left"></i>-->
                                     </td>
-                                    <td>{{ point_details.pointByRegistration || 'Not-Available' }}</td>
+                                    <td>{{ point_details.pointByRegistration || 'Not-Available' }} | {{ selected_patient.created_at || 'Not-Available'}}</td>
                                 </tr>
                                 <tr>
                                     <td>
                                         Point By Dialysis
                                         <!--<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right" title="Tooltip left"></i>-->
                                     </td>
-                                    <td>{{ point_details.pointByDialysis || 'Not-Available' }}</td>
+                                    <td>{{ point_details.pointByDialysis || 'Not-Available' }} | {{ selected_patient.dialysis_start_date || 'Not-Available'}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Total Point</strong></td>
@@ -302,6 +301,7 @@
                 patient_status:'',
                 status_change_remark:'',
                 selected_patient_id:'',
+                selected_patient:'',
                 status_submitting:false,
 
                 point_details:'',
@@ -336,9 +336,10 @@
                             this.patient_status =
                                 this.status_change_remark =
                                     this.selected_patient_id =
-                                        this.status_submitting = '';
+                                        this.status_submitting = this.selected_patient = '';
             },
             async showPointDetails(data) {
+                this.selected_patient = data;
                 this.point_details = await JSON.parse(data.point_details);
                 $("#show-point-details").modal('show');
             },

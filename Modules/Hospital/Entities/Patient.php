@@ -61,9 +61,10 @@ class Patient extends Model
         elseif($this->transplant_type === TransplantTypes::LIVER){
         }
 
-        $totalPoint = (int) $pointByGender + (int) $pointByDialysis + $pointByRegistration;
+        $totalPoint = $pointByGender + $pointByDialysis + $pointByRegistration;
 
-        return $totalPoint;
+        return round($totalPoint, 2);
+
     }
 
     public function getPointDetailsAttribute()
@@ -103,7 +104,7 @@ class Patient extends Model
             $today = Carbon::today();
             $number_of_months = $dialysis_start_date->diffInMonths($today);
             $score = $number_of_months / 6;
-            return $score;
+            return round($score, 2);
         }
     }
 

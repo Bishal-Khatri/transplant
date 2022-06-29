@@ -16,47 +16,44 @@
             <div class="x_content">
                 <ul class="nav nav-tabs justify-content-start bar_tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="home" aria-selected="true">
+                        <a class="nav-link active" id="content-tab" data-toggle="tab" :href="'#style-'+section.id" role="tab" aria-controls="home" aria-selected="true">
                             Header
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="style-tab" data-toggle="tab" href="#style" role="tab" aria-controls="profile" aria-selected="false">
+                        <a class="nav-link" id="style-tab" data-toggle="tab" :href="'#content-'+section.id" role="tab" aria-controls="profile" aria-selected="false">
                             Content
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+                    <div class="tab-pane fade show active" :id="'style-'+section.id" role="tabpanel" aria-labelledby="content-tab">
                         <form class="form-horizontal form-label-left">
+
                             <div class="row">
-                                    <div class="col-md-3 form-group">
-                                        <label  class="form-label">Order</label>
-                                        <input type="number" class="form-control" min="1" placeholder="Order" v-model="section_order">
+                                <div class="col-md-5 form-group ">
+                                    <!-- background button group Light,Medium,Dark,Image -->
+                                    <label class="form-label">Background</label>
+                                    <div class="form-control btn-group btn-group-toggle" data-toggle="buttons" style="height: 3.4rem;">
+                                        <label class="btn btn-secondary" :class="type === 'light' ? 'active' : ''"  @click="setBackgroundType('light')">
+                                            <input type="radio" class="join-btn" value="light"> Light
+                                        </label>
+                                        <label class="btn btn-secondary" :class="type === 'medium' ? 'active' : ''" @click="setBackgroundType('medium')">
+                                            <input type="radio" class="join-btn" value="medium" > Medium
+                                        </label>
+                                        <label class="btn btn-secondary" :class="type === 'dark' ? 'active' : ''"  @click="setBackgroundType('dark')">
+                                            <input type="radio" class="join-btn" value="dark"> Dark
+                                        </label>
+                                        <label class="btn btn-secondary" :class="type === 'image' ? 'active' : ''" @click="setBackgroundType('image')">
+                                            <input type="radio" class="join-btn" value="image" > Image
+                                        </label>
                                     </div>
-                                    <div class="col-md-5 form-group ">
-                                        <!-- background button group Light,Medium,Dark,Image -->
-                                        <label class="form-label">Background</label>
-                                        <div class="form-control btn-group btn-group-toggle" data-toggle="buttons" style="height: 3.4rem;">
-                                            <label class="btn btn-secondary" :class="type === 'light' ? 'active' : ''"  @click="setBackgroundType('light')">
-                                                <input type="radio" class="join-btn" value="light"> Light
-                                            </label>
-                                            <label class="btn btn-secondary" :class="type === 'medium' ? 'active' : ''" @click="setBackgroundType('medium')">
-                                                <input type="radio" class="join-btn" value="medium" > Medium
-                                            </label>
-                                            <label class="btn btn-secondary" :class="type === 'dark' ? 'active' : ''"  @click="setBackgroundType('dark')">
-                                                <input type="radio" class="join-btn" value="dark"> Dark
-                                            </label>
-                                            <label class="btn btn-secondary" :class="type === 'image' ? 'active' : ''" @click="setBackgroundType('image')">
-                                                <input type="radio" class="join-btn" value="image" > Image
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" v-if="type=='image'">
-                                        <label class="form-label">Background Image</label><br>
-                                        <button class="btn btn-accent" @click.prevent="$refs.selectBackgroundImageSelector.openDialog()">Choose Images</button>
-                                    </div>
-                            </div>   
+                                </div>
+                                <div class="col-md-4" v-if="type=='image'">
+                                    <label class="form-label">Background Image</label><br>
+                                    <button class="btn btn-accent" @click.prevent="$refs.selectBackgroundImageSelector.openDialog()">Choose Images</button>
+                                </div>
+                            </div>
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
                                     Section Visibility
@@ -66,7 +63,15 @@
                                     <span v-if="visibility">Visible</span>
                                     <span v-else>Hidden</span>
                                 </div>
-                            </div>     
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Section Order
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="number" class="form-control" min="1" placeholder="Order" v-model="section_order">
+                                </div>
+                            </div>
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
                                     Section Title
@@ -88,33 +93,33 @@
                         </form>
                     </div>
 
-                    <div class="tab-pane fade" id="style" role="tabpanel" aria-labelledby="style-tab">
-                        <form class="form-horizontal form-label-left">                
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <label class="form-label">Title</label>
-                                        <input type="text" v-model="content_title" placeholder="Title" class="form-control">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Order</label>
-                                        <input type="number" class="form-control" min="1" v-model="content_order" placeholder="Order">
-                                    </div>
+                    <div class="tab-pane fade" :id="'content-'+section.id" role="tabpanel" aria-labelledby="style-tab">
+                        <form class="form-horizontal form-label-left">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <label class="form-label">Title</label>
+                                    <input type="text" v-model="content_title" placeholder="Title" class="form-control">
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label class="form-label">Body</label>
-                                        <textarea class="form-control" v-model="content_body" cols="30" rows="5" placeholder="Short Description"></textarea>
-                                    </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Order</label>
+                                    <input type="number" class="form-control" min="1" v-model="content_order" placeholder="Order">
                                 </div>
-                                <div class="d-flex justify-content-end p-4">
-                                    <!-- button success save -->
-                                    <a class="btn btn-link" v-if="content_submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
-                                    <a class="btn btn-success" v-else @click.prevent="saveContent" href="">Save</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="form-label">Body</label>
+                                    <textarea class="form-control" v-model="content_body" cols="30" rows="5" placeholder="Short Description"></textarea>
                                 </div>
+                            </div>
+                            <div class="d-flex justify-content-end p-4">
+                                <!-- button success save -->
+                                <a class="btn btn-link" v-if="content_submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
+                                <a class="btn btn-success" v-else @click.prevent="saveContent" href="">Save</a>
+                            </div>
                         </form>
                         <hr>
                         <div class="row p-4" v-if="processes.length > 0" v-for="(process,index) in processes" :key="index">
-                            <div class="col-md-9">    
+                            <div class="col-md-9">
                                 <div class="form-group">
                                     <label class="form-label">Title</label>
                                     <input type="text" v-model="process.title" placeholder="Title" class="form-control" :readonly="index === content_edit_id?false:true">
@@ -123,15 +128,15 @@
                                     <label class="form-label">Body</label>
                                     <textarea class="form-control" v-model="process.body" cols="30" rows="5" placeholder="Short Description" :readonly="index === content_edit_id?false:true"></textarea>
                                 </div>
-                                </div>
-                                <div v-if="index === content_edit_id" class="col-md-3 d-flex justify-content-center align-items-center">
-                                    <a class="btn btn-success text-white" @click.prevent="updateContent" >Save</a>
-                                    <a class="btn btn-secondary text-white" @click.prevent="cancelContent" >Delete</a>
-                                </div>
-                                 <div v-else class="col-md-3 d-flex justify-content-center align-items-center">
-                                    <a class="btn btn-primary" @click.prevent="editContent(index)" href="">Edit</a>
-                                    <a class="btn btn-danger" @click.prevent="deleteContent(index)" href="">Delete</a>
-                                </div>
+                            </div>
+                            <div v-if="index === content_edit_id" class="col-md-3 d-flex justify-content-center align-items-center">
+                                <a class="btn btn-success text-white" @click.prevent="updateContent" >Save</a>
+                                <a class="btn btn-secondary text-white" @click.prevent="cancelContent" >Delete</a>
+                            </div>
+                            <div v-else class="col-md-3 d-flex justify-content-center align-items-center">
+                                <a class="btn btn-primary" @click.prevent="editContent(index)" href="">Edit</a>
+                                <a class="btn btn-danger" @click.prevent="deleteContent(index)" href="">Delete</a>
+                            </div>
                         </div>
                         <div v-else >
                             <div class="text-center">
@@ -181,7 +186,7 @@
                 button_link: "#",
 
 
-                // content 
+                // content
                 content_edit_id: 'none',
                 content_order: 0,
                 content_title: '',

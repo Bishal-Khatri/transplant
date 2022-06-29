@@ -16,18 +16,18 @@
             <div class="x_content">
                 <ul class="nav nav-tabs justify-content-start bar_tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="content-tab" data-toggle="tab" href="#content" role="tab" aria-controls="home" aria-selected="true">
+                        <a class="nav-link active" id="content-tab" data-toggle="tab" :href="'#style-'+section.id" role="tab" aria-controls="home" aria-selected="true">
                             Header
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="style-tab" data-toggle="tab" href="#style" role="tab" aria-controls="profile" aria-selected="false">
+                        <a class="nav-link" id="style-tab" data-toggle="tab" :href="'#content-'+section.id" role="tab" aria-controls="profile" aria-selected="false">
                             Content
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="content" role="tabpanel" aria-labelledby="content-tab">
+                    <div class="tab-pane fade show active" :id="'style-'+section.id" role="tabpanel" aria-labelledby="content-tab">
                         <form class="form-horizontal form-label-left">
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">
@@ -71,7 +71,7 @@
                         </form>
                     </div>
 
-                    <div class="tab-pane fade" id="style" role="tabpanel" aria-labelledby="style-tab">
+                    <div class="tab-pane fade" :id="'content-'+section.id" role="tabpanel" aria-labelledby="style-tab">
                         <form class="form-horizontal form-label-left">
 
                             <div class="item form-group">

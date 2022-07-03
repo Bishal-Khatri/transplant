@@ -224,7 +224,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -368,33 +368,6 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Number <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.letter_number ? patient.letter_number:''}`" required="required"  class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Date <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9">
-                                        <input type="date" :value="`${patient.letter_date ? patient.letter_date:''}`" required="required"  class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">OPD Number / Year <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.opd_number ? patient.opd_number:''}`" required="required"  class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Disease <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9">
@@ -508,7 +481,6 @@
         name: "PatientPreview",
         props: ['patient'],
         mounted(){
-            // console.log(this.patient);
         },
         components: {
             ImagePreview

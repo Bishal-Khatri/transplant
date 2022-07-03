@@ -18813,39 +18813,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PatientPreview",
   props: ['patient'],
-  mounted: function mounted() {// console.log(this.patient);
-  },
+  mounted: function mounted() {},
   components: {
     ImagePreview: _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -63103,78 +63075,6 @@ var render = function () {
                     _c("div", { staticClass: "form-group row" }, [
                       _vm._m(28),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            required: "required",
-                            disabled: "",
-                          },
-                          domProps: {
-                            value:
-                              "" +
-                              (_vm.patient.letter_number
-                                ? _vm.patient.letter_number
-                                : ""),
-                          },
-                        }),
-                      ]),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(29),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "date",
-                            required: "required",
-                            disabled: "",
-                          },
-                          domProps: {
-                            value:
-                              "" +
-                              (_vm.patient.letter_date
-                                ? _vm.patient.letter_date
-                                : ""),
-                          },
-                        }),
-                      ]),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(30),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                        _c("input", {
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            required: "required",
-                            disabled: "",
-                          },
-                          domProps: {
-                            value:
-                              "" +
-                              (_vm.patient.opd_number
-                                ? _vm.patient.opd_number
-                                : ""),
-                          },
-                        }),
-                      ]),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(31),
-                      _vm._v(" "),
                       _c(
                         "div",
                         { staticClass: "col-md-9 col-sm-9" },
@@ -63204,7 +63104,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(32),
+                      _vm._m(29),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                         _c("input", {
@@ -63230,7 +63130,7 @@ var render = function () {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(33),
+                      _vm._m(30),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-9 col-sm-9" }, [
                         _c("input", {
@@ -63772,45 +63672,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "clearfix" }),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
-      [
-        _vm._v("Letter Number "),
-        _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
-      [
-        _vm._v("Letter Date "),
-        _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
-      [
-        _vm._v("OPD Number / Year "),
-        _c("span", { staticClass: "required" }, [_vm._v("*")]),
-      ]
-    )
   },
   function () {
     var _vm = this

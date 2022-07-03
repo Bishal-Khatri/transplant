@@ -418,37 +418,6 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Number <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-9 col-sm-9">
-                                                        <input type="text" v-model="letter_number" required="required" class="form-control">
-                                                        <span class="form-text small text-danger" v-html="errors.get('letter_number')"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Letter Date <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-9 col-sm-9">
-                                                        <input type="date" v-model="letter_date" required="required" class="form-control">
-                                                        <span class="form-text small text-danger" v-html="errors.get('letter_date')"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">OPD Number / Year <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-9 col-sm-9">
-                                                        <input type="text" v-model="opd_number" required="required" class="form-control">
-                                                        <span class="form-text small text-danger" v-html="errors.get('opd_number')"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Diseases</label>
                                                     <div class="col-md-9 col-sm-9 ">
                                                         <select class="select2_multiple form-control" multiple v-model="disease">
@@ -680,9 +649,6 @@
                 current_district_is_loaded: false,
 
                 // Diagnosis / Treatment Information
-                letter_number:'',
-                letter_date:'',
-                opd_number:'',
                 disease: [],
                 referred_by:'',
                 blood_group: '',
@@ -805,11 +771,6 @@
                 this.current_ward = this.patient.current_ward;
                 this.current_tole = this.patient.current_tole;
 
-                this.letter_number = this.patient.letter_number;
-                this.letter_date = this.patient.letter_date;
-                this.opd_number = this.patient.opd_number;
-
-
                 // disease
                 var disease = this.patient.disease.map(function(object) {
                     return object.id;
@@ -876,9 +837,6 @@
                     nextForm = "diagnosis_information";
                 }else if(page_name === 'diagnosis_information'){
                     formData.append('page', page_name);
-                    this.letter_number ? formData.append("letter_number", this.letter_number) : '';
-                    this.letter_date ? formData.append("letter_date",this.letter_date) : '';
-                    this.opd_number ? formData.append("opd_number", this.opd_number) : '';
                     this.disease ? formData.append("disease", JSON.stringify(this.disease)) : '';
                     this.referred_by ? formData.append("referred_by", this.referred_by) : '';
                     this.transplant_type ? formData.append("transplant_type", this.transplant_type) : '';

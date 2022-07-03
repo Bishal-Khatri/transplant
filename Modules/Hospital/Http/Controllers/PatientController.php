@@ -233,17 +233,11 @@ class PatientController extends Controller
     }
     public function __updateDiagnosisInformation($request, $patient){
         $request->validate([
-            'letter_number' => 'required',
-            'letter_date' => 'required',
-            'opd_number' => 'required',
             'disease' => 'required',
             'referred_by' => 'required',
             'transplant_type' => 'required',
         ]);
         try{
-            $patient->letter_number = $request->letter_number;
-            $patient->letter_date = $request->letter_date;
-            $patient->opd_number = $request->opd_number;
             $patient->referred_by = $request->referred_by;
             $patient->blood_group = $request->blood_group;
             $patient->transplant_type = $request->transplant_type;

@@ -47,9 +47,6 @@ class CreatePatientsTable extends Migration
             $table->string('current_ward')->nullable();
             $table->string('current_tole')->nullable();
 
-            $table->string('letter_number')->nullable();
-            $table->date('letter_date')->nullable();
-            $table->string('opd_number')->nullable();
             $table->string('hospital_bipanna_number')->nullable();
             $table->string('max_facilitatory_amount')->nullable();
             $table->string('referred_by')->nullable();

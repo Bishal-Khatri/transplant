@@ -3,7 +3,7 @@ import Api from './Api';
 export default {
 
     getPatients(page,filter){
-        return Api().get('/admin/web-api/patient/list?page=' + page + '&filter=' + filter.query + '&t_t=' + filter.transplant_type + '&p_s=' + filter.patient_status);
+        return Api().get('/admin/web-api/patient/list?page=' + page + '&filter=' + filter.query + '&t_t=' + filter.transplant_type + '&p_s=' + filter.patient_status + '&b_t=' + filter.blood_type);
     },
 
     getPatientsCount(){

@@ -475,7 +475,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <br>
                                         <template v-if="transplant_type === 'kidney'">
+                                            <span class="section">Kidney Transplant</span>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
@@ -489,34 +491,6 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="hal_tissue_type" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                            Cross Match CDC
-                                                        </label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="cross_match_cdc" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                            DSA Titre
-                                                        </label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="dsa_titre" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group row">
                                                         <label class="col-form-label col-md-3 col-sm-3 label-align">
                                                             PRA
                                                         </label>
@@ -525,13 +499,118 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!--HLA tissue type start-->
+                                                <div class="col-md-6">
+                                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</h4>
+                                                </div>
+                                                <div class="col-md-6"></div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> A <small>m</small></label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="hla_a_m" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> A <small>f</small></label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="hla_a_f" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B <small>m</small></label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="hla_b_m" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B <small>f</small></label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="hla_b_f" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> DR <small>m</small></label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="hla_dr_m" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> DR <small>f</small></label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="hla_dr_f" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--HLA tissue type end-->
+
+                                                <!--CDC start-->
+                                                <div class="col-md-6">
+                                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">Cross Match CDC</h4>
+                                                </div>
+                                                <div class="col-md-6"></div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> T cell</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="cdc_t_cell" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B cell</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="cdc_B_cell" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--CDC End-->
+
+                                                <!--DSA Start-->
+                                                <div class="col-md-6">
+                                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">DSA Titre</h4>
+                                                </div>
+                                                <div class="col-md-6"></div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> Class 1</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="dsa_class_1" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> Class 2</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text" v-model="dsa_class_2" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--DSA END-->
+
                                             </div>
                                         </template>
                                         <template v-else-if="transplant_type === 'liver'">
+                                            <span class="section">Liver Transplant</span>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align">MELD Score</label>
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align">MELD Score <span class="required">*</span></label>
                                                         <div class="col-md-9 col-sm-9">
                                                             <input type="text" v-model="meld_score" class="form-control">
                                                         </div>
@@ -548,7 +627,7 @@
 
                                 <template slot="footer" slot-scope="props">
                                     <div class="wizard-footer-left">
-                                        <button v-if="props.activeTabIndex > 0 && !props.isLastStep" class="btn btn-accent" @click.prevent="$refs.updatePatient.prevTab()">Back</button>
+                                        <button v-if="props.activeTabIndex > 0" class="btn btn-accent" @click.prevent="$refs.updatePatient.prevTab()">Back</button>
                                     </div>
                                     <div class="wizard-footer-right">
                                         <button class="btn btn-accent" v-if="!props.isLastStep" @click.prevent="submitForm(submitFormName)"><i v-if="submitting" class="fa fa-spinner fa-spin"></i> Save & Proceed</button>
@@ -656,10 +735,18 @@
 
                 // kidney
                 dialysis_start_date: '',
-                hal_tissue_type: '',
-                cross_match_cdc: '',
-                dsa_titre: '',
                 pra: '',
+                // HLA
+                hla_a_m: '',
+                hla_a_f: '',
+                hla_b_m: '',
+                hla_b_f: '',
+                hla_dr_m: '',
+                hla_dr_f: '',
+                cdc_t_cell: '',
+                cdc_B_cell: '',
+                dsa_class_1: '',
+                dsa_class_2: '',
 
                 // liver
                 meld_score: '',
@@ -782,10 +869,18 @@
 
                 // kidney
                 this.dialysis_start_date = this.patient.dialysis_start_date;
-                this.hal_tissue_type = this.patient.hal_tissue_type;
-                this.cross_match_cdc = this.patient.cross_match_cdc;
-                this.dsa_titre = this.patient.dsa_titre;
                 this.pra = this.patient.pra;
+
+                this.hla_a_m = this.patient.hla_a_m;
+                this.hla_a_f = this.patient.hla_a_f;
+                this.hla_b_m = this.patient.hla_b_m;
+                this.hla_b_f = this.patient.hla_b_f;
+                this.hla_dr_m = this.patient.hla_dr_m;
+                this.hla_dr_f = this.patient.hla_dr_f;
+                this.cdc_t_cell = this.patient.cdc_t_cell;
+                this.cdc_B_cell = this.patient.cdc_B_cell;
+                this.dsa_class_1 = this.patient.dsa_class_1;
+                this.dsa_class_2 = this.patient.dsa_class_2;
 
                 // liver
                 this.meld_score = this.patient.meld_score;
@@ -844,10 +939,18 @@
 
                     // kidney
                     this.dialysis_start_date ? formData.append("dialysis_start_date", this.dialysis_start_date) : '';
-                    this.hal_tissue_type ? formData.append("hal_tissue_type", this.hal_tissue_type) : '';
-                    this.cross_match_cdc ? formData.append("cross_match_cdc", this.cross_match_cdc) : '';
-                    this.dsa_titre ? formData.append("dsa_titre", this.dsa_titre) : '';
                     this.pra ? formData.append("pra", this.pra) : '';
+
+                    this.hla_a_m ? formData.append("hla_a_m", this.hla_a_m) : '';
+                    this.hla_a_f ? formData.append("hla_a_f", this.hla_a_f) : '';
+                    this.hla_b_m ? formData.append("hla_b_m", this.hla_b_m) : '';
+                    this.hla_b_f ? formData.append("hla_b_f", this.hla_b_f) : '';
+                    this.hla_dr_m ? formData.append("hla_dr_m", this.hla_dr_m) : '';
+                    this.hla_dr_f ? formData.append("hla_dr_f", this.hla_dr_f) : '';
+                    this.cdc_t_cell ? formData.append("cdc_t_cell", this.cdc_t_cell) : '';
+                    this.cdc_B_cell ? formData.append("cdc_B_cell", this.cdc_B_cell) : '';
+                    this.dsa_class_1 ? formData.append("dsa_class_1", this.dsa_class_1) : '';
+                    this.dsa_class_2 ? formData.append("dsa_class_2", this.dsa_class_2) : '';
 
                     // liver
                     this.meld_score ? formData.append("meld_score", this.meld_score) : '';

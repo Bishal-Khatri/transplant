@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <input type="text" class="form-control"
-                                       placeholder="Search" v-model="filter"
+                                       placeholder="Search" v-model="filter.query"
                                        @keydown.backspace="setSearch"
                                        @keydown.enter="setSearch"
                                        @keypress="setSearch">
@@ -36,6 +36,24 @@
                                     </div>
                                 </div>
 
+                                <div class="btn-group" role="group">
+                                    <button id="filter-blood-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-filter mr-1"></i>  Blood Group:
+                                        <span v-if="filter.blood_type">{{ filter.blood_type }}</span>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filter-hospital-type"
+                                         x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'A+'; getPatients();">A+</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'A-'; getPatients();">A-</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'B+'; getPatients();">B+</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'B-'; getPatients();">B-</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'O+'; getPatients();">O+</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'O-'; getPatients();">O-</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'AB+'; getPatients();">AB+</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'AB-'; getPatients();">AB-</a>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -48,8 +66,8 @@
                                 <th>Citizenship Number</th>
                                 <th>Gender</th>
                                 <th>Date Of Birth</th>
-                                <th>Nationality</th>
                                 <th>Transplant Type</th>
+                                <th>Blood Group</th>
                                 <th style="width: 180px" class="text-right">Action</th>
                             </tr>
                             </thead>
@@ -71,8 +89,8 @@
                                 <td>{{ patient.citizenship_number || 'Not-Available' }}</td>
                                 <td>{{ patient.gender ? patient.gender.toUpperCase() : 'Not-Available' }}</td>
                                 <td>{{ patient.date_of_birth || 'Not-Available' }}</td>
-                                <td>{{ patient.nationality || 'Not-Available' }}</td>
                                 <td>{{ patient.transplant_type ? patient.transplant_type.toUpperCase() : 'Not-Available' }}</td>
+                                <td>{{ patient.blood_group || 'Not-Available' }}</td>
                                 <td class="text-right">
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -188,7 +206,11 @@
                 errors: new Errors(),
                 delete_submitting: false,
                 transfer_submitting: false,
-                filter: '',
+                filter: {
+                    query: '',
+                    transplant_type: 'kidney',
+                    blood_type: '',
+                },
 
                 patients: {},
                 patients_pg: {},

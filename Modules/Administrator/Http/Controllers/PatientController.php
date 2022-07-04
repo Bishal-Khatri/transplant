@@ -24,6 +24,8 @@ class PatientController extends Controller
     public function getPatientList(Request $request)
     {
         $query = Patient::query();
+
+//        filters
         if (isset($request->query) AND !blank($request->query)){
             $query->where('name', 'LIKE', "%" . $request->filter . "%");
         }
@@ -34,6 +36,11 @@ class PatientController extends Controller
         if (isset($request->p_s) AND !blank($request->p_s)){
             $query->where('status', $request->p_s);
         }
+
+        if (isset($request->b_t) AND !blank($request->b_t)){
+            $query->where('blood_group', 'LIKE', "%" . $request->b_t . "%");
+        }
+
         $query->with([
             'current_province',
             'current_district',

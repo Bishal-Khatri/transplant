@@ -17682,7 +17682,7 @@ __webpack_require__.r(__webpack_exports__);
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/hospital/web-api/patient/get/' + id);
   },
   getPatients: function getPatients(page, filter) {
-    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/hospital/web-api/patient/list?page=' + page + '&filter=' + filter);
+    return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/hospital/web-api/patient/list?page=' + page + '&query=' + filter.query + '&blood_type=' + filter.blood_type);
   },
   savePatient: function savePatient(formData) {
     return Object(_Api__WEBPACK_IMPORTED_MODULE_0__["default"])().post('/hospital/web-api/patient/create', formData);
@@ -18145,6 +18145,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18158,7 +18176,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_0__["Errors"](),
       delete_submitting: false,
       transfer_submitting: false,
-      filter: '',
+      filter: {
+        query: '',
+        transplant_type: 'kidney',
+        blood_type: ''
+      },
       patients: {},
       patients_pg: {},
       delete_id: '',
@@ -18336,6 +18358,81 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resources_js_components_ImagePreview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../../resources/js/components/ImagePreview */ "../../resources/js/components/ImagePreview.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -19417,6 +19514,85 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -19494,10 +19670,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       transplant_type: '',
       // kidney
       dialysis_start_date: '',
-      hal_tissue_type: '',
-      cross_match_cdc: '',
-      dsa_titre: '',
       pra: '',
+      // HLA
+      hla_a_m: '',
+      hla_a_f: '',
+      hla_b_m: '',
+      hla_b_f: '',
+      hla_dr_m: '',
+      hla_dr_f: '',
+      cdc_t_cell: '',
+      cdc_B_cell: '',
+      dsa_class_1: '',
+      dsa_class_2: '',
       // liver
       meld_score: ''
     };
@@ -19635,10 +19819,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.transplant_type = this.patient.transplant_type; // kidney
 
       this.dialysis_start_date = this.patient.dialysis_start_date;
-      this.hal_tissue_type = this.patient.hal_tissue_type;
-      this.cross_match_cdc = this.patient.cross_match_cdc;
-      this.dsa_titre = this.patient.dsa_titre;
-      this.pra = this.patient.pra; // liver
+      this.pra = this.patient.pra;
+      this.hla_a_m = this.patient.hla_a_m;
+      this.hla_a_f = this.patient.hla_a_f;
+      this.hla_b_m = this.patient.hla_b_m;
+      this.hla_b_f = this.patient.hla_b_f;
+      this.hla_dr_m = this.patient.hla_dr_m;
+      this.hla_dr_f = this.patient.hla_dr_f;
+      this.cdc_t_cell = this.patient.cdc_t_cell;
+      this.cdc_B_cell = this.patient.cdc_B_cell;
+      this.dsa_class_1 = this.patient.dsa_class_1;
+      this.dsa_class_2 = this.patient.dsa_class_2; // liver
 
       this.meld_score = this.patient.meld_score;
     },
@@ -19700,10 +19891,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.blood_group ? formData.append("blood_group", _this2.blood_group) : ''; // kidney
 
                   _this2.dialysis_start_date ? formData.append("dialysis_start_date", _this2.dialysis_start_date) : '';
-                  _this2.hal_tissue_type ? formData.append("hal_tissue_type", _this2.hal_tissue_type) : '';
-                  _this2.cross_match_cdc ? formData.append("cross_match_cdc", _this2.cross_match_cdc) : '';
-                  _this2.dsa_titre ? formData.append("dsa_titre", _this2.dsa_titre) : '';
-                  _this2.pra ? formData.append("pra", _this2.pra) : ''; // liver
+                  _this2.pra ? formData.append("pra", _this2.pra) : '';
+                  _this2.hla_a_m ? formData.append("hla_a_m", _this2.hla_a_m) : '';
+                  _this2.hla_a_f ? formData.append("hla_a_f", _this2.hla_a_f) : '';
+                  _this2.hla_b_m ? formData.append("hla_b_m", _this2.hla_b_m) : '';
+                  _this2.hla_b_f ? formData.append("hla_b_f", _this2.hla_b_f) : '';
+                  _this2.hla_dr_m ? formData.append("hla_dr_m", _this2.hla_dr_m) : '';
+                  _this2.hla_dr_f ? formData.append("hla_dr_f", _this2.hla_dr_f) : '';
+                  _this2.cdc_t_cell ? formData.append("cdc_t_cell", _this2.cdc_t_cell) : '';
+                  _this2.cdc_B_cell ? formData.append("cdc_B_cell", _this2.cdc_B_cell) : '';
+                  _this2.dsa_class_1 ? formData.append("dsa_class_1", _this2.dsa_class_1) : '';
+                  _this2.dsa_class_2 ? formData.append("dsa_class_2", _this2.dsa_class_2) : ''; // liver
 
                   _this2.meld_score ? formData.append("meld_score", _this2.meld_score) : '';
                   nextForm = "preview";
@@ -61508,13 +61706,13 @@ var render = function () {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.filter,
-                        expression: "filter",
+                        value: _vm.filter.query,
+                        expression: "filter.query",
                       },
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text", placeholder: "Search" },
-                    domProps: { value: _vm.filter },
+                    domProps: { value: _vm.filter.query },
                     on: {
                       keydown: [
                         function ($event) {
@@ -61553,7 +61751,7 @@ var render = function () {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.filter = $event.target.value
+                        _vm.$set(_vm.filter, "query", $event.target.value)
                       },
                     },
                   }),
@@ -61585,7 +61783,189 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "x_content" }, [
-              _vm._m(0),
+              _c("div", { staticClass: "row mb-3" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "btn-group", attrs: { role: "group" } },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary dropdown-toggle",
+                          attrs: {
+                            id: "filter-blood-type",
+                            type: "button",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false",
+                          },
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-filter mr-1" }),
+                          _vm._v(
+                            "  Blood Group:\n                                    "
+                          ),
+                          _vm.filter.blood_type
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.filter.blood_type)),
+                              ])
+                            : _vm._e(),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "dropdown-menu",
+                          staticStyle: {
+                            position: "absolute",
+                            "will-change": "transform",
+                            top: "0px",
+                            left: "0px",
+                            transform: "translate3d(0px, 38px, 0px)",
+                          },
+                          attrs: {
+                            "aria-labelledby": "filter-hospital-type",
+                            "x-placement": "bottom-start",
+                          },
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.blood_type = "A+"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("A+")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.blood_type = "A-"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("A-")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.blood_type = "B+"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("B+")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.blood_type = "B-"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("B-")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.blood_type = "O+"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("O+")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.blood_type = "O-"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("O-")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.blood_type = "AB+"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("AB+")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  _vm.filter.blood_type = "AB-"
+                                  _vm.getPatients()
+                                },
+                              },
+                            },
+                            [_vm._v("AB-")]
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]),
+              ]),
               _vm._v(" "),
               _c(
                 "table",
@@ -61696,17 +62076,17 @@ var render = function () {
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
-                                  _vm._s(patient.nationality || "Not-Available")
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
                                   _vm._s(
                                     patient.transplant_type
                                       ? patient.transplant_type.toUpperCase()
                                       : "Not-Available"
                                   )
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(patient.blood_group || "Not-Available")
                                 ),
                               ]),
                               _vm._v(" "),
@@ -62093,55 +62473,51 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mb-3" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary dropdown-toggle",
-              attrs: {
-                id: "filter-hospital-type",
-                type: "button",
-                "data-toggle": "dropdown",
-                "aria-haspopup": "true",
-                "aria-expanded": "false",
-              },
-            },
-            [
-              _c("i", { staticClass: "fa fa-filter mr-1" }),
-              _vm._v(" Transplant Type\n                                "),
-            ]
-          ),
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary dropdown-toggle",
+          attrs: {
+            id: "filter-hospital-type",
+            type: "button",
+            "data-toggle": "dropdown",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+          },
+        },
+        [
+          _c("i", { staticClass: "fa fa-filter mr-1" }),
+          _vm._v(" Transplant Type\n                                "),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "dropdown-menu",
+          staticStyle: {
+            position: "absolute",
+            "will-change": "transform",
+            top: "0px",
+            left: "0px",
+            transform: "translate3d(0px, 38px, 0px)",
+          },
+          attrs: {
+            "aria-labelledby": "filter-hospital-type",
+            "x-placement": "bottom-start",
+          },
+        },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("KIDNEY"),
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "dropdown-menu",
-              staticStyle: {
-                position: "absolute",
-                "will-change": "transform",
-                top: "0px",
-                left: "0px",
-                transform: "translate3d(0px, 38px, 0px)",
-              },
-              attrs: {
-                "aria-labelledby": "filter-hospital-type",
-                "x-placement": "bottom-start",
-              },
-            },
-            [
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("KIDNEY"),
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("LIVER"),
-              ]),
-            ]
-          ),
-        ]),
-      ]),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("LIVER"),
+          ]),
+        ]
+      ),
     ])
   },
   function () {
@@ -62160,9 +62536,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Date Of Birth")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Nationality")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Transplant Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Blood Group")]),
         _vm._v(" "),
         _c(
           "th",
@@ -62473,10 +62849,6 @@ var render = function () {
                           "fa fa-calendar form-control-feedback right",
                         attrs: { "aria-hidden": "true" },
                       }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-sm text-info" }, [
-                        _vm._v("Date format: dd/mm/yyyy"),
-                      ]),
                     ]),
                   ]),
                   _vm._v(" "),
@@ -63126,8 +63498,6 @@ var render = function () {
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }),
-                  _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group row" }, [
                       _vm._m(30),
@@ -63151,6 +63521,8 @@ var render = function () {
                 _vm._v(" "),
                 _vm.patient.transplant_type === "kidney"
                   ? [
+                      _c("h2", [_vm._v("Kidney Transplant")]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-md-6" }, [
                           _c("div", { staticClass: "form-group row" }, [
@@ -63195,81 +63567,6 @@ var render = function () {
                                 staticClass:
                                   "col-form-label col-md-3 col-sm-3 label-align",
                               },
-                              [_vm._v("HLA Tissue Type")]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: { type: "text", disabled: "" },
-                                domProps: {
-                                  value: _vm.patient.hal_tissue_type,
-                                },
-                              }),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "col-form-label col-md-3 col-sm-3 label-align",
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        Cross Match CDC\n                                    "
-                                ),
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: { type: "text", disabled: "" },
-                                domProps: {
-                                  value: _vm.patient.cross_match_cdc,
-                                },
-                              }),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "col-form-label col-md-3 col-sm-3 label-align",
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        DSA Titre\n                                    "
-                                ),
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: { type: "text", disabled: "" },
-                                domProps: { value: _vm.patient.dsa_titre },
-                              }),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("div", { staticClass: "form-group row" }, [
-                            _c(
-                              "label",
-                              {
-                                staticClass:
-                                  "col-form-label col-md-3 col-sm-3 label-align",
-                              },
                               [
                                 _vm._v(
                                   "\n                                        PRA\n                                    "
@@ -63286,10 +63583,192 @@ var render = function () {
                             ]),
                           ]),
                         ]),
+                        _vm._v(" "),
+                        _vm._m(31),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(32),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.hla_a_m },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(33),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.hla_a_f },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(34),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.hla_b_m },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(35),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.hla_b_f },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(36),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.hla_dr_m },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _vm._m(37),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.hla_dr_f },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(38),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "col-form-label col-md-3 col-sm-3 label-align",
+                              },
+                              [_vm._v(" T cell")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.cdc_t_cell },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "col-form-label col-md-3 col-sm-3 label-align",
+                              },
+                              [_vm._v(" B cell")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.cdc_B_cell },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(39),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "col-form-label col-md-3 col-sm-3 label-align",
+                              },
+                              [_vm._v(" Class 1")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.dsa_class_1 },
+                              }),
+                            ]),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("div", { staticClass: "form-group row" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass:
+                                  "col-form-label col-md-3 col-sm-3 label-align",
+                              },
+                              [_vm._v(" Class 2")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-9 col-sm-9" }, [
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: { type: "text", disabled: "" },
+                                domProps: { value: _vm.patient.dsa_class_2 },
+                              }),
+                            ]),
+                          ]),
+                        ]),
                       ]),
                     ]
                   : _vm.patient.transplant_type === "liver"
                   ? [
+                      _c("h2", [_vm._v("Liver Transplant")]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-md-6" }, [
                           _c("div", { staticClass: "form-group row" }, [
@@ -63712,6 +64191,102 @@ var staticRenderFns = [
       ]
     )
   },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c(
+        "h4",
+        { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+        [_vm._v("HLA Tissue Type")]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [_vm._v(" A "), _c("small", [_vm._v("m")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [_vm._v(" A "), _c("small", [_vm._v("f")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [_vm._v(" B "), _c("small", [_vm._v("m")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [_vm._v(" B "), _c("small", [_vm._v("f")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [_vm._v(" DR "), _c("small", [_vm._v("m")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+      [_vm._v(" DR "), _c("small", [_vm._v("f")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c(
+        "h4",
+        { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+        [_vm._v("Cross Match CDC")]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c(
+        "h4",
+        { staticClass: "col-form-label col-md-3 col-sm-3 label-align" },
+        [_vm._v("DSA Titre")]
+      ),
+    ])
+  },
 ]
 render._withStripped = true
 
@@ -63768,8 +64343,7 @@ var render = function () {
                                     "div",
                                     { staticClass: "wizard-footer-left" },
                                     [
-                                      props.activeTabIndex > 0 &&
-                                      !props.isLastStep
+                                      props.activeTabIndex > 0
                                         ? _c(
                                             "button",
                                             {
@@ -67169,8 +67743,14 @@ var render = function () {
                                     ]),
                                   ]),
                                   _vm._v(" "),
+                                  _c("br"),
+                                  _vm._v(" "),
                                   _vm.transplant_type === "kidney"
                                     ? [
+                                        _c("span", { staticClass: "section" }, [
+                                          _vm._v("Kidney Transplant"),
+                                        ]),
+                                        _vm._v(" "),
                                         _c("div", { staticClass: "row" }, [
                                           _c(
                                             "div",
@@ -67261,211 +67841,6 @@ var render = function () {
                                                       staticClass:
                                                         "col-form-label col-md-3 col-sm-3 label-align",
                                                     },
-                                                    [_vm._v("HLA Tissue Type")]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "col-md-9 col-sm-9",
-                                                    },
-                                                    [
-                                                      _c("input", {
-                                                        directives: [
-                                                          {
-                                                            name: "model",
-                                                            rawName: "v-model",
-                                                            value:
-                                                              _vm.hal_tissue_type,
-                                                            expression:
-                                                              "hal_tissue_type",
-                                                          },
-                                                        ],
-                                                        staticClass:
-                                                          "form-control",
-                                                        attrs: { type: "text" },
-                                                        domProps: {
-                                                          value:
-                                                            _vm.hal_tissue_type,
-                                                        },
-                                                        on: {
-                                                          input: function (
-                                                            $event
-                                                          ) {
-                                                            if (
-                                                              $event.target
-                                                                .composing
-                                                            ) {
-                                                              return
-                                                            }
-                                                            _vm.hal_tissue_type =
-                                                              $event.target.value
-                                                          },
-                                                        },
-                                                      }),
-                                                    ]
-                                                  ),
-                                                ]
-                                              ),
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            { staticClass: "col-md-6" },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass: "form-group row",
-                                                },
-                                                [
-                                                  _c(
-                                                    "label",
-                                                    {
-                                                      staticClass:
-                                                        "col-form-label col-md-3 col-sm-3 label-align",
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "\n                                                        Cross Match CDC\n                                                    "
-                                                      ),
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "col-md-9 col-sm-9",
-                                                    },
-                                                    [
-                                                      _c("input", {
-                                                        directives: [
-                                                          {
-                                                            name: "model",
-                                                            rawName: "v-model",
-                                                            value:
-                                                              _vm.cross_match_cdc,
-                                                            expression:
-                                                              "cross_match_cdc",
-                                                          },
-                                                        ],
-                                                        staticClass:
-                                                          "form-control",
-                                                        attrs: { type: "text" },
-                                                        domProps: {
-                                                          value:
-                                                            _vm.cross_match_cdc,
-                                                        },
-                                                        on: {
-                                                          input: function (
-                                                            $event
-                                                          ) {
-                                                            if (
-                                                              $event.target
-                                                                .composing
-                                                            ) {
-                                                              return
-                                                            }
-                                                            _vm.cross_match_cdc =
-                                                              $event.target.value
-                                                          },
-                                                        },
-                                                      }),
-                                                    ]
-                                                  ),
-                                                ]
-                                              ),
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            { staticClass: "col-md-6" },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass: "form-group row",
-                                                },
-                                                [
-                                                  _c(
-                                                    "label",
-                                                    {
-                                                      staticClass:
-                                                        "col-form-label col-md-3 col-sm-3 label-align",
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        "\n                                                        DSA Titre\n                                                    "
-                                                      ),
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "col-md-9 col-sm-9",
-                                                    },
-                                                    [
-                                                      _c("input", {
-                                                        directives: [
-                                                          {
-                                                            name: "model",
-                                                            rawName: "v-model",
-                                                            value:
-                                                              _vm.dsa_titre,
-                                                            expression:
-                                                              "dsa_titre",
-                                                          },
-                                                        ],
-                                                        staticClass:
-                                                          "form-control",
-                                                        attrs: { type: "text" },
-                                                        domProps: {
-                                                          value: _vm.dsa_titre,
-                                                        },
-                                                        on: {
-                                                          input: function (
-                                                            $event
-                                                          ) {
-                                                            if (
-                                                              $event.target
-                                                                .composing
-                                                            ) {
-                                                              return
-                                                            }
-                                                            _vm.dsa_titre =
-                                                              $event.target.value
-                                                          },
-                                                        },
-                                                      }),
-                                                    ]
-                                                  ),
-                                                ]
-                                              ),
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            { staticClass: "col-md-6" },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass: "form-group row",
-                                                },
-                                                [
-                                                  _c(
-                                                    "label",
-                                                    {
-                                                      staticClass:
-                                                        "col-form-label col-md-3 col-sm-3 label-align",
-                                                    },
                                                     [
                                                       _vm._v(
                                                         "\n                                                        PRA\n                                                    "
@@ -67516,10 +67891,747 @@ var render = function () {
                                               ),
                                             ]
                                           ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "h4",
+                                                {
+                                                  staticClass:
+                                                    "col-form-label col-md-3 col-sm-3 label-align",
+                                                },
+                                                [_vm._v("HLA Tissue Type")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("div", {
+                                            staticClass: "col-md-6",
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [
+                                                      _vm._v(" A "),
+                                                      _c("small", [
+                                                        _vm._v("m"),
+                                                      ]),
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value: _vm.hla_a_m,
+                                                            expression:
+                                                              "hla_a_m",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value: _vm.hla_a_m,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.hla_a_m =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [
+                                                      _vm._v(" A "),
+                                                      _c("small", [
+                                                        _vm._v("f"),
+                                                      ]),
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value: _vm.hla_a_f,
+                                                            expression:
+                                                              "hla_a_f",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value: _vm.hla_a_f,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.hla_a_f =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [
+                                                      _vm._v(" B "),
+                                                      _c("small", [
+                                                        _vm._v("m"),
+                                                      ]),
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value: _vm.hla_b_m,
+                                                            expression:
+                                                              "hla_b_m",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value: _vm.hla_b_m,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.hla_b_m =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [
+                                                      _vm._v(" B "),
+                                                      _c("small", [
+                                                        _vm._v("f"),
+                                                      ]),
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value: _vm.hla_b_f,
+                                                            expression:
+                                                              "hla_b_f",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value: _vm.hla_b_f,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.hla_b_f =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [
+                                                      _vm._v(" DR "),
+                                                      _c("small", [
+                                                        _vm._v("m"),
+                                                      ]),
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value: _vm.hla_dr_m,
+                                                            expression:
+                                                              "hla_dr_m",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value: _vm.hla_dr_m,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.hla_dr_m =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [
+                                                      _vm._v(" DR "),
+                                                      _c("small", [
+                                                        _vm._v("f"),
+                                                      ]),
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value: _vm.hla_dr_f,
+                                                            expression:
+                                                              "hla_dr_f",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value: _vm.hla_dr_f,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.hla_dr_f =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "h4",
+                                                {
+                                                  staticClass:
+                                                    "col-form-label col-md-3 col-sm-3 label-align",
+                                                },
+                                                [_vm._v("Cross Match CDC")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("div", {
+                                            staticClass: "col-md-6",
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [_vm._v(" T cell")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value:
+                                                              _vm.cdc_t_cell,
+                                                            expression:
+                                                              "cdc_t_cell",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value: _vm.cdc_t_cell,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.cdc_t_cell =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [_vm._v(" B cell")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value:
+                                                              _vm.cdc_B_cell,
+                                                            expression:
+                                                              "cdc_B_cell",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value: _vm.cdc_B_cell,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.cdc_B_cell =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "h4",
+                                                {
+                                                  staticClass:
+                                                    "col-form-label col-md-3 col-sm-3 label-align",
+                                                },
+                                                [_vm._v("DSA Titre")]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("div", {
+                                            staticClass: "col-md-6",
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [_vm._v(" Class 1")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value:
+                                                              _vm.dsa_class_1,
+                                                            expression:
+                                                              "dsa_class_1",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value:
+                                                            _vm.dsa_class_1,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.dsa_class_1 =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-md-6" },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "form-group row",
+                                                },
+                                                [
+                                                  _c(
+                                                    "label",
+                                                    {
+                                                      staticClass:
+                                                        "col-form-label col-md-3 col-sm-3 label-align",
+                                                    },
+                                                    [_vm._v(" Class 2")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "col-md-9 col-sm-9",
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value:
+                                                              _vm.dsa_class_2,
+                                                            expression:
+                                                              "dsa_class_2",
+                                                          },
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: { type: "text" },
+                                                        domProps: {
+                                                          value:
+                                                            _vm.dsa_class_2,
+                                                        },
+                                                        on: {
+                                                          input: function (
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.dsa_class_2 =
+                                                              $event.target.value
+                                                          },
+                                                        },
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
                                         ]),
                                       ]
                                     : _vm.transplant_type === "liver"
                                     ? [
+                                        _c("span", { staticClass: "section" }, [
+                                          _vm._v("Liver Transplant"),
+                                        ]),
+                                        _vm._v(" "),
                                         _c("div", { staticClass: "row" }, [
                                           _c(
                                             "div",
@@ -67537,7 +68649,17 @@ var render = function () {
                                                       staticClass:
                                                         "col-form-label col-md-3 col-sm-3 label-align",
                                                     },
-                                                    [_vm._v("MELD Score")]
+                                                    [
+                                                      _vm._v("MELD Score "),
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          staticClass:
+                                                            "required",
+                                                        },
+                                                        [_vm._v("*")]
+                                                      ),
+                                                    ]
                                                   ),
                                                   _vm._v(" "),
                                                   _c(

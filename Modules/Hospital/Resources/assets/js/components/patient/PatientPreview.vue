@@ -70,8 +70,6 @@
                                     <div class="col-md-9 col-sm-9">
                                         <input :value="`${patient.date_of_birth ? patient.date_of_birth:''}`" class="form-control" disabled required="required" type="text">
                                         <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
-                                        <span class="text-sm text-info">Date format: dd/mm/yyyy</span>
-
                                     </div>
                                 </div>
 
@@ -389,7 +387,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6"></div>
+                            <!--<div class="col-md-6"></div>-->
 
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -403,6 +401,7 @@
                         </div>
 
                         <template v-if="patient.transplant_type === 'kidney'">
+                            <h2>Kidney Transplant</h2>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">
@@ -416,34 +415,6 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" :value="patient.hal_tissue_type" class="form-control" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                            Cross Match CDC
-                                        </label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" :value="patient.cross_match_cdc" class="form-control" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                            DSA Titre
-                                        </label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" :value="patient.dsa_titre" class="form-control" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
                                         <label class="col-form-label col-md-3 col-sm-3 label-align">
                                             PRA
                                         </label>
@@ -452,9 +423,113 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!--HLA tissue type start-->
+                                <div class="col-md-6">
+                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</h4>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> A <small>m</small></label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.hla_a_m" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> A <small>f</small></label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.hla_a_f" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B <small>m</small></label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.hla_b_m" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B <small>f</small></label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.hla_b_f" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> DR <small>m</small></label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.hla_dr_m" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> DR <small>f</small></label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.hla_dr_f" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--HLA tissue type end-->
+
+                                <!--CDC start-->
+                                <div class="col-md-6">
+                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">Cross Match CDC</h4>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> T cell</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.cdc_t_cell" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B cell</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.cdc_B_cell" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--CDC End-->
+
+                                <!--DSA Start-->
+                                <div class="col-md-6">
+                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">DSA Titre</h4>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> Class 1</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.dsa_class_1" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> Class 2</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text" disabled :value="patient.dsa_class_2" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--DSA END-->
+
                             </div>
                         </template>
                         <template v-else-if="patient.transplant_type === 'liver'">
+                            <h2>Liver Transplant</h2>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">

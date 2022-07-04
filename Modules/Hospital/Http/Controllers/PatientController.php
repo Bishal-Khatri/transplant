@@ -25,9 +25,16 @@ class PatientController extends Controller
 
         $query = Patient::query();
         $query->where('hospital_id', $hospital->id);
-        if (isset($request->filter) AND !blank($request->filter)){
+
+        // filers
+        if (isset($request->query) AND !blank($request->query)){
             $query->where('name', 'LIKE', "%" . $request->filter . "%");
         }
+
+        if (isset($request->blood_type) AND !blank($request->blood_type)){
+            $query->where('blood_group', 'LIKE', "%" . $request->blood_type . "%");
+        }
+
         $patients = $query->with([
             'current_province',
             'current_district',
@@ -244,10 +251,18 @@ class PatientController extends Controller
 
             if ($request->transplant_type == 'kidney'){
                 $patient->dialysis_start_date = $request->dialysis_start_date;
-                $patient->hal_tissue_type = $request->hal_tissue_type;
-                $patient->cross_match_cdc = $request->cross_match_cdc;
-                $patient->dsa_titre = $request->dsa_titre;
                 $patient->pra = $request->pra;
+
+                $patient->hla_a_m = $request->hla_a_m;
+                $patient->hla_a_f = $request->hla_a_f;
+                $patient->hla_b_m = $request->hla_b_m;
+                $patient->hla_b_f = $request->hla_b_f;
+                $patient->hla_dr_m = $request->hla_dr_m;
+                $patient->hla_dr_f = $request->hla_dr_f;
+                $patient->cdc_t_cell = $request->cdc_t_cell;
+                $patient->cdc_B_cell = $request->cdc_B_cell;
+                $patient->dsa_class_1 = $request->dsa_class_1;
+                $patient->dsa_class_2 = $request->dsa_class_2;
 
                 // reset liver field
                 $patient->meld_score = null;
@@ -257,10 +272,18 @@ class PatientController extends Controller
 
                 // reset kidney fileds
                 $patient->dialysis_start_date = null;
-                $patient->hal_tissue_type = null;
-                $patient->cross_match_cdc = null;
-                $patient->dsa_titre = null;
                 $patient->pra = null;
+
+                $patient->hla_a_m = null;
+                $patient->hla_a_f = null;
+                $patient->hla_b_m = null;
+                $patient->hla_b_f = null;
+                $patient->hla_dr_m = null;
+                $patient->hla_dr_f = null;
+                $patient->cdc_t_cell = null;
+                $patient->cdc_B_cell = null;
+                $patient->dsa_class_1 = null;
+                $patient->dsa_class_2 = null;
             }
 
             $patient->save();

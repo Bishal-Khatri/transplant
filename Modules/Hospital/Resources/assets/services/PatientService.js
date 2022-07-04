@@ -5,7 +5,7 @@ export default {
         return Api().get('/hospital/web-api/patient/get/' + id);
     },
     getPatients(page,filter){
-        return Api().get('/hospital/web-api/patient/list?page=' + page + '&filter=' + filter);
+        return Api().get('/hospital/web-api/patient/list?page=' + page + '&query=' + filter.query + '&blood_type=' + filter.blood_type);
     },
 
     savePatient(formData){

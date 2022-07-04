@@ -39,6 +39,24 @@
                                 </div>
 
                                 <div class="btn-group" role="group">
+                                    <button id="filter-blood-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-filter mr-1"></i>  Blood Group:
+                                        <span v-if="filter.blood_type">{{ filter.blood_type }}</span>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="filter-hospital-type"
+                                         x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'A+'; getPatients();">A+</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'A-'; getPatients();">A-</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'B+'; getPatients();">B+</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'B-'; getPatients();">B-</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'O+'; getPatients();">O+</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'O-'; getPatients();">O-</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'AB+'; getPatients();">AB+</a>
+                                        <a class="dropdown-item" href="#" @click.prevent="filter.blood_type = 'AB-'; getPatients();">AB-</a>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group" role="group">
                                     <button id="filter-patient-status" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-filter mr-1"></i> Patient Status:
                                         <span v-if="filter.patient_status === 1">Active <span v-if="count">({{ count.active }})</span></span>
@@ -72,11 +90,12 @@
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr>
-                                <th>Patient's Photo</th>
+                                <th>Image</th>
                                 <th>Patient's Name</th>
                                 <th>Citizenship Number</th>
                                 <th>Gender</th>
                                 <th>Date Of Birth</th>
+                                <th>Blood Group</th>
                                 <th>Transplant Type</th>
                                 <th>Transplant Center</th>
                                 <th>Score</th>
@@ -86,10 +105,10 @@
                             </thead>
                             <tbody>
                             <tr v-if="!patients.length">
-                                <td colspan="10">No items to display.</td>
+                                <td colspan="11">No items to display.</td>
                             </tr>
                             <tr v-else v-for="(patient, index) in sortArrays(patients)" :key="index">
-                                <td style="width: 150px;">
+                                <td >
                                     <a v-if="patient.image" href="#" @click.prevent="$refs.imagePreview.openDialog('/storage/'+patient.image)">
                                         <img :src="'/storage/'+patient.image" alt="" class="rounded" width="60">
                                     </a>
@@ -105,6 +124,7 @@
                                 <td>{{ patient.citizenship_number || 'Not-Available' }}</td>
                                 <td>{{ patient.gender ? patient.gender.toUpperCase() : 'Not-Available' }}</td>
                                 <td>{{ patient.date_of_birth || 'Not-Available' }}</td>
+                                <td>{{ patient.blood_group || 'Not-Available' }}</td>
                                 <td>{{ patient.transplant_type ? patient.transplant_type.toUpperCase() : 'Not-Available' }}</td>
                                 <td>{{ patient.hospital ? patient.hospital.hospital_name : 'Not-Available' }}</td>
                                 <td style="width: 70px;">
@@ -291,6 +311,7 @@
                     query: '',
                     transplant_type: 'kidney',
                     patient_status: 1,
+                    blood_type: '',
                 },
 
                 patients: {},
@@ -319,14 +340,14 @@
                 this.getPatients();
             });
 
-            let vm = this;
-            this.$nextTick(() => {
-                $('.modal').each(function (){
-                    $(this).on('hidden.bs.modal', function () {
-                        vm.clearForm();
-                    });
-                });
-            });
+            // let vm = this;
+            // this.$nextTick(() => {
+            //     $('.modal').each(function (){
+            //         $(this).on('hidden.bs.modal', function () {
+            //             vm.clearForm();
+            //         });
+            //     });
+            // });
         },
         methods: {
             clearForm(){
@@ -416,13 +437,13 @@
                     }
                 }
                 this.selected_json = JSON.stringify(this.selected);
-                console.log(this.selected_json)
+                // console.log(this.selected_json)
             },
 
             selectOne(patient_id){
                 this.selected.push(patient_id);
                 this.selected_json = JSON.stringify(this.selected);
-                console.log(this.selected_json)
+                // console.log(this.selected_json)
             }
         }
     }

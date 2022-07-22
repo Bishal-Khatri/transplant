@@ -429,54 +429,50 @@
                                 </div>
                                 <div class="col-md-6"></div>
                                 <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> A <small>m</small></label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" disabled :value="patient.hla_a_m" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> A <small>f</small></label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" disabled :value="patient.hla_a_f" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B <small>m</small></label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" disabled :value="patient.hla_b_m" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B <small>f</small></label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" disabled :value="patient.hla_b_f" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> DR <small>m</small></label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" disabled :value="patient.hla_dr_m" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> DR <small>f</small></label>
-                                        <div class="col-md-9 col-sm-9">
-                                            <input type="text" disabled :value="patient.hla_dr_f" class="form-control">
-                                        </div>
-                                    </div>
+                                                    <div class="form-group row ">
+                                                        <h4 class="col-form-label col-md-3 col-sm-3 label-align">Patient</h4>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -A*</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text"  class="form-control" v-model="patient.patient_hla_a" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -B</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text"  class="form-control" v-model="patient.patient_hla_b" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -DRB1</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text"  class="form-control" v-model="patient.patient_hla_drb1" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row ">
+                                                        <h4 class="col-form-label col-md-3 col-sm-3 label-align">Donor</h4>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align">HLA -A*</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text"  class="form-control" v-model="patient.donor_hla_a" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -B</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text"  class="form-control" v-model="patient.donor_hla_b" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -DRB1</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text"  class="form-control" v-model="patient.donor_hla_drb1" readonly>
+                                                        </div>
+                                                    </div>
                                 </div>
                                 <!--HLA tissue type end-->
 

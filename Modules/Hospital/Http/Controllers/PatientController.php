@@ -264,6 +264,15 @@ class PatientController extends Controller
                 $patient->dsa_class_1 = $request->dsa_class_1;
                 $patient->dsa_class_2 = $request->dsa_class_2;
 
+
+                $patient->patient_hla_a= $request->patient_hla_a;
+                $patient->patient_hla_b= $request->patient_hla_b;
+                $patient->patient_hla_drb1= $request->patient_hla_drb1;
+
+                $patient->donor_hla_a= $request->donor_hla_a;
+                $patient->donor_hla_b= $request->donor_hla_b;
+                $patient->donor_hla_drb1= $request->donor_hla_drb1;
+
                 // reset liver field
                 $patient->meld_score = null;
             }

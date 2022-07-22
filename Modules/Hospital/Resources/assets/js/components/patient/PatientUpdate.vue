@@ -477,7 +477,7 @@
                                         </div>
                                         <br>
                                         <template v-if="transplant_type === 'kidney'">
-                                            <span class="section">Kidney Transplant</span>
+                                            <span class="section">HLL Typing</span>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
@@ -502,56 +502,48 @@
 
                                                 <!--HLA tissue type start-->
                                                 <div class="col-md-6">
-                                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</h4>
-                                                </div>
-                                                <div class="col-md-6"></div>
-                                                <div class="col-md-6">
+                                                    <div class="form-group row ">
+                                                        <h4 class="col-form-label col-md-3 col-sm-3 label-align">Patient</h4>
+                                                    </div>
                                                     <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> A <small>m</small></label>
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -A*</label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="hla_a_m" class="form-control">
+                                                            <input type="text"  class="form-control" v-model="patient_hla_a">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -B</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text"  class="form-control" v-model="patient_hla_b">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -DRB1</label>
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <input type="text"  class="form-control" v-model="patient_hla_drb1">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
+                                                    <div class="form-group row ">
+                                                        <h4 class="col-form-label col-md-3 col-sm-3 label-align">Donor</h4>
+                                                    </div>
                                                     <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> A <small>f</small></label>
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align">HLA -A*</label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="hla_a_f" class="form-control">
+                                                            <input type="text"  class="form-control" v-model="donor_hla_a">
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B <small>m</small></label>
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -B</label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="hla_b_m" class="form-control">
+                                                            <input type="text"  class="form-control" v-model="donor_hla_b">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> B <small>f</small></label>
+                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -DRB1</label>
                                                         <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="hla_b_f" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> DR <small>m</small></label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="hla_dr_m" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> DR <small>f</small></label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text" v-model="hla_dr_f" class="form-control">
+                                                            <input type="text"  class="form-control" v-model="donor_hla_drb1">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -751,6 +743,17 @@
                 // liver
                 meld_score: '',
 
+                // HLL Typing
+                // patient
+                patient_hla_a:'',
+                patient_hla_b:'',
+                patient_hla_drb1:'',
+
+                // donor
+                donor_hla_a:'',
+                donor_hla_b:'',
+                donor_hla_drb1:'',
+
             }
         },
         components: {
@@ -882,6 +885,14 @@
                 this.dsa_class_1 = this.patient.dsa_class_1;
                 this.dsa_class_2 = this.patient.dsa_class_2;
 
+                this.patient_hla_a = this.patient.patient_hla_a;
+                this.patient_hla_b = this.patient.patient_hla_b;
+                this.patient_hla_drb1 = this.patient.patient_hla_drb1;
+
+                this.donor_hla_a = this.patient.donor_hla_a;
+                this.donor_hla_b = this.patient.donor_hla_b;
+                this.donor_hla_drb1 = this.patient.donor_hla_drb1;
+
                 // liver
                 this.meld_score = this.patient.meld_score;
 
@@ -951,6 +962,14 @@
                     this.cdc_B_cell ? formData.append("cdc_B_cell", this.cdc_B_cell) : '';
                     this.dsa_class_1 ? formData.append("dsa_class_1", this.dsa_class_1) : '';
                     this.dsa_class_2 ? formData.append("dsa_class_2", this.dsa_class_2) : '';
+
+                    this.patient_hla_a ? formData.append("patient_hla_a", this.patient_hla_a) : '';
+                    this.patient_hla_b ? formData.append("patient_hla_b", this.patient_hla_b) : '';
+                    this.patient_hla_drb1 ? formData.append("patient_hla_drb1", this.patient_hla_drb1) : '';
+
+                    this.donor_hla_a ? formData.append("donor_hla_a", this.donor_hla_a) : '';
+                    this.donor_hla_b ? formData.append("donor_hla_b", this.donor_hla_b) : '';
+                    this.donor_hla_drb1 ? formData.append("donor_hla_drb1", this.donor_hla_drb1) : '';
 
                     // liver
                     this.meld_score ? formData.append("meld_score", this.meld_score) : '';

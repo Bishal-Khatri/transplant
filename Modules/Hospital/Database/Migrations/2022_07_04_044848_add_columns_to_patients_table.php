@@ -22,6 +22,17 @@ class AddColumnsToPatientsTable extends Migration
             $table->string('hla_dr_m')->nullable();
             $table->string('hla_dr_f')->nullable();
 
+            // patient
+            $table->string('patient_hla_a')->nullable();
+            $table->string('patient_hla_b')->nullable();
+            $table->string('patient_hla_drb1')->nullable();
+
+            // donor
+            $table->string('donor_hla_a')->nullable();
+            $table->string('donor_hla_b')->nullable();
+            $table->string('donor_hla_drb1')->nullable();
+
+
             // CDC
             $table->string('cdc_t_cell')->nullable();
             $table->string('cdc_B_cell')->nullable();

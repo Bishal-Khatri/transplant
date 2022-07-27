@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SliderImage extends Model
 {
     use HasFactory;
-
+// REMOVE THIS FILE
     protected $fillable = [];
 
-    protected static function newFactory()
+    public function getCreatedAtAttribute($value)
     {
-        return \Modules\ContentManagement\Database\factories\SliderImageFactory::new();
+        return date('M d Y', strtotime($value));
     }
 
     public function slider(){

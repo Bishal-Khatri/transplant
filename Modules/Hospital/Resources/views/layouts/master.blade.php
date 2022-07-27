@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Module Hospital</title>
 
     {{-- Laravel Mix - CSS File --}}
@@ -24,16 +25,12 @@
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer>
-            <div class="pull-right">
-                Bootstrap Admin Template
-            </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+    @include('layouts.gentelella.footer')
+    <!-- /footer content -->
     </div>
 </div>
-{{-- <script src="{{ mix('js/hospital.js') }}"></script> --}}
 @include('layouts.gentelella.script')
+<script src="{{ asset('asset/gentelella/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+<script src="{{ mix('js/hospital.js') }}"></script>
 </body>
 </html>

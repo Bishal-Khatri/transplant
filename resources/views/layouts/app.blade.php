@@ -4,34 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Page title -->
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     @include('layouts.gentelella.css')
 
 </head>
-<body>
-
-<!-- Wrapper-->
+<body class="login">
 <div class="wrapper">
-
-<!-- Header-->
-@include('layouts._partials.nav')
-<!-- End header-->
-
-<!-- Navigation-->
-@include('layouts._partials.sidebar')
-<!-- End navigation-->
-    <!-- Main content-->
     <section class="content">
-        <div class="container-fluid">
-            @yield('content')
-        </div>
+        @yield('content')
     </section>
-    <!-- End main content-->
-
 </div>
-<!-- End wrapper-->
 
 @include('layouts.gentelella.script')
 </body>

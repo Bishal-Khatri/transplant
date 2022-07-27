@@ -4,33 +4,53 @@
             <div class="col-md-3 col-lg-3 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Sections <small>All available sections</small></h2>
+                        <h2><i class="fa fa-bars"></i> Page Sections</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div class="">
-                            <ul class="to_do">
-                                <li>
-                                    <p>Slider <a class="float-right" href="#" @click.prevent="addSection('slider')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
 
-                                </li>
-                                <li>
-                                    <p>Text Field <a class="float-right" href="#" @click.prevent="addSection('text')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
-                                <li>
-                                    <p>Image <a class="float-right" href="" @click.prevent="addSection('image')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
-                                <li>
-                                    <p>Image Gallery <a class="float-right" href="" @click.prevent="addSection('gallery')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
-                                <li>
-                                    <p>File Downloads <a class="float-right" href="" @click.prevent="addSection('file_download')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
-                                <li>
-                                    <p>Pdf <a class="float-right" href="" @click.prevent="addSection('pdf')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
-                                </li>
+                        <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="component-tab" data-toggle="tab" href="#component" role="tab" aria-controls="home" aria-selected="true">Sections</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="component" role="tabpanel" aria-labelledby="home-tab">
+                                <ul class="to_do">
+                                    <li>
+                                        <p>Call To Action <a class="float-right" href="#" @click.prevent="addSection('call_to_action', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>Text Field <a class="float-right" href="#" @click.prevent="addSection('text', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
 
-                            </ul>
+                                    <li>
+                                        <p>Banner - Home Page <a class="float-right" href="#" @click.prevent="addSection('banner', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+
+                                    <li>
+                                        <p>Image <a class="float-right" href="" @click.prevent="addSection('image', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+
+                                    <li>
+                                        <p>Pdf <a class="float-right" href="" @click.prevent="addSection('pdf')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+
+                                    <li>
+                                        <p>Image Gallery <a class="float-right" href="" @click.prevent="addSection('gallery', 'widget')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>File Downloads <a class="float-right" href="" @click.prevent="addSection('file_download', 'widget')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                    <li>
+                                        <p>Slider <a class="float-right" href="#" @click.prevent="addSection('slider', 'widget')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+                                     <li>
+                                        <p>Process <a class="float-right" href="#" @click.prevent="addSection('process', 'component')"><i class="fa fa-plus mr-1"></i>Add</a> </p>
+                                    </li>
+
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,77 +58,151 @@
             <div class="col-md-9 col-lg-9 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Page</h2>
+                        <h2>Page Details</h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <li>
-                                <a class="btn btn-link" v-if="submitting" href=""><i class="fa fa-spinner fa-spin"></i></a>
-                                <a class="btn btn-link" href="" v-else @click.prevent="updatePage">Save Section</a>
+                            <li class="mr-3">
+                                <a class="text-accent" v-if="submitting" href="">Saving <i class="fa fa-spinner fa-spin"></i></a>
+                                <a class="text-accent"  :class="page_details_loading ? 'disabled-link' : ''" v-else @click.prevent="updatePage" href="#">Save Section</a>
                             </li>
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            <li><a class="collapse-link-section"><i class="fa fa-chevron-up"></i></a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
+                                    <a class="dropdown-item" href="#">Enable</a>
+                                    <a class="dropdown-item" href="#">Disable</a>
                                 </div>
                             </li>
-                            <li><a class="" @click.prevent="getPageDetails"><i class="fa fa-refresh"></i></a></li>
+                            <li><a class="" @click.prevent="getPageDetails"><i class="fa fa-refresh" :class="page_details_loading ? 'fa-spin' : ''"></i></a></li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <form class="form-label-left input_mask">
-                            <div class="col-md-12 col-sm-12  form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" v-model="title" placeholder="Page Title">
-                                <span class="fa fa-align-left form-control-feedback left" aria-hidden="true"></span>
+                        <form class="form-horizontal form-label-left">
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Header Title
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" v-model="title" class="form-control">
+                                </div>
                             </div>
 
-                            <div class="col-md-12 col-sm-12  form-group has-feedback">
-                                <textarea class="form-control" name="" cols="30" rows="5" placeholder="Short Description" v-model="short_description"></textarea>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Header Visibility
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="checkbox" class="js-switch-custom ml-4" v-model="title_visibility" id="title_visibility"/>
+                                    <span v-if="title_visibility">Visible</span>
+                                    <span v-else>Hidden</span>
+                                </div>
                             </div>
-                            <div class="col-md-12 col-sm-12  form-group">
-                                <select class="form-control" v-model="category_id">
-                                    <option value="" selected>Choose Category</option>
-                                    <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
-                                </select>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Page Short Description
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <textarea class="form-control" name="" cols="30" rows="5" placeholder="Short Description" v-model="short_description"></textarea>
+                                </div>
                             </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">
+                                    Page Category
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select class="form-control" v-model="category_id">
+                                        <option value="" selected>Choose Category</option>
+                                        <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!--<div class="row">-->
+                            <!--<div class="col-md-12 col-sm-12  form-group has-feedback">-->
+                            <!--<input type="text" class="form-control has-feedback-left" v-model="title" placeholder="Page Title">-->
+                            <!--<span class="fa fa-align-left form-control-feedback left" aria-hidden="true"></span>-->
+                            <!--</div>-->
+
+                            <!--<div class="col-md-12 col-sm-12  form-group has-feedback">-->
+                            <!--<textarea class="form-control" name="" cols="30" rows="5" placeholder="Short Description" v-model="short_description"></textarea>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-12 col-sm-12  form-group">-->
+                            <!--<select class="form-control" v-model="category_id">-->
+                            <!--<option value="" selected>Choose Category</option>-->
+                            <!--<option v-for="category in categories" :value="category.id">{{ category.name }}</option>-->
+                            <!--</select>-->
+                            <!--</div>-->
+                            <!--</div>-->
                         </form>
                     </div>
                 </div>
 
                 <!--<pre>{{sections}}</pre>-->
 
-                <template v-if="sections.length" v-for="(section, index) in sections">
+                <div v-if="sections.length" v-for="(section, index) in sections" :key="index">
 
-                    <div v-if="section.type === 'text'">
-                        <rich-text :page="page" :section="section"></rich-text>
-                    </div>
+                    <!--COMPONENTS-->
+                    <call-to-action v-if="section.section_name === 'call_to_action'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </call-to-action>
 
-                    <div v-if="section.type === 'slider'">
-                        <slider :page="page" :section="section" :sliders="sliders"></slider>
-                    </div>
+                    <rich-text v-if="section.section_name === 'text'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </rich-text>
 
-                    <div v-if="section.type === 'image'">
-                        <image-field :page="page" :section="section"></image-field>
-                    </div>
+                    <banner v-if="section.section_name === 'banner'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </banner>
 
-                    <div v-if="section.type === 'gallery'">
-                        <gallery :page="page" :section="section" :galleries="galleries"></gallery>
-                    </div>
+                    <pdf v-else-if="section.section_name === 'pdf'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </pdf>
 
-                    <div v-else-if="section.type === 'file_download'">
-                        <file-download :page="page" :section="section"></file-download>
-                    </div>
+                    <image-field v-if="section.section_name === 'image'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </image-field>
 
-                    <div v-else-if="section.type === 'pdf'">
-                        <pdf :page="page" :section="section"></pdf>
-                    </div>
+                    <!--WIDGET-->
+                    <slider v-if="section.section_name === 'slider'" :page="page" :section="section" :galleries="galleries">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </slider>
 
-                </template>
+                    <gallery v-if="section.section_name === 'gallery'" :page="page" :section="section" :galleries="galleries">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </gallery>
+
+                    <file-download v-else-if="section.section_name === 'file_download'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </file-download>
+                    <process v-else-if="section.section_name === 'process'" :page="page" :section="section">
+                        <template v-slot:delete>
+                            <a class="" @click.prevent="$refs.deleteSection.openDialog(section.id)"><i class="fa fa-close"></i></a>
+                        </template>
+                    </process>
+                </div>
+
             </div>
 
 
-
+            <delete-section ref="deleteSection"></delete-section>
         </div>
     </div>
 </template>
@@ -123,15 +217,25 @@
     import Slider from "./section/Slider";
     import Pdf from "./section/Pdf";
     import ImageField from "./section/ImageField";
+    import CallToAction from "./section/CallToAction";
+    import Banner from "./section/Banner";
+    import DeleteSection from "./section/DeleteSection";
+    import Process from "./section/Process";
+
+
     export default {
         name: "Edit",
         components: {
+            CallToAction,
             RichText,
             Gallery,
             ImageField,
             FileDownload,
             Pdf,
             Slider,
+            Banner,
+            DeleteSection,
+            Process
         },
         props: [
             'page',
@@ -142,6 +246,8 @@
         data(){
             return{
                 submitting: false,
+                title_visibility: false,
+                page_details_loading: false,
                 page_details: '',
                 sections: '',
 
@@ -152,33 +258,49 @@
         },
         async mounted(){
             await this.getPageDetails();
-            EventBus.$on('sectionUpdated', () => {
-                this.getPageDetails();
-            });
+            // EventBus.$on('sectionUpdated', () => {
+            //     this.getPageDetails();
+            // });
+            this.init();
         },
         methods: {
+            init(){
+                if ($(".js-switch-custom")[0]) {
+                    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch-custom'));
+                    elems.forEach(function (html) {
+                        var switchery = new Switchery(html, {
+                            color: '#172D44'
+                        });
+                    });
+                }
+            },
+
             async getPageDetails() {
+                this.page_details_loading = true;
                 const response = await PageService.getPageDetails(this.page.id);
                 this.page_details = response.data.data.page;
                 this.sections = response.data.data.page.sections;
                 this.title = this.page_details.title;
                 this.short_description = this.page_details.short_description;
                 this.category_id = this.page_details.category_id;
+                this.title_visibility = this.page_details.title_visibility;
+                if (this.title_visibility === true){
+                    $("#title_visibility").attr("checked", "newId");
+                }
+                this.page_details_loading = false;
             },
-            async addSection(type) {
+
+            async addSection(section_name, section_type) {
                 const formData = {
                     page_id: this.page.id,
-                    type: type
+                    section_name: section_name,
+                    section_type: section_type
                 };
                 const response = await PageService.addSection(formData);
                 if (response.data.error === false) {
                     Errors.Notification(response);
                 }
-                this.getPageDetails();
-            },
-
-            init(){
-
+                await this.getPageDetails();
             },
 
             async updatePage() {
@@ -188,7 +310,8 @@
                         page_id: this.page.id,
                         title: this.title,
                         short_description : this.short_description,
-                        category_id : this.category_id
+                        category_id : this.category_id,
+                        title_visibility :  this.title_visibility
                     };
 
                     const response = await PageService.updatePage(formData);
@@ -208,9 +331,6 @@
                 this.main_image = event.target.files[0];
                 this.item_image_url = URL.createObjectURL(event.target.files[0]);
             },
-            clearForm() {
-                // this.id = this.item_name = this.sku = this.category = this.brand = '';
-            },
             async showDelete(delete_id){
                 this.delete_quantity_id = delete_id;
                 $("#deleteModal").modal("show");
@@ -219,53 +339,6 @@
                 this.delete_quantity_id = '';
                 $("#deleteModal").modal("hide");
             },
-            async deleteQuantity(){
-                this.delete_submitting = true;
-                const response = await InventoryService.deleteQuantity(this.delete_quantity_id);
-                if (response.data.error === false) {
-                    Errors.Notification(response);
-                    this.getItemDetails();
-                    this.hideDelete();
-                    EventBus.$emit('quantityDeleted');
-                }
-                this.delete_submitting = false;
-            },
-            async uploadAdditionalImages(event){
-                this.uploading_image = true;
-                const files = event.target.files;
-                if (files.length){
-                    for (let i=0; i < files.length; i++){
-                        await this.uploadFile(files[i]);
-                    }
-                    this.getItemDetails();
-                }
-                this.uploading_image = false;
-            },
-
-            async uploadFile(file){
-                const fd = new FormData();
-                if (file) {
-                    fd.append("file", file, file.name);
-                }
-                fd.append("item_id", this.itemId);
-                try {
-                    const response = await InventoryService.uploadAdditionalImage(fd);
-                    if (response.data.error === false) {
-                    }
-                    Errors.Notification(response);
-                }catch (error) {
-                    this.errors.record(error.response.data);
-                    Errors.Notification(error.response);
-                }
-            },
-
-            async deleteAdditionalImage(image_id){
-                const response = await InventoryService.deleteAdditionalImage(image_id);
-                if (response.data.error === false) {
-                    Errors.Notification(response);
-                    this.getItemDetails();
-                }
-            }
         },
     }
 </script>

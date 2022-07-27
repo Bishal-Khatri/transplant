@@ -42,18 +42,17 @@
         computed:{
         },
         methods: {
-            openDialog(section_id) {
-                if (section_id !== ""){
-                    this.section_id = section_id;
-                    $("#delete-section-dialog").modal("show");
-                }
-                // alert( this.section_id)
+            async openDialog(section_id) {
+                 this.section_id = section_id;
+                $("#delete-section-dialog").modal("show");
+
             },
             async deleteSection() {
                 this.submitting = true;
                 try {
                     const response = await PageService.deleteSection(this.section_id);
                     if (response.data.error === false) {
+                        this.section_id = '';
                         Errors.Notification(response);
                     }
                     $("#delete-section-dialog").modal("hide");
@@ -63,7 +62,6 @@
                 }
                 EventBus.$emit('sectionUpdated');
                 this.submitting = false;
-                this.section_id = '';
             },
         },
     }

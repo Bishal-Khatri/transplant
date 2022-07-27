@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->unique()->nullable();
             $table->string('user_type',20)->comment('subscriber, administrator');
             $table->string('avatar', 255)->nullable();
+            $table->unsignedBigInteger('hospital_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

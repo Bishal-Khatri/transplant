@@ -20,7 +20,6 @@ class MenuController extends Controller
 
     public function getMainMenu()
     {
-//        dd('sdf');
         $mainMenu = MenuPage::where('parent_id', 0)->first();
 
         $child = MenuPage::with(['category:id,slug','post:id,slug','children'])
@@ -65,17 +64,17 @@ class MenuController extends Controller
                 ];
             });
 
-        $menu = Menu::where('is_selected', 1)->first();
-
-        if ($menu){
-            $menu_items = MenuPage::where('menu_id',$menu->id)
+        $selected_menu = Menu::where('is_selected', 1)->first();
+//dd($menu);
+        if ($selected_menu){
+            $menu_items = MenuPage::where('menu_id',$selected_menu->id)
                 ->where('parent_id',0)
                 ->with(['menu','parent'])
                 ->orderBy('order', 'asc')
                 ->get();
         }
 
-        return view('contentmanagement::admin.menu.index', compact('menu', 'menu_items', 'posts', 'pages','categories', 'menus'));
+        return view('contentmanagement::admin.menu.index', compact('selected_menu', 'menu_items', 'posts', 'pages','categories', 'menus'));
     }
 
     public function saveMenuOrder(Request $request)
@@ -113,11 +112,44 @@ class MenuController extends Controller
         return 'true';
     }
 
+    public function create(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+        ]);
+
+        $menu = new Menu();
+        $menu->title = $request->title;
+        $menu->is_selected = 1;
+        $menu->save();
+
+        session()->flash('success', 'Success <br> Link added successfully.');
+        return redirect()->back();
+    }
+
+    public function selectMenu(Request $request)
+    {
+        $request->validate([
+            'menu_id' => 'required',
+        ]);
+        $menus = Menu::all();
+        foreach($menus as $value) {
+            $value->is_selected = 0;
+            $value->save();
+        }
+        $menu = Menu::findOrFail($request->menu_id);
+        $menu->is_selected = 1;
+        $menu->save();
+
+
+        return response()->json('success');
+    }
+
     public function save(Request $request)
     {
         $request->validate([
             'display_name' => 'required',
-            'link' => 'required|url',
+//            'link' => 'required|url',
         ]);
         $menu = new MenuPage();
         $menu->display_name = $request->display_name;

@@ -1,0 +1,9 @@
+palika name -> null
+
+
+column modified
+
+- patients table
+    date_of_birth = date (changed in live)
+    disease rename to disease_id bigint(20) unsigned (remove disease column) (new migration disease_patient created) (changed in live)
+

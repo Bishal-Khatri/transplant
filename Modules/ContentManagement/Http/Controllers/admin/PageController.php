@@ -13,6 +13,7 @@ use Modules\ContentManagement\Entities\Page;
 use Illuminate\Support\Str;
 use Modules\ContentManagement\Entities\PageCategory;
 use Modules\ContentManagement\Entities\PageSection;
+use Modules\ContentManagement\Entities\Slider;
 use Modules\ContentManagement\Enum\ContentType;
 
 class PageController extends Controller
@@ -45,6 +46,7 @@ class PageController extends Controller
         $page->slug = Str::slug($request->title, '-');
         $page->short_description = $request->short_description;
         $page->category_id = $request->category_id;
+        $page->title_visibility = $request->title_visibility;
         $page->save();
 
         $returnData = $this->prepareResponse(false, 'Success<br> Page updated successfully.', [], []);
@@ -55,7 +57,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $galleries = Gallery::all();
-        $sliders = Gallery::all();
+        $sliders = Slider::all();
         $categories = PageCategory::where('type', ContentType::PAGE)->get();
         return view('contentmanagement::admin.page.edit', compact('page', 'galleries','categories', 'sliders'));
     }
@@ -88,12 +90,19 @@ class PageController extends Controller
 
     public function addSection(Request $request)
     {
-//        $page = Page::with(['sections'])->whereId($request->page_id)->firstOrFail();
+        $request->validate([
+            'page_id' => 'required|integer',
+            'section_name' => 'required',
+            'section_type' => 'required',
+        ]);
 
         $section = new PageSection();
         $section->page_id = $request->page_id;
+        $section->title = 'Untitled';
         $section->order = 0;
-        $section->type = $request->type;
+        $section->section_type = $request->section_type;
+        $section->section_name = $request->section_name;
+        $section->visibility = 1;
         $section->save();
 
         $returnData = $this->prepareResponse(false, 'Success <br>Section Added Successfully.', [], []);
@@ -102,7 +111,9 @@ class PageController extends Controller
 
     public function updateSection(Request $request)
     {
-//        dd($request->all());
+        $request->validate([
+            'section_id' => 'required|integer'
+        ]);
         $section = PageSection::findOrFail($request->section_id);
 
         if ($request->hasFile('image')){
@@ -118,13 +129,11 @@ class PageController extends Controller
             $section->image_url =  $url['large'];
         }
 
-        $section->order = $request->order ? $request->order : 0;
-        $section->slider_id = $request->slider_id;
         $section->title = $request->title;
+        $section->order = $request->order ? $request->order : 0;
+        $section->background = $request->background;
+        $section->json_data = $request->json_data;
         $section->text = $request->text;
-        $section->pdf_url = $request->pdf_url;
-        $section->gallery_id = $request->gallery_id;
-        $section->file_download_urls = $request->file_download_urls;
         $section->visibility = $request->visibility;
         $section->save();
 

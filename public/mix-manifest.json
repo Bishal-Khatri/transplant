@@ -1,10 +1,11 @@
 {
-    "/js/app.js": "/js/app.js?id=63b8b0ee02a563df7fa6",
-    "/css/app.css": "/css/app.css?id=f2217793268394d0d36b",
-    "/js/grocery.js": "/js/grocery.js?id=0789a7409e643c618419",
-    "/js/restaurant.js": "/js/restaurant.js?id=0af729b8a2e57c32033c",
-    "/js/cart.js": "/js/cart.js?id=73ba5bdd7ccff995e19e",
-    "/js/user.js": "/js/user.js",
+    "/js/app.js": "/js/app.js?id=8a95d83406d97d949724",
+    "/css/app.css": "/css/app.css?id=3ad92b1d5a953dae2f6b",
+    "/js/grocery.js": "/js/grocery.js?id=446f8f365e845368c3cc",
+    "/js/restaurant.js": "/js/restaurant.js?id=8307ff01fbeaa19d2ce7",
+    "/js/cart.js": "/js/cart.js?id=687f9e3bbf73b8f7640b",
+    "/js/user.js": "/js/user.js?id=5641d1d4e1ee14ad8e18",
     "/js/contentmanagement.js": "/js/contentmanagement.js",
-    "/js/administrator.js": "/js/administrator.js"
+    "/js/administrator.js": "/js/administrator.js",
+    "/js/hospital.js": "/js/hospital.js?id=6615995528949373f048"
 }

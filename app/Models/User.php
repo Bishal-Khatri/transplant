@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Hospital\Entities\Hospital;
+use Modules\Hospital\Entities\License;
 use Modules\Restaurant\Entities\Restaurant;
 use Modules\Restaurant\Entities\RestaurantMenu;
 use Spatie\Permission\Traits\HasRoles;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,LogsActivity;
 
     protected $fillable = [
         'name',
@@ -31,14 +34,22 @@ class User extends Authenticatable
     {
         return date('M d Y', strtotime($value));
     }
+    public function getUpdatedAtAttribute($value)
+    {
+        return date('M d Y', strtotime($value));
+    }
 
     public function addresses()
     {
         return $this->hasMany(UserAddress::class, 'user_id');
     }
 
-    public function restaurant()
+    public function hospital()
     {
-        return Restaurant::where('user_id', $this->id)->firstOrFail();
+        return $this->belongsTo(Hospital::class, 'hospital_id');
+    }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logAll();
     }
 }

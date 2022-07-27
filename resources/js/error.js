@@ -117,13 +117,23 @@ export class Errors{
         }
 
         toastr.options = {
+            "closeButton": true,
             "debug": false,
             "newestOnTop": false,
+            "progressBar": false,
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": 0,
+            "hideDuration": 0,
+            "timeOut": 7000,
+            "extendedTimeOut": 7000,
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
             "positionClass": "toast-bottom-right",
-            "closeButton": true,
-            "progressBar": true
         };
-        if (type === 'success') {toastr.success(message);}
+        if (type === 'success') {toastr.info(message);}
         if (type === 'error') {toastr.error(message);}
 
         // Vue.notify({

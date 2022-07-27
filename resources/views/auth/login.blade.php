@@ -7,6 +7,9 @@
                 <form  method="POST" action="{{ route('login') }}" novalidate id="login-form">
                     @csrf
                     <h1>Login Form</h1>
+                    @if(Session::has('message'))
+                        <p class="alert alert-danger">{{ Session::get('message') }}</p>
+                    @endif
                     <div style="margin-bottom: 20px;">
                         <input type="email" name="email" required="required" autocomplete="email" value="{{ old('email') }}" class="form-control mb-0" placeholder="{{ __('Email Address') }}" />
                         @error('email')
@@ -35,8 +38,8 @@
                         <br />
 
                         <div>
-                            <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                            <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            <h2><img src="{{ $active_theme->logo ? 'storage/'.$active_theme->logo : '' }}" alt="logo" width="350"></h2>
+                            <p>{!! $active_theme->copyright ?? '©2022 All Rights Reserved. iions technology Pvt. Ltd.' !!}</p>
                         </div>
                     </div>
                 </form>

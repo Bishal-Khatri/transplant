@@ -17,8 +17,8 @@ class CreateGalleryImagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('gallery_id');
             $table->string('image_original');
-            $table->string('image_large');
-            $table->string('image_thumbnail');
+            $table->string('image_large')->nullable();
+            $table->string('image_thumbnail')->nullable();
             $table->timestamps();
         });
     }

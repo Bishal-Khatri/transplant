@@ -126,9 +126,9 @@ export default {
 
     getHospitals(page,filter){
 
-        return Api().get('/admin/web-api/hospitals?page=' + 
+        return Api().get('/admin/web-api/hospitals?page=' +
         page+ '&hospital_type=' + filter.hospital_type+
-        '&query=' + filter.query+
+        '&q=' + filter.query+
         // transplant_type
         '&transplant_type=' + filter.transplant_type+
         // approval_status

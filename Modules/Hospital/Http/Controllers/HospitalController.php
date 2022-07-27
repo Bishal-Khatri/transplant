@@ -50,9 +50,10 @@ class HospitalController extends Controller
             'province' => 'required|exists:provinces,id',
             'district' => 'required|exists:districts,id',
             'municipality' => 'required|exists:municipalities,id',
-            'palika' => 'nullable|max:255',
+            'ward' => 'required|max:255',
             'transplant_type' => 'required',
             'hospital_type' => 'required',
+            'transplant_type' => 'required',
             'application_letter' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
             'human_resource' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
             'tools_list' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
@@ -67,70 +68,72 @@ class HospitalController extends Controller
         ], [
             'agree.required' => 'You must agree to the terms and conditions.'
         ]);
+        \DB::beginTransaction();
+        try {
+            $hospital = new Hospital();
+            $hospital->hospital_name = $request->hospital_name;
+            $hospital->province_id = $request->province;
+            $hospital->district_id = $request->district;
+            $hospital->municipality_id = $request->municipality;
+            $hospital->ward = $request->ward;
+            $hospital->transplant_type = $request->transplant_type;
+            $hospital->hospital_type = $request->hospital_type;
 
+            if ($request->hasFile('application_letter')) {
+                $application_letter_path = $request->file('application_letter')->store('hospital_files', 'public');
+                $hospital->application_letter = $application_letter_path;
+            }
+            if ($request->hasFile('human_resource')) {
+                $human_resource_path = $request->file('human_resource')->store('hospital_files', 'public');
+                $hospital->human_resource = $human_resource_path;
+            }
+            if ($request->hasFile('tools_list')) {
+                $tools_list_path = $request->file('tools_list')->store('hospital_files', 'public');
+                $hospital->tools_list = $tools_list_path;
+            }
+            if ($request->hasFile('administrative_document')) {
+                $administrative_document_path = $request->file('administrative_document')->store('hospital_files', 'public');
+                $hospital->administrative_document = $administrative_document_path;
+            }
+            if ($request->hasFile('sanchalan_swikriti')) {
+                $sanchalan_swikriti_path = $request->file('sanchalan_swikriti')->store('hospital_files', 'public');
+                $hospital->sanchalan_swikriti = $sanchalan_swikriti_path;
+            }
+            if ($request->hasFile('renewal_letter')) {
+                $renewal_letter_path = $request->file('renewal_letter')->store('hospital_files', 'public');
+                $hospital->renewal_letter = $renewal_letter_path;
+            }
+            if ($request->hasFile('pan')) {
+                $pan_path = $request->file('pan')->store('hospital_files', 'public');
+                $hospital->pan = $pan_path;
+            }
+            if ($request->hasFile('tax_clearance')) {
+                $tax_clearance_path = $request->file('tax_clearance')->store('hospital_files', 'public');
+                $hospital->tax_clearance = $tax_clearance_path;
+            }
 
-        $hospital = new Hospital();
-        $hospital->hospital_name = $request->hospital_name;
-        $hospital->province_id = $request->province;
-        $hospital->district_id = $request->district;
-        $hospital->municipality_id = $request->municipality;
-        $hospital->palika_name = $request->palika;
-        $hospital->transplant_type = $request->transplant_type;
-        $hospital->hospital_type = $request->hospital_type;
+            $hospital->approve_status = HospitalApproveStatus::UNAPPROVED;
+            $hospital->document_verification = HospitalDocumentVerification::UNVERIFIED;
+            $hospital->physical_verification = HospitalPlysicalVerification::UNVERIFIED;
+            $hospital->status = 0;
+            $hospital->save();
 
-        if ($request->hasFile('application_letter')){
-            $application_letter_path = $request->file('application_letter')->store('hospital_files', 'public');
-            $hospital->application_letter = $application_letter_path;
-        }
-        if ($request->hasFile('human_resource')){
-            $human_resource_path = $request->file('human_resource')->store('hospital_files', 'public');
-            $hospital->human_resource = $human_resource_path;
-        }
-        if ($request->hasFile('tools_list')){
-            $tools_list_path = $request->file('tools_list')->store('hospital_files', 'public');
-            $hospital->tools_list = $tools_list_path;
-        }
-        if ($request->hasFile('administrative_document')){
-            $administrative_document_path = $request->file('administrative_document')->store('hospital_files', 'public');
-            $hospital->administrative_document = $administrative_document_path;
-        }
-        if ($request->hasFile('sanchalan_swikriti')){
-            $sanchalan_swikriti_path = $request->file('sanchalan_swikriti')->store('hospital_files', 'public');
-            $hospital->sanchalan_swikriti = $sanchalan_swikriti_path;
-        }
-        if ($request->hasFile('renewal_letter')){
-            $renewal_letter_path = $request->file('renewal_letter')->store('hospital_files', 'public');
-            $hospital->renewal_letter = $renewal_letter_path;
-        }
-        if ($request->hasFile('pan')){
-            $pan_path = $request->file('pan')->store('hospital_files', 'public');
-            $hospital->pan = $pan_path;
-        }
-        if ($request->hasFile('tax_clearance')){
-            $tax_clearance_path = $request->file('tax_clearance')->store('hospital_files', 'public');
-            $hospital->tax_clearance = $tax_clearance_path;
-        }
+            // setup login
+            $user = new User();
+            $user->name = $request->full_name;
+            $user->email = $request->email;
+            $user->password = $this->defaultPasswordHashed();
+            $user->user_type = UserType::HOSPITAL;
+            $user->hospital_id = $hospital->id;
+            $user->save();
+            \DB::commit();
 
-
-        $hospital->approve_status = HospitalApproveStatus::UNAPPROVED;
-        $hospital->document_verification = HospitalDocumentVerification::UNVERIFIED;
-        $hospital->physical_verification = HospitalPlysicalVerification::UNVERIFIED;
-        $hospital->status = 0;
-
-        $hospital->save();
-
-        // setup login
-        $user = new User();
-        $user->name = $request->full_name;
-        $user->email = $request->email;
-        $user->password = $this->defaultPasswordHashed();
-        $user->user_type = UserType::HOSPITAL;
-        $user->hospital_id = $hospital->id;
-        $user->save();
-
-        //save data
-        $returnData = $this->prepareResponse(false, "Your form has been submitted successfully. Please check your email <strong>$user->email</strong> for approval message.", [], []);
-        return response()->json($returnData);
+            $returnData = $this->prepareResponse(false, "Your form has been submitted successfully. Please check your email <strong>$user->email</strong> for approval message.", [], []);
+            return response()->json($returnData);
+        } catch(\Exception $exception){
+            \DB::rollback();
+            throw new \Exception('Error while creating hospital.');
+        }
     }
     public function update(Request $request){
         $request->validate([

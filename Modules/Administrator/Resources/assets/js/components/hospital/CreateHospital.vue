@@ -186,8 +186,8 @@
 
 <script>
     import PublicService from "../../../../../../ContentManagement/Resources/assets/services/PublicService";
-    import {Errors} from "../../../../../../../resources//js/error";
     import HospitalFrontendService from "../../../../../../ContentManagement/Resources/assets/services/HospitalFrontendService";
+    import {Errors} from "../../../../../../../resources/js/error";
     export default {
         name:"CreateHospital",
         props: {
@@ -327,7 +327,8 @@
                         this.clearForm();
                     }
                 } catch (error) {
-                    this.errors.record(error.response.data);
+                    this.submitting = false;
+                    this.errors.record(error.response);
                 }
                 this.submitting = false;
             },

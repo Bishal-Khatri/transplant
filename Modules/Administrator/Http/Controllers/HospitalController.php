@@ -7,6 +7,7 @@ use App\Traits\SetResponse;
 use App\Traits\UserTrait;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
@@ -30,7 +31,7 @@ class HospitalController extends Controller
 
     public function getHospitalDetails($hospital_id)
     {
-        try{
+        try {
             $hospital = Hospital::with([
                 'user',
                 'license', 'license.issuedByUser',
@@ -47,9 +48,10 @@ class HospitalController extends Controller
 
             $returnData = $this->prepareResponse(false, 'success', compact('hospital', 'license_expiry_status'), []);
             return response()->json($returnData);
-        }catch (\Exception $exception){
-            $returnData = $this->prepareResponse(false, $exception->getMessage(), [], []);
-            return response()->json($returnData, 500);
+        } catch (ModelNotFoundException $exception){
+            throw new ModelNotFoundException('Hospital Not Found');
+        } catch (\Exception $exception){
+            throw new \Exception('General error');
         }
     }
 
@@ -57,9 +59,9 @@ class HospitalController extends Controller
     {
         $query = Hospital::query();
         $query->with('approvedByUser');
-        // if($request->has('filter')){
-        //     $query->where('hospital_name', 'LIKE', '%'.$request->filter.'%');
-        // }
+         if($request->has('q')){
+             $query->where('hospital_name', 'LIKE', '%'.$request->q.'%');
+         }
         if($request->has('hospital_type') && !blank($request->hospital_type)){
             $query->where('hospital_type', $request->hospital_type);
         }

@@ -16,10 +16,10 @@ class CreateHospitalsTable extends Migration
         Schema::create('hospitals', function (Blueprint $table) {
             $table->id();
             $table->string('hospital_name');
-            $table->unsignedBigInteger('province_id');
-            $table->unsignedBigInteger('district_id');
-            $table->unsignedBigInteger('municipality_id');
-            $table->string('palika_name')->nullable();
+            $table->unsignedBigInteger('province_id')->nullable();
+            $table->unsignedBigInteger('district_id')->nullable();
+            $table->unsignedBigInteger('municipality_id')->nullable();
+            $table->string('ward')->nullable();
             $table->string('transplant_type')->default('none');
             $table->integer('hospital_type')->default(0);
             $table->string('application_letter')->nullable();

@@ -38,8 +38,6 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
 
         Route::get('/my-activity', [DataController::class, 'myActivities']);
 
-        Route::get('/hospitals-details/{id}', [HospitalController::class, 'getHospitalDetails']);
-
         // RELIGIONS
         Route::get('/religions', [DataController::class, 'religions']);
         Route::post('/religions/create', [DataController::class, 'religionsStore']);
@@ -96,6 +94,7 @@ Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() 
 
         // Hospital
         Route::get('/hospitals', [HospitalController::class, 'hospitals'])->name('admin.hospital.index');
+        Route::get('/hospitals-details/{id}', [HospitalController::class, 'getHospitalDetails']);
         Route::post('/hospitals/create', [HospitalController::class, 'store']);
         Route::delete('/hospitals/delete/{id}', [HospitalController::class, 'delete']);
 

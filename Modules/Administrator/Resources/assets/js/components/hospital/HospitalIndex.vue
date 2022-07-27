@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-md-9">
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="text-accent" :href="create_route">Create New Hospital</a></li>
+                                    <li><a class="text-accent" href="/register-hospital" target="_blank">Create New Hospital</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -28,35 +28,35 @@
                                        <i class="fa fa-filter mr-1"></i> Filter Options
                                    </h4>
 
-                                   <button v-if="filter.hospital_type">Hospital Type: 
+                                   <button v-if="filter.hospital_type">Hospital Type:
                                       <span v-if="filter.hospital_type===1">Government</span>
                                       <span v-else-if="filter.hospital_type===2">Private</span>
                                       <span v-else> All</span>
                                      <i class="fa fa-times" @click.prevent="filter.hospital_type='';getHospitals();"></i>
                                     </button>
                                     <!--  transplant_type -->
-                                    <button v-if="filter.transplant_type">Transplant Type: 
+                                    <button v-if="filter.transplant_type">Transplant Type:
                                       <span v-if="filter.transplant_type==='kidney'">Kidney</span>
                                       <span v-else-if="filter.transplant_type==='liver'">Liver</span>
                                       <span v-else> All</span>
                                         <i class="fa fa-times" @click.prevent="filter.transplant_type='';getHospitals();"></i>
                                     </button>
                                     <!-- approval status -->
-                                    <button v-if="filter.approval_status">Approval Status: 
+                                    <button v-if="filter.approval_status">Approval Status:
                                       <span v-if="filter.approval_status==='approved'">Approved</span>
                                       <span v-else-if="filter.approval_status==='unapproved'">Un Approved</span>
                                         <span v-else> Rejected</span>
                                         <i class="fa fa-times" @click.prevent="filter.approval_status='';getHospitals();"></i>
                                     </button>
                                     <!-- physical_verification -->
-                                    <button v-if="filter.physical_verification">Physical Verification: 
+                                    <button v-if="filter.physical_verification">Physical Verification:
                                       <span v-if="filter.physical_verification===1">Verified</span>
                                       <span v-else-if="filter.physical_verification===2">Not Verified</span>
                                         <span v-else> All</span>
                                         <i class="fa fa-times" @click.prevent="filter.physical_verification='';getHospitals();"></i>
                                     </button>
                                     <!-- documentation_verification -->
-                                    <button v-if="filter.document_verification">Documentation Verification: 
+                                    <button v-if="filter.document_verification">Documentation Verification:
                                       <span v-if="filter.document_verification===1">Verified</span>
                                       <span v-else-if="filter.document_verification===2">Not Verified</span>
                                         <span v-else> All</span>
@@ -64,11 +64,11 @@
                                     </button>
                                     <!-- clear all -->
                                     <a v-if="filter.hospital_type!='' || filter.transplant_type!='' || filter.approval_status !='' || filter.physical_verification !='' || filter.document_verification !=''"  href="#" @click.prevent="clearFilter();getHospitals();">Clear All</a>
-                                    
+
                                </div>
 
                                <div class="btn-group" role="group">
-                                   <button id="filter-hospital-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                   <button id="filter-hospital-type" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                        Hospital Type
                                    </button>
                                    <div class="dropdown-menu" aria-labelledby="filter-hospital-type"

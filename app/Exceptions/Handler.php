@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,8 +37,53 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+//        $this->renderable(function (NotFoundHttpException $exception, $request){
+//            if ($request->expectsJson()){
+//                return response()->json([
+//                    'error' => true,
+//                    'message' => $exception->getMessage(),
+//                    'data' => [],
+//                    'meta' => []
+//                ], 404);
+//            }
+//        });
+//        $this->renderable(function (Throwable $exception, $request){
+//            if ($request->expectsJson()){
+//                return response()->json([
+//                    'error' => true,
+//                    'message' => $exception->getMessage(),
+//                    'data' => [],
+//                    'meta' => []
+//                ], 404);
+//            }
+//        });
+//        $this->renderable(function (ModelNotFoundException $e, $request) {
+//            dd('sdf');
+////            Log::channel('slack')->info($e->getMessage(), $log);
+//            if ($request->wantsJson()) {
+//                dd('sdf');
+//                return response()->json([
+//                    'message' => 'Record not found.'
+//                ], 404);
+//            }
+//        });
+//        $this->renderable(function (\Exception $e) {
+
+//            $log = [
+//                'file' => $e->getFile(),
+//                'line' => $e->getLine(),
+//                'code' => $e->getCode(),
+//                'previous' => $e->getPrevious(),
+//            ];
+//            Log::channel('slack')->info($e->getMessage(), []);
+//            return response()->json([
+//                'error' => true,
+//                'message' => 'General Error',
+//                'data' => [],
+//                'meta' => []
+//            ]);
+//        });
+
+
     }
 }

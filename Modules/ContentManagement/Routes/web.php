@@ -12,8 +12,8 @@ Route::get('/', [ThemeController::class, 'index'])->name('cms.index');
 Route::get('/page/{page_slug}', [ThemeController::class, 'index'])->name('get-page');
 Route::get('/category/{category_slug}', [ThemeController::class, 'getCategory'])->name('get-category');
 
-Route::get('/register-hospital', [\Modules\Hospital\Http\Controllers\HospitalController::class, 'getRegisterHospital'])->name('register-hospital');
-Route::post('/register-hospital', [\Modules\Hospital\Http\Controllers\HospitalController::class, 'registerHospital']);
+Route::get('/register-hospital', [\Modules\Hospital\Http\Controllers\HospitalController::class, 'getRegisterHospital'])->middleware(['auth', 'administrator'])->name('register-hospital');
+Route::post('/register-hospital', [\Modules\Hospital\Http\Controllers\HospitalController::class, 'registerHospital'])->middleware(['auth', 'administrator']);
 
 Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
     Route::get('/', [HomeController::class, 'index'])->name('cms.admin');

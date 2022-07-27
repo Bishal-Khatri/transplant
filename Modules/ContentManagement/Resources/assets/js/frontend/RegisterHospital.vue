@@ -29,13 +29,13 @@
                                 <h5>Hospital Details</h5>
                             </div>
                             <div class="col-md-12">
-                                <label>Hospital Name</label>
+                                <label>Hospital Name <span class="required text-danger">*</span></label>
                                 <input type="text" name="name" placeholder="Type Name Here" v-model="hospital_name"/>
                                 <span class="small text-danger" v-html="errors.get('hospital_name')"></span>
                             </div>
 
                             <div class="col-md-6">
-                                <label>Hospital Type</label>
+                                <label>Hospital Type <span class="required text-danger">*</span></label>
                                 <div class="input-select">
                                     <select v-model="hospital_type" >
                                         <option value="">Select Hospital Type</option>
@@ -47,13 +47,14 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label>Transplant Type</label>
+                                <label>Transplant Type <span class="required text-danger">*</span></label>
                                 <div class="input-select">
                                     <select v-model="transplant_type" >
                                         <option value="">Select Transplant Type</option>
                                         <option value="kidney">KIDNEY</option>
                                         <option value="liver">LIVER</option>
                                     </select>
+                                    <span class="small text-danger" v-html="errors.get('hospital_type')"></span>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3">
@@ -61,42 +62,47 @@
                                 <h5>Address</h5>
                             </div>
                             <div class="col-md-6">
-                                <label>Province</label>
-                                <div class="input-select">
+                                <label>Province <span class="required text-danger">*</span></label>
+                                <div class="input-select mb-0">
                                     <select @change.prevent="getDistrict" v-model="province" >
                                         <option value="">Select Province</option>
                                         <option v-for="province in provinces" :value="province.id" :key="province.id">{{ province.title }}</option>
                                     </select>
-                                    <span class="small text-danger" v-html="errors.get('province')"></span>
                                 </div>
+                                <span class="small text-danger" v-html="errors.get('province')"></span>
                             </div>
 
                             <div class="col-md-6">
-                                <label>District</label>
-                                <div class="input-select">
+                                <label>District <span class="required text-danger">*</span></label>
+                                <div class="input-select mb-0">
                                     <select @change.prevent="getMunicipality" :disabled="district_disable" v-model="district" >
                                         <option value="">Select District</option>
                                         <option v-for="district in districts" :value="district.id" :key="district.id">{{ district.title }}</option>
                                     </select>
-                                    <span class="small text-danger" v-html="errors.get('district')"></span>
                                 </div>
+                                <span class="small text-danger" v-html="errors.get('district')"></span>
                             </div>
 
-                            <div class="col-md-6">
-                                <label>Municipality</label>
-                                <div class="input-select">
-                                    <select :disabled="municipality_disable" v-model="municipality" >
+                            <div class="col-md-8">
+                                <label>Municipality / Rural Municipality <span class="required text-danger">*</span></label>
+                                <div class="input-select mb-0">
+                                    <select :disabled="municipality_disable" v-model="municipality" @change.prevent="getWard($event)">
                                         <option value="">Select Municipality</option>
                                         <option v-for="municipality in municipalities" :value="municipality.id" :key="municipality.id">{{ municipality.title }}</option>
                                     </select>
-                                    <span class="small text-danger" v-html="errors.get('municipality')"></span>
                                 </div>
+                                <span class="small text-danger" v-html="errors.get('municipality')"></span>
                             </div>
 
-                            <div class="col-md-6">
-                                <label>Palika</label>
-                                <input type="text" class="form-control" name="palika" placeholder="Palika Name" v-model="palika" >
-                                <span class="small text-danger" v-html="errors.get('palika')"></span>
+                            <div class="col-md-4">
+                                <label>Ward No. <span class="required text-danger">*</span></label>
+                                <div class="input-select mb-0">
+                                    <select :disabled="ward_disable" v-model="ward" >
+                                        <option value="">Ward No.</option>
+                                        <option v-if="max_no_wards" v-for="n in max_no_wards" :key="n">{{ n }}</option>
+                                    </select>
+                                </div>
+                                <span class="small text-danger" v-html="errors.get('ward')"></span>
                             </div>
 
                             <div class="col-md-12 mt-3">
@@ -173,13 +179,13 @@
                             </div>
 
                             <div class="col-md-12">
-                                <label>Name</label>
+                                <label>Name <span class="required text-danger">*</span></label>
                                 <input type="text" placeholder="Type Full Name Here" v-model="full_name"/>
                                 <span class="small text-danger" v-html="errors.get('full_name')"></span>
                             </div>
 
                             <div class="col-md-12">
-                                <label>Email Address</label>
+                                <label>Email Address <span class="required text-danger">*</span></label>
                                 <input type="email" placeholder="example@example.com" v-model="email"/>
                                 <span class="small text-danger" v-html="errors.get('email')"></span>
                             </div>
@@ -189,17 +195,18 @@
                                     <input type="checkbox" name="agree" v-model="agree" />
                                     <label></label>
                                 </div>
-                                <span>I have read and agree to the <a href="#">terms and conditions</a></span>
+                                <span>I have read and agree to the <a href="#">terms and conditions</a> <span class="required text-danger">*</span></span>
                                 <p class="small text-danger" v-html="errors.get('agree')" ></p>
 
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-center">
                                 <!--<button type="submit" class="btn btn&#45;&#45;primary text-center" v-if="submitting"><i class="cs-loader"></i></button>-->
                                 <button type="submit" class="btn btn--primary text-center" v-if="submitting">
                                     Submitting Form ...
                                 </button>
                                 <button type="submit" class="btn btn--primary" v-else>Submit Form</button>
+                                <span v-if="message" class="small text-danger">{{ this.message }}</span>
                             </div>
                         </form>
                     </div>
@@ -231,15 +238,18 @@
             submitting: false,
             district_disable: true,
             municipality_disable: true,
+            ward_disable: true,
+            max_no_wards: 0,
             display_success_message: false,
             success_message: "Your form has been submitted successfully. Please check your email form approval message.",
+            message: '',
 
             // form data
             hospital_name: "",
             province:"",
             district:"",
             municipality:"",
-            palika:"",
+            ward:"",
             hospital_type: '',
             transplant_type: '',
             application_letter: '',
@@ -256,7 +266,6 @@
             provinces:{},
             districts: {},
             municipalities:{},
-            palikas:{},
 
             full_name: '',
             email: ''
@@ -285,6 +294,13 @@
                 const response = await PublicService.getMunicipality(this.district);
                 this.municipalities=response.data.data.municipalities;
                 this.municipality_disable = false;
+            },
+
+            async getWard(e){
+                var id = e.target.value;
+                let municipality = this.municipalities.find(x => x.id == id);
+                this.max_no_wards = municipality.max_no_ward;
+                this.ward_disable = false;
             },
 
             handelImage(event, modal){
@@ -324,7 +340,7 @@
                     this.district ? formData.append("district", this.district) : '';
                     this.municipality ? formData.append("municipality", this.municipality) : '';
 
-                    this.palika ? formData.append("palika", this.palika) : '';
+                    this.ward ? formData.append("ward", this.ward) : '';
                     formData.append("hospital_type", this.hospital_type);
                     formData.append("transplant_type", this.transplant_type);
                     this.application_letter ? formData.append("application_letter", this.application_letter) : '';
@@ -372,6 +388,7 @@
                         this.clearForm();
                     }
                 } catch (error) {
+                    this.message = error.response.data.message;
                     this.errors.record(error.response.data);
                 }
                 this.submitting = false;

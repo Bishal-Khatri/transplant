@@ -172,6 +172,13 @@
                                     <span class="small text-danger" v-html="errors.get('tax_clearance')"></span>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="file-wrapper">
+                                    <label>Infrastructural Document <p class="small text-info ml-1">Supported file type: < JPEG, JPG, PNG ></p></label>
+                                    <input type="file" class="form-control" name="infrastructural_document"  @change="handelImage($event, 'infrastructural_document')">
+                                    <span class="small text-danger" v-html="errors.get('infrastructural_document')"></span>
+                                </div>
+                            </div>
 
                             <div class="col-md-12 mt-3">
                                 <hr>
@@ -205,7 +212,7 @@
                                 <button type="submit" class="btn btn--primary text-center" v-if="submitting">
                                     Submitting Form ...
                                 </button>
-                                <button type="submit" class="btn btn--primary" v-else>Submit Form</button>
+                                <button type="submit" class="btn btn--primary" >Submit Form</button>
                                 <span v-if="message" class="small text-danger">{{ this.message }}</span>
                             </div>
                         </form>
@@ -260,6 +267,7 @@
             renewal_letter: '',
             pan: '',
             tax_clearance: '',
+            infrastructural_document: '',
             agree: false,
 
 
@@ -328,6 +336,9 @@
                 if (modal === 'tax_clearance'){
                     this.tax_clearance = event.target.files[0];
                 }
+                if (modal === 'infrastructural_document'){
+                    this.infrastructural_document = event.target.files[0];
+                }
 
             },
 
@@ -343,14 +354,14 @@
                     this.ward ? formData.append("ward", this.ward) : '';
                     formData.append("hospital_type", this.hospital_type);
                     formData.append("transplant_type", this.transplant_type);
-                    this.application_letter ? formData.append("application_letter", this.application_letter) : '';
-                    this.human_resource ? formData.append("human_resource", this.human_resource) : '';
-                    this.tools_list ? formData.append("tools_list", this.tools_list) : '';
-                    this.administrative_document ? formData.append("administrative_document", this.administrative_document) : '';
-                    this.sanchalan_swikriti ? formData.append("sanchalan_swikriti", this.sanchalan_swikriti) : '';
-                    this.renewal_letter ? formData.append("renewal_letter", this.renewal_letter) : '';
-                    this.pan ? formData.append("pan", this.pan) : '';
-                    this.tax_clearance ? formData.append("tax_clearance", this.tax_clearance) : '';
+                    // this.application_letter ? formData.append("application_letter", this.application_letter) : '';
+                    // this.human_resource ? formData.append("human_resource", this.human_resource) : '';
+                    // this.tools_list ? formData.append("tools_list", this.tools_list) : '';
+                    // this.administrative_document ? formData.append("administrative_document", this.administrative_document) : '';
+                    // this.sanchalan_swikriti ? formData.append("sanchalan_swikriti", this.sanchalan_swikriti) : '';
+                    // this.renewal_letter ? formData.append("renewal_letter", this.renewal_letter) : '';
+                    // this.pan ? formData.append("pan", this.pan) : '';
+                    // this.tax_clearance ? formData.append("tax_clearance", this.tax_clearance) : '';
                     this.agree ? formData.append("agree", this.agree) : '';
 
                     if(this.application_letter){
@@ -377,6 +388,10 @@
                     if(this.tax_clearance){
                         formData.append("tax_clearance", this.tax_clearance, this.tax_clearance.name);
                     }
+                    if(this.infrastructural_document){
+                        formData.append("infrastructural_document", this.infrastructural_document, this.infrastructural_document.name);
+                    }
+
 
                     this.full_name ? formData.append("full_name", this.full_name) : '';
                     this.email ? formData.append("email", this.email) : '';

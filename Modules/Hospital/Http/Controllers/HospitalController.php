@@ -54,14 +54,15 @@ class HospitalController extends Controller
             'transplant_type' => 'required',
             'hospital_type' => 'required',
             'transplant_type' => 'required',
-            'application_letter' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
-            'human_resource' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
-            'tools_list' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
-            'administrative_document' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
-            'sanchalan_swikriti' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
-            'renewal_letter' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'application_letter' => 'nullable|mimes:png,jpeg,svg,jpg',
+            'human_resource' => 'nullable|mimes:png,jpeg,svg,jpg',
+            'tools_list' => 'nullable|mimes:png,jpeg,svg,jpg',
+            'administrative_document' => 'nullable|mimes:png,jpeg,svg,jpg',
+            'sanchalan_swikriti' => 'nullable|mimes:png,jpeg,svg,jpg',
+            'renewal_letter' => 'nullable|mimes:png,jpeg,svg,jpg',
             'pan' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
-            'tax_clearance' => 'nullable|mimes:png,jpeg,svg,jpg,pdf',
+            'tax_clearance' => 'nullable|mimes:png,jpeg,svg,jpg',
+            'infrastructural_document' => 'nullable|mimes:png,jpeg,svg,jpg',
             'agree'=>'required',
             'full_name'=>'required',
             'email'=>'required|email',
@@ -111,6 +112,10 @@ class HospitalController extends Controller
                 $tax_clearance_path = $request->file('tax_clearance')->store('hospital_files', 'public');
                 $hospital->tax_clearance = $tax_clearance_path;
             }
+            if ($request->hasFile('infrastructural_document')) {
+                $infrastructural_document_path = $request->file('infrastructural_document')->store('hospital_files', 'public');
+                $hospital->infrastructural_document = $infrastructural_document_path;
+            }
 
             $hospital->approve_status = HospitalApproveStatus::UNAPPROVED;
             $hospital->document_verification = HospitalDocumentVerification::UNVERIFIED;
@@ -132,7 +137,8 @@ class HospitalController extends Controller
             return response()->json($returnData);
         } catch(\Exception $exception){
             \DB::rollback();
-            throw new \Exception('Error while creating hospital.');
+//            throw new \Exception('Error while creating hospital.');
+            throw new \Exception($exception->getMessage());
         }
     }
     public function update(Request $request){

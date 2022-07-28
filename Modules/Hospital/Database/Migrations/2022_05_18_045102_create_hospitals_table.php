@@ -22,6 +22,8 @@ class CreateHospitalsTable extends Migration
             $table->string('ward')->nullable();
             $table->string('transplant_type')->default('none');
             $table->integer('hospital_type')->default(0);
+
+            // files
             $table->string('application_letter')->nullable();
             $table->string('human_resource')->nullable();
             $table->string('tools_list')->nullable();
@@ -30,6 +32,8 @@ class CreateHospitalsTable extends Migration
             $table->string('renewal_letter')->nullable();
             $table->string('pan')->nullable();
             $table->string('tax_clearance')->nullable();
+            $table->string('infrastructural_document')->nullable();
+
             $table->string('company_registration')->nullable();
             $table->timestamp('approved_date')->nullable();
             $table->unsignedBigInteger('approved_by')->nullable();
@@ -37,6 +41,8 @@ class CreateHospitalsTable extends Migration
             $table->string('approve_status')->default('unapproved');
             $table->boolean('status')->default(1)->comment('accibility status');
             $table->unsignedBigInteger('active_license_id')->nullable();
+            $table->boolean('document_verification')->default(0);
+            $table->boolean('physical_verification')->default(0);
 
             $table->timestamps();
         });

@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('user_type',20)->comment('subscriber, administrator');
             $table->string('avatar', 255)->nullable();
             $table->unsignedBigInteger('hospital_id')->nullable();
+            $table->timestamp('password_change_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

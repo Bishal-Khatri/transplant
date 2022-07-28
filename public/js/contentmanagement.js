@@ -20575,6 +20575,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20608,6 +20615,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       renewal_letter: '',
       pan: '',
       tax_clearance: '',
+      infrastructural_document: '',
       agree: false,
       provinces: {},
       districts: {},
@@ -20755,6 +20763,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (modal === 'tax_clearance') {
         this.tax_clearance = event.target.files[0];
       }
+
+      if (modal === 'infrastructural_document') {
+        this.infrastructural_document = event.target.files[0];
+      }
     },
     submit: function submit() {
       var _this5 = this;
@@ -20774,15 +20786,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this5.municipality ? formData.append("municipality", _this5.municipality) : '';
                 _this5.ward ? formData.append("ward", _this5.ward) : '';
                 formData.append("hospital_type", _this5.hospital_type);
-                formData.append("transplant_type", _this5.transplant_type);
-                _this5.application_letter ? formData.append("application_letter", _this5.application_letter) : '';
-                _this5.human_resource ? formData.append("human_resource", _this5.human_resource) : '';
-                _this5.tools_list ? formData.append("tools_list", _this5.tools_list) : '';
-                _this5.administrative_document ? formData.append("administrative_document", _this5.administrative_document) : '';
-                _this5.sanchalan_swikriti ? formData.append("sanchalan_swikriti", _this5.sanchalan_swikriti) : '';
-                _this5.renewal_letter ? formData.append("renewal_letter", _this5.renewal_letter) : '';
-                _this5.pan ? formData.append("pan", _this5.pan) : '';
-                _this5.tax_clearance ? formData.append("tax_clearance", _this5.tax_clearance) : '';
+                formData.append("transplant_type", _this5.transplant_type); // this.application_letter ? formData.append("application_letter", this.application_letter) : '';
+                // this.human_resource ? formData.append("human_resource", this.human_resource) : '';
+                // this.tools_list ? formData.append("tools_list", this.tools_list) : '';
+                // this.administrative_document ? formData.append("administrative_document", this.administrative_document) : '';
+                // this.sanchalan_swikriti ? formData.append("sanchalan_swikriti", this.sanchalan_swikriti) : '';
+                // this.renewal_letter ? formData.append("renewal_letter", this.renewal_letter) : '';
+                // this.pan ? formData.append("pan", this.pan) : '';
+                // this.tax_clearance ? formData.append("tax_clearance", this.tax_clearance) : '';
+
                 _this5.agree ? formData.append("agree", _this5.agree) : '';
 
                 if (_this5.application_letter) {
@@ -20817,12 +20829,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   formData.append("tax_clearance", _this5.tax_clearance, _this5.tax_clearance.name);
                 }
 
+                if (_this5.infrastructural_document) {
+                  formData.append("infrastructural_document", _this5.infrastructural_document, _this5.infrastructural_document.name);
+                }
+
                 _this5.full_name ? formData.append("full_name", _this5.full_name) : '';
                 _this5.email ? formData.append("email", _this5.email) : '';
-                _context5.next = 31;
+                _context5.next = 24;
                 return _services_HospitalFrontendService__WEBPACK_IMPORTED_MODULE_2__["default"].registerHospital(formData);
 
-              case 31:
+              case 24:
                 response = _context5.sent;
 
                 if (response.data.error === false) {
@@ -20832,25 +20848,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this5.clearForm();
                 }
 
-                _context5.next = 39;
+                _context5.next = 32;
                 break;
 
-              case 35:
-                _context5.prev = 35;
+              case 28:
+                _context5.prev = 28;
                 _context5.t0 = _context5["catch"](1);
                 _this5.message = _context5.t0.response.data.message;
 
                 _this5.errors.record(_context5.t0.response.data);
 
-              case 39:
+              case 32:
                 _this5.submitting = false;
 
-              case 40:
+              case 33:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[1, 35]]);
+        }, _callee5, null, [[1, 28]]);
       }))();
     },
     clearForm: function clearForm() {
@@ -87519,10 +87535,41 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _vm._m(19),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "file-wrapper" }, [
+                          _vm._m(19),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "file",
+                              name: "infrastructural_document",
+                            },
+                            on: {
+                              change: function ($event) {
+                                return _vm.handelImage(
+                                  $event,
+                                  "infrastructural_document"
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "small text-danger",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.errors.get("infrastructural_document")
+                              ),
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(20),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-12" }, [
-                        _vm._m(20),
+                        _vm._m(21),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -87557,7 +87604,7 @@ var render = function () {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-12" }, [
-                        _vm._m(21),
+                        _vm._m(22),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -87634,7 +87681,7 @@ var render = function () {
                           _c("label"),
                         ]),
                         _vm._v(" "),
-                        _vm._m(22),
+                        _vm._m(23),
                         _vm._v(" "),
                         _c("p", {
                           staticClass: "small text-danger",
@@ -87658,14 +87705,16 @@ var render = function () {
                                 ),
                               ]
                             )
-                          : _c(
-                              "button",
-                              {
-                                staticClass: "btn btn--primary",
-                                attrs: { type: "submit" },
-                              },
-                              [_vm._v("Submit Form")]
-                            ),
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn--primary",
+                            attrs: { type: "submit" },
+                          },
+                          [_vm._v("Submit Form")]
+                        ),
                         _vm._v(" "),
                         _vm.message
                           ? _c("span", { staticClass: "small text-danger" }, [
@@ -87681,7 +87730,7 @@ var render = function () {
       ]),
     ]),
     _vm._v(" "),
-    _vm._m(23),
+    _vm._m(24),
   ])
 }
 var staticRenderFns = [
@@ -87904,6 +87953,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _vm._v("TAX Clearance "),
+      _c("p", { staticClass: "small text-info ml-1" }, [
+        _vm._v("Supported file type: < JPEG, JPG, PNG >"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _vm._v("Infrastructural Document "),
       _c("p", { staticClass: "small text-info ml-1" }, [
         _vm._v("Supported file type: < JPEG, JPG, PNG >"),
       ]),

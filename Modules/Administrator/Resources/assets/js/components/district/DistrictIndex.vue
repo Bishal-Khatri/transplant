@@ -25,8 +25,6 @@
                             <thead>
                             <tr>
                                 <th>District</th>
-                                <th>Municipalities</th>
-                                <th>Palikas</th>
                                 <th style="width: 180px" class="text-right">Action</th>
                             </tr>
                             </thead>
@@ -37,26 +35,15 @@
                             <tr v-else v-for="(district, index) in districts" :key="index">
                                 <td>
                                     <h4><a class="mr-2" href="#" @click.prevent="$refs.createDistrict.openDialog(district)">{{ district.title }}</a></h4>
-                                    <!--<ul class="list-unstyled text-left">-->
-                                        <!--<li>-->
-                                            <!--<strong class="mr-2">Municipalities</strong>-->
-                                            <!--<a :href="`${local_level_route}?district_id=${district.id}`"  class="btn-link">-->
-                                                <!--{{ district.municipalities_count>1?`${ district.municipalities_count} Municipalities`:`${ district.municipalities_count}` }} View-->
-                                            <!--</a>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--<strong class="mr-2">Palikas</strong>-->
-                                            <!--<a :href="`${local_level_route}?district_id=${district.id}`" class="btn-link">{{ district.palikas_count>1?`${ district.palikas_count}`:`${ district.palikas_count}` }} View</a>-->
-                                        <!--</li>-->
-                                        <!--<li> <small class="">Created on {{ district.created_at }}</small></li>-->
-                                    <!--</ul>-->
-                                    <!--<small class="">Created on {{ district.created_at }}</small>-->
-                                </td>
-                                <td>
-                                     <a class="mr-2" :href="`${local_level_route}?district_id=${district.id}`"  >{{ district.municipalities_count>1?`${ district.municipalities_count} Municipalities`:`${ district.municipalities_count} Municipality` }} </a>
-                                </td>
-                                <td>
-                                     <a class="mr-2" :href="`${local_level_route}?district_id=${district.id}`"  >{{ district.palikas_count>1?`${ district.palikas_count} Palikas`:`${ district.palikas_count} Palika` }} </a>
+                                    <ul class="list-unstyled text-left">
+                                        <li>
+                                            <strong class="mr-2">Municipalities</strong>
+                                            <a :href="`${local_level_route}?district_id=${district.id}`"  class="btn-link">
+                                                {{ district.municipalities_count>1?`${ district.municipalities_count} Municipalities / Rural Municipalities`:`${ district.municipalities_count}` }}
+                                            </a>
+                                        </li>
+                                        <li> <small class="">Created on {{ district.created_at }}</small></li>
+                                    </ul>
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">

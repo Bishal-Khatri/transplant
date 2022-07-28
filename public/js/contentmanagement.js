@@ -19878,6 +19878,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -47514,7 +47515,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\nbody[data-v-f6b8eb30]{margin-top:20px;\n    background:#eee;\n}\n.file-box[data-v-f6b8eb30] {\n    float: left;\n    width: 220px;\n}\n.file-manager h5[data-v-f6b8eb30] {\n    text-transform: uppercase;\n}\n.file-manager[data-v-f6b8eb30] {\n    list-style: none outside none;\n    margin: 0;\n    padding: 0;\n}\n.folder-list li a[data-v-f6b8eb30] {\n    color: #666666;\n    display: block;\n    padding: 5px 0;\n}\n.folder-list li[data-v-f6b8eb30] {\n    border-bottom: 1px solid #e7eaec;\n    display: block;\n}\n.folder-list li i[data-v-f6b8eb30] {\n    margin-right: 8px;\n    color: #3d4d5d;\n}\n.category-list li a[data-v-f6b8eb30] {\n    color: #666666;\n    display: block;\n    padding: 5px 0;\n}\n.category-list li[data-v-f6b8eb30] {\n    display: block;\n}\n.category-list li i[data-v-f6b8eb30] {\n    margin-right: 8px;\n    color: #3d4d5d;\n}\n.category-list li a .text-navy[data-v-f6b8eb30] {\n    color: #1ab394;\n}\n.category-list li a .text-primary[data-v-f6b8eb30] {\n    color: #1c84c6;\n}\n.category-list li a .text-info[data-v-f6b8eb30] {\n    color: #23c6c8;\n}\n.category-list li a .text-danger[data-v-f6b8eb30] {\n    color: #EF5352;\n}\n.category-list li a .text-warning[data-v-f6b8eb30] {\n    color: #F8AC59;\n}\n.file-manager h5.tag-title[data-v-f6b8eb30] {\n    margin-top: 20px;\n}\n.tag-list li[data-v-f6b8eb30] {\n    float: left;\n}\n.tag-list li a[data-v-f6b8eb30] {\n    font-size: 10px;\n    background-color: #f3f3f4;\n    padding: 5px 12px;\n    color: inherit;\n    border-radius: 2px;\n    border: 1px solid #e7eaec;\n    margin-right: 5px;\n    margin-top: 5px;\n    display: block;\n}\n.file[data-v-f6b8eb30] {\n    border: 1px solid #e7eaec;\n    padding: 0;\n    background-color: #ffffff;\n    position: relative;\n    margin-bottom: 20px;\n    margin-right: 20px;\n}\n.file-manager .hr-line-dashed[data-v-f6b8eb30] {\n    margin: 15px 0;\n}\n.file .icon[data-v-f6b8eb30],\n.file .image[data-v-f6b8eb30] {\n    height: 100px;\n    overflow: hidden;\n}\n.file .icon[data-v-f6b8eb30] {\n    padding: 15px 10px;\n    text-align: center;\n}\n.file-control[data-v-f6b8eb30] {\n    color: inherit;\n    font-size: 11px;\n    margin-right: 10px;\n}\n.file-control.active[data-v-f6b8eb30] {\n    text-decoration: underline;\n}\n.file .icon i[data-v-f6b8eb30] {\n    font-size: 70px;\n    color: #dadada;\n}\n.file .file-name[data-v-f6b8eb30] {\n    padding: 10px;\n    background-color: #f8f8f8;\n    border-top: 1px solid #e7eaec;\n}\n.file-name small[data-v-f6b8eb30] {\n    color: #676a6c;\n}\nul.tag-list li[data-v-f6b8eb30] {\n    list-style: none;\n}\n.corner[data-v-f6b8eb30] {\n    position: absolute;\n    display: inline-block;\n    width: 0;\n    height: 0;\n    line-height: 0;\n    border: 0.6em solid transparent;\n    border-right: 0.6em solid #f1f1f1;\n    border-bottom: 0.6em solid #f1f1f1;\n    right: 0em;\n    bottom: 0em;\n}\na.compose-mail[data-v-f6b8eb30] {\n    padding: 8px 10px;\n}\n.mail-search[data-v-f6b8eb30] {\n    max-width: 300px;\n}\n.ibox[data-v-f6b8eb30] {\n    clear: both;\n    margin-bottom: 25px;\n    margin-top: 0;\n    padding: 0;\n}\n.ibox.collapsed .ibox-content[data-v-f6b8eb30] {\n    display: none;\n}\n.ibox.collapsed .fa.fa-chevron-up[data-v-f6b8eb30]:before {\n    content: \"\\F078\";\n}\n.ibox.collapsed .fa.fa-chevron-down[data-v-f6b8eb30]:before {\n    content: \"\\F077\";\n}\n.ibox[data-v-f6b8eb30]:after,\n.ibox[data-v-f6b8eb30]:before {\n    display: table;\n}\n.ibox-title[data-v-f6b8eb30] {\n    -moz-border-bottom-colors: none;\n    -moz-border-left-colors: none;\n    -moz-border-right-colors: none;\n    -moz-border-top-colors: none;\n    background-color: #ffffff;\n    border-color: #e7eaec;\n    border-image: none;\n    border-style: solid solid none;\n    border-width: 3px 0 0;\n    color: inherit;\n    margin-bottom: 0;\n    padding: 14px 15px 7px;\n    min-height: 48px;\n}\n.ibox-content[data-v-f6b8eb30] {\n    background-color: #ffffff;\n    color: inherit;\n    padding: 15px 20px 20px 20px;\n    border-color: #e7eaec;\n    border-image: none;\n    border-style: solid solid none;\n    border-width: 1px 0;\n}\n.ibox-footer[data-v-f6b8eb30] {\n    color: inherit;\n    border-top: 1px solid #e7eaec;\n    font-size: 90%;\n    background: #ffffff;\n    padding: 10px 15px;\n}\na[data-v-f6b8eb30]:hover{\n    text-decoration:none;\n}\n", ""]);
+exports.push([module.i, "\nbody[data-v-f6b8eb30]{margin-top:20px;\n    background:#eee;\n}\n.file-box[data-v-f6b8eb30] {\n    float: left;\n    width: 220px;\n}\n.file-manager h5[data-v-f6b8eb30] {\n    text-transform: uppercase;\n}\n.file-manager[data-v-f6b8eb30] {\n    list-style: none outside none;\n    margin: 0;\n    padding: 0;\n}\n.folder-list li a[data-v-f6b8eb30] {\n    color: #666666;\n    display: block;\n    padding: 5px 0;\n}\n.folder-list li[data-v-f6b8eb30] {\n    border-bottom: 1px solid #e7eaec;\n    display: block;\n}\n.folder-list li i[data-v-f6b8eb30] {\n    margin-right: 8px;\n    color: #3d4d5d;\n}\n.category-list li a[data-v-f6b8eb30] {\n    color: #666666;\n    display: block;\n    padding: 5px 0;\n}\n.category-list li[data-v-f6b8eb30] {\n    display: block;\n}\n.category-list li i[data-v-f6b8eb30] {\n    margin-right: 8px;\n    color: #3d4d5d;\n}\n.category-list li a .text-navy[data-v-f6b8eb30] {\n    color: #1ab394;\n}\n.category-list li a .text-primary[data-v-f6b8eb30] {\n    color: #1c84c6;\n}\n.category-list li a .text-info[data-v-f6b8eb30] {\n    color: #23c6c8;\n}\n.category-list li a .text-danger[data-v-f6b8eb30] {\n    color: #EF5352;\n}\n.category-list li a .text-warning[data-v-f6b8eb30] {\n    color: #F8AC59;\n}\n.file-manager h5.tag-title[data-v-f6b8eb30] {\n    margin-top: 20px;\n}\n.tag-list li[data-v-f6b8eb30] {\n    float: left;\n}\n.tag-list li a[data-v-f6b8eb30] {\n    font-size: 10px;\n    background-color: #f3f3f4;\n    padding: 5px 12px;\n    color: inherit;\n    border-radius: 2px;\n    border: 1px solid #e7eaec;\n    margin-right: 5px;\n    margin-top: 5px;\n    display: block;\n}\n.file[data-v-f6b8eb30] {\n    border: 1px solid #e7eaec;\n    padding: 0;\n    background-color: #ffffff;\n    position: relative;\n    margin-bottom: 20px;\n    margin-right: 20px;\n}\n.file-manager .hr-line-dashed[data-v-f6b8eb30] {\n    margin: 15px 0;\n}\n.file .icon[data-v-f6b8eb30],\n.file .image[data-v-f6b8eb30] {\n    height: 100px;\n    overflow: hidden;\n}\n.file .icon[data-v-f6b8eb30] {\n    padding: 15px 10px;\n    text-align: center;\n}\n.file-control[data-v-f6b8eb30] {\n    color: inherit;\n    font-size: 11px;\n    margin-right: 10px;\n}\n.file-control.active[data-v-f6b8eb30] {\n    text-decoration: underline;\n}\n.file .icon i[data-v-f6b8eb30] {\n    font-size: 70px;\n    color: #dadada;\n}\n.file .file-name[data-v-f6b8eb30] {\n    padding: 10px;\n    background-color: #f8f8f8;\n    border-top: 1px solid #e7eaec;\n}\n.file-name small[data-v-f6b8eb30] {\n    color: #676a6c;\n}\nul.tag-list li[data-v-f6b8eb30] {\n    list-style: none;\n}\n.corner[data-v-f6b8eb30] {\n    position: absolute;\n    display: inline-block;\n    width: 0;\n    height: 0;\n    line-height: 0;\n    border: 0.6em solid transparent;\n    border-right: 0.6em solid #f1f1f1;\n    border-bottom: 0.6em solid #f1f1f1;\n    right: 0em;\n    bottom: 0em;\n}\na.compose-mail[data-v-f6b8eb30] {\n    padding: 8px 10px;\n}\n.mail-search[data-v-f6b8eb30] {\n    max-width: 300px;\n}\n.ibox[data-v-f6b8eb30] {\n    clear: both;\n    margin-bottom: 25px;\n    margin-top: 0;\n    padding: 0;\n}\n.ibox.collapsed .ibox-content[data-v-f6b8eb30] {\n    display: none;\n}\n.ibox.collapsed .fa.fa-chevron-up[data-v-f6b8eb30]:before {\n    content: \"\\F078\";\n}\n.ibox.collapsed .fa.fa-chevron-down[data-v-f6b8eb30]:before {\n    content: \"\\F077\";\n}\n.ibox[data-v-f6b8eb30]:after,\n.ibox[data-v-f6b8eb30]:before {\n    display: table;\n}\n.ibox-title[data-v-f6b8eb30] {\n    -moz-border-bottom-colors: none;\n    -moz-border-left-colors: none;\n    -moz-border-right-colors: none;\n    -moz-border-top-colors: none;\n    background-color: #ffffff;\n    border-color: #e7eaec;\n    border-image: none;\n    border-style: solid solid none;\n    border-width: 3px 0 0;\n    color: inherit;\n    margin-bottom: 0;\n    padding: 14px 15px 7px;\n    min-height: 48px;\n}\n.ibox-content[data-v-f6b8eb30] {\n    background-color: #ffffff;\n    color: inherit;\n    padding: 15px 20px 20px 20px;\n    border-color: #e7eaec;\n    border-image: none;\n    border-style: solid solid none;\n    border-width: 1px 0;\n}\n.ibox-footer[data-v-f6b8eb30] {\n    color: inherit;\n    border-top: 1px solid #e7eaec;\n    font-size: 90%;\n    background: #ffffff;\n    padding: 10px 15px;\n}\na[data-v-f6b8eb30]:hover{\n    text-decoration:none;\n}\n.active[data-v-f6b8eb30]{\n    border-right: 5px solid #1ABB9C;\n    background: rgba(255,255,255,0.05);\n}\n", ""]);
 
 // exports
 
@@ -85911,186 +85912,216 @@ var render = function () {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-md-3" }, [
               _c("div", { staticClass: "ibox float-e-margins" }, [
-                _c("div", { staticClass: "ibox-content" }, [
-                  _c("div", { staticClass: "file-manager" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary btn-block",
-                        on: {
-                          click: function ($event) {
-                            $event.preventDefault()
-                            return _vm.$refs.createGallery.openDialog()
+                _c(
+                  "div",
+                  {
+                    staticClass: "ibox-content",
+                    staticStyle: { border: "none" },
+                  },
+                  [
+                    _c("div", { staticClass: "file-manager" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-accent btn-block btn-sm",
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              return _vm.$refs.createGallery.openDialog()
+                            },
                           },
                         },
-                      },
-                      [_vm._v("Create New Gallery")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "hr-line-dashed" }),
-                    _vm._v(" "),
-                    _c("h5", [_vm._v("Galleries")]),
-                    _vm._v(" "),
-                    _c(
-                      "ul",
-                      {
-                        staticClass: "folder-list",
-                        staticStyle: { padding: "0" },
-                      },
-                      _vm._l(_vm.galleries, function (gallery, index) {
-                        return _c("li", { key: index }, [
-                          _c("div", { staticClass: "d-flex" }, [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: "" },
-                                on: {
-                                  click: function ($event) {
-                                    $event.preventDefault()
-                                    return _vm.selectGallery(gallery)
+                        [_vm._v("Create New Gallery")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "hr-line-dashed" }),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v("Galleries")]),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        {
+                          staticClass: "folder-list",
+                          staticStyle: { padding: "0" },
+                        },
+                        _vm._l(_vm.galleries, function (gallery, index) {
+                          return _c(
+                            "li",
+                            {
+                              key: index,
+                              class:
+                                _vm.selected_gallery.id === gallery.id
+                                  ? "active"
+                                  : "apple",
+                            },
+                            [
+                              _c("div", { staticClass: "d-flex" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: "" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.selectGallery(gallery)
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [
-                                _c("i", { staticClass: "fa fa-folder" }),
-                                _vm._v(
-                                  " " +
-                                    _vm._s(gallery.title || "Not-Available") +
-                                    "\n                                            "
+                                  [
+                                    _c("i", { staticClass: "fa fa-folder" }),
+                                    _vm._v(
+                                      "\n                                                " +
+                                        _vm._s(
+                                          gallery.title || "Not-Available"
+                                        ) +
+                                        "\n                                            "
+                                    ),
+                                  ]
                                 ),
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "ml-3",
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function ($event) {
-                                    $event.preventDefault()
-                                    return _vm.$refs.createGallery.openDialog(
-                                      gallery
-                                    )
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "ml-3",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.$refs.createGallery.openDialog(
+                                          gallery
+                                        )
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [_c("i", { staticClass: "fa fa-pencil" })]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "a",
-                              {
-                                staticClass: "ml-1",
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function ($event) {
-                                    $event.preventDefault()
-                                    return _vm.showImageDeleteModal(gallery.id)
+                                  [_c("i", { staticClass: "fa fa-pencil" })]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "ml-1",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.showImageDeleteModal(
+                                          gallery.id
+                                        )
+                                      },
+                                    },
                                   },
-                                },
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "fa fa-trash text-danger",
-                                }),
-                              ]
-                            ),
-                          ]),
-                        ])
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "clearfix" }),
-                  ]),
-                ]),
+                                  [
+                                    _c("i", {
+                                      staticClass: "fa fa-trash text-danger",
+                                    }),
+                                  ]
+                                ),
+                              ]),
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "clearfix" }),
+                    ]),
+                  ]
+                ),
               ]),
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-9 animated fadeInRight" }, [
-              _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "row mt-3" }, [
                 _c("div", { staticClass: "col-md-6 col-lg-6" }, [
                   _c("h5", [
-                    _vm._v("Showing "),
-                    _c("strong", [_vm._v(_vm._s(_vm.selected_gallery.title))]),
+                    _vm._v("Showing images in "),
+                    _c("a", { attrs: { href: "#" } }, [
+                      _vm._v(_vm._s(_vm.selected_gallery.title)),
+                    ]),
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6 col-lg-6 text-right" }, [
-                  _c(
-                    "div",
-                    { staticClass: "btn-group", attrs: { role: "group" } },
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "dropdown-menu",
-                          staticStyle: {
-                            position: "absolute",
-                            "will-change": "transform",
-                            top: "0px",
-                            left: "0px",
-                            transform: "translate3d(0px, 38px, 0px)",
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-md-4 col-lg-4 text-right",
+                    staticStyle: { "padding-right": "0" },
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "btn-group", attrs: { role: "group" } },
+                      [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "dropdown-menu",
+                            staticStyle: {
+                              position: "absolute",
+                              "will-change": "transform",
+                              top: "0px",
+                              left: "0px",
+                              transform: "translate3d(0px, 38px, 0px)",
+                            },
+                            attrs: {
+                              "aria-labelledby": "filter-verification-status",
+                              "x-placement": "bottom-start",
+                            },
                           },
-                          attrs: {
-                            "aria-labelledby": "filter-verification-status",
-                            "x-placement": "bottom-start",
-                          },
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "dropdown-item",
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.$refs.file.click()
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.$refs.file.click()
+                                  },
                                 },
                               },
-                            },
-                            [_vm._v("Choose File")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              staticClass: "dropdown-item",
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.$refs.selectFile.openDialog()
+                              [_vm._v("Choose File")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.$refs.selectFile.openDialog()
+                                  },
                                 },
                               },
-                            },
-                            [_vm._v("From Storage")]
-                          ),
-                        ]
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    ref: "file",
-                    staticClass: "form-control-sm",
-                    staticStyle: { display: "none", width: "210px" },
-                    attrs: {
-                      type: "file",
-                      id: "additional-image",
-                      accept: "image/png, image/jpeg",
-                      multiple: "",
-                    },
-                    on: {
-                      change: function ($event) {
-                        $event.preventDefault()
-                        return _vm.uploadMultipleImages.apply(null, arguments)
+                              [_vm._v("From Storage")]
+                            ),
+                          ]
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      ref: "file",
+                      staticClass: "form-control-sm",
+                      staticStyle: { display: "none", width: "210px" },
+                      attrs: {
+                        type: "file",
+                        id: "additional-image",
+                        accept: "image/png, image/jpeg",
+                        multiple: "",
                       },
-                    },
-                  }),
-                ]),
+                      on: {
+                        change: function ($event) {
+                          $event.preventDefault()
+                          return _vm.uploadMultipleImages.apply(null, arguments)
+                        },
+                      },
+                    }),
+                  ]
+                ),
               ]),
               _vm._v(" "),
               _c("hr"),
@@ -86161,43 +86192,55 @@ var render = function () {
                                         ),
                                       ]),
                                       _vm._v(" "),
-                                      _c("div", { staticClass: "file-name" }, [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(image.image_original) +
-                                            "\n                                            "
-                                        ),
-                                        _c("br"),
-                                        _vm._v(" "),
-                                        _c("small", [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "file-name",
+                                          staticStyle: { overflow: "hidden" },
+                                          attrs: {
+                                            title:
+                                              image.image_original ||
+                                              "Not-Available",
+                                          },
+                                        },
+                                        [
                                           _vm._v(
-                                            "Added: " +
-                                              _vm._s(image.created_at) +
-                                              " "
+                                            "\n                                            " +
+                                              _vm._s(image.image_original) +
+                                              "\n                                            "
                                           ),
-                                          _c(
-                                            "a",
-                                            {
-                                              staticClass: "float-right",
-                                              attrs: { href: "" },
-                                              on: {
-                                                click: function ($event) {
-                                                  $event.preventDefault()
-                                                  return _vm.showImageDeleteModal(
-                                                    image.id
-                                                  )
+                                          _c("br"),
+                                          _vm._v(" "),
+                                          _c("small", [
+                                            _vm._v(
+                                              "Added: " +
+                                                _vm._s(image.created_at) +
+                                                " "
+                                            ),
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass: "float-right",
+                                                attrs: { href: "" },
+                                                on: {
+                                                  click: function ($event) {
+                                                    $event.preventDefault()
+                                                    return _vm.showImageDeleteModal(
+                                                      image.id
+                                                    )
+                                                  },
                                                 },
                                               },
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass:
-                                                  "fa fa-trash text-danger",
-                                              }),
-                                            ]
-                                          ),
-                                        ]),
-                                      ]),
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fa fa-trash text-danger",
+                                                }),
+                                              ]
+                                            ),
+                                          ]),
+                                        ]
+                                      ),
                                     ]),
                                   ]),
                                 ]

@@ -259,7 +259,7 @@
                             <div class="col-md-9">
                                 <!--disable old license is create-->
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="text-accent" href="#">Edit User</a></li>
+                                    <!--<li><a class="text-accent" href="#">Edit User</a></li>-->
                                 </ul>
                             </div>
                             <div class="clearfix"></div>
@@ -274,9 +274,10 @@
                                         <li>
                                             <strong>Email Address:</strong> {{ hospital.user.email || 'Not-Available' }}
                                         </li>
-                                        <li>
-                                            <strong>Password:</strong> <a href="">Change Password</a>
-                                        </li>
+                                        <!--<li>-->
+                                            <!--<strong>Password:</strong>-->
+                                            <!--&lt;!&ndash;<a href="">Change Password</a>&ndash;&gt;-->
+                                        <!--</li>-->
                                         <li>
                                             <strong>Created At:</strong> {{ hospital.user.created_at || 'Not-Available' }}
                                         </li>
@@ -299,7 +300,7 @@
                             <div class="col-md-9">
                                 <!--disable old license is create-->
                                 <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="text-accent" href="#">Renew License</a></li>
+                                    <!--<li><a class="text-accent" href="#">Renew License</a></li>-->
                                 </ul>
                             </div>
                             <div class="clearfix"></div>
@@ -330,7 +331,8 @@
                                     </ul>
                                     <ul class="list-unstyled project_files" v-else>
                                         <li>
-                                            <i class="fa fa-certificate"></i> Not-Available
+                                            <i class="fa fa-certificate"></i> Not-Available. Approve this hospital to create license.
+                                            <a class="btn btn-link btn-sm" href="#" @click.prevent="approve">Approve</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -21,6 +21,7 @@
                                          stepSize="xs"
                                          color="#34495E"
                                          shape="square"
+                                         next-button-text="Go next!"
                                          @on-change="onTabChange"
                                          title="" subtitle="">
 
@@ -419,29 +420,16 @@
                                             <div class="col-md-6">
                                                 <div class="form-group row">
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Diseases</label>
-                                                    <div class="col-md-9 col-sm-9 ">
-                                                        <select class="select2_multiple form-control" multiple v-model="disease">
-                                                            <option v-for="disease in diseases"
-                                                                    :key="disease.id" :value="disease.id">
-                                                                {{ disease.title }}
-                                                            </option>
-                                                        </select>
-                                                        <br>
-                                                        <span v-if="patient.disease" v-for="disease in patient.disease" class="ml-2">{{ disease.title }}</span>
+                                                    <div class="col-md-9 col-sm-9" style="min-height: 258px;max-height: 258px;overflow: scroll;overflow-x: hidden;">
+                                                        <div class="checkbox" v-for="value in diseases">
+                                                            <label >
+                                                                <input type="checkbox" :key="value.id" :value="value.id" v-model="disease"> {{ value.title }}
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Referred By (Palika Name) <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-9 col-sm-9">
-                                                        <input type="text" v-model="referred_by" required="required" class="form-control">
-                                                        <span class="form-text small text-danger" v-html="errors.get('referred_by')"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-md-6">
                                                 <div class="form-group row">
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Blood Group</label>
@@ -459,8 +447,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
+
                                                 <div class="form-group row">
                                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Transplant Type <span class="required">*</span>
                                                     </label>
@@ -474,10 +461,14 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+
+                                            </div>
                                         </div>
                                         <br>
                                         <template v-if="transplant_type === 'kidney'">
-                                            <span class="section">HLL Typing</span>
+                                            <span class="section">Kidney Transplant Form</span>
+                                            <!--<span class="section">HLA Typing</span>-->
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
@@ -499,11 +490,16 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                            </div>
                                                 <!--HLA tissue type start-->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <strong class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</strong>
+                                                </div>
+                                                <div class="col-md-6"></div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row ">
-                                                        <h4 class="col-form-label col-md-3 col-sm-3 label-align">Patient</h4>
+                                                        <strong class="col-form-label col-md-3 col-sm-3 label-align">Patient</strong>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -A*</label>
@@ -526,7 +522,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row ">
-                                                        <h4 class="col-form-label col-md-3 col-sm-3 label-align">Donor</h4>
+                                                        <strong class="col-form-label col-md-3 col-sm-3 label-align">Donor</strong>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-form-label col-md-3 col-sm-3 label-align">HLA -A*</label>
@@ -547,11 +543,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                                 <!--HLA tissue type end-->
 
                                                 <!--CDC start-->
+                                            <div class="row">
                                                 <div class="col-md-6">
-                                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">Cross Match CDC</h4>
+                                                    <strong class="col-form-label col-md-3 col-sm-3 label-align">Cross Match CDC</strong>
                                                 </div>
                                                 <div class="col-md-6"></div>
                                                 <div class="col-md-6">
@@ -574,7 +572,7 @@
 
                                                 <!--DSA Start-->
                                                 <div class="col-md-6">
-                                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">DSA Titre</h4>
+                                                    <strong class="col-form-label col-md-3 col-sm-3 label-align">DSA Titre</strong>
                                                 </div>
                                                 <div class="col-md-6"></div>
                                                 <div class="col-md-6">
@@ -598,7 +596,7 @@
                                             </div>
                                         </template>
                                         <template v-else-if="transplant_type === 'liver'">
-                                            <span class="section">Liver Transplant</span>
+                                            <span class="section">Liver Transplant Form</span>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
@@ -622,10 +620,12 @@
                                         <button v-if="props.activeTabIndex > 0" class="btn btn-accent" @click.prevent="$refs.updatePatient.prevTab()">Back</button>
                                     </div>
                                     <div class="wizard-footer-right">
+                                        <button class="btn btn-accent" @click.prevent="$refs.updatePatient.nextTab()" >Next</button>
                                         <button class="btn btn-accent" v-if="!props.isLastStep" @click.prevent="submitForm(submitFormName)"><i v-if="submitting" class="fa fa-spinner fa-spin"></i> Save & Proceed</button>
                                         <a class="btn btn-accent" v-else-if="auth_user.user_type === 'administrator'" href="/admin/patient">Done</a>
                                         <a class="btn btn-accent" v-else href="/hospital/patient">Done</a>
                                     </div>
+
                                 </template>
                             </form-wizard>
                         </div>
@@ -811,6 +811,13 @@
             }
         },
         methods: {
+            addDisease(disease_id){
+                if(this.disease.includes(disease_id)){
+                    this.disease.pop(disease_id)
+                }else{
+                    this.disease.push(disease_id)
+                }
+            },
             isLastStep() {
                 if (this.$refs.updatePatient) {
                     return this.$refs.updatePatient.isLastStep

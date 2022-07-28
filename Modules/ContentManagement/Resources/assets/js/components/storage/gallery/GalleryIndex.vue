@@ -8,16 +8,17 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="ibox float-e-margins">
-                            <div class="ibox-content">
+                            <div class="ibox-content" style="border: none;">
                                 <div class="file-manager">
-                                    <button class="btn btn-primary btn-block" @click.prevent="$refs.createGallery.openDialog()">Create New Gallery</button>
+                                    <button class="btn btn-accent btn-block btn-sm" @click.prevent="$refs.createGallery.openDialog()">Create New Gallery</button>
                                     <div class="hr-line-dashed"></div>
                                     <h5>Galleries</h5>
                                     <ul class="folder-list" style="padding: 0">
-                                        <li v-for="(gallery, index) in galleries" :key="index">
+                                        <li v-for="(gallery, index) in galleries" :key="index" :class="selected_gallery.id === gallery.id ? 'active' : 'apple'">
                                             <div class="d-flex">
                                                 <a href="" @click.prevent="selectGallery(gallery)">
-                                                    <i class="fa fa-folder"></i> {{ gallery.title || 'Not-Available'}}
+                                                    <i class="fa fa-folder"></i>
+                                                    {{ gallery.title || 'Not-Available'}}
                                                 </a>
                                                 <a href="#" class="ml-3" @click.prevent="$refs.createGallery.openDialog(gallery)"><i class="fa fa-pencil"></i></a>
                                                 <a href="#" class="ml-1" @click.prevent="showImageDeleteModal(gallery.id)"><i class="fa fa-trash text-danger"></i></a>
@@ -30,11 +31,11 @@
                         </div>
                     </div>
                     <div class="col-md-9 animated fadeInRight">
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-6 col-lg-6">
-                                <h5>Showing <strong>{{ selected_gallery.title }}</strong></h5>
+                                <h5>Showing images in <a href="#">{{ selected_gallery.title }}</a></h5>
                             </div>
-                            <div class="col-md-6 col-lg-6 text-right">
+                            <div class="col-md-4 col-lg-4 text-right" style="padding-right:0">
                                 <div class="btn-group" role="group">
                                     <button id="filter-verification-status" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-upload mr-1"></i> Upload
@@ -70,7 +71,7 @@
                                                     <img alt="image" class="img-responsive" :src="'/storage/'+image.image_original">
                                                 </a>
                                             </div>
-                                            <div class="file-name">
+                                            <div class="file-name" style="overflow: hidden;" :title="image.image_original || 'Not-Available'">
                                                 {{ image.image_original }}
                                                 <br>
                                                 <small>Added: {{ image.created_at }} <a class="float-right" href="" @click.prevent="showImageDeleteModal(image.id)"><i class="fa fa-trash text-danger"></i></a></small>
@@ -459,5 +460,10 @@
     }
     a:hover{
         text-decoration:none;
+    }
+
+    .active{
+        border-right: 5px solid #1ABB9C;
+        background: rgba(255,255,255,0.05);
     }
 </style>

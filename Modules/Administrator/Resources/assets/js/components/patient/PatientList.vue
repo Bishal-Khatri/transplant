@@ -119,7 +119,9 @@
                                         {{ patient.name || 'Not-Available' }}
                                     </a>
                                     <br>
-                                    <small class="mr-1">#{{ patient.id }}</small><small>Created on {{ patient.created_at }}</small>
+                                    <small class="mr-1">Patient ID: #{{ patient.id }}</small>
+                                    <br>
+                                    <small>Created on: {{ patient.created_at }}</small>
                                 </td>
                                 <td>{{ patient.citizenship_number || 'Not-Available' }}</td>
                                 <td>{{ patient.gender ? patient.gender.toUpperCase() : 'Not-Available' }}</td>

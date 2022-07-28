@@ -369,12 +369,11 @@
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Disease <span class="required">*</span>
                                     </label>
                                     <div class="col-md-9 col-sm-9">
-                                        <span v-if="patient.disease" class="ml-2 badge badge-secondary" style="padding:10px"
+                                        <span v-if="patient.disease" class="ml-2 mb-1 badge badge-secondary" style="padding:10px"
                                               v-for="disease in patient.disease"
                                               :key="disease.id">
                                             {{ disease.title }}
                                         </span>
-                                        <!--<input type="text" :value="`${patient.disease ? patient.disease:''}`" required="required"  class="form-control" disabled>-->
                                     </div>
                                 </div>
                             </div>
@@ -387,7 +386,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="col-md-6"></div>-->
 
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -425,60 +423,60 @@
                                 </div>
                                 <!--HLA tissue type start-->
                                 <div class="col-md-6">
-                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</h4>
+                                    <strong class="col-form-label col-md-3 col-sm-3 label-align">HLA Tissue Type</strong>
                                 </div>
                                 <div class="col-md-6"></div>
                                 <div class="col-md-6">
-                                                    <div class="form-group row ">
-                                                        <h4 class="col-form-label col-md-3 col-sm-3 label-align">Patient</h4>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -A*</label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text"  class="form-control" v-model="patient.patient_hla_a" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -B</label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text"  class="form-control" v-model="patient.patient_hla_b" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -DRB1</label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text"  class="form-control" v-model="patient.patient_hla_drb1" readonly>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group row ">
-                                                        <h4 class="col-form-label col-md-3 col-sm-3 label-align">Donor</h4>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align">HLA -A*</label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text"  class="form-control" v-model="patient.donor_hla_a" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -B</label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text"  class="form-control" v-model="patient.donor_hla_b" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -DRB1</label>
-                                                        <div class="col-md-9 col-sm-9">
-                                                            <input type="text"  class="form-control" v-model="patient.donor_hla_drb1" readonly>
-                                                        </div>
-                                                    </div>
+                                    <div class="form-group row ">
+                                        <strong class="col-form-label col-md-3 col-sm-3 label-align">Patient</strong>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -A*</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text"  class="form-control" v-model="patient.patient_hla_a" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -B</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text"  class="form-control" v-model="patient.patient_hla_b" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -DRB1</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text"  class="form-control" v-model="patient.patient_hla_drb1" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row ">
+                                        <strong class="col-form-label col-md-3 col-sm-3 label-align">Donor</strong>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">HLA -A*</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text"  class="form-control" v-model="patient.donor_hla_a" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -B</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text"  class="form-control" v-model="patient.donor_hla_b" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"> HLA -DRB1</label>
+                                        <div class="col-md-9 col-sm-9">
+                                            <input type="text"  class="form-control" v-model="patient.donor_hla_drb1" readonly>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!--HLA tissue type end-->
 
                                 <!--CDC start-->
                                 <div class="col-md-6">
-                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">Cross Match CDC</h4>
+                                    <strong class="col-form-label col-md-3 col-sm-3 label-align">Cross Match CDC</strong>
                                 </div>
                                 <div class="col-md-6"></div>
                                 <div class="col-md-6">
@@ -501,7 +499,7 @@
 
                                 <!--DSA Start-->
                                 <div class="col-md-6">
-                                    <h4 class="col-form-label col-md-3 col-sm-3 label-align">DSA Titre</h4>
+                                    <strong class="col-form-label col-md-3 col-sm-3 label-align">DSA Titre</strong>
                                 </div>
                                 <div class="col-md-6"></div>
                                 <div class="col-md-6">

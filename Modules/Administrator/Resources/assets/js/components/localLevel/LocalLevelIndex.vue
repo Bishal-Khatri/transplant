@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
                         <div class="row">
@@ -22,7 +22,7 @@
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr>
-                                <th>Municipalities</th>
+                                <th>Municipalities / Rural Municipalities</th>
                                 <th class="text-right">Action</th>
                             </tr>
                             </thead>
@@ -36,8 +36,8 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
-                                        <button v-if="municipality_submitting" type="button" class="btn btn-primary btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                                        <button v-else type="button" class="btn btn-primary btn-sm" @click.prevent="saveMunicipality">Create</button>
+                                        <button v-if="municipality_submitting" type="button" class="btn btn-accent btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                                        <button v-else type="button" class="btn btn-accent btn-sm" @click.prevent="saveMunicipality">Create</button>
                                         <button type="button" class="btn btn-secondary btn-sm" @click.prevent="clearMunicipality">Cancel</button>
                                     </div>
                                 </td>
@@ -49,7 +49,7 @@
 
                             <tr v-else v-for="(municipality, index) in municipalities" :key="index">
                                 <td v-if="!(municipality_edit_mode && municipality_id==municipality.id)" >
-                                    <a class="mr-2">{{ municipality.title }}</a>
+                                    <a class="mr-2">{{ municipality.title }}</a><br>
                                     <small class="">Created on {{ municipality.created_at }}</small>
                                 </td>
                                 <td v-else>
@@ -61,8 +61,8 @@
                                         <a href="#" @click.prevent="showDeleteModal(municipality.id,'municipality')" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
                                     </div>
                                     <div class="btn-group" v-else>
-                                        <button v-if="municipality_submitting" type="button" class="btn btn-primary btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                                        <button v-else type="button" class="btn btn-primary btn-sm" @click.prevent="saveMunicipality">Save</button>
+                                        <button v-if="municipality_submitting" type="button" class="btn btn-accent btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
+                                        <button v-else type="button" class="btn btn-accent btn-sm" @click.prevent="saveMunicipality">Save</button>
                                         <a href="#" class="btn btn-secondary btn-sm" type="button"
                                            @click.prevent="()=>{municipality_edit_mode=false;clearMunicipality();}">Cancel
                                         </a>
@@ -75,85 +75,6 @@
                             <pagination :data="municipalities_pg" @pagination-change-page="getMunicipalities"></pagination>
                         </div>
 
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-sm-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text"
-                                       class="form-control"
-                                       placeholder="Search Palikas"
-                                       v-model="palika_filter"
-                                       @keydown.backspace="setPalikaSearch"
-                                       @keydown.enter="setPalikaSearch"
-                                       @keypress="setPalikaSearch"
-                                >
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <table class="table table-striped jambo_table bulk_action">
-                            <thead>
-                            <tr>
-                                <th>Palikas</th>
-                                <th class="text-right">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control"
-                                           placeholder="Enter new palika name"
-                                           v-model="palika_title"
-                                           @keypress.enter="()=>{ palika_id=''; palika_edit_mode=false;}"
-                                           @keydown.enter="()=>{ palika_id=''; palika_edit_mode=false;}">
-                                </td>
-                                <td class="text-right">
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary btn-sm" type="button" @click.prevent="savePalika" >Create</button>
-                                        <button class="btn btn-secondary btn-sm" type="button" @click.prevent="clearPalika">Cancel</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr v-if="!palikas.length">
-                                <td colspan="2">No Palikas to display.</td>
-                            </tr>
-                            <tr v-else v-for="(palika, index) in palikas" :key="index">
-                                <td>
-                                    <template v-if="!(palika_edit_mode && palika_id==palika.id)" >
-                                        <a class="mr-2" @click.prevent="editPalika(palika)">{{ palika.title }}</a>
-                                        <small class="">Created on {{ palika.created_at }}</small>
-                                    </template>
-                                    <template v-else>
-                                        <input type="text" class="form-control"  placeholder="palika" v-model="palika_edit_title">
-                                    </template>
-                                </td>
-
-                                <td class="text-right">
-                                    <div class="btn-group"  v-if="!(palika_edit_mode && palika_id==palika.id)">
-                                        <a href="#" class="btn btn-secondary btn-sm" type="button" @click.prevent="editPalika(palika)">Edit</a>
-                                        <a href="#" @click.prevent="showDeleteModal(palika.id,'palika')" class="btn btn-danger btn-sm deleteModal" type="button">Delete</a>
-                                    </div>
-                                    <div class="btn-group" v-else>
-                                        <button v-if="palika_submitting" type="button" class="btn btn-primary btn-sm"><i class="fa fa-spinner fa-spin"></i></button>
-                                        <button v-else type="button" class="btn btn-primary btn-sm" @click.prevent="savePalika">Save</button>
-                                        <a href="#" class="btn btn-secondary btn-sm" type="button"
-                                           @click.prevent="()=>{palika_edit_mode=false;clearPalika(); }">
-                                            Cancel
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="float-right">
-                            <pagination :data="palikas_pg" @pagination-change-page="getPalikas"></pagination>
-                        </div>
                     </div>
                 </div>
             </div>

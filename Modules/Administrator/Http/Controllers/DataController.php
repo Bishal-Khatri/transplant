@@ -19,7 +19,7 @@ class DataController extends Controller
 {
     use SetResponse;
 
-    public function export()
+    public function exportPatient()
     {
         return Excel::download(new PatientsExport(), 'patient_list.xlsx');
     }

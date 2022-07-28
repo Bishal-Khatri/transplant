@@ -8,7 +8,7 @@ use Modules\Administrator\Http\Controllers\PatientController;
 
 Route::prefix('admin')->middleware(['auth', 'administrator'])->group(function() {
     Route::get('/', [AdministratorController::class, 'index'])->name('admin.index');
-    Route::get('/export', [DataController::class, 'export'])->name('export');
+    Route::get('/export-patient', [DataController::class, 'exportPatient'])->name('export-patient');
 
     Route::get('/religion', [DataController::class, 'religionIndex'])->name('admin.religion');
     Route::get('/ethnic-group', [DataController::class, 'ethnicGroupIndex'])->name('admin.ethnic-group');

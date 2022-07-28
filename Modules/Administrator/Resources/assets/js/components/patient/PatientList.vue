@@ -81,7 +81,7 @@
                                     <div class="dropdown-menu" aria-labelledby="filter-hospital-type"
                                          x-placement="bottom-start"
                                          style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                                        <a class="dropdown-item" href="/admin/export">Excel (.xslx)</a>
+                                        <a class="dropdown-item" href="/admin/export-patient">Excel (.xslx)</a>
                                     </div>
                                 </div>
                             </div>

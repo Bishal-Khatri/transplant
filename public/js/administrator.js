@@ -60501,7 +60501,7 @@ var staticRenderFns = [
               "a",
               {
                 staticClass: "dropdown-item",
-                attrs: { href: "/admin/export" },
+                attrs: { href: "/admin/export-patient" },
               },
               [_vm._v("Excel (.xslx)")]
             ),

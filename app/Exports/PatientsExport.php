@@ -27,6 +27,6 @@ class PatientsExport implements FromCollection, WithProperties
     */
     public function collection()
     {
-        return Patient::all();
+        return Patient::with(['hospital'])->get();
     }
 }

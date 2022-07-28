@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Organ Transplant | </title>
+    <title>{{ config('app.name') }} | Content Management</title>
     @include('layouts.gentelella.css')
     <link href="{{ asset('asset/gentelella/vendors/switchery/dist/switchery.min.css') }}" rel="stylesheet">
 </head>

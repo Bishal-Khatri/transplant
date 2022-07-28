@@ -1,6 +1,7 @@
 <footer>
+    {{--<div class="pull-right font-bold font-weight-bold">--}}
     <div class="pull-right">
-        Designed & Developed by <a href="https://iionstech.com/" target="_blank">iions technology pvt. ltd.</a>
+        Powered by <a href="https://iionstech.com/" target="_blank" class="">iions technology</a>
     </div>
     <div class="clearfix"></div>
 </footer>

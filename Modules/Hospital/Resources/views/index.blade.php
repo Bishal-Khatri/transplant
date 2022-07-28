@@ -29,19 +29,26 @@
                 <div class="col-lg-7 col-md-7 col-sm-7">
                     <div class="x_panel">
                         <div class="jumbotron mb-2 mt-2">
+                            @php
+                                $hospital = auth()->user()->hospital;
+                                $license = $hospital->license;
+                            @endphp
                             <h3>Welcome, {{ auth()->user()->name }}</h3>
-                            <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                            <p>{{ $hospital->hospital_name ?? '' }}</p>
                             <hr class="my-4">
-                            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                            <p class="alert alert-info">
-                                <i class="fa fa-info-circle mr-2"></i>
-                                License expiry warning message goes here.
-                            </p>
-                            {{--<p class="alert alert-error">--}}
-                                {{--<i class="fa fa-info-circle mr-2"></i>--}}
-                                {{--License expiry message goes here.--}}
-                                {{--<a href="/hospital/profile" class="text-white ml-2 btn btn-link btn-sm">Go to profile</a>--}}
-                            {{--</p>--}}
+                            <p>License Information.</p>
+                            @if(blank($license))
+                                <p class="alert alert-error">
+                                    <i class="fa fa-info-circle mr-2"></i>
+                                    License not found. This account is under approval process.
+                                </p>
+                            @else
+                                <p class="alert alert-info">
+                                    <i class="fa fa-info-circle mr-2"></i>
+                                    License status <span class="badge badge-accent">Active</span>. Expires on <span class="badge badge-accent">{{ $license->expiry_date ?? 'Not-Available' }}</span>
+                                </p>
+                            @endif
+
 
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a  href="#" class="text-accent">FAQ</a></li>
@@ -52,11 +59,11 @@
                     </div>
                 </div>
 
-                <div class="col-lg-5 col-md-5 col-sm-5">
-                    <div class="x_panel">
+                {{--<div class="col-lg-5 col-md-5 col-sm-5">--}}
+                    {{--<div class="x_panel">--}}
 
-                    </div>
-                </div>
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
     </div>

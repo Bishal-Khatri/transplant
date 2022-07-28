@@ -53,6 +53,11 @@
                         <i class="fa fa-users"></i> Patient Waiting List
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('user.index') }}">
+                            <i class="fa fa-user"></i> Administrators & Users
+                        </a>
+                    </li>
                 </ul>
 
                 <h3 class="mt-4">Content Management</h3>

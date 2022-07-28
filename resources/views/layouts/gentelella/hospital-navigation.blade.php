@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('hospital.patients') }}">
+                        <a @if(blank($license)) href="javascript:void(0)" @else href="{{ route('hospital.patients') }}" @endif>
                             <i class="fa fa-users"></i> Patients Information
                         </a>
                     </li>

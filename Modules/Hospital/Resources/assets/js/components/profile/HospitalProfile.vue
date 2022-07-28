@@ -459,9 +459,9 @@
                                         </div>
                                         <div class="col-md-9">
                                             <!--disable old license is create-->
-                                            <ul class="nav navbar-right panel_toolbox">
-                                                <li><a class="text-accent" href="#">Change User</a></li>
-                                            </ul>
+                                            <!--<ul class="nav navbar-right panel_toolbox">-->
+                                                <!--<li><a class="text-accent" href="#">Change User</a></li>-->
+                                            <!--</ul>-->
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -470,19 +470,19 @@
                                             <div class="col-md-12">
                                                 <ul class="list-unstyled project_files">
                                                     <li>
-                                                        <strong>User's Name:</strong> Bishal Khatri
+                                                        <strong>User's Name:</strong> {{ user.name || 'Not-Available'  }}
                                                     </li>
                                                     <li>
-                                                        <strong>Email Address:</strong> bishal.khatri343@gmail.com
+                                                        <strong>Email Address:</strong> {{ user.email || 'Not-Available' }}
                                                     </li>
                                                     <li>
-                                                        <strong>Password:</strong> <a href="">Change Password</a>
+                                                        <strong>Password:</strong> <a href="#" @click.prevent="change_password = !change_password;">Change Password</a>
                                                     </li>
                                                     <li>
-                                                        <strong>Created At:</strong> Apr 23 2022
+                                                        <strong>Created At:</strong> {{ user.created_at || 'Not-Available' }}
                                                     </li>
                                                     <li>
-                                                        <strong>Updated At:</strong> Apr 23 2022
+                                                        <strong>Updated At:</strong> {{ user.updated_at || 'Not-Available' }}
                                                     </li>
                                                 </ul>
                                             </div>
@@ -490,7 +490,7 @@
                                     </div>
                                 </section>
 
-                                <section class="x_panel">
+                                <section class="x_panel" v-if="change_password === true">
                                     <div class="x_title row">
                                         <div class="col-md-3">
                                             <h2 class="text-accent">Change Password</h2>
@@ -533,6 +533,7 @@
                                                             <span class="form-text text-danger" v-html="errors.get('patient_name')"></span>
                                                         </div>
                                                     </div>
+                                                    <button class="btn btn-sm btn-accent">Update</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -560,17 +561,19 @@
     import DataService from "../../../services/DataService";
     export default {
         name: "HospitalProfile",
-        props: ["hospital_json","licenses_json"],
+        props: ["hospital_json","licenses_json", "auth_user"],
         components: {
             ImagePreview
         },
         data(){
             return{
                 errors: new Errors(),
+                change_password: false,
                 is_load_more: false,
                 tab: 'Hospital Details',
                 editable: false,
                 hospital: {},
+                user: {},
                 reject_submitting:false,
                 approve_submitting:false,
                 // approve
@@ -627,6 +630,7 @@
         computed: {
         },
         mounted() {
+            this.user = JSON.parse(this.auth_user);
             this.hospital = JSON.parse(this.hospital_json);
             this.licenses = JSON.parse(this.licenses_json);
             this.province_id=this.hospital.province_id;

@@ -392,7 +392,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Disease <span class="required">*</span>
@@ -402,16 +402,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align">Referred By (Palika Name) <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-9 col-sm-9">
-                                        <input type="text" :value="`${patient.referred_by ? patient.referred_by:''}`" required="required"  class="form-control" disabled>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-3 col-sm-3 label-align">Transplant Type <span class="required">*</span>

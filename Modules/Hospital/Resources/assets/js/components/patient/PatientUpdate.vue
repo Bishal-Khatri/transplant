@@ -721,7 +721,6 @@
 
                 // Diagnosis / Treatment Information
                 disease: [],
-                referred_by:'',
                 blood_group: '',
                 transplant_type:'',
 
@@ -874,7 +873,6 @@
                 });
                 this.disease = disease;
                 this.blood_group = this.patient.blood_group;
-                this.referred_by = this.patient.referred_by;
                 this.transplant_type = this.patient.transplant_type;
 
                 // kidney
@@ -951,7 +949,6 @@
                 }else if(page_name === 'diagnosis_information'){
                     formData.append('page', page_name);
                     this.disease ? formData.append("disease", JSON.stringify(this.disease)) : '';
-                    this.referred_by ? formData.append("referred_by", this.referred_by) : '';
                     this.transplant_type ? formData.append("transplant_type", this.transplant_type) : '';
                     this.blood_group ? formData.append("blood_group", this.blood_group) : '';
 

@@ -12,17 +12,9 @@
                         <div class="form-group row">
                             <label>District Title</label>
                             <input type="text" class="form-control" placeholder="Enter title" v-model="title">
-                            <!--<label>Province</label>-->
-                            <!--<input type="text" class="form-control"-->
-                                <!--placeholder="Select Province" v-model="filter"-->
-                                <!--@keydown.backspace="setSearch"-->
-                                <!--@keydown.enter="setSearch"-->
-                                <!--@keypress="setSearch">-->
-                            <!--<ul class="list-group col-9 justify-content-center align-item-center text-dark p-2 m-2" id="province_group">-->
-                                <!--<li class="list-group-item" v-for="(province, index) in provinces" :key="index" @click="setProvince(province.id,index)">{{province.title}}</li>-->
-                            <!--</ul>-->
-                            <input type="text" class="form-control" style="display:none;" v-model="province_id" >
                             <span class="form-text text-danger" v-html="errors.get('title')"></span>
+
+                            <input type="text" class="form-control" style="display:none;" v-model="province_id" >
                         </div>
                     </div>
                     <div class="modal-footer">

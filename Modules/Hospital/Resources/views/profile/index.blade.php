@@ -11,7 +11,7 @@
 
             <div class="clearfix"></div>
 
-            <hospital-profile hospital_json="{{ $hospital }}" licenses_json="{{ $licenses }}"/>
+            <hospital-profile hospital_json="{{ $hospital }}" licenses_json="{{ $licenses }}" auth_user="{{ auth()->user() }}"/>
         </div>
     </div>
 @endsection

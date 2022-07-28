@@ -13,9 +13,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                            <span>Settings</span>
-                        </a>
+                        {{--<a class="dropdown-item"  href="javascript:;">--}}
+                            {{--<span>Settings</span>--}}
+                        {{--</a>--}}
                         <a class="dropdown-item"  href="javascript:;">Help</a>
                         <a class="dropdown-item" href="{{ route('logout') }}" title="Logout" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             Log Out

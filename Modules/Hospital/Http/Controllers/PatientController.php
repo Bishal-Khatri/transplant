@@ -241,11 +241,9 @@ class PatientController extends Controller
     public function __updateDiagnosisInformation($request, $patient){
         $request->validate([
             'disease' => 'required',
-            'referred_by' => 'required',
             'transplant_type' => 'required',
         ]);
         try{
-            $patient->referred_by = $request->referred_by;
             $patient->blood_group = $request->blood_group;
             $patient->transplant_type = $request->transplant_type;
 

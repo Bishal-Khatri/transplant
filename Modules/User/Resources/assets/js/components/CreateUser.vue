@@ -6,7 +6,7 @@
                     <div class="modal-header text-center">
                         <h4 class="modal-title">Register New User</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body m-3">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel">
@@ -50,7 +50,6 @@
                                                         <option v-if="types" v-for="userType in types" :value="userType" >{{ userType.toUpperCase() }}</option>
                                                     </select>
                                                     <span class="form-text small text-danger" v-html="errors.get('user_type')"></span>
-                                                    <!--<input type="text" class="form-control" id="" value="ADMINISTRATOR" disabled>-->
                                                 </div>
                                             </div>
 
@@ -74,18 +73,18 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row">
-                                                <label for="role" class="col-sm-3 col-form-label">Role
-                                                    <span style="font-size: 18px" class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-sm-9">
-                                                    <select v-model="role" id="role" class="form-control">
-                                                        <option value="">Select A Role</option>
-                                                        <option v-if="roles.length" v-for="value in roles" :value="value.id">{{ value.name.toUpperCase() }}</option>
-                                                    </select>
-                                                    <span class="form-text small text-danger" v-html="errors.get('role')"></span>
-                                                </div>
-                                            </div>
+                                            <!--<div class="form-group row">-->
+                                                <!--<label for="role" class="col-sm-3 col-form-label">Role-->
+                                                    <!--<span style="font-size: 18px" class="text-danger">*</span>-->
+                                                <!--</label>-->
+                                                <!--<div class="col-sm-9">-->
+                                                    <!--<select v-model="role" id="role" class="form-control">-->
+                                                        <!--<option value="">Select A Role</option>-->
+                                                        <!--<option v-if="roles.length" v-for="value in roles" :value="value.id">{{ value.name.toUpperCase() }}</option>-->
+                                                    <!--</select>-->
+                                                    <!--<span class="form-text small text-danger" v-html="errors.get('role')"></span>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
                                         </form>
                                     </div>
                                 </div>

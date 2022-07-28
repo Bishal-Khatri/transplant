@@ -38,7 +38,6 @@ class Patient extends Model
         'opd_number',
         'hospital_bipanna_number',
         'disease',
-        'referred_by',
         'transplant_type',
     ];
 

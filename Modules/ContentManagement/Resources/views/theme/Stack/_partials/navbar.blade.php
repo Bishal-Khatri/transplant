@@ -101,7 +101,7 @@
                     </div>
                     <!--end module-->
                     <div class="bar__module">
-                        @if(Route::has('register-hospital'))
+                        @if(Route::has('register-hospital') AND auth()->check())
                             <a class="btn btn--sm type--uppercase btn-outline-danger" href="{{ route('register-hospital') }}">
                                 <span class="btn__text">Register Hospital</span>
                             </a>

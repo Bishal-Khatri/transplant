@@ -22,7 +22,8 @@ class CreateThemesTable extends Migration
             $table->text('copyright', 500)->nullable();
             $table->longText('footer')->nullable();
             $table->boolean('is_active')->default(0);
-            $table->unsignedBigInteger('nav_menu_id')->after('homepage_id')->nullable();
+            $table->unsignedBigInteger('nav_menu_id')->nullable();
+            $table->text('topbar_text')->nullable();
             $table->timestamps();
         });
     }

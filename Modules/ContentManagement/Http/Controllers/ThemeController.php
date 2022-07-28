@@ -101,6 +101,7 @@ class ThemeController extends Controller
         $theme->title = $request->website_name;
         $theme->copyright = $request->copyright_text;
         $theme->footer = $request->footer;
+        $theme->topbar_text = $request->topbar_text;
         $theme->save();
 
         $returnData = $this->prepareResponse(false, 'Success <br> Theme updated successfully.', [], []);

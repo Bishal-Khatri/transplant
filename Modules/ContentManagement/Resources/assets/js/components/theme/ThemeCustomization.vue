@@ -26,6 +26,10 @@
                             <label>Website Name</label>
                             <input type="text" class="form-control" v-model="website_name" placeholder="Website Name">
                         </div>
+                        <div class="col-md-12 col-sm-12 form-group">
+                            <label>Topbar Text</label>
+                            <input type="text" class="form-control" v-model="topbar_text" placeholder="Topbar Text">
+                        </div>
 
                         <div class="col-md-12 col-sm-12 form-group">
                             <label>Home Page</label>
@@ -86,6 +90,7 @@
                 nav_menu_id: '',
                 copyright_text: '',
                 footer: '',
+                topbar_text: '',
 
                 selected_logo: '',
 
@@ -118,6 +123,7 @@
                 this.nav_menu_id = this.active_theme.nav_menu_id;
                 this.copyright_text = this.active_theme.copyright;
                 this.footer = this.active_theme.footer;
+                this.topbar_text = this.active_theme.topbar_text;
             },
             setFooterStyle(index){
                 this.footer = this.footer_styles[index];
@@ -131,6 +137,7 @@
                     nav_menu_id: this.nav_menu_id,
                     copyright_text: this.copyright_text,
                     footer: this.footer,
+                    topbar_text: this.topbar_text,
                 };
 
                 try {

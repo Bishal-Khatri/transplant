@@ -20334,6 +20334,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -20352,6 +20356,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       nav_menu_id: '',
       copyright_text: '',
       footer: '',
+      topbar_text: '',
       selected_logo: '',
       footer_styles: ['<footer class="space--sm footer-2 "> <div class="container"> <div class="row"> <div class="col-md-6 col-lg-3 col-6"> <h6 class="type--uppercase">Company</h6> <ul class="list--hover"> <li> <a href="#">About Company</a> </li><li> <a href="#">Our Team</a> </li><li> <a href="#">Locations</a> </li><li> <a href="#">History</a> </li><li> <a href="#">Work With Us</a> </li></ul> </div><div class="col-md-6 col-lg-3 col-6"> <h6 class="type--uppercase">Developers</h6> <ul class="list--hover"> <li> <a href="#">Developer Center</a> </li><li> <a href="#">API Reference</a> </li><li> <a href="#">Downloads</a> </li><li> <a href="#">Tools</a> </li><li> <a href="#">Developer Blog</a> </li><li> <a href="#">Developer Forums</a> </li></ul> </div><div class="col-md-6 col-lg-3 col-6"> <h6 class="type--uppercase">Support</h6> <ul class="list--hover"> <li> <a href="#">Help Center</a> </li><li> <a href="#">Live Chat</a> </li><li> <a href="#">Downloads</a> </li><li> <a href="#">Press Kit</a> </li></ul> </div><div class="col-md-6 col-lg-3 col-6"> <h6 class="type--uppercase">Locations</h6> <ul class="list--hover"> <li> <a href="#">Melbourne</a> </li><li> <a href="#">London</a> </li><li> <a href="#">New York</a> </li><li> <a href="#">San Francisco</a> </li></ul> </div></div><div class="row"> <div class="col-md-6"> <span class="type--fine-print">&copy; <span class="update-year"></span> Stack Inc.</span> <a class="type--fine-print" href="#">Privacy Policy</a> <a class="type--fine-print" href="#">Legal</a> </div><div class="col-md-6 text-right text-left-xs"> <ul class="social-list list-inline list--hover"> <li> <a href="#"> <i class="socicon socicon-google icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-twitter icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-facebook icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-instagram icon icon--xs"></i> </a> </li></ul> </div></div></div></footer>', '<footer class="text-center-xs space--xs "> <div class="container"> <div class="row"> <div class="col-md-7"> <ul class="list-inline"> <li> <a href="#"> <span class="h6 type--uppercase">About</span> </a> </li><li> <a href="#"> <span class="h6 type--uppercase">Careers</span> </a> </li><li> <a href="#"> <span class="h6 type--uppercase">Support</span> </a> </li></ul> </div><div class="col-md-5 text-right text-center-xs"> <ul class="social-list list-inline list--hover"> <li> <a href="#"> <i class="socicon socicon-google icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-twitter icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-facebook icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-instagram icon icon--xs"></i> </a> </li></ul> </div></div><div class="row"> <div class="col-md-7"> <span class="type--fine-print">&copy; <span class="update-year"></span> Stack Inc.</span> <a class="type--fine-print" href="#">Privacy Policy</a> <a class="type--fine-print" href="#">Legal</a> </div><div class="col-md-5 text-right text-center-xs"> <a class="type--fine-print" href="#">support@stack.io</a> </div></div></div></footer>', '<footer class="space--sm footer-1 text-center-xs "> <div class="container"> <div class="row"> <div class="col-md-6"> <ul class="list-inline list--hover"> <li> <a href="#"> <span>Our Company</span> </a> </li><li> <a href="#"> <span>Locations</span> </a> </li><li> <a href="#"> <span>Products</span> </a> </li><li> <a href="#"> <span>Work With Us</span> </a> </li></ul> </div><div class="col-md-6 text-right text-center-xs"> <ul class="social-list list-inline list--hover"> <li> <a href="#"> <i class="socicon socicon-google icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-twitter icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-facebook icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-instagram icon icon--xs"></i> </a> </li></ul> <a href="#" class="btn type--uppercase"> <span class="btn__text"> Contact Us </span> </a> </div></div><div class="row"> <div class="col-md-12"> <img alt="Image" class="logo" src="img/logo-dark.png"/> <span class="type--fine-print">&copy; <span class="update-year"></span> Stack Inc.</span> <a class="type--fine-print" href="#">Privacy Policy</a> <a class="type--fine-print" href="#">Legal</a> </div></div></div></footer>']
     };
@@ -20370,6 +20375,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.nav_menu_id = this.active_theme.nav_menu_id;
       this.copyright_text = this.active_theme.copyright;
       this.footer = this.active_theme.footer;
+      this.topbar_text = this.active_theme.topbar_text;
     },
     setFooterStyle: function setFooterStyle(index) {
       this.footer = this.footer_styles[index];
@@ -20390,7 +20396,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   homepage_id: _this.homepage_id,
                   nav_menu_id: _this.nav_menu_id,
                   copyright_text: _this.copyright_text,
-                  footer: _this.footer
+                  footer: _this.footer,
+                  topbar_text: _this.topbar_text
                 };
                 _context.prev = 1;
                 _context.next = 4;
@@ -86746,6 +86753,32 @@ var render = function () {
                           return
                         }
                         _vm.website_name = $event.target.value
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12 col-sm-12 form-group" }, [
+                  _c("label", [_vm._v("Topbar Text")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.topbar_text,
+                        expression: "topbar_text",
+                      },
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Topbar Text" },
+                    domProps: { value: _vm.topbar_text },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.topbar_text = $event.target.value
                       },
                     },
                   }),

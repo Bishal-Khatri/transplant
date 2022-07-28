@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Organ Transplant</title>
+    <title>{{ config('app.name') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Site Description Here">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,12 +15,12 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="bar__module">
-                    <span class="type--fine-print color--white">Nepal Medical Council (NMC)</span>
+                    <span class="type--fine-print color--white">{{ $active_theme->topbar_text ?? '' }}</span>
                 </div>
             </div>
             <div class="col-lg-6 text-right text-left-xs text-left-sm">
-                <div class="bar__module">
-                    <ul class="menu-horizontal">
+                {{--<div class="bar__module">--}}
+                    {{--<ul class="menu-horizontal">--}}
                         {{--<li>--}}
                             {{--<div class="modal-instance">--}}
                                 {{--<a href="#" class="modal-trigger text-white">Login</a>--}}
@@ -143,13 +143,13 @@
                                 {{--</div>--}}
                             {{--</div>--}}
                         {{--</li>--}}
-                        <li>
-                            <a href="#" data-notification-link="side-menu">
-                                <i class="stack-dot-3 text-white"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                        {{--<li>--}}
+                            {{--<a href="#" data-notification-link="side-menu">--}}
+                                {{--<i class="stack-dot-3 text-white"></i>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--</ul>--}}
+                {{--</div>--}}
             </div>
         </div>
         <!--end of row-->
@@ -259,43 +259,46 @@
 <div class="main-container">
 
     @yield('content')
-
-    <footer class="footer-3 text-center-xs space--xs ">
+    <footer class="text-center-xs space--xs bg--secondary">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <img alt="Image" class="logo" src="{{ $active_theme->logo ? '/storage/'.$active_theme->logo : '' }}" />
-                    <ul class="list-inline list--hover">
-                        <li class="list-inline-item">
+                <div class="col-md-7">
+                    <ul class="list-inline">
+                        <li>
                             <a href="#">
-                                <span class="type--fine-print">Get Started</span>
+                                <span class="h6 type--uppercase">About</span>
                             </a>
                         </li>
-                        <li class="list-inline-item">
+                        <li>
                             <a href="#">
-                                <span class="type--fine-print">help@iionstech.com</span>
+                                <span class="h6 type--uppercase">Careers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="h6 type--uppercase">Support</span>
                             </a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-6 text-right text-center-xs">
+                <div class="col-md-5 text-right text-center-xs">
                     <ul class="social-list list-inline list--hover">
-                        <li class="list-inline-item">
+                        <li>
                             <a href="#">
                                 <i class="socicon socicon-google icon icon--xs"></i>
                             </a>
                         </li>
-                        <li class="list-inline-item">
+                        <li>
                             <a href="#">
                                 <i class="socicon socicon-twitter icon icon--xs"></i>
                             </a>
                         </li>
-                        <li class="list-inline-item">
+                        <li>
                             <a href="#">
                                 <i class="socicon socicon-facebook icon icon--xs"></i>
                             </a>
                         </li>
-                        <li class="list-inline-item">
+                        <li>
                             <a href="#">
                                 <i class="socicon socicon-instagram icon icon--xs"></i>
                             </a>
@@ -305,16 +308,14 @@
             </div>
             <!--end of row-->
             <div class="row">
-                <div class="col-md-6">
-                    <p class="type--fine-print">
-                        Supercharge your web workflow
-                    </p>
-                </div>
-                <div class="col-md-6 text-right text-center-xs">
-                            <span class="type--fine-print">&copy;
-                                <span class="update-year"></span> Stack Inc.</span>
+                <div class="col-md-7">
+                    <span class="type--fine-print">&copy;
+                    <span class="update-year"></span> {{ config('app.name') }}.</span>
                     <a class="type--fine-print" href="#">Privacy Policy</a>
                     <a class="type--fine-print" href="#">Legal</a>
+                </div>
+                <div class="col-md-5 text-right text-center-xs">
+                    <a class="type--fine-print" href="#">support@iionstech.com</a>
                 </div>
             </div>
             <!--end of row-->

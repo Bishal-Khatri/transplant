@@ -6,24 +6,25 @@
                     <div class="x_title">
                         <h2>General</h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <li><button class="btn btn-link text-accent" type="submit">Save</button></li>
+                            <li><button class="btn btn-link text-accent" @click.prevent="save">Save</button></li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
                         <div class="col-md-12" v-if="active_theme">
-                            <img :src="'/storage/'+active_theme.logo" alt="logo" class="rounded" width="350">
+                            <img v-if="active_theme.logo" :src="'/storage/'+active_theme.logo" alt="logo" class="rounded" width="350">
                             <p>Current Logo</p>
                         </div>
 
                         <div class="col-md-12 col-sm-12 form-group">
                             <label>Website Logo</label>
+                            <button class="btn btn-sm btn-accent" @click.prevent="$refs.selectFile.openDialog()"><i class="fa fa-upload mr-1"></i> Storage</button>
                             <!--<input type="file" class="form-control" v-model="logo" placeholder="Website Logo">-->
                         </div>
 
                         <div class="col-md-12 col-sm-12 form-group">
                             <label>Website Name</label>
-                            <input type="text" class="form-control" v-model="title" placeholder="Website Name">
+                            <input type="text" class="form-control" v-model="website_name" placeholder="Website Name">
                         </div>
 
                         <div class="col-md-12 col-sm-12 form-group">
@@ -60,21 +61,33 @@
                 </form>
             </div>
         </div>
+
+        <select-file ref="selectFile" name="add-image-gallery" @filesSelected="logoSelected" config="3"/>
     </div>
 </template>
 
 <script>
+    import SelectFile from "../storage/SelectFile";
+    import ThemeService from "../../../services/ThemeService";
+    import {Errors} from "../../../../../../../resources/js/error";
+
     export default {
         name: "ThemeCustomization",
         props:['active_theme', 'menus', 'pages'],
+        components: {
+            SelectFile
+        },
         data(){
             return{
+                errors: new Errors(),
                 logo: '',
-                title: '',
+                website_name: '',
                 homepage_id: '',
                 nav_menu_id: '',
                 copyright_text: '',
                 footer: '',
+
+                selected_logo: '',
 
                 footer_styles:[
                     '<footer class="space--sm footer-2 "> <div class="container"> <div class="row"> <div class="col-md-6 col-lg-3 col-6"> <h6 class="type--uppercase">Company</h6> <ul class="list--hover"> <li> <a href="#">About Company</a> </li><li> <a href="#">Our Team</a> </li><li> <a href="#">Locations</a> </li><li> <a href="#">History</a> </li><li> <a href="#">Work With Us</a> </li></ul> </div><div class="col-md-6 col-lg-3 col-6"> <h6 class="type--uppercase">Developers</h6> <ul class="list--hover"> <li> <a href="#">Developer Center</a> </li><li> <a href="#">API Reference</a> </li><li> <a href="#">Downloads</a> </li><li> <a href="#">Tools</a> </li><li> <a href="#">Developer Blog</a> </li><li> <a href="#">Developer Forums</a> </li></ul> </div><div class="col-md-6 col-lg-3 col-6"> <h6 class="type--uppercase">Support</h6> <ul class="list--hover"> <li> <a href="#">Help Center</a> </li><li> <a href="#">Live Chat</a> </li><li> <a href="#">Downloads</a> </li><li> <a href="#">Press Kit</a> </li></ul> </div><div class="col-md-6 col-lg-3 col-6"> <h6 class="type--uppercase">Locations</h6> <ul class="list--hover"> <li> <a href="#">Melbourne</a> </li><li> <a href="#">London</a> </li><li> <a href="#">New York</a> </li><li> <a href="#">San Francisco</a> </li></ul> </div></div><div class="row"> <div class="col-md-6"> <span class="type--fine-print">&copy; <span class="update-year"></span> Stack Inc.</span> <a class="type--fine-print" href="#">Privacy Policy</a> <a class="type--fine-print" href="#">Legal</a> </div><div class="col-md-6 text-right text-left-xs"> <ul class="social-list list-inline list--hover"> <li> <a href="#"> <i class="socicon socicon-google icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-twitter icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-facebook icon icon--xs"></i> </a> </li><li> <a href="#"> <i class="socicon socicon-instagram icon icon--xs"></i> </a> </li></ul> </div></div></div></footer>',
@@ -100,7 +113,7 @@
         },
         methods:{
             init_data(){
-                this.title = this.active_theme.title;
+                this.website_name = this.active_theme.title;
                 this.homepage_id = this.active_theme.homepage_id;
                 this.nav_menu_id = this.active_theme.nav_menu_id;
                 this.copyright_text = this.active_theme.copyright;
@@ -108,7 +121,31 @@
             },
             setFooterStyle(index){
                 this.footer = this.footer_styles[index];
-            }
+            },
+            async save(){
+                const formData = {
+                    theme_id: this.active_theme.id,
+                    logo: this.logo,
+                    website_name: this.website_name,
+                    homepage_id: this.homepage_id,
+                    nav_menu_id: this.nav_menu_id,
+                    copyright_text: this.copyright_text,
+                    footer: this.footer,
+                };
+
+                try {
+                    const response = await ThemeService.saveThemeData(formData);
+                    if (response.data.error === false) {
+                    }
+                    Errors.Notification(response);
+                }catch (error) {
+                    this.errors.record(error.response.data);
+                    Errors.Notification(error.response);
+                }
+            },
+            async logoSelected(file) {
+                this.logo = file[0];
+            },
         }
     }
 </script>

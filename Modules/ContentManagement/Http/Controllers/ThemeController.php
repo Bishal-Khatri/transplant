@@ -2,6 +2,7 @@
 
 namespace Modules\ContentManagement\Http\Controllers;
 
+use App\Traits\SetResponse;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -14,6 +15,7 @@ use Modules\ContentManagement\Enum\ContentType;
 
 class ThemeController extends Controller
 {
+    use SetResponse;
     public  $active_theme;
     public function __construct()
     {
@@ -90,29 +92,19 @@ class ThemeController extends Controller
 
         if (!$theme_id){
             $theme = new Theme();
-        }else{
+        }else {
             $theme = Theme::findOrFail($theme_id);
-
-            // remove old file
-            if ($request->hasFile('logo')){
-                Storage::delete($theme->logo);
-            }
-
         }
-
-        if ($request->hasFile('logo')){
-            $path = $request->file('logo')->store('site', 'public');
-            $theme->logo = $path;
-        }
-
+        $theme->logo = 'filemanager/'.$request->logo;
         $theme->homepage_id = $request->homepage_id;
         $theme->nav_menu_id = $request->nav_menu_id;
-        $theme->title = $request->title;
+        $theme->title = $request->website_name;
         $theme->copyright = $request->copyright_text;
+        $theme->footer = $request->footer;
         $theme->save();
 
-        session()->flash('success', 'Success <br> Theme updated successfully.');
-        return redirect()->back();
+        $returnData = $this->prepareResponse(false, 'Success <br> Theme updated successfully.', [], []);
+        return response()->json($returnData);
     }
 
     public function scanTheme()

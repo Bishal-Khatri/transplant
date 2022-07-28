@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
 
     Route::group(['prefix' => 'theme'], function (){
         Route::get('/', [ThemeController::class, 'adminIndex'])->name('cms.theme.index');
-        Route::post('/update', [ThemeController::class, 'updateTheme'])->name('cms.theme.update');
+
         Route::get('/activate/{id}', [ThemeController::class, 'activateTheme'])->name('cms.theme.activate');
         Route::get('/scan', [ThemeController::class, 'scanTheme'])->name('cms.theme.scan');
     });
@@ -62,6 +62,7 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
 
 
     Route::group(['prefix' => 'web-api'],function() {
+        Route::post('/theme/update', [ThemeController::class, 'updateTheme']);
         Route::post('/page/update', [PageController::class, 'updatePage']);
         Route::get('/page/details/{page_id}', [PageController::class, 'pageDetails']);
         Route::delete('/page/deleteSection/{section_id}', [PageController::class, 'deleteSection']);

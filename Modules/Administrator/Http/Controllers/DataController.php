@@ -4,7 +4,6 @@ namespace Modules\Administrator\Http\Controllers;
 
 use App\Exports\PatientsExport;
 use App\Traits\SetResponse;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Maatwebsite\Excel\Facades\Excel;

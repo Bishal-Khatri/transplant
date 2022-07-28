@@ -51855,33 +51855,37 @@ var render = function () {
     "ul",
     { staticClass: "messages" },
     _vm._l(_vm.activities, function (activity, index) {
-      return _c("li", { key: index }, [
-        activity.description === "updated"
-          ? _c("i", { staticClass: "fa fa-edit text-accent float-left" })
-          : activity.description === "created"
-          ? _c("i", { staticClass: "fa fa-plus text-success float-left" })
-          : _c("i", { staticClass: "fa fa-trash text-danger float-left" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "message_date" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "message_wrapper" }, [
-          _c("blockquote", { staticClass: "message" }, [
-            _vm._v("\n                A "),
-            _c("strong", [_vm._v(_vm._s(activity.subject_type))]),
-            _vm._v(" has been "),
-            _c("strong", [_vm._v(_vm._s(activity.description))]),
-            _vm._v(" by "),
-            _c("strong", [_vm._v(_vm._s(activity.causer.name))]),
+      return _vm.activities.length
+        ? _c("li", { key: index }, [
+            activity.description === "updated"
+              ? _c("i", { staticClass: "fa fa-edit text-accent float-left" })
+              : activity.description === "created"
+              ? _c("i", { staticClass: "fa fa-plus text-success float-left" })
+              : _c("i", { staticClass: "fa fa-trash text-danger float-left" }),
             _vm._v(" "),
-            _c("a", { attrs: { href: "" } }, [
-              _vm._v(_vm._s(activity.created_at)),
+            _c("div", { staticClass: "message_wrapper" }, [
+              _c("blockquote", { staticClass: "message" }, [
+                _vm._v("\n                A "),
+                _c("strong", [_vm._v(_vm._s(activity.subject_type))]),
+                _vm._v(" has been "),
+                _c("strong", [_vm._v(_vm._s(activity.description))]),
+                _vm._v(" by\n                "),
+                activity.causer
+                  ? _c("strong", [
+                      _vm._v(_vm._s(activity.causer.name || "Not-Available")),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("a", { attrs: { href: "" } }, [
+                  _vm._v(_vm._s(activity.created_at)),
+                ]),
+                _vm._v("."),
+              ]),
+              _vm._v(" "),
+              _c("br"),
             ]),
-            _vm._v("."),
-          ]),
-          _vm._v(" "),
-          _c("br"),
-        ]),
-      ])
+          ])
+        : _c("li", [_vm._v("\n        No Items Found.\n    ")])
     }),
     0
   )

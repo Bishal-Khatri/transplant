@@ -14,7 +14,7 @@ class DistrictsTableSeeder extends Seeder
     public function run()
     {
 
-        District::truncate();
+//        District::truncate();
 
         District::create( [
             'id'=>1,

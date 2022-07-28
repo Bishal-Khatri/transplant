@@ -1,20 +1,20 @@
 <template>
     <ul class="messages">
         <!-- notifications -->
-        <li v-for="(activity,index) in activities" :key="index">
+        <li v-if="activities.length" v-for="(activity,index) in activities" :key="index">
             <i v-if="activity.description ==='updated'" class="fa fa-edit text-accent float-left"></i>
             <i v-else-if="activity.description ==='created'" class="fa fa-plus text-success float-left"></i>
             <i v-else class="fa fa-trash text-danger float-left"></i>
-            <div class="message_date">
-                <!--<h2 class="date text-info">May</h2>-->
-                <!--<p class="month">12</p>-->
-            </div>
             <div class="message_wrapper">
                 <blockquote class="message">
-                    A <strong>{{ activity.subject_type }}</strong> has been <strong>{{ activity.description }}</strong> by <strong>{{ activity.causer.name }}</strong>
+                    A <strong>{{ activity.subject_type }}</strong> has been <strong>{{ activity.description }}</strong> by
+                    <strong v-if="activity.causer">{{ activity.causer.name || 'Not-Available' }}</strong>
                     <a href="">{{ activity.created_at }}</a>.</blockquote>
                 <br />
             </div>
+        </li>
+        <li v-else>
+            No Items Found.
         </li>
     </ul>
 </template>

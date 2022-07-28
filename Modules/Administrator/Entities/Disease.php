@@ -10,6 +10,7 @@ class Disease extends Model
     use HasFactory;
 
     protected $fillable = [];
+    protected $casts = ['created_at' => 'date', 'updated_at' => 'date'];
 
     protected static function newFactory()
     {
@@ -17,6 +18,11 @@ class Disease extends Model
     }
 
     public function getCreatedAtAttribute($value)
+    {
+        return date('M d Y', strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value)
     {
         return date('M d Y', strtotime($value));
     }

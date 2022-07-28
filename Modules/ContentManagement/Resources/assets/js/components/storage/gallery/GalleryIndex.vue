@@ -14,15 +14,18 @@
                                     <div class="hr-line-dashed"></div>
                                     <h5>Galleries</h5>
                                     <ul class="folder-list" style="padding: 0">
-                                        <li v-for="(gallery, index) in galleries" :key="index" :class="selected_gallery.id === gallery.id ? 'active' : 'apple'">
+                                        <li v-if="galleries.length" v-for="(gallery, index) in galleries" :key="index" :class="selected_gallery.id === gallery.id ? 'active' : 'apple'">
                                             <div class="d-flex">
                                                 <a href="" @click.prevent="selectGallery(gallery)">
                                                     <i class="fa fa-folder"></i>
                                                     {{ gallery.title || 'Not-Available'}}
                                                 </a>
                                                 <a href="#" class="ml-3" @click.prevent="$refs.createGallery.openDialog(gallery)"><i class="fa fa-pencil"></i></a>
-                                                <a href="#" class="ml-1" @click.prevent="showImageDeleteModal(gallery.id)"><i class="fa fa-trash text-danger"></i></a>
+                                                <a href="#" class="ml-1" @click.prevent="showDeleteModal(gallery.id)"><i class="fa fa-trash text-danger"></i></a>
                                             </div>
+                                        </li>
+                                        <li v-else>
+                                            No galleries found.
                                         </li>
                                     </ul>
                                     <div class="clearfix"></div>
@@ -33,9 +36,10 @@
                     <div class="col-md-9 animated fadeInRight">
                         <div class="row mt-3">
                             <div class="col-md-6 col-lg-6">
-                                <h5>Showing images in <a href="#">{{ selected_gallery.title }}</a></h5>
+                                <h5 v-if="selected_gallery">Showing images in <a href="#">{{ selected_gallery.title }}</a></h5>
+                                <h5 v-else>Gallery not selected.</h5>
                             </div>
-                            <div class="col-md-4 col-lg-4 text-right" style="padding-right:0">
+                            <div class="col-md-6 col-lg-6 text-right" style="padding-right:0">
                                 <div class="btn-group" role="group">
                                     <button id="filter-verification-status" type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-upload mr-1"></i> Upload
@@ -92,7 +96,7 @@
             <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Delete Image</h4>
+                        <h4 class="modal-title" id="myModalLabel">Delete Gallery</h4>
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -152,7 +156,7 @@
         data(){
             return{
                 errors: new Errors(),
-                loading: true,
+                loading: false,
                 delete_submitting: false,
                 delete_id: '',
                 galleries: '',
@@ -167,8 +171,10 @@
         },
         async mounted(){
             await this.getGalleries();
-            this.selected_gallery = this.galleries[0];
-            await this.getImages();
+            if (this.galleries.length){
+                this.selected_gallery = this.galleries[0];
+                await this.getImages();
+            }
             EventBus.$on('galleryCreated', () => {
                 this.getGalleries();
             });

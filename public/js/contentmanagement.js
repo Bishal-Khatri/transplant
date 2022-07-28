@@ -19879,6 +19879,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -19895,7 +19899,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       errors: new _resources_js_error__WEBPACK_IMPORTED_MODULE_3__["Errors"](),
-      loading: true,
+      loading: false,
       delete_submitting: false,
       delete_id: '',
       galleries: '',
@@ -19918,16 +19922,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this.getGalleries();
 
             case 2:
+              if (!_this.galleries.length) {
+                _context.next = 6;
+                break;
+              }
+
               _this.selected_gallery = _this.galleries[0];
-              _context.next = 5;
+              _context.next = 6;
               return _this.getImages();
 
-            case 5:
+            case 6:
               _app__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('galleryCreated', function () {
                 _this.getGalleries();
               });
 
-            case 6:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -85961,80 +85970,89 @@ var render = function () {
                           staticStyle: { padding: "0" },
                         },
                         _vm._l(_vm.galleries, function (gallery, index) {
-                          return _c(
-                            "li",
-                            {
-                              key: index,
-                              class:
-                                _vm.selected_gallery.id === gallery.id
-                                  ? "active"
-                                  : "apple",
-                            },
-                            [
-                              _c("div", { staticClass: "d-flex" }, [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { href: "" },
-                                    on: {
-                                      click: function ($event) {
-                                        $event.preventDefault()
-                                        return _vm.selectGallery(gallery)
+                          return _vm.galleries.length
+                            ? _c(
+                                "li",
+                                {
+                                  key: index,
+                                  class:
+                                    _vm.selected_gallery.id === gallery.id
+                                      ? "active"
+                                      : "apple",
+                                },
+                                [
+                                  _c("div", { staticClass: "d-flex" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: { href: "" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.selectGallery(gallery)
+                                          },
+                                        },
                                       },
-                                    },
-                                  },
-                                  [
-                                    _c("i", { staticClass: "fa fa-folder" }),
-                                    _vm._v(
-                                      "\n                                                " +
-                                        _vm._s(
-                                          gallery.title || "Not-Available"
-                                        ) +
-                                        "\n                                            "
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-folder",
+                                        }),
+                                        _vm._v(
+                                          "\n                                                " +
+                                            _vm._s(
+                                              gallery.title || "Not-Available"
+                                            ) +
+                                            "\n                                            "
+                                        ),
+                                      ]
                                     ),
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "ml-3",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function ($event) {
-                                        $event.preventDefault()
-                                        return _vm.$refs.createGallery.openDialog(
-                                          gallery
-                                        )
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "ml-3",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.$refs.createGallery.openDialog(
+                                              gallery
+                                            )
+                                          },
+                                        },
                                       },
-                                    },
-                                  },
-                                  [_c("i", { staticClass: "fa fa-pencil" })]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "ml-1",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function ($event) {
-                                        $event.preventDefault()
-                                        return _vm.showImageDeleteModal(
-                                          gallery.id
-                                        )
+                                      [_c("i", { staticClass: "fa fa-pencil" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "ml-1",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.showDeleteModal(
+                                              gallery.id
+                                            )
+                                          },
+                                        },
                                       },
-                                    },
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fa fa-trash text-danger",
-                                    }),
-                                  ]
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "fa fa-trash text-danger",
+                                        }),
+                                      ]
+                                    ),
+                                  ]),
+                                ]
+                              )
+                            : _c("li", [
+                                _vm._v(
+                                  "\n                                        No galleries found.\n                                    "
                                 ),
-                              ]),
-                            ]
-                          )
+                              ])
                         }),
                         0
                       ),
@@ -86049,18 +86067,20 @@ var render = function () {
             _c("div", { staticClass: "col-md-9 animated fadeInRight" }, [
               _c("div", { staticClass: "row mt-3" }, [
                 _c("div", { staticClass: "col-md-6 col-lg-6" }, [
-                  _c("h5", [
-                    _vm._v("Showing images in "),
-                    _c("a", { attrs: { href: "#" } }, [
-                      _vm._v(_vm._s(_vm.selected_gallery.title)),
-                    ]),
-                  ]),
+                  _vm.selected_gallery
+                    ? _c("h5", [
+                        _vm._v("Showing images in "),
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(_vm.selected_gallery.title)),
+                        ]),
+                      ])
+                    : _c("h5", [_vm._v("Gallery not selected.")]),
                 ]),
                 _vm._v(" "),
                 _c(
                   "div",
                   {
-                    staticClass: "col-md-4 col-lg-4 text-right",
+                    staticClass: "col-md-6 col-lg-6 text-right",
                     staticStyle: { "padding-right": "0" },
                   },
                   [
@@ -86444,7 +86464,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h4", { staticClass: "modal-title", attrs: { id: "myModalLabel" } }, [
-        _vm._v("Delete Image"),
+        _vm._v("Delete Gallery"),
       ]),
       _vm._v(" "),
       _c(

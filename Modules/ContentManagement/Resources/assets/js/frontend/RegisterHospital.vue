@@ -2,19 +2,19 @@
     <section class="mt-0 pt-0">
         <div class="container">
             <div class="row justify-content-around">
-                <div class="col-md-4">
-                    <div class="boxed bg--secondary boxed--lg boxed--border">
-                        <h4>Hospital Registration Form</h4>
-                        <p>
-                            Using the
-                            <a href="http://getbootstrap.com/css/#grid" target="_blank">Bootstrap column classes</a>, you can easily control the widths of the inputs in your form.
-                        </p>
-                        <p>
-                            The below code would render a form with two equally sized (six columns) inputs in two adjacent columns.
-                        </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, dicta et nihil odio quia quis recusandae! Cupiditate ea esse labore porro possimus quisquam sapiente vel. Error exercitationem ipsa ipsam tenetur.</p>
-                    </div>
-                </div>
+                <!--<div class="col-md-4">-->
+                    <!--<div class="boxed bg&#45;&#45;secondary boxed&#45;&#45;lg boxed&#45;&#45;border">-->
+                        <!--<h4>Hospital Registration Form</h4>-->
+                        <!--<p>-->
+                            <!--Using the-->
+                            <!--<a href="http://getbootstrap.com/css/#grid" target="_blank">Bootstrap column classes</a>, you can easily control the widths of the inputs in your form.-->
+                        <!--</p>-->
+                        <!--<p>-->
+                            <!--The below code would render a form with two equally sized (six columns) inputs in two adjacent columns.-->
+                        <!--</p>-->
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, dicta et nihil odio quia quis recusandae! Cupiditate ea esse labore porro possimus quisquam sapiente vel. Error exercitationem ipsa ipsam tenetur.</p>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="col-lg-8 col-md-8">
                     <div class="boxed boxed--border" v-if="display_success_message">
                         <h5>Success</h5>

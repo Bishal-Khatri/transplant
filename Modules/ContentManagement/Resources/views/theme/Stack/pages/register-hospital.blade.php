@@ -10,7 +10,7 @@
                 <div class="col-md-8 col-lg-6">
                     <h1>Hospital Registration Form</h1>
                     <p class="lead">
-                        An innovative collective of like-minded folks making useful and enduring technology products
+                        {{--An innovative collective of like-minded folks making useful and enduring technology products--}}
                     </p>
                 </div>
             </div>

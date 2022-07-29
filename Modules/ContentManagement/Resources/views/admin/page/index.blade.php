@@ -50,7 +50,7 @@
                                             <td class="text-right">
                                                 <div class="btn-group">
                                                     <a href="{{ route('cms.page.edit', $page->id) }}" class="btn btn-secondary btn-sm" type="button">Edit</a>
-                                                    <a href="{{ route('cms.page.delete', $page->id) }}" class="btn btn-secondary btn-sm deleteModal" type="button">Delete</a>
+                                                    <a href="{{ url('admin/cms/web-api/page/delete',$page->id) }}" class="btn btn-secondary btn-sm" type="button">Delete</a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -64,4 +64,40 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Delete Page</h2>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <p>You are about to delete this page permanently. Continue?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</a>
+                    <form action="" method="post" id="delete-form">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $('.delete_page').on('click', function(e){
+                e.preventDefault();
+                let url = $(this).attr("href");
+                $("#delete-form").attr("action", url);
+                $("#deleteModal").modal('show');
+            });
+        })
+    </script>
 @endsection

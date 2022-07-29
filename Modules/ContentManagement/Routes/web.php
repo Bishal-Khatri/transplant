@@ -68,6 +68,7 @@ Route::group(['prefix' => 'admin/cms', 'middleware' => 'auth'], function (){
         Route::delete('/page/deleteSection/{section_id}', [PageController::class, 'deleteSection']);
         Route::post('/page/addSection', [PageController::class, 'addSection']);
         Route::post('/page/updateSection', [PageController::class, 'updateSection']);
+        Route::get('/page/delete/{page_id}', [PageController::class, 'destroy']);
 
         Route::group(['prefix' => 'gallery', 'as'=> 'gallery.'], function () {
             Route::get('/list', [StorageController::class, 'getGalleries']);

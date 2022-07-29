@@ -424,6 +424,7 @@
                                                         <div class="checkbox" v-for="value in diseases">
                                                             <label >
                                                                 <input type="checkbox" :key="value.id" :value="value.id" v-model="disease"> {{ value.title }}
+                                                                <span class="ml-2">Updated At {{ value.updated_at || value.created_at }}</span>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -620,7 +621,7 @@
                                         <button v-if="props.activeTabIndex > 0" class="btn btn-accent" @click.prevent="$refs.updatePatient.prevTab()">Back</button>
                                     </div>
                                     <div class="wizard-footer-right">
-                                        <button class="btn btn-accent" @click.prevent="$refs.updatePatient.nextTab()" >Next</button>
+                                        <button class="btn btn-accent" @click.prevent="$refs.updatePatient.nextTab()" >Skip</button>
                                         <button class="btn btn-accent" v-if="!props.isLastStep" @click.prevent="submitForm(submitFormName)"><i v-if="submitting" class="fa fa-spinner fa-spin"></i> Save & Proceed</button>
                                         <a class="btn btn-accent" v-else-if="auth_user.user_type === 'administrator'" href="/admin/patient">Done</a>
                                         <a class="btn btn-accent" v-else href="/hospital/patient">Done</a>

@@ -208,7 +208,7 @@
                             </div>
 
                             <div class="col-md-12 text-center">
-                                <!--<button type="submit" class="btn btn&#45;&#45;primary text-center" v-if="submitting"><i class="cs-loader"></i></button>-->
+                                <button type="submit" class="btn btn--primary text-center" v-if="submitting"><i class="cs-loader"></i></button>
                                 <button type="submit" class="btn btn--primary text-center" v-if="submitting">
                                     Submitting Form ...
                                 </button>

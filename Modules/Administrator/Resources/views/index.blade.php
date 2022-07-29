@@ -107,43 +107,44 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Diseases</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="btn btn-sm btn-link" href="{{ route('admin.disease') }}">View All</a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <div class="table-responsive">
-                            <table class="table table-striped jambo_table bulk_action">
-                                <thead>
-                                <tr class="headings">
-                                    <th class="column-title">Disease </th>
-                                    <th class="column-title">Updated At </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if($diseases->count())
-                                    @foreach($diseases as $value)
-                                        <tr>
-                                            <td>{{ $value->title ?? '' }}</td>
-                                            <td>{{ $value->updated_at ?? '' }}</td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="3">No Items Found.</td>
-                                    </tr>
-                                @endif
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{--<div class="col-md-6 col-sm-6">--}}
+            {{--<div class="x_panel">--}}
+            {{--<div class="x_title">--}}
+            {{--<h2>Diseases</h2>--}}
+            {{--<ul class="nav navbar-right panel_toolbox">--}}
+            {{--<li><a class="btn btn-sm btn-link" href="{{ route('admin.disease') }}">View All</a></li>--}}
+            {{--</ul>--}}
+            {{--<div class="clearfix"></div>--}}
+            {{--</div>--}}
+            {{--<div class="x_content">--}}
+            {{--<div class="table-responsive">--}}
+            {{--<table class="table table-striped jambo_table bulk_action">--}}
+            {{--<thead>--}}
+            {{--<tr class="headings">--}}
+            {{--<th class="column-title">Disease </th>--}}
+            {{--<th class="column-title">Updated At </th>--}}
+            {{--</tr>--}}
+            {{--</thead>--}}
+            {{--<tbody>--}}
+            {{--@if($diseases->count())--}}
+            {{--@foreach($diseases as $value)--}}
+            {{--<tr>--}}
+            {{--<td>{{ $value->title ?? '' }}</td>--}}
+            {{--<td>{{ $value->updated_at ?? '' }}</td>--}}
+            {{--</tr>--}}
+            {{--@endforeach--}}
+            {{--@else--}}
+            {{--<tr>--}}
+            {{--<td colspan="3">No Items Found.</td>--}}
+            {{--</tr>--}}
+            {{--@endif--}}
+            {{--</tbody>--}}
+            {{--</table>--}}
+            {{--</div>--}}
+            {{--</div>--}}
+            {{--</div>--}}
+            {{--</div>--}}
+
         </div>
     </div>
 @endsection

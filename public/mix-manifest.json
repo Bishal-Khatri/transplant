@@ -6,6 +6,6 @@
     "/js/cart.js": "/js/cart.js?id=687f9e3bbf73b8f7640b",
     "/js/user.js": "/js/user.js?id=69a11d0828a736d5057b",
     "/js/contentmanagement.js": "/js/contentmanagement.js?id=8bf068ff551037eb64c7",
-    "/js/administrator.js": "/js/administrator.js?id=52adfd07886e23854d7b",
-    "/js/hospital.js": "/js/hospital.js?id=2975d81e551934189fda"
+    "/js/administrator.js": "/js/administrator.js",
+    "/js/hospital.js": "/js/hospital.js"
 }
